@@ -26,6 +26,15 @@ h2{font-size:27px;line-height:1.45;margin:12px 0 14px;color:#7c2d12}
 .knowledge{display:flex;gap:13px;align-items:flex-start;background:#fffaf0;border:1px solid #fde68a;border-radius:18px;padding:15px;margin:12px 0}
 .knowledge b{flex:0 0 auto;width:34px;height:34px;border-radius:50%;background:var(--orange);color:#fff;display:flex;align-items:center;justify-content:center}
 .knowledge p{margin:0}
+
+.quiz-card{background:#fff4cf;border:2px solid #fbbf24;border-radius:26px;padding:22px 18px;margin:18px 0 28px;box-shadow:0 10px 24px rgba(146,64,14,.1)}
+.prev-answer{background:#fffdf5;border:1px dashed #f59e0b;border-radius:18px;padding:14px;margin:0 0 18px}
+.prev-answer p{margin:8px 0;font-size:18px;line-height:1.65}
+.quiz-label{margin:0 0 10px;font-size:18px;font-weight:900;color:#92400e}
+.quiz-question{margin:0 0 14px;font-size:25px;line-height:1.58;font-weight:900;color:#7c2d12}
+.quiz-options{margin:14px 0 4px}
+.quiz-option{background:#fffdf5;border:1px solid #fcd34d;border-radius:16px;padding:11px 14px;margin:10px 0;font-size:20px;font-weight:800;color:#4b3628}
+.answer-note{margin:16px 0 0;font-size:20px;font-weight:900;color:#9a3412}
 .footer{margin:26px 0 0;color:#6b4f3d;font-size:16px}
 @media (max-width:640px){body{font-size:20px}.shell{padding:14px 10px 34px}.hero{border-radius:22px;padding:18px 14px}h1{font-size:29px}.section-title,h2{font-size:24px}.caption{font-size:20px}}
 </style>
@@ -41,7 +50,7 @@ h2{font-size:27px;line-height:1.45;margin:12px 0 14px;color:#7c2d12}
       <track id="caption-track" kind="subtitles" srclang="zh" label="中文字幕" src="captions.vtt" default>
     </audio>
     <div id="caption" class="caption">点播放后，这里会显示正在朗读的字幕。</div>
-    <p class="tip">音频不包含探索题，探索题仍在邮件正文里，第二天公布参考答案。</p>
+    <p class="tip">音频不朗读探索题；题目文字保留在页面和邮件正文里，第二天公布参考答案。</p>
   </section>
 
   <div class="section-title">今天的小情报</div>
@@ -106,6 +115,21 @@ h2{font-size:27px;line-height:1.45;margin:12px 0 14px;color:#7c2d12}
       <p>百科小知识：青铜通常由铜和锡等金属组成，古人用它制作礼器、兵器和工具。</p>
     </section>
   </section>
+  <div class="section-title">今日探索题</div>
+  <section class="quiz-card">
+    <div class="prev-answer">
+      <p>昨天探索题：计算题：一条手机信号先从地面到 1000 千米外的卫星，再从卫星回到地面。信号大约走了多少千米？为什么卫星通信通常更需要“对准方向”？</p>
+      <p>昨天答案：大约 2000 千米。信号要走很远，能量会分散；天线更准确地对准方向，能让信号传得更稳。</p>
+    </div>
+    <p class="quiz-label">题目只展示，不加入音频朗读</p>
+    <p class="quiz-question">资料题：有人说一种新头盔更能保护头部。下面哪种测试最能支持这个说法？</p>
+    <div class="quiz-options">
+      <div class="quiz-option">A. 只测试新头盔，从不同高度跌落多次，记录模型头受损和头盔变形情况</div>
+      <div class="quiz-option">B. 用同样重量的模型头，分别戴新头盔和普通头盔，从同样高度跌落多次，记录模型头受损和头盔变形情况</div>
+      <div class="quiz-option">C. 用同样重量的模型头，分别戴新头盔和普通头盔，从同样高度各跌落 1 次，记录这一次结果</div>
+    </div>
+    <p class="answer-note">参考答案：明天公布。</p>
+  </section>
 
   <section class="ending-card">如果哪条新闻没完全懂，先记住它解决了什么问题；下次看到相似新闻，就会更容易明白。</section>
   <p class="footer">如果页面无法播放，可以回到邮件正文直接阅读。页面地址：https://babelovelg-stack.github.io/peach-daily-news-playback/peach/2026-07-02/</p>
@@ -123,7 +147,7 @@ function bindTrack(){
   });
 }
 if (track.track) bindTrack();
-audio.addEventListener("ended", () => { caption.textContent = "今天的图文语音版读完啦，可以回到邮件看探索题。"; });
+audio.addEventListener("ended", () => { caption.textContent = "今天的图文语音版读完啦，下面还有探索题可以看。"; });
 </script>
 </body>
 </html>
