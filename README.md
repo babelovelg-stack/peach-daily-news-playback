@@ -10,7 +10,7 @@
 
 这是“桃子宝贝每日情报”的静态图文语音发布仓库。它保存按日期归档的阅读页面、MP3 音频、WebVTT 字幕和播报文本，并通过 GitHub Pages 提供无需后端服务的访问地址。
 
-本仓库是发布目标，不负责采集资讯或生成内容。生成、质量检查、发布和邮件发送逻辑由独立的桃子日报项目维护，不属于本仓库。
+本仓库是发布目标，不负责采集资讯或生成内容。上游生成、质量检查、发布和邮件发送逻辑位于 [figma-daily-report](https://github.com/babelovelg-stack/figma-daily-report) 仓库。
 
 ### 核心能力
 
@@ -24,7 +24,7 @@
 ### 发布链路
 
 ```text
-独立的桃子日报生成项目
+figma-daily-report
   -> 生成并自检当日内容
   -> 生成 index.html / audio.mp3 / captions.vtt / speech.txt
   -> 推送到本仓库的日期目录
@@ -96,13 +96,13 @@ http://localhost:8000/peach/YYYY-MM-DD/
 
 ### 发布与部署
 
-日常发布由独立的桃子日报生成流程驱动：它通过专用部署密钥克隆本仓库，只暂存目标日期目录，提交后推送到默认分支。随后发布流程会轮询线上地址，并逐字节比对四个文件；任何文件缺失或不一致都会阻止邮件发送。
+日常发布由上游 `figma-daily-report` 工作流驱动：它通过专用部署密钥克隆本仓库，只暂存目标日期目录，提交后推送到默认分支。随后上游会轮询线上地址，并逐字节比对四个文件；任何文件缺失或不一致都会阻止邮件发送。
 
-本仓库的 `.github/workflows/pages.yml` 只支持手动触发：它上传整个仓库并使用 GitHub Pages 官方 Actions 部署。日常自动发布是否立即上线，还取决于仓库 Pages 设置所采用的发布源；该设置需要与独立发布流程的线上校验链路保持一致。
+本仓库的 `.github/workflows/pages.yml` 只支持手动触发：它上传整个仓库并使用 GitHub Pages 官方 Actions 部署。日常自动发布是否立即上线，还取决于仓库 Pages 设置所采用的发布源；该设置需要与上游的线上校验链路保持一致。
 
 ### 维护约束
 
-- 不要手工改写已经发布的日期目录；内容修订应从独立的生成与检查流程重新发布。
+- 不要手工改写已经发布的日期目录；内容修订应从上游生成与检查流程重新发布。
 - 新一期必须一次提交四个文件，不能只推送页面或音频。
 - 日期目录使用 `YYYY-MM-DD`，页面内部资源使用相对路径。
 - 不要提交部署私钥、邮件凭据或其他账号信息。
@@ -142,7 +142,7 @@ curl --fail http://localhost:8000/peach/YYYY-MM-DD/
 
 This is the static visual-and-audio publishing repository for “Peach Daily News.” It stores date-based reading pages, MP3 audio, WebVTT captions, and narration text, and serves them through GitHub Pages without a backend.
 
-This repository is a publishing target; it does not collect sources or generate content. Generation, quality checks, publishing, and email delivery are maintained by an independent Peach Daily News project outside this repository.
+This repository is a publishing target; it does not collect sources or generate content. The upstream generation, quality checks, publishing, and email-delivery logic lives in the [figma-daily-report](https://github.com/babelovelg-stack/figma-daily-report) repository.
 
 ### Core capabilities
 
@@ -156,7 +156,7 @@ This repository is a publishing target; it does not collect sources or generate 
 ### Publishing flow
 
 ```text
-independent Peach Daily News generator
+figma-daily-report
   -> generate and self-check the daily issue
   -> create index.html / audio.mp3 / captions.vtt / speech.txt
   -> push them to a dated directory in this repository
@@ -228,13 +228,13 @@ Each page refers to `audio.mp3` and `captions.vtt` by relative path. Moving or r
 
 ### Publishing and deployment
 
-Routine publishing is driven by the independent Peach Daily News generation pipeline. It clones this repository with a dedicated deploy key, stages only the target date directory, commits, and pushes to the default branch. The publishing job then polls the hosted URL and performs a byte-for-byte comparison of all four files; a missing or mismatched file blocks email delivery.
+Routine publishing is driven by the upstream `figma-daily-report` workflow. It clones this repository with a dedicated deploy key, stages only the target date directory, commits, and pushes to the default branch. The upstream job then polls the hosted URL and performs a byte-for-byte comparison of all four files; a missing or mismatched file blocks email delivery.
 
-This repository's `.github/workflows/pages.yml` is manual-only. It uploads the whole repository and deploys it with the official GitHub Pages Actions. Whether a routine push is published immediately also depends on the repository's configured Pages source, which must remain consistent with the independent publishing pipeline's hosted-file verification flow.
+This repository's `.github/workflows/pages.yml` is manual-only. It uploads the whole repository and deploys it with the official GitHub Pages Actions. Whether a routine push is published immediately also depends on the repository's configured Pages source, which must remain consistent with the upstream hosted-file verification flow.
 
 ### Maintenance rules
 
-- Do not hand-edit a published date directory; regenerate and republish revisions through the independent generation and validation pipeline.
+- Do not hand-edit a published date directory; regenerate and republish revisions through the upstream pipeline.
 - Commit all four files for every new issue, never only the page or the audio.
 - Use `YYYY-MM-DD` for date directories and relative paths for page assets.
 - Never commit deploy keys, email credentials, or other account data.
