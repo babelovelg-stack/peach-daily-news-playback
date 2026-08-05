@@ -695,6 +695,17 @@ function buildNewsQuizQuestions(news, dayIndex = 0) {
     );
   }
 
+  if (/铪-153|HIAF.*新核素|新核素.*铪/.test(newsText) && /10个|10 个/.test(newsText)) {
+    add(
+      "hafnium153-background-identification-chain",
+      ["核物理", "实验", "证据"],
+      "资料题：HIAF实验观测到10个铪-153候选离子。研究人员还要同时判断两件事：这些信号不是仪器背景，而且它们确实属于铪-153。下面三套检验都能增加证据，哪一套对这两个判断覆盖得最完整？\nA. 关闭粒子束做空白测量，再多次重复原实验，检查候选信号在束流和靶材同时工作时能否稳定重现\nB. 用已知的邻近核素校准仪器，空白测量中没有候选信号，并要求候选离子的运动周期和质荷比同时符合铪-153的预测\nC. 让另一座实验装置用不同反应产生候选离子，核对两边测得的质量范围，并检查候选数是否随束流增强而增加",
+      "答案：B。空白测量没有候选信号，能检查它是否来自仪器背景；已知核素校准后，再让运动周期和质荷比两个独立特征同时符合预测，能进一步判断它是不是铪-153，因此两项任务都覆盖得最完整。A对排除背景和检验可重复性很有帮助，但仍缺少独立的身份特征。C增加了跨装置重复和数量变化的证据，但只比较较宽的质量范围，仍可能混入邻近核素。三套方案都有价值，差别在于证据链是否同时回答了两个问题。",
+      4,
+      "causal-evidence"
+    );
+  }
+
   if (/天然膜环境|完整水稻叶绿体|原位冷冻电镜/.test(newsText) && /光合作用|光系统/.test(newsText)) {
     add(
       "photosynthesis-assembly-data",
@@ -1230,7 +1241,10 @@ const museumEncyclopedia = [
   { id: "museum-reference-material", tags: ["计量学", "标准"], text: "百科小知识：标准物质具有经过准确测定的成分或数值，实验室用它校准仪器，才能让不同地方测出的结果彼此可比。" },
   { id: "museum-quipu-knots", tags: ["安第斯文明", "信息记录"], text: "百科小知识：印加文明使用的奇普由主绳和许多垂绳组成；结的位置和样式可以按十进位记录数量，绳子的颜色还可能用来区分物品类别。" },
   { id: "museum-xylem-vessels", tags: ["植物解剖学", "输水"], text: "百科小知识：植物木质部的导管由许多纵向连接的细胞形成，成熟后内部大多是空的；蒸腾拉力等作用会让水沿这些细长通道从根部向叶片移动。" },
-  { id: "museum-pyritized-fossil", tags: ["化石保护", "矿物"], text: "百科小知识：有些遗体埋藏后会被黄铁矿填充或替换，形成带金属光泽的化石；出土后若长期接触潮湿空气，黄铁矿可能氧化膨胀，所以博物馆要严格控制湿度。" }
+  { id: "museum-pyritized-fossil", tags: ["化石保护", "矿物"], text: "百科小知识：有些遗体埋藏后会被黄铁矿填充或替换，形成带金属光泽的化石；出土后若长期接触潮湿空气，黄铁矿可能氧化膨胀，所以博物馆要严格控制湿度。" },
+  { id: "museum-nuclide-chart", tags: ["核物理", "科学史"], text: "百科小知识：核素图按原子核里的质子数和中子数排列。横着或竖着比较，就能看见同位素之间的关系；图上的空白区域，也是科学家寻找未知核素的重要线索。" },
+  { id: "museum-volcanic-lahar", tags: ["火山学", "灾害"], text: "百科小知识：火山灰和碎石遇到暴雨或融雪，可能沿山谷形成高速火山泥流。它能出现在喷发减弱以后，所以火山监测还要继续观察降雨和河道。" },
+  { id: "museum-shell-midden", tags: ["考古学", "环境"], text: "百科小知识：贝丘是古人长期丢弃贝壳、兽骨和生活遗物形成的堆积。研究不同地层里的物种和工具，能帮助考古学家了解当时的饮食、海岸与环境变化。" }
 ];
 
 const encouragements = [
@@ -1260,7 +1274,8 @@ const encouragements = [
   "🍊🔬🌟 世界每天都有新变化，而你每天都在变得更有力量！",
   "🎒🦋💛 愿今天的知识像一只小蝴蝶，轻轻落进你的记忆里！",
   "🦋📚🌟 桃子宝贝，今天也带着清醒的小脑袋出发：温柔地看世界，认真地找证据！",
-  "🍑🔬☀️ 新知识正在敲门：愿你既敢大胆猜想，也愿耐心核对每一个理由！"
+  "🍑🔬☀️ 新知识正在敲门：愿你既敢大胆猜想，也愿耐心核对每一个理由！",
+  "🌋🧪🧭 今天也带着好奇和耐心出发：重要的发现，常常藏在认真核对的细节里！"
 ];
 
 const closingNotes = [
@@ -1291,7 +1306,8 @@ const closingNotes = [
   "今天学到的三个新知识，也许会在未来某次观察中突然连成答案。",
   "把问题留给今晚，把核对留给明天；会等待证据也是一种本领。",
   "今天的新闻读完了，愿你把好奇留在心里，把判断建立在证据上。",
-  "世界很大，可靠的理解从一条事实和一次认真比较开始。"
+  "世界很大，可靠的理解从一条事实和一次认真比较开始。",
+  "今天的新发现先放进记忆里，明天我们再用答案检验一次推理。"
 ];
 
 const WEAK_OPTION_PATTERN = /唱歌|折纸|沙发|羽毛|玻璃珠|小石头|香味|魔法|空气变甜|蜂蜜|玩具|变书|变糖|鱼鳞|雨滴味道|云朵|一朵云|一片树叶|书包|铅笔/;
@@ -2543,6 +2559,11 @@ async function collectNews(asOf = NEWS_AS_OF, previousState = {}) {
   for (const item of editorialPriorityItems) {
     if (selected.length >= TARGET_NEWS_COUNT) break;
     push(item);
+  }
+
+  // Do not fill a complete, source-diverse edited issue with lower-confidence feed rewrites.
+  if (selected.length >= MIN_DAILY_NEWS_COUNT && publisherCounts.size >= MIN_DAILY_PUBLISHER_COUNT) {
+    return selected.slice(0, TARGET_NEWS_COUNT);
   }
 
   for (const preferred of ["科技", "教育", "中国", "经济", "全球", "健康"]) {

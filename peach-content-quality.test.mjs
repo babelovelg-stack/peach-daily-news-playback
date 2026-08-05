@@ -107,9 +107,11 @@ test("limits daily stories to politics, technology, society, and major internati
   assert.equal(classifyNewsPillar("西安光机所在无标记三维显微成像领域取得进展"), "科技");
   assert.equal(classifyNewsPillar("四川重庆陕西广东等地有强降水和强对流天气"), "社会");
   assert.equal(classifyNewsPillar("欧洲多地野火蔓延，希腊发布新的疏散命令"), "国际大事");
+  assert.equal(classifyNewsPillar("危地马拉富埃戈火山喷发，附近居民进入避难所"), "国际大事");
   assert.equal(classifyNewsPillar("三部门下达资金支持农业防灾减灾和水利工程设施水毁修复"), "社会");
   assert.equal(classifyNewsPillar("我国牵头的区块链国际标准在国际标准化组织ISO立项"), "科技");
   assert.equal(classifyNewsPillar("保护区首次发现新鸟种，鸟类物种名录增至262种"), "科技");
+  assert.equal(classifyNewsPillar("团队研发能感知压力方向和温度的柔性电子皮肤"), "科技");
 
   const issues = newsQualityIssues({
     sourceTitle: "城市夜市发布夏日美食打卡地图",

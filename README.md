@@ -14,7 +14,7 @@
 
 ### 不可降低的内容与质量约束
 
-正常模式当前以 5 条新闻为目标，至少需要 2 条合格新闻和 2 个独立来源；同一来源默认最多入选 2 条，新闻默认不得早于 72 小时。测试模式使用更小样本，但不绕过质量规则。
+正常模式每期最多 5 条新闻，不把 5 条当作配额；至少需要 2 条合格新闻和 2 个独立来源。完整且来源多样的人工编辑稿不会再用低置信度抓取稿补足数量。同一来源默认最多入选 2 条，新闻默认不得早于 72 小时。测试模式使用更小样本，但不绕过质量规则。
 
 每条新闻必须包含：
 
@@ -224,7 +224,7 @@ It is both the generator and the static playback site. A daily issue is sent onl
 
 ### Non-negotiable content and quality rules
 
-Normal mode currently targets five stories and requires at least two eligible stories from at least two independent publishers. One publisher contributes at most two stories by default, and stories are no older than 72 hours by default. Test mode uses a smaller sample without bypassing quality rules.
+Normal mode accepts up to five stories rather than treating five as a quota, and it requires at least two eligible stories from at least two independent publishers. A complete, source-diverse edited issue is not padded with lower-confidence feed rewrites. One publisher contributes at most two stories by default, and stories are no older than 72 hours by default. Test mode uses a smaller sample without bypassing quality rules.
 
 Every story must include:
 
