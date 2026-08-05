@@ -1,4 +1,4 @@
-# Peach Daily News Playback
+# Peach Daily News
 
 [中文](#中文) | [English](#english)
 
@@ -8,127 +8,205 @@
 
 ### 项目简介
 
-这是“桃子宝贝每日情报”的静态图文语音发布仓库。它保存按日期归档的阅读页面、MP3 音频、WebVTT 字幕和播报文本，并通过 GitHub Pages 提供无需后端服务的访问地址。
+本仓库完整承载“桃子宝贝每日情报”：资讯采集、儿童内容改写、质量门禁、探索题与百科状态、邮件生成、Xiaoyi 语音、字幕、静态播放页、GitHub Pages 发布、线上文件校验和邮件发送都在这里完成。
 
-本仓库是发布目标，不负责采集资讯或生成内容。上游生成、质量检查、发布和邮件发送逻辑位于 [figma-daily-report](https://github.com/babelovelg-stack/figma-daily-report) 仓库。
+它既是生成项目，也是静态播放站。每日内容只有在全部质量检查和线上播放文件校验通过后才会发送。
 
-### 核心能力
+### 不可降低的内容与质量约束
 
-- 每个日期使用独立目录，历史内容不会被新一期覆盖。
-- 单页同时提供新闻解释、博物小百科、探索题和上一期答案。
-- 使用浏览器原生音频控件播放 MP3，并关联中文字幕轨道。
-- 页面使用响应式 Light Mode 布局，兼容桌面与移动端阅读。
-- 纯静态文件，无运行时服务、数据库或前端构建依赖。
-- `.nojekyll` 保证 GitHub Pages 按原始静态文件发布。
+正常模式当前以 5 条新闻为目标，至少需要 2 条合格新闻和 2 个独立来源；同一来源默认最多入选 2 条，新闻默认不得早于 72 小时。测试模式使用更小样本，但不绕过质量规则。
 
-### 发布链路
+每条新闻必须包含：
+
+- 清楚且忠于来源的标题。
+- “发生了什么”“价值是什么”“可能影响什么”三层解释。
+- 来源名称、发布时间和可供大人核对的原文链接。
+- 适合孩子理解、但不歪曲事实的表达。
+
+自动门禁会拒绝：
+
+- 展会广告、市场炒作、研学推广、地方形象宣传和低价值统计。
+- 与标题不一致、地区错配、主题漂移或套用通用模板的解释。
+- 超出政治、科技、社会公共利益和重大国际事务范围的低价值资讯。
+- 来源过旧、链接不可达、来源过度集中或语义重复的新闻。
+- 与近期已发送新闻、百科或探索题重复的内容和知识点。
+- 新闻数量、来源多样性、百科数量或题目质量不足的整期内容。
+
+门禁失败时工作流必须停止，不能为了按时发信而编造新闻、降低标准或复用近期内容。
+
+### 固定内容结构
+
+每期包含：
+
+- 桃子宝贝每日情报开场与日期。
+- 当日合格小情报，正常目标为 5 条。
+- 3 条不重复的“博物小百科”。
+- 1 道今日探索题。
+- 上一期探索题及参考答案。
+
+探索题只在邮件和网页中展示，不进入语音播报；答案在下一期公布。选项顺序会轮换，答案字母会同步重映射，避免固定位置形成提示。
+
+### 语音与页面格式
+
+- 语音引擎：`edge-tts==7.2.8`。
+- 默认声音：`zh-CN-XiaoyiNeural`。
+- 默认语速：`-4%`。
+- 默认音高：`+8Hz`。
+- 默认音量：`+0%`。
+- 音频必须通过最小体积与 MP3 文件特征检查。
+- 字幕必须是有效 WebVTT，并与播报文本一起生成。
+- 页面必须引用同目录的 `audio.mp3` 与 `captions.vtt`。
+- 页面和邮件均为适合桌面、手机阅读的 Light Mode 图文布局。
+
+### 端到端发送链路
 
 ```text
-figma-daily-report
-  -> 生成并自检当日内容
-  -> 生成 index.html / audio.mp3 / captions.vtt / speech.txt
-  -> 推送到本仓库的日期目录
-  -> 等待并校验 GitHub Pages 文件
-  -> 发送包含已验证播放地址的邮件
+RSS / 搜索源 / 人工精选源
+  -> 时效、领域、来源与重复过滤
+  -> 儿童可读改写与结构一致性检查
+  -> 百科与探索题选择
+  -> 整期强制自检
+  -> HTML / 纯文本邮件
+  -> Xiaoyi MP3 / WebVTT / 播报文本 / 播放页
+  -> 提交到 peach/YYYY-MM-DD/
+  -> 等待 GitHub Pages 发布
+  -> 逐字节校验线上四个文件
+  -> 发送邮件
+  -> 保存新闻、百科、题目和发送日期状态
 ```
 
-邮件不会先于线上文件校验发送，因此每个日期目录中的四个文件构成一个完整、不可拆分的发布单元。
+任何线上文件缺失或与本地产物不一致，邮件都不会发送。
+
+### 定时与防重复
+
+`.github/workflows/peach-daily-news.yml` 保留原有发送策略：
+
+- 北京时间 18:00 开始，并在 18:10、18:20、18:30、18:40、18:50 提供计划任务容错。
+- 北京时间 19:15、21:15、23:15 提供晚间补偿。
+- 次日 00:30 只补发尚未发送的前一天内容。
+- 手动运行支持测试、指定日期、多日期补发、使用已发布播放页和重发历史产物。
+- `peach-news-state.json`、定时门禁和并发组共同阻止同一天重复发送。
+
+`google-apps-script/` 提供独立于电脑的外部云触发器：北京时间 18:00 主触发、18:10 备触发，小时级修复任务负责补建缺失触发器。外部触发和 GitHub 计划任务使用同一日期门禁。
 
 ### 在线访问
 
 - 站点首页：<https://babelovelg-stack.github.io/peach-daily-news-playback/>
 - 日期页面：`https://babelovelg-stack.github.io/peach-daily-news-playback/peach/YYYY-MM-DD/`
 
-例如：
-
-```text
-https://babelovelg-stack.github.io/peach-daily-news-playback/peach/2026-08-04/
-```
-
-根目录 `index.html` 是一个轻量入口；完整历史内容以日期目录为准。
-
-### 本地预览
-
-本仓库不需要安装依赖。克隆后在仓库根目录启动任意静态文件服务器：
-
-```bash
-git clone https://github.com/babelovelg-stack/peach-daily-news-playback.git
-cd peach-daily-news-playback
-python3 -m http.server 8000
-```
-
-然后访问：
-
-```text
-http://localhost:8000/
-http://localhost:8000/peach/YYYY-MM-DD/
-```
-
-直接双击 HTML 也能显示正文，但使用本地 HTTP 服务更接近 GitHub Pages 的实际访问方式。
-
-### 日期目录契约
-
-每个 `peach/YYYY-MM-DD/` 目录必须同时包含：
+每个日期目录包含一个完整、不可拆分的发布单元：
 
 | 文件 | 用途 |
 | --- | --- |
 | `index.html` | 当日图文页面与音频入口 |
-| `audio.mp3` | 当日语音播报 |
-| `captions.vtt` | 与音频关联的中文字幕 |
+| `audio.mp3` | Xiaoyi 当日语音播报 |
+| `captions.vtt` | 与音频对应的中文字幕 |
 | `speech.txt` | 用于生成和核对音频的播报文本 |
 
-页面中的相对路径固定引用同目录的 `audio.mp3` 和 `captions.vtt`。移动或重命名其中任意文件都会破坏播放或字幕能力。
+### 环境要求
+
+- Node.js 24 或更高版本
+- npm
+- Python 3.12
+- `edge-tts==7.2.8`
+- 发送邮件所需的 SMTP 账号
+
+### 快速开始
+
+```bash
+git clone https://github.com/babelovelg-stack/peach-daily-news-playback.git
+cd peach-daily-news-playback
+npm ci
+npm test
+```
+
+本地生成但不发邮件：
+
+```bash
+node peach-daily-news.mjs --test --dry-run
+```
+
+该命令仍会检查新鲜度和防重复状态；当内容池不足时主动失败属于预期保护行为。
+
+本地预览静态站：
+
+```bash
+python3 -m http.server 8000
+```
+
+然后访问 `http://localhost:8000/` 或 `http://localhost:8000/peach/YYYY-MM-DD/`。
+
+### 常用命令
+
+| 命令 | 作用 |
+| --- | --- |
+| `npm test` | 运行全部内容质量、自检、调度、题目与云触发测试 |
+| `npm run news` | 生成并发送当期内容，需要 SMTP 配置 |
+| `node peach-daily-news.mjs --test --dry-run` | 测试模式生成但不发送 |
+| `node peach-daily-news.mjs --date YYYY-MM-DD --dry-run` | 为指定日期准备产物 |
+| `npm run self-check` | 校验默认审计文件 |
+| `node send-existing-peach-email.mjs` | 校验并发送已准备的历史产物 |
+
+### 关键配置
+
+| 变量 | 是否必需 | 用途 |
+| --- | --- | --- |
+| `SMTP_HOST` / `SMTP_USER` / `SMTP_PASS` | 发送时 | SMTP 服务器与凭据 |
+| `SMTP_PORT` / `SMTP_SECURE` | 否 | SMTP 端口与安全连接设置 |
+| `REPORT_EMAIL_FROM` | 否 | 发件人，默认使用 SMTP 用户 |
+| `PEACH_NEWS_EMAIL_TO` | 发送时 | 收件人 |
+| `PEACH_NEWS_DATE` / `PEACH_NEWS_DATES` | 否 | 指定单个或多个生成日期 |
+| `PEACH_NEWS_MAX_AGE_HOURS` | 否 | 新闻最大时效，默认 `72` 小时 |
+| `PEACH_NEWS_MAX_PER_PUBLISHER` | 否 | 单一来源最多入选数，默认 `2` |
+| `PEACH_NEWS_ENABLE_PLAYBACK` | 否 | 是否生成图文语音产物 |
+| `PEACH_NEWS_PLAYBACK_BASE_URL` | 发布时 | 按日期拼接的播放页基础地址 |
+| `PEACH_NEWS_PLAYBACK_URL_OVERRIDE` | 重发时 | 指定已经发布并需要校验的播放页 |
+| `PEACH_NEWS_PLAYBACK_VOICE` | 否 | 默认 `zh-CN-XiaoyiNeural` |
+| `PEACH_NEWS_PLAYBACK_RATE` | 否 | 默认 `-4%` |
+| `PEACH_NEWS_PLAYBACK_PITCH` | 否 | 默认 `+8Hz` |
+| `PEACH_NEWS_PLAYBACK_VOLUME` | 否 | 默认 `+0%` |
+
+GitHub Actions 必须配置 `REPORT_EMAIL_FROM`、`SMTP_HOST`、`SMTP_PORT`、`SMTP_SECURE`、`SMTP_USER` 和 `SMTP_PASS`。所有凭据只存放在 GitHub Secrets 中。
+
+### 生成与状态文件
+
+- `peach-daily-news.html` 与 `peach-daily-news.txt`：准备发送的邮件正文。
+- `peach-news-audit.json`：内容、来源和质量审计数据。
+- `peach-news-next-state.json`：本次通过后准备写入的下一状态。
+- `peach-news-state.json`：已发送新闻、百科、题目和日期状态。
+- `peach-playback/YYYY-MM-DD/`：本地生成、等待发布的四文件目录。
+- `peach/YYYY-MM-DD/`：GitHub Pages 使用的已发布四文件目录。
+- `peach-prepared/`：需要保留的历史准备产物。
 
 ### 项目结构
 
 ```text
 .
-├── .github/workflows/pages.yml  # 手动部署 GitHub Pages 的工作流
-├── .nojekyll                    # 禁用 Jekyll 处理
-├── index.html                   # 轻量站点入口
-└── peach/
-    └── YYYY-MM-DD/
-        ├── index.html           # 当日图文页面
-        ├── audio.mp3            # 当日音频
-        ├── captions.vtt         # 中文字幕
-        └── speech.txt           # 播报文本
+├── .github/workflows/
+│   ├── peach-daily-news.yml       # 生成、质检、发布、校验和发信
+│   └── pages.yml                  # 手动 GitHub Pages 部署
+├── google-apps-script/            # 18:00/18:10 外部云触发器
+├── peach/                         # 按日期发布的静态图文语音内容
+├── peach-prepared/                # 历史准备产物
+├── peach-daily-news.mjs           # 每日情报主入口
+├── peach-content-quality.mjs      # 新闻内容质量规则
+├── peach-news-self-check.mjs      # 整期强制自检
+├── peach-schedule-gate.mjs        # 日期、补偿和去重门禁
+├── peach-quiz-option-rotation.mjs # 探索题选项与答案映射
+├── send-existing-peach-email.mjs  # 已准备产物的校验与发送
+├── peach-news-state.json          # 持久化状态
+├── package.json                   # Node.js 命令与固定依赖版本
+└── index.html                     # 站点入口
 ```
 
-### 发布与部署
+### 发布与维护约束
 
-日常发布由上游 `figma-daily-report` 工作流驱动：它通过专用部署密钥克隆本仓库，只暂存目标日期目录，提交后推送到默认分支。随后上游会轮询线上地址，并逐字节比对四个文件；任何文件缺失或不一致都会阻止邮件发送。
-
-本仓库的 `.github/workflows/pages.yml` 只支持手动触发：它上传整个仓库并使用 GitHub Pages 官方 Actions 部署。日常自动发布是否立即上线，还取决于仓库 Pages 设置所采用的发布源；该设置需要与上游的线上校验链路保持一致。
-
-### 维护约束
-
-- 不要手工改写已经发布的日期目录；内容修订应从上游生成与检查流程重新发布。
-- 新一期必须一次提交四个文件，不能只推送页面或音频。
-- 日期目录使用 `YYYY-MM-DD`，页面内部资源使用相对路径。
-- 不要提交部署私钥、邮件凭据或其他账号信息。
-- 根目录入口与日期内容相互独立；新增日期不会由当前首页自动生成索引。
-
-### 验证
-
-检查所有日期目录是否都具备完整文件：
-
-```bash
-for dir in peach/*; do
-  [ -d "$dir" ] || continue
-  for file in index.html audio.mp3 captions.vtt speech.txt; do
-    test -f "$dir/$file" || echo "missing: $dir/$file"
-  done
-done
-```
-
-启动本地服务后，可以检查首页和指定日期页面：
-
-```bash
-curl --fail http://localhost:8000/
-curl --fail http://localhost:8000/peach/YYYY-MM-DD/
-```
-
-仓库没有构建脚本或单元测试；完整性检查和浏览器预览是主要的本地验证方式。
+- 内容生成、状态更新和静态页面发布必须保持在同一个并发组中。
+- 必须先运行整期自检，再发布播放页；必须先验证线上文件，再发送邮件。
+- 每次发布必须同时提交页面、音频、字幕和播报文本。
+- 已发布日期目录不应手工改写，修订应重新通过完整生成与校验链路。
+- 不要删除或手工清空 `peach-news-state.json`，否则可能导致重复内容或重复发送。
+- 不要在代码、日志或产物中提交 SMTP 密码、GitHub Token 或其他账号凭据。
 
 ### 许可证
 
@@ -140,127 +218,205 @@ curl --fail http://localhost:8000/peach/YYYY-MM-DD/
 
 ### Overview
 
-This is the static visual-and-audio publishing repository for “Peach Daily News.” It stores date-based reading pages, MP3 audio, WebVTT captions, and narration text, and serves them through GitHub Pages without a backend.
+This repository is the complete home of “Peach Daily News.” Source collection, child-friendly rewriting, quality gates, encyclopedia and quiz state, email generation, Xiaoyi speech, captions, static playback pages, GitHub Pages publishing, hosted-file verification, and email delivery all run here.
 
-This repository is a publishing target; it does not collect sources or generate content. The upstream generation, quality checks, publishing, and email-delivery logic lives in the [figma-daily-report](https://github.com/babelovelg-stack/figma-daily-report) repository.
+It is both the generator and the static playback site. A daily issue is sent only after every quality check and hosted playback-file check succeeds.
 
-### Core capabilities
+### Non-negotiable content and quality rules
 
-- Uses one directory per date so new issues do not overwrite the archive.
-- Combines news explanations, short learning items, a daily quiz, and the previous answer on one page.
-- Plays MP3 audio with the native browser player and associates a Chinese caption track.
-- Uses a responsive Light Mode layout for desktop and mobile reading.
-- Contains only static files, with no runtime service, database, or frontend build dependency.
-- Uses `.nojekyll` so GitHub Pages publishes the files without Jekyll processing.
+Normal mode currently targets five stories and requires at least two eligible stories from at least two independent publishers. One publisher contributes at most two stories by default, and stories are no older than 72 hours by default. Test mode uses a smaller sample without bypassing quality rules.
 
-### Publishing flow
+Every story must include:
+
+- A clear title faithful to the source.
+- Three explanation layers: what happened, why it matters, and what it may affect.
+- Publisher, publication time, and an original link for adult verification.
+- Child-readable wording that does not distort the facts.
+
+Automated gates reject:
+
+- Event promotion, market hype, study-tour advertising, local self-promotion, and low-value statistics.
+- Title-body mismatches, region mismatches, topic drift, and generic template explanations.
+- Low-value stories outside politics, technology, public-interest society, and major international affairs.
+- Stale sources, unreachable links, excessive concentration from one publisher, and semantic duplicates.
+- Stories, encyclopedia entries, quiz text, or quiz concepts repeated from recent issues.
+- An entire issue with too few stories, insufficient source diversity, fewer than three encyclopedia entries, or an inadequate quiz.
+
+When a gate fails, the workflow stops. It must never invent news, reduce standards, or reuse recent content merely to send on time.
+
+### Fixed issue structure
+
+Every issue contains:
+
+- The Peach Daily News greeting and date.
+- Eligible daily stories, with a normal target of five.
+- Three non-repeating encyclopedia entries.
+- One daily exploration question.
+- The previous exploration question and its reference answer.
+
+The exploration question appears in email and on the page but is excluded from narration; its answer is published in the next issue. Option order rotates together with the mapped answer letter so position does not become a hint.
+
+### Speech and page format
+
+- Speech engine: `edge-tts==7.2.8`.
+- Default voice: `zh-CN-XiaoyiNeural`.
+- Default rate: `-4%`.
+- Default pitch: `+8Hz`.
+- Default volume: `+0%`.
+- Audio must pass minimum-size and MP3 signature checks.
+- Captions must be valid WebVTT and are generated with the narration text.
+- The page must reference `audio.mp3` and `captions.vtt` in the same directory.
+- Page and email use a responsive Light Mode visual layout for desktop and mobile.
+
+### End-to-end delivery pipeline
 
 ```text
-figma-daily-report
-  -> generate and self-check the daily issue
-  -> create index.html / audio.mp3 / captions.vtt / speech.txt
-  -> push them to a dated directory in this repository
-  -> wait for and verify the GitHub Pages files
-  -> send an email containing the verified playback URL
+RSS / search feeds / curated sources
+  -> freshness, topic, publisher, and duplicate filters
+  -> child-readable rewriting and structural coherence checks
+  -> encyclopedia and quiz selection
+  -> mandatory full-issue self-check
+  -> HTML / plain-text email
+  -> Xiaoyi MP3 / WebVTT / narration text / playback page
+  -> commit to peach/YYYY-MM-DD/
+  -> wait for GitHub Pages
+  -> byte-for-byte verification of all four hosted files
+  -> send email
+  -> persist story, encyclopedia, quiz, and delivery-date state
 ```
 
-The email is not sent before hosted-file verification, so the four files in each dated directory form one complete, indivisible release unit.
+Email is never sent when a hosted file is missing or differs from the local output.
+
+### Schedule and deduplication
+
+`.github/workflows/peach-daily-news.yml` preserves the established delivery policy:
+
+- Starts at 18:00 Beijing time, with scheduled fallbacks at 18:10, 18:20, 18:30, 18:40, and 18:50.
+- Adds evening recovery windows at 19:15, 21:15, and 23:15 Beijing time.
+- At 00:30 the next day, backfills only a still-missing previous-day issue.
+- Manual dispatch supports test mode, one or multiple selected dates, a pre-published playback URL, and prepared historical output.
+- `peach-news-state.json`, the schedule gate, and the concurrency group jointly prevent duplicate delivery for one date.
+
+`google-apps-script/` provides a computer-independent cloud trigger: a primary event at 18:00 Beijing time, a backup at 18:10, and an hourly repair job that recreates missing triggers. External dispatch and GitHub schedules use the same date gate.
 
 ### Live site
 
 - Site root: <https://babelovelg-stack.github.io/peach-daily-news-playback/>
 - Dated page: `https://babelovelg-stack.github.io/peach-daily-news-playback/peach/YYYY-MM-DD/`
 
-Example:
-
-```text
-https://babelovelg-stack.github.io/peach-daily-news-playback/peach/2026-08-04/
-```
-
-The root `index.html` is a minimal entry point; the dated directories are the source of the full archive.
-
-### Local preview
-
-No dependencies are required. Clone the repository and start any static file server from its root:
-
-```bash
-git clone https://github.com/babelovelg-stack/peach-daily-news-playback.git
-cd peach-daily-news-playback
-python3 -m http.server 8000
-```
-
-Then open:
-
-```text
-http://localhost:8000/
-http://localhost:8000/peach/YYYY-MM-DD/
-```
-
-Opening an HTML file directly will display the text, but a local HTTP server more closely matches GitHub Pages behavior.
-
-### Dated-directory contract
-
-Every `peach/YYYY-MM-DD/` directory must contain all four files:
+Every dated directory contains one complete, indivisible release unit:
 
 | File | Purpose |
 | --- | --- |
 | `index.html` | Daily visual page and audio entry point |
-| `audio.mp3` | Daily narration |
-| `captions.vtt` | Chinese captions associated with the audio |
-| `speech.txt` | Narration text used to create and verify the audio |
+| `audio.mp3` | Daily Xiaoyi narration |
+| `captions.vtt` | Chinese captions aligned with the audio |
+| `speech.txt` | Narration text used to generate and verify audio |
 
-Each page refers to `audio.mp3` and `captions.vtt` by relative path. Moving or renaming either file breaks playback or captions.
+### Requirements
+
+- Node.js 24 or later
+- npm
+- Python 3.12
+- `edge-tts==7.2.8`
+- SMTP credentials for email delivery
+
+### Quick start
+
+```bash
+git clone https://github.com/babelovelg-stack/peach-daily-news-playback.git
+cd peach-daily-news-playback
+npm ci
+npm test
+```
+
+Generate locally without sending email:
+
+```bash
+node peach-daily-news.mjs --test --dry-run
+```
+
+The command still enforces freshness and recent-content state. Intentional failure when the eligible pool is exhausted is a protective behavior.
+
+Preview the static site locally:
+
+```bash
+python3 -m http.server 8000
+```
+
+Then open `http://localhost:8000/` or `http://localhost:8000/peach/YYYY-MM-DD/`.
+
+### Common commands
+
+| Command | Purpose |
+| --- | --- |
+| `npm test` | Run all content-quality, self-check, schedule, quiz, and cloud-trigger tests |
+| `npm run news` | Generate and send the current issue; requires SMTP settings |
+| `node peach-daily-news.mjs --test --dry-run` | Generate in test mode without sending |
+| `node peach-daily-news.mjs --date YYYY-MM-DD --dry-run` | Prepare output for a selected date |
+| `npm run self-check` | Validate the default audit file |
+| `node send-existing-peach-email.mjs` | Validate and send prepared historical output |
+
+### Key configuration
+
+| Variable | Required | Purpose |
+| --- | --- | --- |
+| `SMTP_HOST` / `SMTP_USER` / `SMTP_PASS` | For sending | SMTP server and credentials |
+| `SMTP_PORT` / `SMTP_SECURE` | No | SMTP port and secure-connection settings |
+| `REPORT_EMAIL_FROM` | No | Sender; defaults to the SMTP user |
+| `PEACH_NEWS_EMAIL_TO` | For sending | Recipient |
+| `PEACH_NEWS_DATE` / `PEACH_NEWS_DATES` | No | One or more generation dates |
+| `PEACH_NEWS_MAX_AGE_HOURS` | No | Maximum source age; defaults to `72` hours |
+| `PEACH_NEWS_MAX_PER_PUBLISHER` | No | Maximum items per publisher; defaults to `2` |
+| `PEACH_NEWS_ENABLE_PLAYBACK` | No | Enables visual-and-audio output |
+| `PEACH_NEWS_PLAYBACK_BASE_URL` | For publishing | Base URL used to build dated playback URLs |
+| `PEACH_NEWS_PLAYBACK_URL_OVERRIDE` | For resending | Already-published playback URL to validate |
+| `PEACH_NEWS_PLAYBACK_VOICE` | No | Defaults to `zh-CN-XiaoyiNeural` |
+| `PEACH_NEWS_PLAYBACK_RATE` | No | Defaults to `-4%` |
+| `PEACH_NEWS_PLAYBACK_PITCH` | No | Defaults to `+8Hz` |
+| `PEACH_NEWS_PLAYBACK_VOLUME` | No | Defaults to `+0%` |
+
+GitHub Actions requires `REPORT_EMAIL_FROM`, `SMTP_HOST`, `SMTP_PORT`, `SMTP_SECURE`, `SMTP_USER`, and `SMTP_PASS`. Keep every credential in GitHub Secrets only.
+
+### Generated and state files
+
+- `peach-daily-news.html` and `peach-daily-news.txt`: prepared email bodies.
+- `peach-news-audit.json`: content, source, and quality audit data.
+- `peach-news-next-state.json`: next state prepared after a successful run.
+- `peach-news-state.json`: delivered story, encyclopedia, quiz, and date state.
+- `peach-playback/YYYY-MM-DD/`: locally generated four-file directory awaiting publication.
+- `peach/YYYY-MM-DD/`: tracked four-file directory published by GitHub Pages.
+- `peach-prepared/`: retained historical prepared output.
 
 ### Project structure
 
 ```text
 .
-├── .github/workflows/pages.yml  # Manually triggered GitHub Pages workflow
-├── .nojekyll                    # Disables Jekyll processing
-├── index.html                   # Minimal site entry point
-└── peach/
-    └── YYYY-MM-DD/
-        ├── index.html           # Daily visual page
-        ├── audio.mp3            # Daily audio
-        ├── captions.vtt         # Chinese captions
-        └── speech.txt           # Narration text
+├── .github/workflows/
+│   ├── peach-daily-news.yml       # Generate, validate, publish, verify, and send
+│   └── pages.yml                  # Manual GitHub Pages deployment
+├── google-apps-script/            # External 18:00/18:10 cloud trigger
+├── peach/                         # Published dated visual-and-audio issues
+├── peach-prepared/                # Historical prepared output
+├── peach-daily-news.mjs           # Daily issue entry point
+├── peach-content-quality.mjs      # Story-quality rules
+├── peach-news-self-check.mjs      # Mandatory full-issue self-check
+├── peach-schedule-gate.mjs        # Date, recovery, and deduplication gate
+├── peach-quiz-option-rotation.mjs # Quiz option and answer mapping
+├── send-existing-peach-email.mjs  # Prepared-output verification and delivery
+├── peach-news-state.json          # Persistent state
+├── package.json                   # Node.js commands and pinned dependencies
+└── index.html                     # Site entry point
 ```
 
-### Publishing and deployment
+### Publishing and maintenance rules
 
-Routine publishing is driven by the upstream `figma-daily-report` workflow. It clones this repository with a dedicated deploy key, stages only the target date directory, commits, and pushes to the default branch. The upstream job then polls the hosted URL and performs a byte-for-byte comparison of all four files; a missing or mismatched file blocks email delivery.
-
-This repository's `.github/workflows/pages.yml` is manual-only. It uploads the whole repository and deploys it with the official GitHub Pages Actions. Whether a routine push is published immediately also depends on the repository's configured Pages source, which must remain consistent with the upstream hosted-file verification flow.
-
-### Maintenance rules
-
-- Do not hand-edit a published date directory; regenerate and republish revisions through the upstream pipeline.
-- Commit all four files for every new issue, never only the page or the audio.
-- Use `YYYY-MM-DD` for date directories and relative paths for page assets.
-- Never commit deploy keys, email credentials, or other account data.
-- The root entry point is independent from the dated content; the current homepage does not automatically index new dates.
-
-### Verification
-
-Check that every dated directory contains the full file set:
-
-```bash
-for dir in peach/*; do
-  [ -d "$dir" ] || continue
-  for file in index.html audio.mp3 captions.vtt speech.txt; do
-    test -f "$dir/$file" || echo "missing: $dir/$file"
-  done
-done
-```
-
-After starting the local server, check the root and a selected dated page:
-
-```bash
-curl --fail http://localhost:8000/
-curl --fail http://localhost:8000/peach/YYYY-MM-DD/
-```
-
-The repository has no build script or unit tests; completeness checks and browser preview are its main local verification methods.
+- Content generation, state updates, and static-page publication must remain in the same concurrency group.
+- Run the full-issue self-check before publishing; verify hosted files before sending email.
+- Every release must contain the page, audio, captions, and narration text together.
+- Do not hand-edit a published date directory; regenerate revisions through the full validation pipeline.
+- Never delete or manually empty `peach-news-state.json`, which protects against repeated content and duplicate delivery.
+- Never commit SMTP passwords, GitHub tokens, or other account credentials to code, logs, or output.
 
 ### License
 

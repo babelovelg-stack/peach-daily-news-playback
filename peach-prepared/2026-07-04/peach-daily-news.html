@@ -1,0 +1,84 @@
+<!doctype html>
+<html lang="zh-CN">
+<head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+<style>
+:root{color-scheme:light}
+body{margin:0;background:#fff7ed;color:#2f241d;font-family:"PingFang SC",-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;line-height:1.78;font-size:22px}
+.wrap{max-width:760px;margin:0 auto;padding:32px 20px 46px}
+.hero{background:linear-gradient(180deg,#fff8e8 0%,#ffffff 100%);border:1px solid #fcd9a5;border-radius:26px;padding:28px 24px 24px;box-shadow:0 12px 28px rgba(180,83,9,.08)}
+h1{font-size:36px;line-height:1.35;margin:0 0 16px;color:#9a3412}
+.date{font-size:22px;color:#7c5e45;margin-bottom:10px;font-weight:800}
+.note{font-size:21px;color:#4b3628;margin:12px 0 0}
+.day{font-size:29px;font-weight:900;color:#7c2d12;margin:36px 0 16px;padding:15px 18px;background:#fffbeb;border:1px solid #fde68a;border-radius:20px}
+.section-title{font-size:29px;font-weight:900;color:#92400e;margin:36px 0 16px;padding-left:15px;border-left:7px solid #f59e0b;line-height:1.35}
+.card{background:#fff;border:1px solid #fed7aa;border-radius:24px;padding:24px 20px;margin:20px 0;box-shadow:0 8px 18px rgba(124,94,69,.08)}
+h2{font-size:28px;line-height:1.45;margin:0 0 18px;color:#7c2d12}
+.news-points{display:block}
+.news-point{background:#fffaf0;border:1px solid #fde68a;border-radius:18px;padding:16px 16px;margin:13px 0}
+.point-label{display:inline-block;background:#fef3c7;color:#92400e;border-radius:999px;padding:3px 12px;font-size:18px;font-weight:900}
+.point-text{margin:9px 0 0;font-size:22px;line-height:1.7}
+.source{margin-top:18px;padding-top:16px;border-top:1px dashed #fdba74;font-size:17px;color:#6b4f3d;line-height:1.65}
+.source a{color:#b45309}
+.learning-card{background:#fff;border:2px solid #fde68a;border-radius:26px;padding:22px 20px;margin:16px 0 30px;box-shadow:0 10px 22px rgba(146,64,14,.08)}
+.knowledge-item{display:flex;gap:15px;align-items:flex-start;background:#fffaf0;border:1px solid #fde68a;border-radius:20px;padding:17px 16px;margin:15px 0}
+.badge{flex:0 0 auto;display:inline-flex;align-items:center;justify-content:center;width:40px;height:40px;border-radius:999px;background:#f59e0b;color:#fff;font-size:19px;font-weight:900}
+.knowledge-topic{display:inline-block;margin:0 0 7px;color:#92400e;font-size:18px;font-weight:900}
+.knowledge-text{margin:0;font-size:22px;line-height:1.72}
+.quiz-card{background:#fff4cf;border:2px solid #fbbf24;border-radius:26px;padding:24px 20px;margin:16px 0 32px;box-shadow:0 10px 22px rgba(146,64,14,.1)}
+.prev-answer{background:#fffdf5;border:1px dashed #f59e0b;border-radius:20px;padding:17px 16px;margin:0 0 20px}
+.prev-answer p{margin:8px 0;font-size:20px;line-height:1.65}
+.quiz-label{margin:0 0 10px;font-size:18px;font-weight:900;color:#92400e;letter-spacing:.04em}
+.quiz-question{margin:0 0 14px;font-size:27px;line-height:1.58;font-weight:900;color:#7c2d12}
+.quiz-options{margin:14px 0 4px}
+.quiz-option{background:#fffdf5;border:1px solid #fcd34d;border-radius:16px;padding:11px 14px;margin:10px 0;font-size:22px;font-weight:800;color:#4b3628}
+.answer-note{margin:16px 0 0;font-size:21px;font-weight:900;color:#9a3412}
+.closing-note{background:#fffdf5;border:1px solid #fde7b2;border-radius:20px;padding:20px 18px;margin:24px 0 0;font-size:21px;line-height:1.7;color:#4b3628}
+.play-card{margin:18px 0 0;padding:18px 16px;border-radius:22px;background:#ecfdf5;border:2px solid #86efac;color:#14532d}
+.play-kicker{margin:0 0 8px;font-size:18px;font-weight:900;color:#166534}
+.play-title{margin:0 0 10px;font-size:25px;line-height:1.35;font-weight:900;color:#14532d}
+.play-text{margin:0 0 14px;font-size:20px;line-height:1.65;color:#24533c}
+.play-button{display:inline-block;background:#16a34a;color:#fff!important;text-decoration:none;border-radius:999px;padding:12px 18px;font-size:20px;font-weight:900}
+@media (max-width:600px){
+body{font-size:21px}
+.wrap{padding:18px 13px 30px}
+.hero,.card,.learning-card,.quiz-card{padding:20px 16px}
+h1{font-size:31px}
+h2{font-size:25px}
+.date{font-size:21px}
+.day{font-size:25px}
+.section-title{font-size:25px}
+.note{font-size:20px}
+.point-text,.knowledge-text,.quiz-option{font-size:21px}
+.quiz-question{font-size:25px}
+.answer-note,.closing-note{font-size:20px}
+.play-title{font-size:23px}
+.play-button{display:block;text-align:center}
+}
+</style></head>
+<body><div class="wrap">
+<div class="hero">
+<h1>桃子宝贝，你的每日情报来啦！🌼🧪🍬 带着实验精神读一读：猜想可以大胆，判断要靠证据，真聪明就是这样长出来的！</h1>
+<div class="date">2026年7月4日星期六</div>
+<p class="note">这一天整理了 3 条小情报，慢慢读就好。</p>
+<p class="note">来源：从 中国新闻网、搜狐网 2 个来源 里筛选，优先选小朋友能读懂、和科技、学校、生活或国家大事有关的新闻。</p>
+<p class="note">这一天的小情报来自截至 2026年7月4日星期六 可读取的公开新闻源；宁可少一点，也不拿旧消息和编出来的故事凑数。</p>
+
+<div class="play-card">
+<p class="play-kicker">新增：图文语音版</p>
+<p class="play-title">点开就能听 Xiaoyi 女声播报，文字和声音一起看。</p>
+<p class="play-text">音频不朗读探索题；题目文字保留在邮件正文和播放页里，第二天公布参考答案。</p>
+<a class="play-button" href="https://babelovelg-stack.github.io/peach-daily-news-playback/peach/2026-07-04/">点击播放图文语音版</a>
+</div></div>
+<div class="section-title">这一天的小情报</div>
+<div class="card"><h2>第 1 条小情报：一箭18星 中国成功发射千帆极轨13组卫星</h2><div class="news-points"><div class="news-point"><div class="point-label">发生了什么</div><p class="point-text">火箭把卫星送上太空。卫星到太空后，会按照任务开展通信、观测或技术试验，帮助人们把太空能力用到真实生活里。</p></div><div class="news-point"><div class="point-label">价值是什么</div><p class="point-text">价值在于把通信、导航、天气观察和科学研究带到更远的地方。火箭负责送设备上天，卫星负责在太空长期工作。</p></div><div class="news-point"><div class="point-label">可能影响什么</div><p class="point-text">社会影响是，通信、地图、天气预报和灾害监测会越来越依赖太空基础设施。未来趋势是，航天不只是探索宇宙，也会像电网、道路一样，成为社会运行的一部分。</p></div></div><div class="source"><div>小来源：中国新闻网 / 中国新闻网时政，7/4 21:44</div><div><a href="https://www.chinanews.com.cn/gn/2026/07-04/10652877.shtml">给大人核对的原文链接</a></div></div></div><div class="card"><h2>第 2 条小情报：“中国飞天梦”科普活动走进黔西钟山小学</h2><div class="news-points"><div class="news-point"><div class="point-label">发生了什么</div><p class="point-text">“中国飞天梦”科普活动走进黔西钟山小学。</p></div><div class="news-point"><div class="point-label">价值是什么</div><p class="point-text">价值在于把课本里的概念变成能看、能摸、能体验的东西。孩子亲眼看到现象，比只背答案更容易理解。</p></div><div class="news-point"><div class="point-label">可能影响什么</div><p class="point-text">社会影响是，博物馆和科技馆能把专业知识变成公众看得懂的展览，让更多孩子公平接触科学。未来趋势是，科学教育会更重视体验，而不是只背结论。</p></div></div><div class="source"><div>小来源：搜狐网 / Google 新闻：儿童科普，7/4 11:52</div><div><a href="https://news.google.com/rss/articles/CBMijAFBVV95cUxQcFdFbXJXWnpHSFhoVl9fTE1KYmMwY1lmM2ZZQm5XRmRQZEFsQWtyVU55RURnODlDU2xlVTNJTjNhdkZzeHZLV2MtN2tWVjYtMFRSNGt0X01nWWhVbjUwNmExZ01EUlR5QUFSRXFla0FKdFhsb19qTUZpblN6dFV2VmhtRUxPN2thbGxxdQ?oc=5">给大人核对的原文链接</a></div></div></div><div class="card"><h2>第 3 条小情报：AI浪潮下“一人公司”勾勒创业新图景</h2><div class="news-points"><div class="news-point"><div class="point-label">发生了什么</div><p class="point-text">为期三天的2026数字经济行业博览会4日在北京落幕。</p></div><div class="news-point"><div class="point-label">价值是什么</div><p class="point-text">价值在于让机器更会帮人处理复杂任务，比如整理信息、识别问题、完成重复工作。但越聪明的工具，越需要人来制定规则、检查结果。</p></div><div class="news-point"><div class="point-label">可能影响什么</div><p class="point-text">社会影响是，一些重复、危险、需要快速计算的工作会更多交给智能工具。未来趋势是，人类更重要的能力会变成提出好问题、判断结果对不对、决定技术该不该这样用。</p></div></div><div class="source"><div>小来源：中国新闻网 / 中国新闻网财经，7/4 21:36</div><div><a href="https://www.chinanews.com.cn/cj/2026/07-04/10652874.shtml">给大人核对的原文链接</a></div></div></div>
+<div class="section-title">博物小百科（3条）</div>
+<div class="learning-card"><div class="knowledge-item"><span class="badge">1</span><span><span class="knowledge-topic">地球 · 火山</span><p class="knowledge-text">玄武岩常由火山熔岩冷却形成，颜色通常较深。</p></span></div><div class="knowledge-item"><span class="badge">2</span><span><span class="knowledge-topic">天文 · 科学</span><p class="knowledge-text">木星是太阳系中最大的行星，主要由氢和氦等气体组成。</p></span></div><div class="knowledge-item"><span class="badge">3</span><span><span class="knowledge-topic">历史 · 科技</span><p class="knowledge-text">指南针利用磁针指示方向，是中国古代重要发明之一。</p></span></div></div>
+<div class="section-title">今日探索题</div>
+<div class="quiz-card">
+<div class="prev-answer"><p>昨天探索题：</p><p>计算题：一辆校车每趟最多接 12 名同学。今天早上跑了 6 趟，其中 2 趟各接 9 名，其他趟都坐满。一共接了多少名同学？</p><p>A. 72 名，因为 6 趟都按最多 12 名来算</p><p>B. 69 名，因为只扣掉一趟没坐满的差额</p><p>C. 66 名，因为 4 趟坐满，另外 2 趟各接 9 名</p><p>昨天答案：C。坐满的 4 趟是 4×12=48 名；没坐满的 2 趟是 2×9=18 名，一共 66 名。</p></div>
+<p class="quiz-label">这一天的题目</p>
+<p class="quiz-question">资料题：有人说一种新种植方法能让小苗长得更快。新方法组 10 盆小苗平均 22 厘米，普通组 10 盆平均 20 厘米。但是，新方法组放在阳光更强的窗边。想判断是不是种植方法带来了差别，下一步最应该怎么做？</p><div class="quiz-options"><div class="quiz-option">A. 把新方法组增加到 20 盆，普通组保持 10 盆，再比较平均高度</div><div class="quiz-option">B. 重新比较：两组阳光、土壤、水量和盆数尽量一样，种植方法不同</div><div class="quiz-option">C. 继续把两组放在原来的位置，每天量高度，再观察一个月</div></div>
+<p class="answer-note">参考答案：明天公布。</p>
+<p class="closing-note">今天先带走一个新知识、认真想一道题；小小的坚持，会变成很稳的理解力。</p>
+</div>
+</div></body></html>

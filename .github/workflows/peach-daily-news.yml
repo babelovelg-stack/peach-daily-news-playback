@@ -1,0 +1,254 @@
+name: Peach Daily News
+
+on:
+  schedule:
+    # Start at 18:00 Asia/Shanghai, then keep widely spaced cloud fallbacks.
+    - cron: "0,10,20,30,40,50 10 * * *"
+    - cron: "15 11 * * *"
+    - cron: "15 13 * * *"
+    - cron: "15 15 * * *"
+    # Final fallback at 00:30 only backfills the missing previous date.
+    - cron: "30 16 * * *"
+  workflow_dispatch:
+    inputs:
+      test_mode:
+        description: "Send a shorter test email"
+        required: false
+        default: "false"
+      send_date:
+        description: "Optional report date for backfill, YYYY-MM-DD"
+        required: false
+        default: ""
+      send_dates:
+        description: "Optional merged backfill dates, comma-separated YYYY-MM-DD"
+        required: false
+        default: ""
+      playback_url:
+        description: "Optional hosted playback page URL"
+        required: false
+        default: ""
+      max_age_hours:
+        description: "Optional freshness window for news collection"
+        required: false
+        default: ""
+      prepared_dir:
+        description: "Optional repo directory containing prepared peach-daily-news.txt/html"
+        required: false
+        default: ""
+      prepared_subject:
+        description: "Optional subject for prepared email send"
+        required: false
+        default: ""
+      resend_run_id:
+        description: "Optional prior run ID to resend its generated email artifact"
+        required: false
+        default: ""
+      scheduled_trigger:
+        description: "Treat this dispatch as a scheduled cloud trigger with date dedupe"
+        required: false
+        default: "false"
+
+permissions:
+  contents: write
+  actions: read
+
+concurrency:
+  group: peach-daily-news
+  cancel-in-progress: false
+
+env:
+  FORCE_JAVASCRIPT_ACTIONS_TO_NODE24: true
+  PEACH_NEWS_ENABLE_PLAYBACK: "true"
+  PEACH_NEWS_PLAYBACK_BASE_URL: https://babelovelg-stack.github.io/peach-daily-news-playback/peach
+  PEACH_NEWS_PLAYBACK_VOICE: zh-CN-XiaoyiNeural
+  PEACH_NEWS_PLAYBACK_RATE: "-4%"
+  PEACH_NEWS_PLAYBACK_PITCH: "+8Hz"
+  PEACH_NEWS_PLAYBACK_VOLUME: "+0%"
+
+jobs:
+  send:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    env:
+      PEACH_NEWS_EMAIL_TO: ctmt1412@qq.com
+      PEACH_NEWS_TIMEZONE: Asia/Shanghai
+      PEACH_NEWS_SEND_HOUR: "18"
+      PEACH_NEWS_CATCHUP_END_HOUR: "23"
+      PEACH_NEWS_OVERNIGHT_END_HOUR: "5"
+      PEACH_NEWS_DATE: ${{ github.event.inputs.send_date }}
+      PEACH_NEWS_DATES: ${{ github.event.inputs.send_dates }}
+      PEACH_NEWS_PLAYBACK_URL_OVERRIDE: ${{ github.event.inputs.playback_url }}
+      PEACH_NEWS_MAX_AGE_HOURS: ${{ github.event.inputs.max_age_hours }}
+      PEACH_NEWS_PREPARED_DIR: ${{ github.event.inputs.prepared_dir }}
+      PEACH_NEWS_RESEND_SUBJECT: ${{ github.event.inputs.prepared_subject }}
+      PEACH_NEWS_RESEND_RUN_ID: ${{ github.event.inputs.resend_run_id }}
+      PEACH_NEWS_SCHEDULED_TRIGGER: ${{ github.event.inputs.scheduled_trigger }}
+      REPORT_EMAIL_FROM: ${{ secrets.REPORT_EMAIL_FROM }}
+      SMTP_HOST: ${{ secrets.SMTP_HOST }}
+      SMTP_PORT: ${{ secrets.SMTP_PORT }}
+      SMTP_SECURE: ${{ secrets.SMTP_SECURE }}
+      SMTP_USER: ${{ secrets.SMTP_USER }}
+      SMTP_PASS: ${{ secrets.SMTP_PASS }}
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: "24"
+          cache: npm
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Check scheduled send window and duplicate state
+        id: schedule_gate
+        if: ${{ github.event.inputs.resend_run_id == '' && github.event.inputs.prepared_dir == '' }}
+        run: node peach-schedule-gate.mjs
+
+      - name: Setup Python for Xiaoyi voice
+        if: ${{ steps.schedule_gate.outputs.should_send == 'true' }}
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Install Xiaoyi speech generator
+        if: ${{ steps.schedule_gate.outputs.should_send == 'true' }}
+        run: python -m pip install --disable-pip-version-check edge-tts==7.2.8
+
+      - name: Download existing Peach email
+        if: ${{ github.event.inputs.resend_run_id != '' && github.event.inputs.prepared_dir == '' }}
+        uses: actions/download-artifact@v4
+        with:
+          name: peach-daily-news
+          run-id: ${{ github.event.inputs.resend_run_id }}
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          path: resend-artifact
+
+      - name: Resend existing Peach email with fixed playback link
+        if: ${{ github.event.inputs.resend_run_id != '' && github.event.inputs.prepared_dir == '' }}
+        run: node send-existing-peach-email.mjs
+
+      - name: Send prepared Peach email
+        if: ${{ github.event.inputs.prepared_dir != '' }}
+        env:
+          PEACH_NEWS_RESEND_DIR: ${{ github.event.inputs.prepared_dir }}
+        run: node send-existing-peach-email.mjs
+
+      - name: Generate latest Peach email and playback assets
+        if: ${{ steps.schedule_gate.outputs.should_send == 'true' }}
+        env:
+          PEACH_NEWS_DATE: ${{ steps.schedule_gate.outputs.report_date }}
+        run: |
+          if [ "${{ github.event.inputs.test_mode }}" = "true" ]; then
+            node peach-daily-news.mjs --test --dry-run
+          else
+            node peach-daily-news.mjs --dry-run
+          fi
+
+      - name: Mandatory news self-check
+        if: ${{ steps.schedule_gate.outputs.should_send == 'true' }}
+        run: node peach-news-self-check.mjs
+
+      - name: Publish playback page
+        id: publish_playback
+        if: ${{ steps.schedule_gate.outputs.should_send == 'true' }}
+        shell: bash
+        run: |
+          date_key=$(jq -r '.lastSentDate' peach-news-next-state.json)
+          playback_dir="peach-playback/$date_key"
+          test -f "$playback_dir/index.html"
+          test -f "$playback_dir/audio.mp3"
+          test -f "$playback_dir/captions.vtt"
+          test -f "$playback_dir/speech.txt"
+
+          site_dir="peach/$date_key"
+          mkdir -p "$site_dir"
+          rm -f "$site_dir/index.html" \
+            "$site_dir/audio.mp3" \
+            "$site_dir/captions.vtt" \
+            "$site_dir/speech.txt"
+          cp "$playback_dir/index.html" "$playback_dir/audio.mp3" \
+            "$playback_dir/captions.vtt" "$playback_dir/speech.txt" \
+            "$site_dir/"
+
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add "$site_dir"
+          if ! git diff --cached --quiet; then
+            git commit -m "Publish $date_key Peach playback"
+            git pull --rebase --autostash origin "$GITHUB_REF_NAME"
+            git push
+          fi
+
+          playback_url="https://babelovelg-stack.github.io/peach-daily-news-playback/peach/$date_key/"
+          echo "date_key=$date_key" >> "$GITHUB_OUTPUT"
+          echo "playback_url=$playback_url" >> "$GITHUB_OUTPUT"
+          echo "Published playback page: $playback_url"
+
+      - name: Verify hosted playback files
+        if: ${{ steps.schedule_gate.outputs.should_send == 'true' }}
+        shell: bash
+        run: |
+          date_key="${{ steps.publish_playback.outputs.date_key }}"
+          playback_url="${{ steps.publish_playback.outputs.playback_url }}"
+          local_dir="peach-playback/$date_key"
+          verified=false
+          for attempt in $(seq 1 24); do
+            cache_key="$GITHUB_RUN_ID-$GITHUB_RUN_ATTEMPT-$attempt"
+            if curl -fsSL "$playback_url/index.html?v=$cache_key" -o "$RUNNER_TEMP/peach-index.html" \
+              && curl -fsSL "$playback_url/audio.mp3?v=$cache_key" -o "$RUNNER_TEMP/peach-audio.mp3" \
+              && curl -fsSL "$playback_url/captions.vtt?v=$cache_key" -o "$RUNNER_TEMP/peach-captions.vtt" \
+              && curl -fsSL "$playback_url/speech.txt?v=$cache_key" -o "$RUNNER_TEMP/peach-speech.txt" \
+              && cmp -s "$local_dir/index.html" "$RUNNER_TEMP/peach-index.html" \
+              && cmp -s "$local_dir/audio.mp3" "$RUNNER_TEMP/peach-audio.mp3" \
+              && cmp -s "$local_dir/captions.vtt" "$RUNNER_TEMP/peach-captions.vtt" \
+              && cmp -s "$local_dir/speech.txt" "$RUNNER_TEMP/peach-speech.txt"; then
+              verified=true
+              break
+            fi
+            sleep 5
+          done
+          test "$verified" = "true"
+          echo "Verified hosted playback page, audio, captions, and speech text."
+
+      - name: Send verified Peach daily news
+        if: ${{ steps.schedule_gate.outputs.should_send == 'true' }}
+        env:
+          PEACH_NEWS_RESEND_DIR: .
+          PEACH_NEWS_PLAYBACK_URL_OVERRIDE: ${{ steps.publish_playback.outputs.playback_url }}
+          PEACH_NEWS_PLAYBACK_CACHE_KEY: ${{ github.run_id }}-${{ github.run_attempt }}
+          PEACH_NEWS_RESEND_SUBJECT_STYLE: daily
+        run: |
+          node send-existing-peach-email.mjs
+          cp peach-news-next-state.json peach-news-state.json
+
+      - name: Save question state
+        if: ${{ success() && steps.schedule_gate.outputs.should_send == 'true' }}
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add peach-news-state.json
+          git diff --cached --quiet || git commit -m "Update Peach daily news state"
+          git pull --rebase origin "$GITHUB_REF_NAME"
+          git push
+
+      - name: Upload generated email
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: peach-daily-news
+          path: |
+            peach-daily-news.txt
+            peach-daily-news.html
+            peach-daily-news-resend.txt
+            peach-daily-news-resend.html
+            peach-news-state.json
+            peach-news-next-state.json
+            peach-news-audit.json
+            peach-playback
+          if-no-files-found: ignore

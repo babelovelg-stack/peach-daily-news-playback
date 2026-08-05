@@ -1,0 +1,84 @@
+<!doctype html>
+<html lang="zh-CN">
+<head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+<style>
+:root{color-scheme:light}
+body{margin:0;background:#fff7ed;color:#2f241d;font-family:"PingFang SC",-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;line-height:1.78;font-size:22px}
+.wrap{max-width:760px;margin:0 auto;padding:32px 20px 46px}
+.hero{background:linear-gradient(180deg,#fff8e8 0%,#ffffff 100%);border:1px solid #fcd9a5;border-radius:26px;padding:28px 24px 24px;box-shadow:0 12px 28px rgba(180,83,9,.08)}
+h1{font-size:36px;line-height:1.35;margin:0 0 16px;color:#9a3412}
+.date{font-size:22px;color:#7c5e45;margin-bottom:10px;font-weight:800}
+.note{font-size:21px;color:#4b3628;margin:12px 0 0}
+.day{font-size:29px;font-weight:900;color:#7c2d12;margin:36px 0 16px;padding:15px 18px;background:#fffbeb;border:1px solid #fde68a;border-radius:20px}
+.section-title{font-size:29px;font-weight:900;color:#92400e;margin:36px 0 16px;padding-left:15px;border-left:7px solid #f59e0b;line-height:1.35}
+.card{background:#fff;border:1px solid #fed7aa;border-radius:24px;padding:24px 20px;margin:20px 0;box-shadow:0 8px 18px rgba(124,94,69,.08)}
+h2{font-size:28px;line-height:1.45;margin:0 0 18px;color:#7c2d12}
+.news-points{display:block}
+.news-point{background:#fffaf0;border:1px solid #fde68a;border-radius:18px;padding:16px 16px;margin:13px 0}
+.point-label{display:inline-block;background:#fef3c7;color:#92400e;border-radius:999px;padding:3px 12px;font-size:18px;font-weight:900}
+.point-text{margin:9px 0 0;font-size:22px;line-height:1.7}
+.source{margin-top:18px;padding-top:16px;border-top:1px dashed #fdba74;font-size:17px;color:#6b4f3d;line-height:1.65}
+.source a{color:#b45309}
+.learning-card{background:#fff;border:2px solid #fde68a;border-radius:26px;padding:22px 20px;margin:16px 0 30px;box-shadow:0 10px 22px rgba(146,64,14,.08)}
+.knowledge-item{display:flex;gap:15px;align-items:flex-start;background:#fffaf0;border:1px solid #fde68a;border-radius:20px;padding:17px 16px;margin:15px 0}
+.badge{flex:0 0 auto;display:inline-flex;align-items:center;justify-content:center;width:40px;height:40px;border-radius:999px;background:#f59e0b;color:#fff;font-size:19px;font-weight:900}
+.knowledge-topic{display:inline-block;margin:0 0 7px;color:#92400e;font-size:18px;font-weight:900}
+.knowledge-text{margin:0;font-size:22px;line-height:1.72}
+.quiz-card{background:#fff4cf;border:2px solid #fbbf24;border-radius:26px;padding:24px 20px;margin:16px 0 32px;box-shadow:0 10px 22px rgba(146,64,14,.1)}
+.prev-answer{background:#fffdf5;border:1px dashed #f59e0b;border-radius:20px;padding:17px 16px;margin:0 0 20px}
+.prev-answer p{margin:8px 0;font-size:20px;line-height:1.65}
+.quiz-label{margin:0 0 10px;font-size:18px;font-weight:900;color:#92400e;letter-spacing:.04em}
+.quiz-question{margin:0 0 14px;font-size:27px;line-height:1.58;font-weight:900;color:#7c2d12}
+.quiz-options{margin:14px 0 4px}
+.quiz-option{background:#fffdf5;border:1px solid #fcd34d;border-radius:16px;padding:11px 14px;margin:10px 0;font-size:22px;font-weight:800;color:#4b3628}
+.answer-note{margin:16px 0 0;font-size:21px;font-weight:900;color:#9a3412}
+.closing-note{background:#fffdf5;border:1px solid #fde7b2;border-radius:20px;padding:20px 18px;margin:24px 0 0;font-size:21px;line-height:1.7;color:#4b3628}
+.play-card{margin:18px 0 0;padding:18px 16px;border-radius:22px;background:#ecfdf5;border:2px solid #86efac;color:#14532d}
+.play-kicker{margin:0 0 8px;font-size:18px;font-weight:900;color:#166534}
+.play-title{margin:0 0 10px;font-size:25px;line-height:1.35;font-weight:900;color:#14532d}
+.play-text{margin:0 0 14px;font-size:20px;line-height:1.65;color:#24533c}
+.play-button{display:inline-block;background:#16a34a;color:#fff!important;text-decoration:none;border-radius:999px;padding:12px 18px;font-size:20px;font-weight:900}
+@media (max-width:600px){
+body{font-size:21px}
+.wrap{padding:18px 13px 30px}
+.hero,.card,.learning-card,.quiz-card{padding:20px 16px}
+h1{font-size:31px}
+h2{font-size:25px}
+.date{font-size:21px}
+.day{font-size:25px}
+.section-title{font-size:25px}
+.note{font-size:20px}
+.point-text,.knowledge-text,.quiz-option{font-size:21px}
+.quiz-question{font-size:25px}
+.answer-note,.closing-note{font-size:20px}
+.play-title{font-size:23px}
+.play-button{display:block;text-align:center}
+}
+</style></head>
+<body><div class="wrap">
+<div class="hero">
+<h1>桃子宝贝，你的每日情报来啦！🛸🍬💡 今天的小本领是比较：相同点和不同点找出来，复杂问题也会变简单！</h1>
+<div class="date">2026年7月5日星期日</div>
+<p class="note">这一天整理了 4 条小情报，慢慢读就好。</p>
+<p class="note">来源：从 17173、中国新闻网、chinanews.com.cn 3 个来源 里筛选，优先选小朋友能读懂、和科技、学校、生活或国家大事有关的新闻。</p>
+<p class="note">这一天的小情报来自截至 2026年7月5日星期日 可读取的公开新闻源；宁可少一点，也不拿旧消息和编出来的故事凑数。</p>
+
+<div class="play-card">
+<p class="play-kicker">新增：图文语音版</p>
+<p class="play-title">点开就能听 Xiaoyi 女声播报，文字和声音一起看。</p>
+<p class="play-text">音频不朗读探索题；题目文字保留在邮件正文和播放页里，第二天公布参考答案。</p>
+<a class="play-button" href="https://babelovelg-stack.github.io/peach-daily-news-playback/peach/2026-07-05/">点击播放图文语音版</a>
+</div></div>
+<div class="section-title">这一天的小情报</div>
+<div class="card"><h2>第 1 条小情报：固体助推发动机完成百台交付和成功应用</h2><div class="news-points"><div class="news-point"><div class="point-label">发生了什么</div><p class="point-text">中国航天科技四院的固体助推发动机完成了百台交付和成功应用。助推发动机像给火箭起飞时加一把大力气，帮助火箭带着更重的设备稳定离开地面。</p></div><div class="news-point"><div class="point-label">价值是什么</div><p class="point-text">价值在于说明航天工程不仅要会设计，还要能反复稳定制造和验证。百台成功应用意味着材料、燃料、结构和质量检查都要长期保持可靠。</p></div><div class="news-point"><div class="point-label">可能影响什么</div><p class="point-text">社会影响是，火箭关键部件越可靠，卫星发射、深空探测和应急任务就越有保障。未来趋势是，航天制造会更重视批量化、标准化和每一次发射前的严格测试。</p></div></div><div class="source"><div>小来源：17173 / Google 新闻：航天卫星，7/5 12:04</div><div><a href="https://news.google.com/rss/articles/CBMiZEFVX3lxTE1VNFEyWHZ6WU94dGJTSVk2X19tOGx2SGI4Z3VMRkdYa2VzQ0haTTFTVVhZRnpnS0lhWXFUZjJXWW45SmVSVlNJeC11b2VsbVAwemI2bm04QlBicU9mUmFIWFkyc3Y?oc=5">给大人核对的原文链接</a></div></div></div><div class="card"><h2>第 2 条小情报：西藏大学揭牌高原无人机研发应用中心 助力西藏低空经济发展</h2><div class="news-points"><div class="news-point"><div class="point-label">发生了什么</div><p class="point-text">西藏大学成立高原无人机研发应用中心。高原地区海拔高、地形复杂、天气变化快，无人机如果要安全工作，就要研究动力、通信、导航和抗风等问题。</p></div><div class="news-point"><div class="point-label">价值是什么</div><p class="point-text">价值在于让无人机技术适应真实地理环境。高原无人机不只是会飞，还可能用于巡检、救援、测绘和物资运输，需要工程师把安全和任务需求一起考虑。</p></div><div class="news-point"><div class="point-label">可能影响什么</div><p class="point-text">社会影响是，复杂地区的巡山、救援、通信检查和物流可能多一个可靠工具。未来趋势是，无人机会从表演和航拍，更多走向公共服务和专业工程任务。</p></div></div><div class="source"><div>小来源：中国新闻网 / 中国新闻网教育，7/5 19:37</div><div><a href="https://www.chinanews.com.cn/edu/2026/07-05/10653189.shtml">给大人核对的原文链接</a></div></div></div><div class="card"><h2>第 3 条小情报：从“绿色撒哈拉”到世界最大沙漠 研究揭示人类生态如何响应气候变化</h2><div class="news-points"><div class="news-point"><div class="point-label">发生了什么</div><p class="point-text">科学家研究撒哈拉地区从湿润环境变成大沙漠的过程。过去雨水、河湖和植被变化，会影响人类在哪里生活、怎样迁移，也能帮助我们理解气候变化和人类社会的关系。</p></div><div class="news-point"><div class="point-label">价值是什么</div><p class="point-text">价值在于把地理、历史和科学证据连起来看。沙漠不是一天形成的，科学家会用湖泊沉积物、考古遗址和气候数据，推测环境变化怎样影响人类生活。</p></div><div class="news-point"><div class="point-label">可能影响什么</div><p class="point-text">社会影响是，人们会更重视水资源、气候和人类活动之间的联系。未来趋势是，研究过去的环境变化，可以帮助今天的城市和乡村更早准备干旱、降雨变化等挑战。</p></div></div><div class="source"><div>小来源：中国新闻网 / 中国新闻网国际，7/5 13:09</div><div><a href="https://www.chinanews.com.cn/gj/2026/07-05/10653012.shtml">给大人核对的原文链接</a></div></div></div><div class="card"><h2>第 4 条小情报：中国成功发射千帆极轨15组卫星</h2><div class="news-points"><div class="news-point"><div class="point-label">发生了什么</div><p class="point-text">中国成功发射千帆极轨15组卫星。</p></div><div class="news-point"><div class="point-label">价值是什么</div><p class="point-text">价值在于把通信、导航、天气观察和科学研究带到更远的地方。火箭负责送设备上天，卫星负责在太空长期工作。</p></div><div class="news-point"><div class="point-label">可能影响什么</div><p class="point-text">社会影响是，通信、地图、天气预报和灾害监测会越来越依赖太空基础设施。未来趋势是，航天不只是探索宇宙，也会像电网、道路一样，成为社会运行的一部分。</p></div></div><div class="source"><div>小来源：chinanews.com.cn / Google 新闻：航天卫星，7/5 23:53</div><div><a href="https://news.google.com/rss/articles/CBMiaEFVX3lxTE1hR2VpeVdlQjZ3bjdZbmZPMlpvUDYzVUZmYWp2dkpCeWRXRlRwZjlVX2RmZGJ4ZGlGT2duUEg2Q0lPMV9fb0Yzd1p6S0hSU3cybW5KZzBRZjd6TXl6VW45eFVXRlVPeXVB?oc=5">给大人核对的原文链接</a></div></div></div>
+<div class="section-title">博物小百科（3条）</div>
+<div class="learning-card"><div class="knowledge-item"><span class="badge">1</span><span><span class="knowledge-topic">生态 · 植物</span><p class="knowledge-text">地衣不是一种单独植物，而是真菌和藻类等生物共同生活形成的。</p></span></div><div class="knowledge-item"><span class="badge">2</span><span><span class="knowledge-topic">天气 · 水</span><p class="knowledge-text">雾是贴近地面的许多小水滴，会让远处景物看起来模糊。</p></span></div><div class="knowledge-item"><span class="badge">3</span><span><span class="knowledge-topic">数学 · 科技</span><p class="knowledge-text">二进制主要用 0 和 1 表示信息，是许多电子计算设备的基础。</p></span></div></div>
+<div class="section-title">今日探索题</div>
+<div class="quiz-card">
+<div class="prev-answer"><p>昨天探索题：</p><p>资料题：有人说一种新种植方法能让小苗长得更快。新方法组 10 盆小苗平均 22 厘米，普通组 10 盆平均 20 厘米。但是，新方法组放在阳光更强的窗边。想判断是不是种植方法带来了差别，下一步最应该怎么做？</p><p>A. 把新方法组增加到 20 盆，普通组保持 10 盆，再比较平均高度</p><p>B. 重新比较：两组阳光、土壤、水量和盆数尽量一样，种植方法不同</p><p>C. 继续把两组放在原来的位置，每天量高度，再观察一个月</p><p>昨天答案：B。比较新方法时，两组除了种植方法，阳光、土壤、水量和盆数都要尽量一样。这样才更容易看出差别是不是来自种植方法。</p></div>
+<p class="quiz-label">这一天的题目</p>
+<p class="quiz-question">探究题：小明想研究晒太阳会不会让水蒸发得更快。甲杯 110 毫升水，放在太阳下，3 小时少了 35 毫升；乙杯 90 毫升水，放在阴凉处，3 小时少了 25 毫升。要重新做得更公平，最应该怎么改？</p><div class="quiz-options"><div class="quiz-option">A. 多放几个杯子一起测，但太阳下的杯子仍装更多水</div><div class="quiz-option">B. 两个相同杯子装一样多的水，只保留太阳下和阴凉处不同</div><div class="quiz-option">C. 把观察时间从 3 小时延长到 6 小时，但两杯开始水量仍不同</div></div>
+<p class="answer-note">参考答案：明天公布。</p>
+<p class="closing-note">新闻可以分两次读，先读小情报，再看百科和题目；会安排阅读，也是一种本领。</p>
+</div>
+</div></body></html>

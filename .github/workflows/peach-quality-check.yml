@@ -1,0 +1,40 @@
+name: Peach Quality Check
+
+on:
+  workflow_dispatch:
+  push:
+    branches:
+      - main
+    paths:
+      - ".github/workflows/peach-daily-news.yml"
+      - ".github/workflows/peach-quality-check.yml"
+      - "google-apps-script/**"
+      - "package.json"
+      - "package-lock.json"
+      - "peach-*.mjs"
+
+permissions:
+  contents: read
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: "24"
+          cache: npm
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Run all quality and migration tests
+        run: npm test
+
+      - name: Check generator syntax
+        run: node --check peach-daily-news.mjs
