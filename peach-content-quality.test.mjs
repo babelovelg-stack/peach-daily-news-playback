@@ -112,6 +112,7 @@ test("limits daily stories to politics, technology, society, and major internati
   assert.equal(classifyNewsPillar("我国牵头的区块链国际标准在国际标准化组织ISO立项"), "科技");
   assert.equal(classifyNewsPillar("保护区首次发现新鸟种，鸟类物种名录增至262种"), "科技");
   assert.equal(classifyNewsPillar("团队研发能感知压力方向和温度的柔性电子皮肤"), "科技");
+  assert.equal(classifyNewsPillar("全球首座16兆瓦张力腿浮式风电平台正式投用"), "科技");
 
   const issues = newsQualityIssues({
     sourceTitle: "城市夜市发布夏日美食打卡地图",

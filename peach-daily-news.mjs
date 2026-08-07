@@ -37,7 +37,8 @@ const MAX_NEWS_COUNT = isTest ? 2 : 8;
 const MIN_DAILY_NEWS_COUNT = isTest ? 1 : 2;
 const MIN_DAILY_PUBLISHER_COUNT = isTest ? 1 : 2;
 const MAX_ITEMS_PER_PUBLISHER = Number(process.env.PEACH_NEWS_MAX_PER_PUBLISHER || 2);
-const RECENT_ENCYCLOPEDIA_MEMORY_LIMIT = 1200;
+// Keep a 45-issue no-repeat window so the finite, reviewed fact set can rotate without halting delivery.
+const RECENT_ENCYCLOPEDIA_MEMORY_LIMIT = 135;
 const RECENT_QUESTION_CONCEPT_SELECTION_LIMIT = 14;
 const TIMEZONE = process.env.PEACH_NEWS_TIMEZONE || "Asia/Shanghai";
 const SEND_HOUR = Number(process.env.PEACH_NEWS_SEND_HOUR || 18);
@@ -672,6 +673,17 @@ function buildNewsQuizQuestions(news, dayIndex = 0) {
     difficulty,
     reasoningPattern
   });
+
+  if (/海油安澜号|张力腿浮式风电平台/.test(newsText) && /16兆瓦|浮式风电/.test(newsText)) {
+    add(
+      "floating-wind-wave-impact-comparison",
+      ["海洋工程", "数学", "证据"],
+      "资料题：工程师想判断张力腿设计是否让风电平台受大浪的影响更小。他们让同功率的甲、乙平台在相同海域、相同测试时长和相近风速下运行。甲采用张力腿设计，平静海况的有效发电率为96%，较强海况为88%；乙采用另一种浮式设计，平静海况为94%，较强海况为78%。下面三种计算都没有算错，哪一种最能直接判断“甲受海浪变强的影响更小”？\nA. 甲下降8个百分点，乙下降16个百分点；比较各自前后的下降幅度\nB. 较强海况下，甲比乙高10个百分点；比较同一海况的发电率\nC. 两种海况取平均后，甲为92%，乙为86%；比较整体平均值",
+      "答案：A。题目要判断的是海浪从平静变强后，各平台受到多大影响。甲从96%降到88%，下降8个百分点；乙从94%降到78%，下降16个百分点，所以比较各自前后的变化最直接。B能说明较强海况下甲表现更高，却没有扣除两者原本2个百分点的差别；C能比较整体表现，但把平静和较强海况合在一起，不能单独量出海浪变强带来的影响。三种计算都正确，A回答的问题最准确。",
+      4,
+      "difference-comparison"
+    );
+  }
 
   if (/高温.*(?:健康|中暑)|防暑.*(?:预警|大型活动)/.test(newsText) && /世界卫生组织|世卫组织|WHO/.test(newsText)) {
     add(
@@ -1887,7 +1899,11 @@ async function generatePlaybackAssets(message) {
   await fs.mkdir(outputDir, { recursive: true });
 
   const sections = buildPlaybackSpeechSections(message.playbackData);
-  const speechText = sections.map((section) => section.title ? `${section.title}。${section.text}` : section.text).join("\n\n");
+  const speechText = sections.map((section) => {
+    if (!section.title) return section.text;
+    if (section.title === "叮叮~") return `${section.title} ${section.text}`;
+    return `${section.title}。${section.text}`;
+  }).join("\n\n");
   const speechPath = path.join(outputDir, "speech.txt");
   const audioPath = path.join(outputDir, "audio.mp3");
   const captionsPath = path.join(outputDir, "captions.vtt");
@@ -4092,11 +4108,12 @@ function isHighQualityKnowledgeItem(item = {}) {
 function scoreLearningItem(item, index, dayIndex, newsText, recentIds, recentTags = new Set()) {
   const matchedTags = item.tags.filter((tag) => newsText.includes(tag));
   const relatedScore = matchedTags.length * 50;
+  const detailScore = Math.min(knowledgeBodyText(item).length, 90) * 8;
   const qualityPenalty = isHighQualityKnowledgeItem(item) ? 0 : -5000;
   const recentPenalty = recentIds.has(item.id) ? -1000 : 0;
   const recentTagPenalty = recentTags.has(primaryTag(item)) ? -180 : 0;
   const rotationScore = ((dayIndex + 3) * (index + 11)) % 97;
-  return relatedScore + rotationScore + recentPenalty + recentTagPenalty + qualityPenalty;
+  return relatedScore + detailScore + rotationScore + recentPenalty + recentTagPenalty + qualityPenalty;
 }
 
 function hasTagMatch(item, newsText) {
@@ -4399,35 +4416,17 @@ function selectDailyKnowledge(news, dayIndex, state) {
     return true;
   };
 
-  const rotateItems = (items, seed) => {
-    if (!items.length) return [];
-    return items.map((_, offset) => items[(seed + offset) % items.length]);
-  };
-
-  const pickFrom = (items, limit = 3, avoidRecent = true, avoidSameTag = true, avoidRecentTag = true) => {
-    for (let offset = 0; offset < items.length; offset += 1) {
-      if (selected.length >= limit) break;
-      const item = items[offset];
-      tryPick(item, avoidRecent, avoidSameTag, avoidRecentTag);
-    }
-  };
-
-  const dailySeed = (dayIndex * 3) % knowledgePool.length;
-  pickFrom(rotateItems(knowledgePool, dailySeed), 3, true, true, true);
-  pickFrom(rotateItems(knowledgePool, (dailySeed + 11) % knowledgePool.length), 3, true, true, true);
-  pickFrom(rotateItems(knowledgePool, (dailySeed + 23) % knowledgePool.length), 3, true, true, false);
-
   for (const entry of ranked) {
     if (selected.length >= 3) break;
-    tryPick(entry.item, true, true, true);
+    if (knowledgeBodyText(entry.item).length >= 40) tryPick(entry.item, true, true, true);
+  }
+  for (const entry of ranked) {
+    if (selected.length >= 3) break;
+    if (knowledgeBodyText(entry.item).length >= 40) tryPick(entry.item, true, true, false);
   }
   for (const entry of ranked) {
     if (selected.length >= 3) break;
     tryPick(entry.item, true, true, true);
-  }
-  for (const entry of ranked) {
-    if (selected.length >= 3) break;
-    tryPick(entry.item, true, true, false);
   }
   for (const entry of ranked) {
     if (selected.length >= 3) break;
