@@ -673,6 +673,17 @@ function buildNewsQuizQuestions(news, dayIndex = 0) {
     reasoningPattern
   });
 
+  if (/高温.*(?:健康|中暑)|防暑.*(?:预警|大型活动)/.test(newsText) && /世界卫生组织|世卫组织|WHO/.test(newsText)) {
+    add(
+      "heat-warning-matched-event-evidence-1",
+      ["健康", "科学", "证据"],
+      "资料题：为了判断提前发布高温预警本身能不能减少中暑，研究人员设计了三种比较方案。哪一种最能把气温、活动类型和其他防暑措施的影响分开？\nA. 在10场相似活动中，各找两个人数接近的区域；同一场的气温、遮阳和补水安排相同，一个区域提前收到预警并调整休息，另一个区域保持原安排，再比较每1000人的中暑人数\nB. 收集100场有预警和100场无预警的活动，计算每1000人的中暑人数；有预警的一组大多处在更热的天气\nC. 比较同一批活动今年和去年的中暑人数；今年同时增加预警、遮阳棚和补水点，去年保持原安排",
+      "答案：A。它在同一场活动中让气温、活动类型、遮阳和补水尽量相同，主要比较是否提前预警并调整休息，因此更容易判断预警本身的作用。B的样本多，但两组天气冷热不同，原本的中暑风险就不一样；C比较了同一批活动，却同时改变了预警、遮阳和补水，无法把变化单独归给预警。三种方案都有参考价值，A对题目要判断的原因控制得最完整。",
+      4,
+      "comparative-evidence"
+    );
+  }
+
   if (/区块链即服务|区块链国际标准/.test(newsText) && /国际标准化组织|ISO/.test(newsText)) {
     add(
       "blockchain-standard-interface-cost",
@@ -1244,7 +1255,10 @@ const museumEncyclopedia = [
   { id: "museum-pyritized-fossil", tags: ["化石保护", "矿物"], text: "百科小知识：有些遗体埋藏后会被黄铁矿填充或替换，形成带金属光泽的化石；出土后若长期接触潮湿空气，黄铁矿可能氧化膨胀，所以博物馆要严格控制湿度。" },
   { id: "museum-nuclide-chart", tags: ["核物理", "科学史"], text: "百科小知识：核素图按原子核里的质子数和中子数排列。横着或竖着比较，就能看见同位素之间的关系；图上的空白区域，也是科学家寻找未知核素的重要线索。" },
   { id: "museum-volcanic-lahar", tags: ["火山学", "灾害"], text: "百科小知识：火山灰和碎石遇到暴雨或融雪，可能沿山谷形成高速火山泥流。它能出现在喷发减弱以后，所以火山监测还要继续观察降雨和河道。" },
-  { id: "museum-shell-midden", tags: ["考古学", "环境"], text: "百科小知识：贝丘是古人长期丢弃贝壳、兽骨和生活遗物形成的堆积。研究不同地层里的物种和工具，能帮助考古学家了解当时的饮食、海岸与环境变化。" }
+  { id: "museum-shell-midden", tags: ["考古学", "环境"], text: "百科小知识：贝丘是古人长期丢弃贝壳、兽骨和生活遗物形成的堆积。研究不同地层里的物种和工具，能帮助考古学家了解当时的饮食、海岸与环境变化。" },
+  { id: "museum-antarctic-icefish-blood", tags: ["鱼类学", "南极"], text: "百科小知识：南极鳄冰鱼是已知唯一成年后没有血红蛋白和红细胞的脊椎动物类群，血液看起来接近透明。寒冷海水含氧较多，它们还用更大的心脏和更多血液帮助运输氧气。" },
+  { id: "museum-egyptian-blue-pigment", tags: ["古代颜料", "材料史"], text: "百科小知识：埃及蓝被认为是人类最早制成的合成颜料。它由石英砂、石灰、含铜材料和碱混合加热形成蓝色块，再磨成粉用来绘画。" },
+  { id: "museum-marshall-stick-chart", tags: ["航海史", "海洋文化"], text: "百科小知识：马绍尔群岛的航海图用椰条、棕榈条和贝壳表示海浪、洋流与岛屿。它多用于出发前学习和记忆，航海者真正出海时主要靠观察和感受海浪导航。" }
 ];
 
 const encouragements = [
@@ -4514,6 +4528,12 @@ function previousAnswerText(state, label = "昨天") {
   return answerRevealText(state.lastQuestion, state.lastAnswer, label);
 }
 
+function previousAnswerLabel(reportDate, state = {}) {
+  if (!state.lastSentDate) return "上一期";
+  const previousDateKey = getLocalDateKey(new Date(reportDate.getTime() - 86400000));
+  return state.lastSentDate === previousDateKey ? "昨天" : "上一期";
+}
+
 function knowledgeTopic(item) {
   return item.tags?.slice(0, 2).join(" · ") || "小知识";
 }
@@ -4708,7 +4728,7 @@ function buildEmail(news, state) {
   const dayLabel = DATE_OVERRIDE ? "这一天" : "今天";
   const sourceSummary = formatSourceSummary(news);
 
-  const previousAnswer = previousAnswerText(state, "昨天");
+  const previousAnswer = previousAnswerText(state, previousAnswerLabel(now, state));
 
   const encouragement = selectUniqueTextVariant(encouragements, state, "recentIntroTexts", dayIndex, 3);
   const closingNote = selectUniqueTextVariant(closingNotes, state, "recentClosingTexts", dayIndex, 11);

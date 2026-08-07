@@ -84,7 +84,7 @@ RSS / 搜索源 / 人工精选源
 - 北京时间 18:00 开始，并在 18:10、18:20、18:30、18:40、18:50 提供计划任务容错。
 - 北京时间 19:15、21:15、23:15 提供晚间补偿。
 - 次日 00:30 只补发尚未发送的前一天内容。
-- 手动运行支持测试、指定日期、多日期补发、使用已发布播放页和重发历史产物。
+- 手动运行支持测试、指定日期、多日期补发、使用已发布播放页和重发历史产物。历史日期补推如果并非紧接着当前状态，会把答案区标为“上一期”，避免误称“昨天”。
 - `peach-news-state.json`、定时门禁和并发组共同阻止同一天重复发送。
 
 `google-apps-script/` 提供独立于电脑的外部云触发器：北京时间 18:00 主触发、18:10 备触发，小时级修复任务负责补建缺失触发器。外部触发和 GitHub 计划任务使用同一日期门禁。
@@ -294,7 +294,7 @@ Email is never sent when a hosted file is missing or differs from the local outp
 - Starts at 18:00 Beijing time, with scheduled fallbacks at 18:10, 18:20, 18:30, 18:40, and 18:50.
 - Adds evening recovery windows at 19:15, 21:15, and 23:15 Beijing time.
 - At 00:30 the next day, backfills only a still-missing previous-day issue.
-- Manual dispatch supports test mode, one or multiple selected dates, a pre-published playback URL, and prepared historical output.
+- Manual dispatch supports test mode, one or multiple selected dates, a pre-published playback URL, and prepared historical output. When a historical backfill does not immediately follow the current state, its answer section is labelled “previous issue” rather than incorrectly calling it “yesterday.”
 - `peach-news-state.json`, the schedule gate, and the concurrency group jointly prevent duplicate delivery for one date.
 
 `google-apps-script/` provides a computer-independent cloud trigger: a primary event at 18:00 Beijing time, a backup at 18:10, and an hourly repair job that recreates missing triggers. External dispatch and GitHub schedules use the same date gate.
