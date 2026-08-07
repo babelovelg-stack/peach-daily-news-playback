@@ -4,10 +4,24 @@ import assert from "node:assert/strict";
 import {
   classifyNewsPillar,
   isLocalSelfPromotionNews,
-  newsQualityIssues,
   isLowQualityNewsSource,
-  isPromotionalStudyTourNews
+  isPromotionalStudyTourNews,
+  isSmartMountainHighwayStory,
+  namedTyphoonEventKey,
+  newsQualityIssues
 } from "./peach-content-quality.mjs";
+
+test("deduplicates named typhoons by storm name across different response angles", () => {
+  assert.equal(namedTyphoonEventKey("台风“白海豚”向华东靠近，沿海提前防御"), "named-typhoon-白海豚");
+  assert.equal(namedTyphoonEventKey("福建应对第8号台风“白海豚”，暂停部分海上交通"), "named-typhoon-白海豚");
+  assert.equal(namedTyphoonEventKey("福建启动防台风应急响应"), "");
+});
+
+test("does not mistake generic air-ground coordination for a smart-highway story", () => {
+  assert.equal(isSmartMountainHighwayStory("中国卫通空地协同保畅通，全力护航台风抢险救援"), false);
+  assert.equal(isSmartMountainHighwayStory("秦巴山区高速公路用空地协同系统巡查风险"), true);
+  assert.equal(isSmartMountainHighwayStory("山区公路开展空地协同巡检"), true);
+});
 
 test("rejects promotional, market-hype, and truncated source stories", () => {
   const rejected = [

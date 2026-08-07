@@ -11,7 +11,10 @@ import {
   isLocalSelfPromotionNews,
   isLowQualityNewsSource,
   isPromotionalStudyTourNews,
-  newsQualityIssues
+  isSmartMountainHighwayStory,
+  namedTyphoonEventKey,
+  newsQualityIssues,
+  titlesAreSemanticDuplicates
 } from "./peach-content-quality.mjs";
 import { remapQuizAnswerOptionLetters } from "./peach-quiz-option-rotation.mjs";
 
@@ -2242,6 +2245,8 @@ function hasUsefulTitle(title = "") {
 
 function semanticTopicKey(item) {
   const text = `${item.title} ${item.description}`;
+  const namedTyphoonKey = namedTyphoonEventKey(text);
+  if (namedTyphoonKey) return namedTyphoonKey;
   if (/太空算力|算力星座|算力卫星/.test(text)) {
     return "space-computing-constellation";
   }
@@ -2263,7 +2268,7 @@ function semanticTopicKey(item) {
   if (/科普帮助扬帆计划|科技创新巾帼行动|巾帼行动.*科普/.test(text)) {
     return "science-outreach-support-program";
   }
-  if (/秦巴山区高速公路|空地协同|隧道全息监控|AI闭环研判|智慧高速/.test(text)) {
+  if (isSmartMountainHighwayStory(text)) {
     return "smart-mountain-highway-safety";
   }
   if (/白鹤滩水电站|水电大国重器|水电科技|水电.*珠穆朗玛峰/.test(text)) {
@@ -2417,6 +2422,7 @@ function wasRecentlySentNews(item, state = {}) {
   ];
   return recentTitles.some((title) => {
     if (itemTopicKey && semanticTopicKey({ title, description: "" }) === itemTopicKey) return true;
+    if (titlesAreSemanticDuplicates(kidNewsTitle(item), String(title).replace(/^.*小情报[：:]\s*/, ""))) return true;
     const recentKey = savedNewsTitleKey(title);
     return recentKey && (recentKey.includes(itemKey.slice(0, 24)) || itemKey.includes(recentKey.slice(0, 24)));
   });
@@ -2946,7 +2952,7 @@ function kidNewsTitle(item) {
   if (/科普帮助扬帆计划|科技创新巾帼行动|巾帼行动.*科普/.test(`${title} ${item.description}`)) {
     return "科普帮助计划把科学活动送到孩子身边";
   }
-  if (/秦巴山区高速公路|空地协同|隧道全息监控|AI闭环研判|智慧高速/.test(`${title} ${item.description}`)) {
+  if (isSmartMountainHighwayStory(`${title} ${item.description}`)) {
     return "秦巴山区高速公路用 AI 帮忙巡查风险";
   }
   if (/白鹤滩水电站|水电大国重器|水电科技|水电.*珠穆朗玛峰/.test(`${title} ${item.description}`)) {
@@ -3089,7 +3095,7 @@ function kidTopicSummary(item) {
   if (/科普帮助扬帆计划|科技创新巾帼行动|巾帼行动.*科普/.test(text)) {
     return "江苏的科普帮助活动把科学讲解、实验体验和志愿服务带到更多孩子身边。它关注的是让孩子有机会接触科学，而不只是听到一个活动名称。";
   }
-  if (/秦巴山区高速公路|空地协同|隧道全息监控|AI闭环研判|智慧高速/.test(text)) {
+  if (isSmartMountainHighwayStory(text)) {
     return "秦巴山区的高速公路穿过山地、隧道和桥梁，巡查难度比平原道路更大。新闻里提到用无人机、监控设备和 AI 系统一起观察路况，帮助更早发现风险。";
   }
   if (/白鹤滩水电站|水电大国重器|水电科技|水电.*珠穆朗玛峰/.test(text)) {
@@ -3411,7 +3417,7 @@ function kidNewsValue(item) {
   if (/科普帮助扬帆计划|科技创新巾帼行动|巾帼行动.*科普/.test(text)) {
     return "价值在于把科学资源送到更需要的地方。一次好的科普活动，不是只热闹一下，而是让孩子通过观察、提问和动手体验，知道科学能解释身边现象。";
   }
-  if (/秦巴山区高速公路|空地协同|隧道全息监控|AI闭环研判|智慧高速/.test(text)) {
+  if (isSmartMountainHighwayStory(text)) {
     return "价值在于让孩子看到，AI 不只会聊天，也能帮助守护交通安全。它通过收集路面、隧道、车辆和天气信息，提醒工作人员哪里可能需要检查。";
   }
   if (/白鹤滩水电站|水电大国重器|水电科技|水电.*珠穆朗玛峰/.test(text)) {
@@ -3714,7 +3720,7 @@ function kidNewsImpact(item) {
   if (/科普帮助扬帆计划|科技创新巾帼行动|巾帼行动.*科普/.test(text)) {
     return "社会影响是，科普会更主动走出大城市场馆，进入社区、学校和乡村。未来趋势是，科学教育不只靠课本，也会靠更多可触摸、可参与的公共活动。";
   }
-  if (/秦巴山区高速公路|空地协同|隧道全息监控|AI闭环研判|智慧高速/.test(text)) {
+  if (isSmartMountainHighwayStory(text)) {
     return "社会影响是，山区道路管理会越来越依靠“人巡查 + 机器观察 + 数据判断”一起工作。未来交通安全不只靠修路，也要靠持续监测和快速响应。";
   }
   if (/白鹤滩水电站|水电大国重器|水电科技|水电.*珠穆朗玛峰/.test(text)) {

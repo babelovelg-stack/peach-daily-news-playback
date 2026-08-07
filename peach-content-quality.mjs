@@ -2,6 +2,18 @@ export const LOW_QUALITY_NEWS_SOURCE_PATTERN = /会展网|行业品牌会展|电
 
 export const GENERIC_NEWS_EXPLANATION_PATTERN = /价值在于让我们看见世界正在发生的变化|这条新闻的社会影响，要看它让谁获得了新机会|价值在于帮助学校和老师更了解学习过程|教育变化会直接影响孩子每天怎样学习|价值在于让机器更会帮人处理复杂任务|社会影响是，一些重复、危险、需要快速计算的工作|价值在于把通信、导航、天气观察和科学研究带到更远的地方|社会影响是，通信、地图、天气预报和灾害监测会越来越依赖太空基础设施|价值在于让出行、救援、巡检和运输多一种工具|社会影响是，出行、救援、巡检和送货方式可能变快|价值在于让用电和出行更清洁|社会影响是，能源变化会影响家里的用电|价值在于保护生命和健康|关于.+你还想继续追问|答案：上一题没有清楚的标准答案/;
 
+export function namedTyphoonEventKey(text = "") {
+  if (!/台风/.test(text)) return "";
+  const match = String(text).match(/台风\s*[“"「『]([\u3400-\u9fff]{2,8})[”"」』]/);
+  return match ? `named-typhoon-${match[1]}` : "";
+}
+
+export function isSmartMountainHighwayStory(text = "") {
+  const value = String(text);
+  return /秦巴山区高速公路|隧道全息监控|AI闭环研判|智慧高速/.test(value) ||
+    (/(?:高速公路|山区公路)/.test(value) && /空地协同/.test(value));
+}
+
 const STUDY_TOUR_PATTERN = /研学|游学|夏令营|冬令营/;
 const STUDY_TOUR_PROMOTION_PATTERN = /路线|产品|基地|营地|打卡|招募|报名|开营|文旅|景区|推荐|推介|攻略|热门|火热|走红|新选择|新体验|亲子|旅行|课堂/;
 const STUDY_TOUR_PUBLIC_INTEREST_PATTERN = /监管|规范|整治|管理办法|安全标准|安全风险|事故|通报|处罚|收费乱象|征求意见|教育部|文旅部/;
@@ -215,7 +227,7 @@ function titleBodyCoherenceIssues({ sourceTitle = "", sourceDescription = "", ti
   return issues;
 }
 
-function titlesAreSemanticDuplicates(left = "", right = "") {
+export function titlesAreSemanticDuplicates(left = "", right = "") {
   const leftNormalized = normalizeComparableText(left).replace(/\s+/g, "");
   const rightNormalized = normalizeComparableText(right).replace(/\s+/g, "");
   if (!leftNormalized || !rightNormalized) return false;
