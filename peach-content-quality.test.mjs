@@ -105,6 +105,12 @@ test("rejects generic AI education commentary without a concrete policy or verif
   assert.equal(isLowQualityNewsSource(sourceTitle), true);
 });
 
+test("rejects generic robot-on-duty copy without a concrete task or measured result", () => {
+  assert.equal(isLowQualityNewsSource("人形机器人在深圳多场景‘上岗’"), true);
+  assert.equal(isLowQualityNewsSource("智能机器人从会动走向会干活"), true);
+  assert.equal(isLowQualityNewsSource("团队研发能感知压力方向和温度的柔性电子皮肤"), false);
+});
+
 test("limits daily stories to politics, technology, society, and major international affairs", () => {
   assert.equal(classifyNewsPillar("教育部发布中小学科学教育新办法"), "时政");
   assert.equal(classifyNewsPillar("科学家更清楚地看见水和冰里的分子排列"), "科技");
@@ -127,6 +133,9 @@ test("limits daily stories to politics, technology, society, and major internati
   assert.equal(classifyNewsPillar("保护区首次发现新鸟种，鸟类物种名录增至262种"), "科技");
   assert.equal(classifyNewsPillar("团队研发能感知压力方向和温度的柔性电子皮肤"), "科技");
   assert.equal(classifyNewsPillar("全球首座16兆瓦张力腿浮式风电平台正式投用"), "科技");
+  assert.equal(classifyNewsPillar("国家统计局发布7月居民消费价格指数CPI数据"), "时政");
+  assert.equal(classifyNewsPillar("韩国立秋后高温疾病患者十年间增至约三倍"), "国际大事");
+  assert.equal(classifyNewsPillar("美国参议院通过临时拨款法案，政府预算仍需完成后续程序"), "国际大事");
 
   const issues = newsQualityIssues({
     sourceTitle: "城市夜市发布夏日美食打卡地图",
