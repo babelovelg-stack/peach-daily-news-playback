@@ -84,6 +84,7 @@ test("rejects local self-promotion even when the title contains technology or de
     "深耕乡村教育沃土！广师大综合素养公益课堂走进大埔西岭实验学校",
     "当AI走进乡村课堂，江苏师大这场暑期实践有料有趣",
     "教育部直属高等工业学校体育协会体育教学研讨会在我校举办",
+    "邀你共探智能未来！省科技馆人工智能主题展启幕",
     "2026年三江源生态文化旅游节暨第四十四届玉树赛马会开幕"
   ];
 
@@ -136,6 +137,7 @@ test("limits daily stories to politics, technology, society, and major internati
   assert.equal(classifyNewsPillar("国家统计局发布7月居民消费价格指数CPI数据"), "时政");
   assert.equal(classifyNewsPillar("韩国立秋后高温疾病患者十年间增至约三倍"), "国际大事");
   assert.equal(classifyNewsPillar("美国参议院通过临时拨款法案，政府预算仍需完成后续程序"), "国际大事");
+  assert.equal(classifyNewsPillar("尼泊尔流行性乙型脑炎病例增加，一个月内报告9人死亡"), "国际大事");
 
   const issues = newsQualityIssues({
     sourceTitle: "城市夜市发布夏日美食打卡地图",
