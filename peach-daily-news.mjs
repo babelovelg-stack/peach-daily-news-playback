@@ -677,6 +677,17 @@ function buildNewsQuizQuestions(news, dayIndex = 0) {
     reasoningPattern
   });
 
+  if (/C919/.test(newsText) && /国际商业航班|国际航线/.test(newsText)) {
+    add(
+      "c919-international-route-matched-comparison-1",
+      ["C919", "航空", "证据"],
+      "资料题：C919完成首次国际商业航班后，航空公司想判断这条国际航线能否长期稳定运行。除了飞机本身，国际航线还多了境外机场地面保障、国际航班调度和备件安排等环节。下面三组资料都有用，哪一组最能分清问题来自飞机、天气，还是国际运行环节？\nA. 连续三个月记录这条航线的完成率、延误原因和维修记录，再与同一天航程相近的C919国内航班比较天气、机场流量和故障情况\nB. 同一时期比较C919飞往两个境外机场的完成率和延误原因，并记录两地的天气、机场流量、地面保障和备件到达时间\nC. 同一时期比较飞往同一境外机场、航程相近的C919和其他机型，逐班记录天气、机场流量、飞机故障、地面保障和调度用时",
+      "答案：C。它把时间、目的地和航程尽量放在相近条件下，同时记录天气、机场流量、飞机故障、地面保障和调度用时。这样既能比较不同机型，也能检查延误究竟出现在哪个环节。A能比较国际与国内运行，却还混入了不同机场流程；B能比较两个境外保障体系，却没有同一航线上的其他机型作对照。三组资料都有价值，C最能同时区分飞机本身与国际运行条件。",
+      4,
+      "comparative-evidence"
+    );
+  }
+
   if (/自然资源.*一张图|41\.4亿条空间数据/.test(newsText) && /审批|跨部门|统一底图/.test(newsText)) {
     add(
       "one-map-data-conflict-provenance-1",
@@ -1343,7 +1354,10 @@ const museumEncyclopedia = [
   { id: "museum-stromatolite-microbial-layers", tags: ["古生物学", "微生物", "地球史"], text: "百科小知识：叠层石是一层层生长的岩石结构，常由微生物席粘住沉积颗粒并促使矿物沉淀形成。古老叠层石保存了早期生命活动的线索，现代浅海和盐湖中也能找到仍在形成的例子。" },
   { id: "museum-sea-ice-brine-channels", tags: ["海冰", "海洋学", "微生物"], text: "百科小知识：海水结冰时，大部分盐分会被挤回没有冻结的海水，少量高盐卤水会留在海冰的细小通道中。一些耐寒微生物能住在这些通道里，卤水也会影响海冰的强度和融化过程。" },
   { id: "museum-seismic-p-s-waves", tags: ["地震学", "物理", "地球内部"], text: "百科小知识：地震产生的P波传播较快，能穿过固体和液体；S波较慢，不能穿过液体。多座地震台比较两种波到达的时间，可以帮助估算震源位置；S波在地球内部的传播特点，也是判断外核为液态的重要证据。" },
-  { id: "museum-map-coordinate-reference", tags: ["地图学", "测量", "数据"], text: "百科小知识：地图上的经纬度数字还需要配套的坐标参考系统。不同系统对地球形状和原点的规定不同，同一组数字可能落在稍有偏差的位置，所以正规的地图数据会注明坐标系统、比例尺和测量时间。" }
+  { id: "museum-map-coordinate-reference", tags: ["地图学", "测量", "数据"], text: "百科小知识：地图上的经纬度数字还需要配套的坐标参考系统。不同系统对地球形状和原点的规定不同，同一组数字可能落在稍有偏差的位置，所以正规的地图数据会注明坐标系统、比例尺和测量时间。" },
+  { id: "museum-eclipse-pinhole-images", tags: ["光学", "天文学", "观察"], text: "百科小知识：日偏食时，树叶缝隙会像许多小孔成像装置，把太阳投影成一地弯弯的亮斑。亮斑的形状来自被月球遮住的太阳，不是树叶本身的形状。" },
+  { id: "museum-flight-recorder-orange", tags: ["航空工程", "安全", "材料"], text: "百科小知识：飞机上的“黑匣子”通常涂成醒目的橙色，方便事故后寻找。它的坚固外壳能承受强烈撞击、高温和水压，内部会保存飞行数据或驾驶舱声音。" },
+  { id: "museum-floodplain-storage", tags: ["河流地貌", "水文学", "生态"], text: "百科小知识：洪泛平原是河流在洪水期可能漫到的低平土地。没有被过度占用时，它能暂时容纳一部分洪水、降低下游洪峰，还会留下细泥和养分。" }
 ];
 
 const encouragements = [
@@ -1378,7 +1392,8 @@ const encouragements = [
   "🌤️📡🍑 今天把世界慢慢看清一点：你愿意分清事实和理由，就是很棒的进步！",
   "🧭🌿📊 今天一起把数字背后的故事看清楚：会比较、会追问的你，正在长出可靠的判断力！",
   "🧩🌾🔭 今天把好奇心变成小侦探：先看事实，再比较证据，你会发现世界比一个答案更有层次！",
-  "🗺️🧊🌍 今天把世界当成一本会更新的地图：看清数据从哪里来，也记得给每个结论留一条能回头检查的路！"
+  "🗺️🧊🌍 今天把世界当成一本会更新的地图：看清数据从哪里来，也记得给每个结论留一条能回头检查的路！",
+  "🌞✈️👓 今天跟着月影、飞机和新科技去发现变化：把现象看清，把理由想明白，你的思考正在发光！"
 ];
 
 const closingNotes = [
@@ -1413,7 +1428,8 @@ const closingNotes = [
   "今天的新发现先放进记忆里，明天我们再用答案检验一次推理。",
   "世界不会只给一种线索，愿你学会把数字、规则和人的生活连起来看。",
   "把今天核对过的证据装进口袋，明天再用新的问题打开它。",
-  "今天的线索来自地图、浮冰和地震波；愿你记住，可靠的答案总能说清数据从哪里来。"
+  "今天的线索来自地图、浮冰和地震波；愿你记住，可靠的答案总能说清数据从哪里来。",
+  "月影会移过大地，航线会连接城市，新工具也需要守住规则；愿你带着知识和善意继续观察世界。"
 ];
 
 const WEAK_OPTION_PATTERN = /唱歌|折纸|沙发|羽毛|玻璃珠|小石头|香味|魔法|空气变甜|蜂蜜|玩具|变书|变糖|鱼鳞|雨滴味道|云朵|一朵云|一片树叶|书包|铅笔/;
@@ -4422,7 +4438,8 @@ function selectDailyQuestion(news, dayIndex, state) {
       const matchedTags = item.tags.filter((tag) => newsText.includes(tag));
       const relatedScore = matchedTags.length * 35;
       const difficulty = quizDifficulty(item);
-      const newsQuestionScore = item.source === "news" && difficulty >= 3 ? 800 : 0;
+      // Prefer a reviewed, high-quality question tied to today's news over a generic fallback.
+      const newsQuestionScore = item.source === "news" && difficulty >= 3 ? 1800 : 0;
       const difficultyScore = difficulty >= 4 ? 760 : difficulty >= 3 ? 520 : difficulty === 2 ? 60 : -700;
       const recentPenalty = recentIds.has(item.id) ? -1000 : 0;
       const recentConceptPenalty = recentConceptIds.has(candidate.conceptId) ? -1800 : 0;

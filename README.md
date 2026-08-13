@@ -39,7 +39,7 @@
 每期包含：
 
 - 桃子宝贝每日情报开场与日期。
-- 当日合格小情报，正常目标为 5 条。
+- 当日合格小情报，不设固定数量指标，最多 5 条，以质量门禁结果为准。
 - 3 条不重复的“博物小百科”。
 - 1 道今日探索题。
 - 上一期探索题及参考答案。
@@ -249,7 +249,7 @@ When a gate fails, the workflow stops. It must never invent news, reduce standar
 Every issue contains:
 
 - The Peach Daily News greeting and date.
-- Eligible daily stories, with a normal target of five.
+- Eligible daily stories, with no fixed quota and a maximum of five, determined by the quality gates.
 - Three non-repeating encyclopedia entries.
 - One daily exploration question.
 - The previous exploration question and its reference answer.

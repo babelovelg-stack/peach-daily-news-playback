@@ -140,6 +140,9 @@ test("limits daily stories to politics, technology, society, and major internati
   assert.equal(classifyNewsPillar("尼泊尔流行性乙型脑炎病例增加，一个月内报告9人死亡"), "国际大事");
   assert.equal(classifyNewsPillar("哥伦比亚发生7.4级地震，多地报告建筑受损"), "国际大事");
   assert.equal(classifyNewsPillar("自然资源部推进全国自然资源一张图建设"), "时政");
+  assert.equal(classifyNewsPillar("C919完成首次国际商业航班飞行"), "科技");
+  assert.equal(classifyNewsPillar("西班牙和冰岛迎来日全食，科研团队同步观测"), "科技");
+  assert.equal(classifyNewsPillar("智能眼镜拍摄功能带来新的隐私保护问题"), "科技");
 
   const issues = newsQualityIssues({
     sourceTitle: "城市夜市发布夏日美食打卡地图",
