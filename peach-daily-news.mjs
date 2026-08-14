@@ -40,6 +40,7 @@ const MAX_NEWS_COUNT = isTest ? 2 : 8;
 const MIN_DAILY_NEWS_COUNT = isTest ? 1 : 2;
 const MIN_DAILY_PUBLISHER_COUNT = isTest ? 1 : 2;
 const MAX_ITEMS_PER_PUBLISHER = Number(process.env.PEACH_NEWS_MAX_PER_PUBLISHER || 2);
+const RECENT_MESSAGE_COPY_MEMORY_LIMIT = 30;
 // Keep a 45-issue no-repeat window so the finite, reviewed fact set can rotate without halting delivery.
 const RECENT_ENCYCLOPEDIA_MEMORY_LIMIT = 135;
 const RECENT_QUESTION_CONCEPT_SELECTION_LIMIT = 14;
@@ -4150,7 +4151,7 @@ function mergeRecentIds(previous = [], next = [], limit = 24) {
 }
 
 function selectUniqueTextVariant(variants, state, stateKey, dayIndex, salt = 0) {
-  const recent = new Set((Array.isArray(state[stateKey]) ? state[stateKey] : []).filter(Boolean));
+  const recent = new Set(getRecentIds(state, stateKey, [], RECENT_MESSAGE_COPY_MEMORY_LIMIT));
   const start = Math.abs((dayIndex + salt) * 7) % variants.length;
   for (let offset = 0; offset < variants.length; offset += 1) {
     const text = variants[(start + offset) % variants.length];
@@ -4770,8 +4771,8 @@ function validateMessageQuality(message, previousState = {}) {
   const errors = [];
   const quality = message.quality || {};
   const questionSeen = { texts: new Set(), concepts: new Set() };
-  const recentIntroTexts = new Set(getRecentIds(previousState, "recentIntroTexts"));
-  const recentClosingTexts = new Set(getRecentIds(previousState, "recentClosingTexts"));
+  const recentIntroTexts = new Set(getRecentIds(previousState, "recentIntroTexts", [], RECENT_MESSAGE_COPY_MEMORY_LIMIT));
+  const recentClosingTexts = new Set(getRecentIds(previousState, "recentClosingTexts", [], RECENT_MESSAGE_COPY_MEMORY_LIMIT));
 
   const genericContentMatch = message.text.match(GENERIC_CONTENT_PATTERN);
   if (genericContentMatch) {
@@ -4929,9 +4930,9 @@ ${renderQuizQuestionHtml(question)}
       recentEncyclopediaTags: mergeRecentIds(state.recentEncyclopediaTags, knowledgeItems.map(primaryTag), 18),
       recentEncyclopediaTexts: mergeRecentIds(state.recentEncyclopediaTexts, knowledgeItems.map((item) => item.textFingerprint || textFingerprint(item.text)), 1200),
       lastIntroText: encouragement.text,
-      recentIntroTexts: mergeRecentIds(state.recentIntroTexts, [encouragement.fingerprint], 90),
+      recentIntroTexts: mergeRecentIds(state.recentIntroTexts, [encouragement.fingerprint], RECENT_MESSAGE_COPY_MEMORY_LIMIT),
       lastClosingText: closingNote.text,
-      recentClosingTexts: mergeRecentIds(state.recentClosingTexts, [closingNote.fingerprint], 90),
+      recentClosingTexts: mergeRecentIds(state.recentClosingTexts, [closingNote.fingerprint], RECENT_MESSAGE_COPY_MEMORY_LIMIT),
       lastNewsTitles: blocks.map((block) => block.title),
       recentNewsTitles: mergeRecentIds(
         state.recentNewsTitles || state.lastNewsTitles,
@@ -5130,9 +5131,9 @@ ${renderKnowledgeHtml(issue.knowledgeItems)}
       recentEncyclopediaTags: rollingState.recentEncyclopediaTags,
       recentEncyclopediaTexts: rollingState.recentEncyclopediaTexts,
       lastIntroText: encouragement.text,
-      recentIntroTexts: mergeRecentIds(initialState.recentIntroTexts, [encouragement.fingerprint], 90),
+      recentIntroTexts: mergeRecentIds(initialState.recentIntroTexts, [encouragement.fingerprint], RECENT_MESSAGE_COPY_MEMORY_LIMIT),
       lastClosingText: closingNote.text,
-      recentClosingTexts: mergeRecentIds(initialState.recentClosingTexts, [closingNote.fingerprint], 90),
+      recentClosingTexts: mergeRecentIds(initialState.recentClosingTexts, [closingNote.fingerprint], RECENT_MESSAGE_COPY_MEMORY_LIMIT),
       lastNewsTitles: issues.flatMap((issue) => issue.blocks.map((block) => `${issue.dateKey} ${block.title}`)),
       recentNewsTitles: rollingState.recentNewsTitles
     },
