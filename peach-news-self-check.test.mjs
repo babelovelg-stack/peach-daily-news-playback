@@ -200,6 +200,27 @@ test("accepts a fresh, coherent issue with multiple independent sources", () => 
   assert.deepEqual(validateNewsAuditManifest(manifest()), []);
 });
 
+test("defaults the final audit gate to the rolling 24-hour window", () => {
+  const audit = manifest();
+  delete audit.requirements.maxAgeHours;
+
+  const errors = validateNewsAuditManifest(audit);
+  assert.ok(errors.some((issue) => issue.includes("超过24小时")), errors.join("\n"));
+});
+
+test("rejects the exact previous cutoff so adjacent issues cannot overlap", () => {
+  const audit = manifest(passingStories().map((item, index) => ({
+    ...item,
+    published: Date.parse(index === 0
+      ? "2026-07-18T10:00:00.000Z"
+      : `2026-07-18T10:00:0${index}.000Z`)
+  })));
+  audit.requirements.maxAgeHours = 24;
+
+  const errors = validateNewsAuditManifest(audit);
+  assert.ok(errors.some((issue) => issue.includes("第1条小情报不在滚动24小时收集窗口内")), errors.join("\n"));
+});
+
 test("checks every final source link and reports an unreachable article", async () => {
   const requested = [];
   const errors = await checkNewsSourceLinks(manifest(), {

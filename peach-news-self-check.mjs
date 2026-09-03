@@ -3,6 +3,7 @@ import path from "node:path";
 import { fileURLToPath } from "node:url";
 
 import { dailyNewsIssueQualityIssues } from "./peach-content-quality.mjs";
+import { isPublishedInNewsWindow, newsWindowBounds } from "./peach-news-window.mjs";
 
 const DEFAULT_AUDIT_FILE = "peach-news-audit.json";
 
@@ -11,7 +12,7 @@ function requirementsFor(manifest = {}) {
     minimumNewsCount: 2,
     minimumPublisherCount: 2,
     maxItemsPerPublisher: 2,
-    maxAgeHours: 72,
+    maxAgeHours: 24,
     ...(manifest.requirements || {})
   };
 }
@@ -32,6 +33,22 @@ export function validateNewsAuditManifest(manifest = {}) {
       asOf: issue.asOf,
       ...requirements
     }).map((problem) => `${label}：${problem}`));
+
+    if (Number.isFinite(Date.parse(issue.asOf))) {
+      const { start } = newsWindowBounds(issue.asOf, requirements.maxAgeHours);
+      if (issue.windowStart && Date.parse(issue.windowStart) !== start.getTime()) {
+        errors.push(`${label}：新闻收集窗口起点与截止点不匹配`);
+      }
+      for (const [storyIndex, item] of (issue.newsItems || []).entries()) {
+        if (Number.isFinite(Number(item.published)) && !isPublishedInNewsWindow(
+          Number(item.published),
+          issue.asOf,
+          requirements.maxAgeHours
+        )) {
+          errors.push(`${label}：第${storyIndex + 1}条小情报不在滚动${requirements.maxAgeHours}小时收集窗口内`);
+        }
+      }
+    }
   }
   return errors;
 }

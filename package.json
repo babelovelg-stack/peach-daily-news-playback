@@ -5,7 +5,7 @@
   "type": "module",
   "scripts": {
     "news": "node peach-daily-news.mjs",
-    "test": "node --test peach-content-quality.test.mjs peach-news-self-check.test.mjs peach-schedule-gate.test.mjs peach-quiz-option-rotation.test.mjs peach-message-copy.test.mjs peach-question-pool.test.mjs peach-repository-migration.test.mjs google-apps-script/Code.test.mjs",
+    "test": "node --test peach-content-quality.test.mjs peach-news-self-check.test.mjs peach-schedule-gate.test.mjs peach-quiz-option-rotation.test.mjs peach-message-copy.test.mjs peach-question-pool.test.mjs peach-repository-migration.test.mjs peach-news-window.test.mjs google-apps-script/Code.test.mjs",
     "self-check": "node peach-news-self-check.mjs"
   },
   "dependencies": {

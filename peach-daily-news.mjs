@@ -17,6 +17,12 @@ import {
   titlesAreSemanticDuplicates
 } from "./peach-content-quality.mjs";
 import { remapQuizAnswerOptionLetters } from "./peach-quiz-option-rotation.mjs";
+import {
+  isPublishedInNewsWindow,
+  newsWindowBounds,
+  reportCutoffForDate,
+  reportCutoffForInstant
+} from "./peach-news-window.mjs";
 
 const execFileAsync = promisify(execFile);
 const EMAIL_TO = process.env.PEACH_NEWS_EMAIL_TO || "ctmt1412@qq.com";
@@ -33,7 +39,7 @@ const OUT_NEXT_STATE = "peach-news-next-state.json";
 const OUT_NEWS_AUDIT = "peach-news-audit.json";
 const OUT_PLAYBACK_ROOT = process.env.PEACH_NEWS_PLAYBACK_ROOT || "peach-playback";
 const CURATED_NEWS_FILE = process.env.PEACH_NEWS_CURATED_FILE || "peach-curated-news.json";
-const MAX_NEWS_AGE_HOURS = Number(process.env.PEACH_NEWS_MAX_AGE_HOURS || 72);
+const MAX_NEWS_AGE_HOURS = Number(process.env.PEACH_NEWS_MAX_AGE_HOURS || 24);
 // Five is a preferred maximum, not a quota; quality filters may return fewer stories.
 const TARGET_NEWS_COUNT = isTest ? 2 : 5;
 const MAX_NEWS_COUNT = isTest ? 2 : 8;
@@ -50,7 +56,10 @@ const DATE_LIST_OVERRIDE = process.env.PEACH_NEWS_DATES || getArgValue("--dates"
 const DATE_OVERRIDE = process.env.PEACH_NEWS_DATE || getArgValue("--date");
 const REPORT_DATES = DATE_LIST_OVERRIDE ? parseReportDateList(DATE_LIST_OVERRIDE) : [];
 const REPORT_DATE = REPORT_DATES[0] || parseReportDate(DATE_OVERRIDE);
-const NEWS_AS_OF = REPORT_DATE || new Date();
+const NEWS_AS_OF = REPORT_DATE || reportCutoffForInstant(new Date(), {
+  timezone: TIMEZONE,
+  sendHour: SEND_HOUR
+});
 const PLAYBACK_ENABLED =
   process.env.PEACH_NEWS_ENABLE_PLAYBACK === "true" ||
   Boolean(process.env.PEACH_NEWS_PLAYBACK_BASE_URL) ||
@@ -1768,7 +1777,10 @@ function parseReportDate(value) {
     throw new Error(`PEACH_NEWS_DATE currently supports Asia/Shanghai only, got: ${TIMEZONE}`);
   }
 
-  return new Date(`${value}T23:59:59+08:00`);
+  return reportCutoffForDate(value, {
+    timezone: TIMEZONE,
+    sendHour: SEND_HOUR
+  });
 }
 
 function parseReportDateList(value) {
@@ -2232,8 +2244,7 @@ function getAgeHours(item, asOf = NEWS_AS_OF) {
 }
 
 function isFresh(item, asOf = NEWS_AS_OF) {
-  const ageHours = getAgeHours(item, asOf);
-  return ageHours >= 0 && ageHours <= MAX_NEWS_AGE_HOURS;
+  return isPublishedInNewsWindow(item.published, asOf, MAX_NEWS_AGE_HOURS);
 }
 
 function isSuitableForKids(item) {
@@ -2793,6 +2804,22 @@ function formatDate(date) {
     day: "numeric",
     weekday: "long"
   }).format(date);
+}
+
+function formatNewsWindowMoment(date) {
+  return new Intl.DateTimeFormat("zh-CN", {
+    timeZone: TIMEZONE,
+    month: "numeric",
+    day: "numeric",
+    hour: "2-digit",
+    minute: "2-digit",
+    hourCycle: "h23"
+  }).format(date);
+}
+
+function formatNewsWindowNote(cutoff, dayLabel = "今天") {
+  const { start, end } = newsWindowBounds(cutoff, MAX_NEWS_AGE_HOURS);
+  return `${dayLabel}的新闻收集窗口是 ${formatNewsWindowMoment(start)} 之后至 ${formatNewsWindowMoment(end)}；按相邻推送截止点滚动 ${MAX_NEWS_AGE_HOURS} 小时，不按自然日零点切分。宁可少一点，也不拿旧消息和编出来的故事凑数。`;
 }
 
 function cleanNewsText(value = "") {
@@ -4841,7 +4868,7 @@ function validateMessageQuality(message, previousState = {}) {
 }
 
 function buildEmail(news, state) {
-  const now = REPORT_DATE || new Date();
+  const now = NEWS_AS_OF;
   const dateText = formatDate(now);
   const dayIndex = Math.floor(now.getTime() / 86400000);
   const question = selectDailyQuestion(news, dayIndex, state);
@@ -4857,7 +4884,7 @@ function buildEmail(news, state) {
   const closingNote = selectUniqueTextVariant(closingNotes, state, "recentClosingTexts", dayIndex, 11);
   const intro = `桃子宝贝，你的每日情报来啦！${encouragement.text}`;
   const subject = `${isTest ? "测试 - " : ""}桃子宝贝的每日情报 - ${dateText}`;
-  const freshnessNote = `${dayLabel}的小情报来自截至 ${dateText} 可读取的公开新闻源；宁可少一点，也不拿旧消息和编出来的故事凑数。`;
+  const freshnessNote = formatNewsWindowNote(now, dayLabel);
   const emptyNote = blocks.length
     ? ""
     : `${dayLabel}没有抓到足够新鲜、适合小学生阅读的重点新闻，所以这封信只保留博物小百科和探索题，不编假新闻。`;
@@ -4974,6 +5001,7 @@ ${renderQuizQuestionHtml(question)}
       issues: [{
         dateKey: getLocalDateKey(now),
         asOf: now.toISOString(),
+        windowStart: newsWindowBounds(now, MAX_NEWS_AGE_HOURS).start.toISOString(),
         question,
         knowledgeItems,
         newsItems,
@@ -5025,6 +5053,7 @@ async function buildMergedBackfillEmail(reportDates, initialState) {
       question,
       knowledgeItems,
       sourceSummary: formatSourceSummary(news),
+      freshnessNote: formatNewsWindowNote(reportDate, "这一天"),
       previousState: issuePreviousState
     });
 
@@ -5078,6 +5107,7 @@ async function buildMergedBackfillEmail(reportDates, initialState) {
     ...issues.flatMap((issue, index) => [
       `【${issue.dateText}】`,
       issue.sourceSummary,
+      issue.freshnessNote,
       "",
       ...(index > 0 ? [
         "上一天探索题答案",
@@ -5119,6 +5149,7 @@ async function buildMergedBackfillEmail(reportDates, initialState) {
 </div>
 	${issues.map((issue, index) => `<div class="day">${escapeHtml(issue.dateText)}</div>
 	${issue.sourceSummary ? `<p class="note">${escapeHtml(issue.sourceSummary)}</p>` : ""}
+	<p class="note">${escapeHtml(issue.freshnessNote)}</p>
 	${index > 0 ? `<div class="prev-answer">${renderTextLinesHtml(answerRevealText(issues[index - 1].question.q, issues[index - 1].question.a, "上一天"))}</div>` : ""}
 	<div class="section-title">这一天的小情报</div>
 	${issue.blocks.length ? issue.blocks.map(renderNewsBlockHtml).join("") : `<div class="card"><p class="note">这一天没有抓到足够新鲜、适合小学生阅读的重点新闻，所以不编假新闻。</p></div>`}
@@ -5171,6 +5202,7 @@ ${renderKnowledgeHtml(issue.knowledgeItems)}
       issues: issues.map((issue) => ({
         dateKey: issue.dateKey,
         asOf: issue.date.toISOString(),
+        windowStart: newsWindowBounds(issue.date, MAX_NEWS_AGE_HOURS).start.toISOString(),
         question: issue.question,
         knowledgeItems: issue.knowledgeItems,
         newsItems: issue.newsItems,
@@ -5193,6 +5225,7 @@ function buildNewsAuditManifest(message, previousState = {}) {
     issues: (message.quality?.issues || []).map((issue) => ({
       dateKey: issue.dateKey,
       asOf: issue.asOf,
+      windowStart: issue.windowStart,
       newsItems: issue.newsItems || []
     }))
   };

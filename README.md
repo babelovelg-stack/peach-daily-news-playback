@@ -14,7 +14,7 @@
 
 ### 不可降低的内容与质量约束
 
-正常模式每期最多 5 条新闻，不把 5 条当作配额；至少需要 2 条合格新闻和 2 个独立来源。完整且来源多样的人工编辑稿不会再用低置信度抓取稿补足数量。同一来源默认最多入选 2 条，新闻默认不得早于 72 小时。测试模式使用更小样本，但不绕过质量规则。
+正常模式每期最多 5 条新闻，不把 5 条当作配额；至少需要 2 条合格新闻和 2 个独立来源。完整且来源多样的人工编辑稿不会再用低置信度抓取稿补足数量。同一来源默认最多入选 2 条。新闻默认按相邻推送截止点之间的滚动 24 小时收集；北京时区的默认推送截止点是 18:00，因此窗口从前一天 18:00 之后开始，到当天 18:00 为止，不按自然日的 00:00–24:00 切分。测试模式使用更小样本，但不绕过质量规则。
 
 每条新闻必须包含：
 
@@ -156,7 +156,9 @@ python3 -m http.server 8000
 | `REPORT_EMAIL_FROM` | 否 | 发件人，默认使用 SMTP 用户 |
 | `PEACH_NEWS_EMAIL_TO` | 发送时 | 收件人 |
 | `PEACH_NEWS_DATE` / `PEACH_NEWS_DATES` | 否 | 指定单个或多个生成日期 |
-| `PEACH_NEWS_MAX_AGE_HOURS` | 否 | 新闻最大时效，默认 `72` 小时 |
+| `PEACH_NEWS_TIMEZONE` | 否 | 推送截止点时区；当前使用 `Asia/Shanghai` |
+| `PEACH_NEWS_SEND_HOUR` | 否 | 每日推送截止点小时，默认 `18` |
+| `PEACH_NEWS_MAX_AGE_HOURS` | 否 | 以本次推送截止点向前计算的滚动窗口长度，默认 `24` 小时 |
 | `PEACH_NEWS_MAX_PER_PUBLISHER` | 否 | 单一来源最多入选数，默认 `2` |
 | `PEACH_NEWS_ENABLE_PLAYBACK` | 否 | 是否生成图文语音产物 |
 | `PEACH_NEWS_PLAYBACK_BASE_URL` | 发布时 | 按日期拼接的播放页基础地址 |
@@ -224,7 +226,7 @@ It is both the generator and the static playback site. A daily issue is sent onl
 
 ### Non-negotiable content and quality rules
 
-Normal mode accepts up to five stories rather than treating five as a quota, and it requires at least two eligible stories from at least two independent publishers. A complete, source-diverse edited issue is not padded with lower-confidence feed rewrites. One publisher contributes at most two stories by default, and stories are no older than 72 hours by default. Test mode uses a smaller sample without bypassing quality rules.
+Normal mode accepts up to five stories rather than treating five as a quota, and it requires at least two eligible stories from at least two independent publishers. A complete, source-diverse edited issue is not padded with lower-confidence feed rewrites. One publisher contributes at most two stories by default. Stories are collected from the rolling 24-hour interval between adjacent delivery cutoffs. With the default 18:00 cutoff in the Beijing time zone, the interval starts just after the previous day's 18:00 cutoff and ends at the current day's 18:00 cutoff, rather than following the natural 00:00–24:00 calendar day. Test mode uses a smaller sample without bypassing quality rules.
 
 Every story must include:
 
@@ -366,7 +368,9 @@ Then open `http://localhost:8000/` or `http://localhost:8000/peach/YYYY-MM-DD/`.
 | `REPORT_EMAIL_FROM` | No | Sender; defaults to the SMTP user |
 | `PEACH_NEWS_EMAIL_TO` | For sending | Recipient |
 | `PEACH_NEWS_DATE` / `PEACH_NEWS_DATES` | No | One or more generation dates |
-| `PEACH_NEWS_MAX_AGE_HOURS` | No | Maximum source age; defaults to `72` hours |
+| `PEACH_NEWS_TIMEZONE` | No | Delivery-cutoff time zone; currently `Asia/Shanghai` |
+| `PEACH_NEWS_SEND_HOUR` | No | Daily delivery-cutoff hour; defaults to `18` |
+| `PEACH_NEWS_MAX_AGE_HOURS` | No | Rolling window length ending at the current delivery cutoff; defaults to `24` hours |
 | `PEACH_NEWS_MAX_PER_PUBLISHER` | No | Maximum items per publisher; defaults to `2` |
 | `PEACH_NEWS_ENABLE_PLAYBACK` | No | Enables visual-and-audio output |
 | `PEACH_NEWS_PLAYBACK_BASE_URL` | For publishing | Base URL used to build dated playback URLs |

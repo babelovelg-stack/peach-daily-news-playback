@@ -295,7 +295,7 @@ export function dailyNewsIssueQualityIssues({
   minimumNewsCount = 2,
   minimumPublisherCount = 2,
   maxItemsPerPublisher = 2,
-  maxAgeHours = 72
+  maxAgeHours = 24
 } = {}) {
   const issues = [];
   const asOfTime = Date.parse(asOf);
