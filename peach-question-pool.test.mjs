@@ -1,9 +1,30 @@
 import assert from "node:assert/strict";
 import fs from "node:fs";
 import test from "node:test";
+import { newsQualityIssues } from "./peach-content-quality.mjs";
 
 const source = fs.readFileSync(new URL("./peach-daily-news.mjs", import.meta.url), "utf8");
 const curatedNews = JSON.parse(fs.readFileSync(new URL("./peach-curated-news.json", import.meta.url), "utf8"));
+
+test("provides two coherent independent stories inside the September 16 cutoff window", () => {
+  const start = Date.parse("2026-09-15T18:00:00+08:00");
+  const end = Date.parse("2026-09-16T18:00:00+08:00");
+  const stories = curatedNews.filter((item) => Date.parse(item.published) > start && Date.parse(item.published) <= end);
+  assert.ok(stories.length >= 2);
+  assert.ok(new Set(stories.map((item) => item.publisher)).size >= 2);
+  assert.ok(new Set(stories.map((item) => new URL(item.link).hostname)).size >= 2);
+  for (const item of stories) {
+    assert.deepEqual(newsQualityIssues({ sourceTitle: item.title, sourceDescription: item.description,
+      title: item.kidTitle, summary: item.kidSummary, value: item.kidValue, impact: item.kidImpact }), []);
+  }
+});
+
+test("provides a new peach-pigment interaction quiz with clearly labelled simulated data", () => {
+  assert.match(source, /"peach-pigment-light-interaction-1"/);
+  assert.match(source, /模拟数据，不是新闻中的实测数值/);
+  assert.match(source, /"peach-pigment-light-interaction-1"[\s\S]{0,2500}\n\s+4,\n\s+"difference-comparison"/);
+  assert.match(source, /4－2＝2，11－3＝8/);
+});
 
 test("provides a reviewed high-quality quiz for real-time hyperspectral imaging news", () => {
   assert.match(source, /"hyperspectral-realtime-validation-1"/);
