@@ -6,6 +6,26 @@ import { newsQualityIssues } from "./peach-content-quality.mjs";
 const source = fs.readFileSync(new URL("./peach-daily-news.mjs", import.meta.url), "utf8");
 const curatedNews = JSON.parse(fs.readFileSync(new URL("./peach-curated-news.json", import.meta.url), "utf8"));
 
+test("provides two coherent independent stories inside the September 17 cutoff window", () => {
+  const start = Date.parse("2026-09-16T18:00:00+08:00");
+  const end = Date.parse("2026-09-17T18:00:00+08:00");
+  const stories = curatedNews.filter((item) => Date.parse(item.published) > start && Date.parse(item.published) <= end);
+  assert.ok(stories.length >= 2);
+  assert.ok(new Set(stories.map((item) => item.publisher)).size >= 2);
+  assert.ok(new Set(stories.map((item) => new URL(item.link).hostname)).size >= 2);
+  for (const item of stories) {
+    assert.deepEqual(newsQualityIssues({ sourceTitle: item.title, sourceDescription: item.description,
+      title: item.kidTitle, summary: item.kidSummary, value: item.kidValue, impact: item.kidImpact }), []);
+  }
+});
+
+test("provides a fossil preservation quiz that labels hypothetical evidence", () => {
+  assert.ok(source.includes('"fossil-preservation-missing-evidence-1"'));
+  assert.ok(source.includes("这是假设情境，不是报道中的四件标本记录"));
+  assert.ok(/"fossil-preservation-missing-evidence-1"[\s\S]{0,2500}\n\s+4,\n\s+"comparative-evidence"/.test(source));
+  assert.ok(source.includes("没有观察到，不等于原来不存在"));
+});
+
 test("provides two coherent independent stories inside the September 16 cutoff window", () => {
   const start = Date.parse("2026-09-15T18:00:00+08:00");
   const end = Date.parse("2026-09-16T18:00:00+08:00");
