@@ -6,6 +6,21 @@ import { newsQualityIssues } from "./peach-content-quality.mjs";
 const source = fs.readFileSync(new URL("./peach-daily-news.mjs", import.meta.url), "utf8");
 const curatedNews = JSON.parse(fs.readFileSync(new URL("./peach-curated-news.json", import.meta.url), "utf8"));
 
+test("provides two independent stories across the September 18 rolling window", () => {
+  const start = Date.parse("2026-09-17T18:00:00+08:00");
+  const end = Date.parse("2026-09-18T18:00:00+08:00");
+  const stories = curatedNews.filter((item) => Date.parse(item.published) > start && Date.parse(item.published) <= end);
+  assert.ok(stories.length >= 2);
+  assert.ok(new Set(stories.map((item) => item.publisher)).size >= 2);
+  assert.ok(new Set(stories.map((item) => new URL(item.link).hostname)).size >= 2);
+  assert.ok(stories.some((item) => item.published.startsWith("2026-09-17")));
+  assert.ok(stories.some((item) => item.published.startsWith("2026-09-18")));
+  for (const item of stories) {
+    assert.deepEqual(newsQualityIssues({ sourceTitle: item.title, sourceDescription: item.description,
+      title: item.kidTitle, summary: item.kidSummary, value: item.kidValue, impact: item.kidImpact }), []);
+  }
+});
+
 test("provides two coherent independent stories inside the September 17 cutoff window", () => {
   const start = Date.parse("2026-09-16T18:00:00+08:00");
   const end = Date.parse("2026-09-17T18:00:00+08:00");
