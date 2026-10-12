@@ -6,6 +6,28 @@ import { newsQualityIssues } from "./peach-content-quality.mjs";
 const source = fs.readFileSync(new URL("./peach-daily-news.mjs", import.meta.url), "utf8");
 const curatedNews = JSON.parse(fs.readFileSync(new URL("./peach-curated-news.json", import.meta.url), "utf8"));
 
+test("provides two independent environmental stories inside the October 12 rolling window", () => {
+  const start = Date.parse("2026-10-11T18:00:00+08:00");
+  const end = Date.parse("2026-10-12T18:00:00+08:00");
+  const stories = curatedNews.filter((item) => Date.parse(item.published) > start && Date.parse(item.published) <= end);
+  assert.equal(stories.length, 2);
+  assert.equal(new Set(stories.map((item) => item.publisher)).size, 2);
+  assert.equal(new Set(stories.map((item) => new URL(item.link).hostname)).size, 2);
+  for (const item of stories) {
+    assert.deepEqual(newsQualityIssues({ sourceTitle: item.title, sourceDescription: item.description,
+      title: item.kidTitle, summary: item.kidSummary, value: item.kidValue, impact: item.kidImpact }), []);
+  }
+  assert.ok(stories.some((item) => /国家公园/.test(item.title) && /75%.*指标/.test(item.kidValue)));
+  assert.ok(stories.some((item) => /候鸟/.test(item.title) && /50米/.test(item.kidImpact)));
+});
+
+test("provides a bird-count deduplication quiz with labelled simulated observations", () => {
+  assert.ok(source.includes('"bird-census-distinct-individuals-1"'));
+  assert.ok(source.includes("模拟记录，不是新闻中的实测数据"));
+  assert.ok(source.includes("20＋30－8＝42"));
+  assert.ok(/"bird-census-distinct-individuals-1"[\s\S]{0,2000}\n\s+4,\n\s+"difference-comparison"/.test(source));
+});
+
 test("provides two independent stories across the September 18 rolling window", () => {
   const start = Date.parse("2026-09-17T18:00:00+08:00");
   const end = Date.parse("2026-09-18T18:00:00+08:00");
