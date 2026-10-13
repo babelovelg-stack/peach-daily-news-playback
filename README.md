@@ -49,6 +49,7 @@
 ### 语音与页面格式
 
 - 语音引擎：`edge-tts==7.2.8`。
+- 生成入口自动通过项目内的 `peach-edge-tts.py` 调用语音引擎，将合成请求指向微软当前的 `api.msedgeservices.com` 地址，修复旧地址返回 403 的问题；不修改全局 Python 包，也不改变声音、语速、音高或签名算法。兼容措施依据[上游待合并修复](https://github.com/rany2/edge-tts/pull/491)，不是已发布的官方新版。升级依赖前必须重新验证并移除不再需要的兼容层；遇到其他版本时适配器会主动停止。
 - 默认声音：`zh-CN-XiaoyiNeural`。
 - 默认语速：`-4%`。
 - 默认音高：`+8Hz`。
@@ -261,6 +262,7 @@ The exploration question appears in email and on the page but is excluded from n
 ### Speech and page format
 
 - Speech engine: `edge-tts==7.2.8`.
+- Generation invokes the engine through the project-local `peach-edge-tts.py`, directing synthesis requests to Microsoft's current `api.msedgeservices.com` endpoint to resolve the legacy endpoint's 403 response. It does not modify global Python packages, voice, rate, pitch, or signing. This compatibility measure follows an [unmerged upstream fix](https://github.com/rany2/edge-tts/pull/491), not a newly released official version. Revalidate it before upgrading the dependency and remove it when no longer needed; the adapter stops on any other version.
 - Default voice: `zh-CN-XiaoyiNeural`.
 - Default rate: `-4%`.
 - Default pitch: `+8Hz`.

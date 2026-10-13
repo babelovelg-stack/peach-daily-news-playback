@@ -2,6 +2,7 @@ import fs from "node:fs/promises";
 import path from "node:path";
 import { execFile } from "node:child_process";
 import { promisify } from "node:util";
+import { fileURLToPath } from "node:url";
 import nodemailer from "nodemailer";
 import { XMLParser } from "fast-xml-parser";
 import {
@@ -2077,8 +2078,8 @@ async function generatePlaybackAssets(message) {
   await execFileAsync(
     "python3",
     [
-      "-m",
-      "edge_tts",
+      "-B",
+      fileURLToPath(new URL("./peach-edge-tts.py", import.meta.url)),
       "--voice",
       PLAYBACK_VOICE,
       `--rate=${PLAYBACK_RATE}`,
