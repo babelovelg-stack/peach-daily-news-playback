@@ -90,6 +90,8 @@ RSS / 搜索源 / 人工精选源
 
 `google-apps-script/` 提供独立于电脑的外部云触发器：北京时间 18:00 主触发、18:10 备触发，小时级修复任务负责补建缺失触发器。外部触发和 GitHub 计划任务使用同一日期门禁。
 
+定时触发成功不等于当天一定发出。当前选稿依赖 RSS、预设改写规则与 `peach-curated-news.json` 中已核对的编辑稿，尚未接入云端模型进行自主检索、阅读全文和智能编辑。遇到新闻源过期、空列表或缺少合格解释时，重复触发不会自动补齐编辑稿；须为原定 24 小时窗口补充可靠来源，并重新通过完整校验。请以实际发信日志、发送状态和线上播放文件核验投递结果，而不是只查看任务启用状态。
+
 ### 在线访问
 
 - 站点首页：<https://babelovelg-stack.github.io/peach-daily-news-playback/>
@@ -302,6 +304,8 @@ Email is never sent when a hosted file is missing or differs from the local outp
 - `peach-news-state.json`, the schedule gate, and the concurrency group jointly prevent duplicate delivery for one date.
 
 `google-apps-script/` provides a computer-independent cloud trigger: a primary event at 18:00 Beijing time, a backup at 18:10, and an hourly repair job that recreates missing triggers. External dispatch and GitHub schedules use the same date gate.
+
+A successful trigger does not guarantee daily delivery. Selection currently relies on RSS, predefined rewriting rules, and reviewed entries in `peach-curated-news.json`; no cloud model is integrated for autonomous research, full-article reading, or intelligent editing. Repeated triggers cannot replenish reviewed content when feeds are stale or empty or suitable explanations are missing. Add verified sources within the original 24-hour window and rerun the complete validation flow. Confirm delivery through actual send logs, persisted state, and hosted playback files, not merely an enabled workflow.
 
 ### Live site
 

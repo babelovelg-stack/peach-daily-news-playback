@@ -6,6 +6,22 @@ import { newsQualityIssues } from "./peach-content-quality.mjs";
 const source = fs.readFileSync(new URL("./peach-daily-news.mjs", import.meta.url), "utf8");
 const curatedNews = JSON.parse(fs.readFileSync(new URL("./peach-curated-news.json", import.meta.url), "utf8"));
 
+test("provides two reviewed stories across the October 13 rolling window", () => {
+  const start = Date.parse("2026-10-12T18:00:00+08:00");
+  const end = Date.parse("2026-10-13T18:00:00+08:00");
+  const stories = curatedNews.filter((item) => Date.parse(item.published) > start && Date.parse(item.published) <= end);
+  assert.equal(stories.length, 2);
+  assert.equal(new Set(stories.map((item) => item.publisher)).size, 2);
+  assert.equal(new Set(stories.map((item) => new URL(item.link).hostname)).size, 2);
+  for (const item of stories) {
+    assert.deepEqual(newsQualityIssues({ sourceTitle: item.title, sourceDescription: item.description,
+      title: item.kidTitle, summary: item.kidSummary, value: item.kidValue, impact: item.kidImpact }), []);
+  }
+  assert.ok(stories.some((item) => item.published.startsWith("2026-10-12") && /铁路/.test(item.title)));
+  assert.ok(stories.some((item) => /机器人/.test(item.title) && /10月7日/.test(item.kidSummary)
+    && /不能.*自主/.test(item.kidImpact)));
+});
+
 test("provides two independent environmental stories inside the October 12 rolling window", () => {
   const start = Date.parse("2026-10-11T18:00:00+08:00");
   const end = Date.parse("2026-10-12T18:00:00+08:00");
