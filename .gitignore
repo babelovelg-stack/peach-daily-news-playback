@@ -6,4 +6,5 @@ node_modules/
 /peach-daily-news-resend.txt
 /peach-news-next-state.json
 /peach-news-audit.json
+/peach-playback-manifest.json
 /peach-playback/

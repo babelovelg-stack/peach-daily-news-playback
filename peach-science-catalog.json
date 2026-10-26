@@ -1,0 +1,2238 @@
+[
+  {
+    "id": "science-solar-fusion",
+    "conceptId": "solar-fusion",
+    "tags": [
+      "天文",
+      "太阳"
+    ],
+    "text": "百科小知识：太阳核心十分炽热，核聚变会把氢变成氦，并释放支持太阳发光发热的能量。",
+    "publisher": "NASA",
+    "link": "https://science.nasa.gov/sun/facts/",
+    "verifiedAt": "2026-10-26",
+    "legacyIds": [],
+    "legacyConceptTerms": []
+  },
+  {
+    "id": "science-solar-corona",
+    "conceptId": "solar-corona",
+    "tags": [
+      "天文",
+      "太阳"
+    ],
+    "text": "百科小知识：太阳外侧的日冕比我们看到的表面更热，说明距离变化与温度的关系不是简单的越远越冷。",
+    "publisher": "NASA",
+    "link": "https://science.nasa.gov/sun/facts/",
+    "verifiedAt": "2026-10-26",
+    "legacyIds": [],
+    "legacyConceptTerms": []
+  },
+  {
+    "id": "science-solar-differential-rotation",
+    "conceptId": "solar-differential-rotation",
+    "tags": [
+      "天文",
+      "太阳"
+    ],
+    "text": "百科小知识：太阳不是坚硬的球体，赤道附近自转一圈约需二十五天，两极附近转得更慢。",
+    "publisher": "NASA",
+    "link": "https://science.nasa.gov/sun/facts/",
+    "verifiedAt": "2026-10-26",
+    "legacyIds": [],
+    "legacyConceptTerms": []
+  },
+  {
+    "id": "science-solar-galactic-orbit",
+    "conceptId": "solar-galactic-orbit",
+    "tags": [
+      "天文",
+      "太阳"
+    ],
+    "text": "百科小知识：太阳会带着行星一起绕银河系中心运动，完成一圈大约需要二亿三千万年。",
+    "publisher": "NASA",
+    "link": "https://science.nasa.gov/sun/facts/",
+    "verifiedAt": "2026-10-26",
+    "legacyIds": [
+      "museum-milky-way"
+    ],
+    "legacyConceptTerms": [
+      "银河系中心"
+    ]
+  },
+  {
+    "id": "science-light-year-distance",
+    "conceptId": "light-year-distance",
+    "tags": [
+      "天文",
+      "太阳"
+    ],
+    "text": "百科小知识：光年表示光走一年的距离，不是时间单位；天文学家会用它描述恒星之间的遥远距离。",
+    "publisher": "NASA",
+    "link": "https://science.nasa.gov/sun/facts/",
+    "verifiedAt": "2026-10-26",
+    "legacyIds": [],
+    "legacyConceptTerms": []
+  },
+  {
+    "id": "science-solar-size-mass",
+    "conceptId": "solar-size-mass",
+    "tags": [
+      "天文",
+      "太阳"
+    ],
+    "text": "百科小知识：太阳的质量约是地球的三十三万倍，巨大的质量会让它产生很强的引力。",
+    "publisher": "NASA",
+    "link": "https://science.nasa.gov/sun/facts/",
+    "verifiedAt": "2026-10-26",
+    "legacyIds": [],
+    "legacyConceptTerms": []
+  },
+  {
+    "id": "science-sun-life-energy",
+    "conceptId": "sun-life-energy",
+    "tags": [
+      "天文",
+      "太阳"
+    ],
+    "text": "百科小知识：太阳的光和能量与地球生命密切有关，但太阳本身的极端高温不适合已知生命生存。",
+    "publisher": "NASA",
+    "link": "https://science.nasa.gov/sun/facts/",
+    "verifiedAt": "2026-10-26",
+    "legacyIds": [
+      "museum-food-chain-sun"
+    ],
+    "legacyConceptTerms": [
+      "食物链的能量"
+    ]
+  },
+  {
+    "id": "science-lunar-tidal-lock",
+    "conceptId": "lunar-tidal-lock",
+    "tags": [
+      "天文",
+      "月球"
+    ],
+    "text": "百科小知识：月球自转一圈和绕地球一圈所用时间接近，因此我们通常看到月球的同一面。",
+    "publisher": "NASA",
+    "link": "https://science.nasa.gov/moon/facts/",
+    "verifiedAt": "2026-10-26",
+    "legacyIds": [],
+    "legacyConceptTerms": []
+  },
+  {
+    "id": "science-lunar-phases",
+    "conceptId": "lunar-phases",
+    "tags": [
+      "天文",
+      "月球"
+    ],
+    "text": "百科小知识：月球绕地球运动时，我们看到的受阳光照亮部分会改变，于是出现月相变化。",
+    "publisher": "NASA",
+    "link": "https://science.nasa.gov/moon/facts/",
+    "verifiedAt": "2026-10-26",
+    "legacyIds": [],
+    "legacyConceptTerms": []
+  },
+  {
+    "id": "science-lunar-farside-light",
+    "conceptId": "lunar-farside-light",
+    "tags": [
+      "天文",
+      "月球"
+    ],
+    "text": "百科小知识：月球背面不是永远黑暗的地方，它也会轮流迎来白天和夜晚，受到太阳照射。",
+    "publisher": "NASA",
+    "link": "https://science.nasa.gov/moon/facts/",
+    "verifiedAt": "2026-10-26",
+    "legacyIds": [],
+    "legacyConceptTerms": []
+  },
+  {
+    "id": "science-lunar-polar-ice",
+    "conceptId": "lunar-polar-ice",
+    "tags": [
+      "天文",
+      "月球"
+    ],
+    "text": "百科小知识：月球两极有些坑底长期照不到阳光，寒冷的环境能帮助水冰保存下来。",
+    "publisher": "NASA",
+    "link": "https://science.nasa.gov/moon/facts/",
+    "verifiedAt": "2026-10-26",
+    "legacyIds": [],
+    "legacyConceptTerms": []
+  },
+  {
+    "id": "science-lunar-impact-craters",
+    "conceptId": "lunar-impact-craters",
+    "tags": [
+      "天文",
+      "月球"
+    ],
+    "text": "百科小知识：月球表面许多坑来自天体撞击，坑的形状与分布能为研究太阳系历史提供线索。",
+    "publisher": "NASA",
+    "link": "https://science.nasa.gov/moon/facts/",
+    "verifiedAt": "2026-10-26",
+    "legacyIds": [
+      "museum-crater-impact"
+    ],
+    "legacyConceptTerms": [
+      "月球表面许多环形山"
+    ]
+  },
+  {
+    "id": "science-lunar-exosphere",
+    "conceptId": "lunar-exosphere",
+    "tags": [
+      "天文",
+      "月球"
+    ],
+    "text": "百科小知识：月球只有极其稀薄的外逸层，不能像地球大气那样为表面提供充分保护。",
+    "publisher": "NASA",
+    "link": "https://science.nasa.gov/moon/facts/",
+    "verifiedAt": "2026-10-26",
+    "legacyIds": [
+      "museum-moon-air"
+    ],
+    "legacyConceptTerms": [
+      "月球几乎没有空气"
+    ]
+  },
+  {
+    "id": "science-lunar-rock-samples",
+    "conceptId": "lunar-rock-samples",
+    "tags": [
+      "天文",
+      "月球"
+    ],
+    "text": "百科小知识：阿波罗宇航员带回了月球岩石和土壤，研究这些实物能帮助了解月球的成分与历史。",
+    "publisher": "NASA",
+    "link": "https://science.nasa.gov/moon/facts/",
+    "verifiedAt": "2026-10-26",
+    "legacyIds": [],
+    "legacyConceptTerms": []
+  },
+  {
+    "id": "science-mercury-temperature-swing",
+    "conceptId": "mercury-temperature-swing",
+    "tags": [
+      "天文",
+      "水星"
+    ],
+    "text": "百科小知识：水星缺少能留住热量的厚大气，白天可很热，到了夜晚表面又会变得非常冷。",
+    "publisher": "NASA",
+    "link": "https://science.nasa.gov/mercury/facts/",
+    "verifiedAt": "2026-10-26",
+    "legacyIds": [],
+    "legacyConceptTerms": []
+  },
+  {
+    "id": "science-mercury-solar-day",
+    "conceptId": "mercury-solar-day",
+    "tags": [
+      "天文",
+      "水星"
+    ],
+    "text": "百科小知识：水星的一次完整昼夜约等于地球一百七十六天，与它缓慢自转和绕日运动共同有关。",
+    "publisher": "NASA",
+    "link": "https://science.nasa.gov/mercury/facts/",
+    "verifiedAt": "2026-10-26",
+    "legacyIds": [],
+    "legacyConceptTerms": []
+  },
+  {
+    "id": "science-mercury-metal-core",
+    "conceptId": "mercury-metal-core",
+    "tags": [
+      "天文",
+      "水星"
+    ],
+    "text": "百科小知识：水星内部含有很大的金属核心，核心半径约占整个行星半径的百分之八十五。",
+    "publisher": "NASA",
+    "link": "https://science.nasa.gov/mercury/facts/",
+    "verifiedAt": "2026-10-26",
+    "legacyIds": [],
+    "legacyConceptTerms": []
+  },
+  {
+    "id": "science-mercury-contraction-cliffs",
+    "conceptId": "mercury-contraction-cliffs",
+    "tags": [
+      "天文",
+      "水星"
+    ],
+    "text": "百科小知识：水星内部冷却收缩时，地表会被挤出很长的陡崖，留下行星逐渐缩小的痕迹。",
+    "publisher": "NASA",
+    "link": "https://science.nasa.gov/mercury/facts/",
+    "verifiedAt": "2026-10-26",
+    "legacyIds": [],
+    "legacyConceptTerms": []
+  },
+  {
+    "id": "science-mercury-crater-rays",
+    "conceptId": "mercury-crater-rays",
+    "tags": [
+      "天文",
+      "水星"
+    ],
+    "text": "百科小知识：天体撞击水星时，碎岩会被抛到坑外再落下，形成从撞击坑向外伸展的亮纹。",
+    "publisher": "NASA",
+    "link": "https://science.nasa.gov/mercury/facts/",
+    "verifiedAt": "2026-10-26",
+    "legacyIds": [],
+    "legacyConceptTerms": []
+  },
+  {
+    "id": "science-mercury-orbit-eccentric",
+    "conceptId": "mercury-orbit-eccentric",
+    "tags": [
+      "天文",
+      "水星"
+    ],
+    "text": "百科小知识：水星轨道不是正圆，所以它绕太阳运行时，与太阳之间的距离会发生明显变化。",
+    "publisher": "NASA",
+    "link": "https://science.nasa.gov/mercury/facts/",
+    "verifiedAt": "2026-10-26",
+    "legacyIds": [],
+    "legacyConceptTerms": []
+  },
+  {
+    "id": "science-venus-greenhouse",
+    "conceptId": "venus-greenhouse",
+    "tags": [
+      "天文",
+      "金星"
+    ],
+    "text": "百科小知识：金星厚厚的大气能留住大量热量，使它虽然不是最靠近太阳的行星，却成为最热的行星。",
+    "publisher": "NASA",
+    "link": "https://science.nasa.gov/venus/venus-facts/",
+    "verifiedAt": "2026-10-26",
+    "legacyIds": [],
+    "legacyConceptTerms": []
+  },
+  {
+    "id": "science-venus-retrograde",
+    "conceptId": "venus-retrograde",
+    "tags": [
+      "天文",
+      "金星"
+    ],
+    "text": "百科小知识：金星自转方向与地球相反，因此在金星表面观察，太阳会从西边升起、东边落下。",
+    "publisher": "NASA",
+    "link": "https://science.nasa.gov/venus/venus-facts/",
+    "verifiedAt": "2026-10-26",
+    "legacyIds": [],
+    "legacyConceptTerms": []
+  },
+  {
+    "id": "science-venus-slow-spin",
+    "conceptId": "venus-slow-spin",
+    "tags": [
+      "天文",
+      "金星"
+    ],
+    "text": "百科小知识：金星自转一圈需要约二百四十三个地球日，比它绕太阳一圈的时间还长。",
+    "publisher": "NASA",
+    "link": "https://science.nasa.gov/venus/venus-facts/",
+    "verifiedAt": "2026-10-26",
+    "legacyIds": [
+      "museum-venus-day"
+    ],
+    "legacyConceptTerms": [
+      "金星自转非常慢"
+    ]
+  },
+  {
+    "id": "science-venus-quasisatellite",
+    "conceptId": "venus-quasisatellite",
+    "tags": [
+      "天文",
+      "金星"
+    ],
+    "text": "百科小知识：金星的准卫星主要绕太阳运动，只是长期靠近金星，并不是像月球那样绕行星运行。",
+    "publisher": "NASA",
+    "link": "https://science.nasa.gov/venus/venus-facts/",
+    "verifiedAt": "2026-10-26",
+    "legacyIds": [],
+    "legacyConceptTerms": []
+  },
+  {
+    "id": "science-venus-phases-evidence",
+    "conceptId": "venus-phases-evidence",
+    "tags": [
+      "天文",
+      "金星"
+    ],
+    "text": "百科小知识：金星也会呈现圆缺变化，早期天文学家利用望远镜观察这种变化，帮助检验太阳系模型。",
+    "publisher": "NASA",
+    "link": "https://science.nasa.gov/venus/venus-facts/",
+    "verifiedAt": "2026-10-26",
+    "legacyIds": [],
+    "legacyConceptTerms": []
+  },
+  {
+    "id": "science-mars-rust-color",
+    "conceptId": "mars-rust-color",
+    "tags": [
+      "天文",
+      "火星"
+    ],
+    "text": "百科小知识：火星表面含铁矿物发生氧化，会使岩石和尘土偏红，这也是红色星球名称的来源。",
+    "publisher": "NASA",
+    "link": "https://science.nasa.gov/mars/facts/",
+    "verifiedAt": "2026-10-26",
+    "legacyIds": [
+      "museum-mars-red"
+    ],
+    "legacyConceptTerms": [
+      "火星看起来偏红"
+    ]
+  },
+  {
+    "id": "science-mars-moon-shape",
+    "conceptId": "mars-moon-shape",
+    "tags": [
+      "天文",
+      "火星"
+    ],
+    "text": "百科小知识：火星的两颗小卫星形状不太圆，这与它们质量较小有关，引力不足以把自身塑造成球形。",
+    "publisher": "NASA",
+    "link": "https://science.nasa.gov/mars/facts/",
+    "verifiedAt": "2026-10-26",
+    "legacyIds": [],
+    "legacyConceptTerms": []
+  },
+  {
+    "id": "science-phobos-decay",
+    "conceptId": "phobos-decay",
+    "tags": [
+      "天文",
+      "火星"
+    ],
+    "text": "百科小知识：火卫一正在缓慢靠近火星，将来可能撞上火星或被撕裂，卫星轨道并不是永远不变的。",
+    "publisher": "NASA",
+    "link": "https://science.nasa.gov/mars/facts/",
+    "verifiedAt": "2026-10-26",
+    "legacyIds": [],
+    "legacyConceptTerms": []
+  },
+  {
+    "id": "science-mars-water-evidence",
+    "conceptId": "mars-water-evidence",
+    "tags": [
+      "天文",
+      "火星"
+    ],
+    "text": "百科小知识：火星古老河谷、三角洲和特定矿物，能为过去曾有液态水的环境提供证据。",
+    "publisher": "NASA",
+    "link": "https://science.nasa.gov/mars/facts/",
+    "verifiedAt": "2026-10-26",
+    "legacyIds": [],
+    "legacyConceptTerms": []
+  },
+  {
+    "id": "science-mars-dust-storms",
+    "conceptId": "mars-dust-storms",
+    "tags": [
+      "天文",
+      "火星"
+    ],
+    "text": "百科小知识：火星的大风有时会扬起覆盖大片区域的沙尘暴，悬浮尘埃可能经过几个月才沉降下来。",
+    "publisher": "NASA",
+    "link": "https://science.nasa.gov/mars/facts/",
+    "verifiedAt": "2026-10-26",
+    "legacyIds": [],
+    "legacyConceptTerms": []
+  },
+  {
+    "id": "science-mars-crust-magnetism",
+    "conceptId": "mars-crust-magnetism",
+    "tags": [
+      "天文",
+      "火星"
+    ],
+    "text": "百科小知识：火星没有覆盖全球的磁场，但部分古老岩石保留了磁性，能提示它过去的磁场历史。",
+    "publisher": "NASA",
+    "link": "https://science.nasa.gov/mars/facts/",
+    "verifiedAt": "2026-10-26",
+    "legacyIds": [],
+    "legacyConceptTerms": []
+  },
+  {
+    "id": "science-mars-valles-marineris",
+    "conceptId": "mars-valles-marineris",
+    "tags": [
+      "天文",
+      "火星"
+    ],
+    "text": "百科小知识：火星水手号峡谷属于巨大的峡谷系统，长度接近四千千米，远超过地球上的大峡谷。",
+    "publisher": "NASA",
+    "link": "https://science.nasa.gov/mars/facts/",
+    "verifiedAt": "2026-10-26",
+    "legacyIds": [],
+    "legacyConceptTerms": []
+  },
+  {
+    "id": "science-jupiter-gas-giant",
+    "conceptId": "jupiter-gas-giant",
+    "tags": [
+      "天文",
+      "木星"
+    ],
+    "text": "百科小知识：木星主要由氢和氦组成，内部气体逐渐变成高压液体，没有供人站立的普通坚硬地面。",
+    "publisher": "NASA",
+    "link": "https://science.nasa.gov/jupiter/jupiter-facts/",
+    "verifiedAt": "2026-10-26",
+    "legacyIds": [
+      "museum-jupiter"
+    ],
+    "legacyConceptTerms": [
+      "木星是太阳系中最大的行星"
+    ]
+  },
+  {
+    "id": "science-jupiter-red-spot",
+    "conceptId": "jupiter-red-spot",
+    "tags": [
+      "天文",
+      "木星"
+    ],
+    "text": "百科小知识：木星的大红斑不是陆地上的斑点，而是持续很久的巨大风暴，内部云层不断旋转。",
+    "publisher": "NASA",
+    "link": "https://science.nasa.gov/jupiter/jupiter-facts/",
+    "verifiedAt": "2026-10-26",
+    "legacyIds": [],
+    "legacyConceptTerms": []
+  },
+  {
+    "id": "science-jupiter-cloud-bands",
+    "conceptId": "jupiter-cloud-bands",
+    "tags": [
+      "天文",
+      "木星"
+    ],
+    "text": "百科小知识：木星明暗相间的云带会向不同方向流动，强烈气流让云层呈现条纹状外观。",
+    "publisher": "NASA",
+    "link": "https://science.nasa.gov/jupiter/jupiter-facts/",
+    "verifiedAt": "2026-10-26",
+    "legacyIds": [],
+    "legacyConceptTerms": []
+  },
+  {
+    "id": "science-io-volcanism",
+    "conceptId": "io-volcanism",
+    "tags": [
+      "天文",
+      "木星"
+    ],
+    "text": "百科小知识：木卫一属于太阳系火山活动最强的天体，说明卫星也能拥有非常活跃的地质过程。",
+    "publisher": "NASA",
+    "link": "https://science.nasa.gov/jupiter/jupiter-facts/",
+    "verifiedAt": "2026-10-26",
+    "legacyIds": [],
+    "legacyConceptTerms": []
+  },
+  {
+    "id": "science-ganymede-size",
+    "conceptId": "ganymede-size",
+    "tags": [
+      "天文",
+      "木星"
+    ],
+    "text": "百科小知识：木卫三是太阳系最大的卫星，直径甚至大于水星，但它主要围绕木星而不是太阳运行。",
+    "publisher": "NASA",
+    "link": "https://science.nasa.gov/jupiter/jupiter-facts/",
+    "verifiedAt": "2026-10-26",
+    "legacyIds": [],
+    "legacyConceptTerms": []
+  },
+  {
+    "id": "science-europa-hidden-ocean",
+    "conceptId": "europa-hidden-ocean",
+    "tags": [
+      "天文",
+      "木星"
+    ],
+    "text": "百科小知识：木卫二冰壳下面可能有液态海洋，科学家会寻找更多证据，而不是把可能存在海洋当作发现生命。",
+    "publisher": "NASA",
+    "link": "https://science.nasa.gov/jupiter/jupiter-facts/",
+    "verifiedAt": "2026-10-26",
+    "legacyIds": [],
+    "legacyConceptTerms": []
+  },
+  {
+    "id": "science-jupiter-dust-rings",
+    "conceptId": "jupiter-dust-rings",
+    "tags": [
+      "天文",
+      "木星"
+    ],
+    "text": "百科小知识：木星也有很暗的环，环中细小尘埃可能来自流星体撞击内侧小卫星时扬起的物质。",
+    "publisher": "NASA",
+    "link": "https://science.nasa.gov/jupiter/jupiter-facts/",
+    "verifiedAt": "2026-10-26",
+    "legacyIds": [],
+    "legacyConceptTerms": []
+  },
+  {
+    "id": "science-saturn-ring-particles",
+    "conceptId": "saturn-ring-particles",
+    "tags": [
+      "天文",
+      "土星"
+    ],
+    "text": "百科小知识：土星环由大量冰块和岩石颗粒组成，不是一块完整圆盘，各部分会绕着土星运行。",
+    "publisher": "NASA",
+    "link": "https://science.nasa.gov/saturn/facts/",
+    "verifiedAt": "2026-10-26",
+    "legacyIds": [
+      "museum-saturn-ring"
+    ],
+    "legacyConceptTerms": [
+      "土星环主要由"
+    ]
+  },
+  {
+    "id": "science-saturn-low-density",
+    "conceptId": "saturn-low-density",
+    "tags": [
+      "天文",
+      "土星"
+    ],
+    "text": "百科小知识：土星平均密度比水还低，这说的是单位体积的平均质量，并不表示土星的总质量很小。",
+    "publisher": "NASA",
+    "link": "https://science.nasa.gov/saturn/facts/",
+    "verifiedAt": "2026-10-26",
+    "legacyIds": [],
+    "legacyConceptTerms": []
+  },
+  {
+    "id": "science-saturn-hexagon",
+    "conceptId": "saturn-hexagon",
+    "tags": [
+      "天文",
+      "土星"
+    ],
+    "text": "百科小知识：土星北极上空有六边形的急流结构，它属于大气运动形成的图案，并不是地面的六边形建筑。",
+    "publisher": "NASA",
+    "link": "https://science.nasa.gov/saturn/facts/",
+    "verifiedAt": "2026-10-26",
+    "legacyIds": [],
+    "legacyConceptTerms": []
+  },
+  {
+    "id": "science-saturn-cassini-gap",
+    "conceptId": "saturn-cassini-gap",
+    "tags": [
+      "天文",
+      "土星"
+    ],
+    "text": "百科小知识：土星主要光环之间存在间隙，卡西尼缝把其中两条主环分开，环并非处处同样密集。",
+    "publisher": "NASA",
+    "link": "https://science.nasa.gov/saturn/facts/",
+    "verifiedAt": "2026-10-26",
+    "legacyIds": [],
+    "legacyConceptTerms": []
+  },
+  {
+    "id": "science-titan-methane-lakes",
+    "conceptId": "titan-methane-lakes",
+    "tags": [
+      "天文",
+      "土星"
+    ],
+    "text": "百科小知识：土卫六表面有甲烷湖泊，说明别的天体上形成湖泊的液体，不一定是地球常见的水。",
+    "publisher": "NASA",
+    "link": "https://science.nasa.gov/saturn/facts/",
+    "verifiedAt": "2026-10-26",
+    "legacyIds": [],
+    "legacyConceptTerms": []
+  },
+  {
+    "id": "science-enceladus-water-jets",
+    "conceptId": "enceladus-water-jets",
+    "tags": [
+      "天文",
+      "土星"
+    ],
+    "text": "百科小知识：土卫二能向太空喷出含水物质，研究这些喷流，可以帮助了解冰壳内部的环境。",
+    "publisher": "NASA",
+    "link": "https://science.nasa.gov/saturn/facts/",
+    "verifiedAt": "2026-10-26",
+    "legacyIds": [],
+    "legacyConceptTerms": []
+  },
+  {
+    "id": "science-uranus-sideways",
+    "conceptId": "uranus-sideways",
+    "tags": [
+      "天文",
+      "天王星"
+    ],
+    "text": "百科小知识：天王星自转轴倾斜得很厉害，看起来像侧躺着绕太阳滚动，这种倾斜会让它的季节变化十分极端。",
+    "publisher": "NASA",
+    "link": "https://science.nasa.gov/uranus/facts/",
+    "verifiedAt": "2026-10-26",
+    "legacyIds": [],
+    "legacyConceptTerms": []
+  },
+  {
+    "id": "science-uranus-polar-night",
+    "conceptId": "uranus-polar-night",
+    "tags": [
+      "天文",
+      "天王星"
+    ],
+    "text": "百科小知识：天王星的极端倾斜会让一极长时间朝向太阳，而另一极可能经历约二十一年的漫长黑夜。",
+    "publisher": "NASA",
+    "link": "https://science.nasa.gov/uranus/facts/",
+    "verifiedAt": "2026-10-26",
+    "legacyIds": [],
+    "legacyConceptTerms": []
+  },
+  {
+    "id": "science-uranus-methane-color",
+    "conceptId": "uranus-methane-color",
+    "tags": [
+      "天文",
+      "天王星"
+    ],
+    "text": "百科小知识：天王星大气中的甲烷会吸收红色光，让返回的光偏蓝绿色，这是它颜色的重要原因。",
+    "publisher": "NASA",
+    "link": "https://science.nasa.gov/uranus/facts/",
+    "verifiedAt": "2026-10-26",
+    "legacyIds": [],
+    "legacyConceptTerms": []
+  },
+  {
+    "id": "science-ice-giant-interior",
+    "conceptId": "ice-giant-interior",
+    "tags": [
+      "天文",
+      "天王星"
+    ],
+    "text": "百科小知识：天王星虽然叫冰巨星，内部却主要是受高压压缩的热流体，并不是一整块寒冷冰球。",
+    "publisher": "NASA",
+    "link": "https://science.nasa.gov/uranus/facts/",
+    "verifiedAt": "2026-10-26",
+    "legacyIds": [],
+    "legacyConceptTerms": []
+  },
+  {
+    "id": "science-uranus-telescope",
+    "conceptId": "uranus-telescope",
+    "tags": [
+      "天文",
+      "天王星"
+    ],
+    "text": "百科小知识：天王星是第一颗借助望远镜发现的行星，连续观察它的位置变化，帮助人们认出它不是普通恒星。",
+    "publisher": "NASA",
+    "link": "https://science.nasa.gov/uranus/facts/",
+    "verifiedAt": "2026-10-26",
+    "legacyIds": [],
+    "legacyConceptTerms": []
+  },
+  {
+    "id": "science-neptune-prediction",
+    "conceptId": "neptune-prediction",
+    "tags": [
+      "天文",
+      "海王星"
+    ],
+    "text": "百科小知识：天王星运动与计算存在差异，帮助科学家预测另一个行星的位置，并最终找到海王星。",
+    "publisher": "NASA",
+    "link": "https://science.nasa.gov/neptune/neptune-facts/",
+    "verifiedAt": "2026-10-26",
+    "legacyIds": [],
+    "legacyConceptTerms": []
+  },
+  {
+    "id": "science-neptune-ring-arcs",
+    "conceptId": "neptune-ring-arcs",
+    "tags": [
+      "天文",
+      "海王星"
+    ],
+    "text": "百科小知识：海王星环中的部分尘埃聚成弧段，附近卫星的引力可能帮助这些弧段保持形状。",
+    "publisher": "NASA",
+    "link": "https://science.nasa.gov/neptune/neptune-facts/",
+    "verifiedAt": "2026-10-26",
+    "legacyIds": [],
+    "legacyConceptTerms": []
+  },
+  {
+    "id": "science-triton-retrograde",
+    "conceptId": "triton-retrograde",
+    "tags": [
+      "天文",
+      "海王星"
+    ],
+    "text": "百科小知识：海卫一绕海王星运行的方向，与海王星自转方向相反，这让科学家推测它可能曾被捕获。",
+    "publisher": "NASA",
+    "link": "https://science.nasa.gov/neptune/neptune-facts/",
+    "verifiedAt": "2026-10-26",
+    "legacyIds": [],
+    "legacyConceptTerms": []
+  },
+  {
+    "id": "science-triton-geysers",
+    "conceptId": "triton-geysers",
+    "tags": [
+      "天文",
+      "海王星"
+    ],
+    "text": "百科小知识：海卫一表面十分寒冷，却能喷出高达数千米的冰质物质，寒冷天体也可能拥有活跃现象。",
+    "publisher": "NASA",
+    "link": "https://science.nasa.gov/neptune/neptune-facts/",
+    "verifiedAt": "2026-10-26",
+    "legacyIds": [],
+    "legacyConceptTerms": []
+  },
+  {
+    "id": "science-tide-vs-current",
+    "conceptId": "tide-vs-current",
+    "tags": [
+      "海洋物理",
+      "海流"
+    ],
+    "text": "百科小知识：潮汐主要描述海面随时间升降，海流主要描述水的水平运动，两者有关但不是同一种变化。",
+    "publisher": "NOAA",
+    "link": "https://oceanservice.noaa.gov/facts/tidescurrents.html",
+    "verifiedAt": "2026-10-26",
+    "legacyIds": [
+      "museum-tide"
+    ],
+    "legacyConceptTerms": [
+      "潮汐主要受"
+    ]
+  },
+  {
+    "id": "science-wind-driven-currents",
+    "conceptId": "wind-driven-currents",
+    "tags": [
+      "海洋物理",
+      "海流"
+    ],
+    "text": "百科小知识：风能推动靠近海面的水流动，所以海洋表层洋流与上方的风向和风力有关。",
+    "publisher": "NOAA",
+    "link": "https://oceanservice.noaa.gov/facts/tidescurrents.html",
+    "verifiedAt": "2026-10-26",
+    "legacyIds": [],
+    "legacyConceptTerms": []
+  },
+  {
+    "id": "science-thermohaline-circulation",
+    "conceptId": "thermohaline-circulation",
+    "tags": [
+      "海洋物理",
+      "海流"
+    ],
+    "text": "百科小知识：不同温度和盐度会造成海水密度差异，这些差异能推动深浅海水形成缓慢的循环。",
+    "publisher": "NOAA",
+    "link": "https://oceanservice.noaa.gov/facts/tidescurrents.html",
+    "verifiedAt": "2026-10-26",
+    "legacyIds": [
+      "museum-salinity-density"
+    ],
+    "legacyConceptTerms": [
+      "盐度差会影响"
+    ]
+  },
+  {
+    "id": "science-tidal-current-prediction",
+    "conceptId": "tidal-current-prediction",
+    "tags": [
+      "海洋物理",
+      "海流"
+    ],
+    "text": "百科小知识：潮汐引起的潮流会较有规律地改变，掌握这种规律，能帮助人们预测未来的潮流情况。",
+    "publisher": "NOAA",
+    "link": "https://oceanservice.noaa.gov/facts/tidescurrents.html",
+    "verifiedAt": "2026-10-26",
+    "legacyIds": [],
+    "legacyConceptTerms": []
+  },
+  {
+    "id": "science-coral-animal",
+    "conceptId": "coral-animal",
+    "tags": [
+      "海洋生态",
+      "珊瑚"
+    ],
+    "text": "百科小知识：珊瑚虽然固定在海底，却属于动物；珊瑚虫会用细小触手捕捉水中的食物。",
+    "publisher": "NOAA",
+    "link": "https://oceanservice.noaa.gov/facts/coral.html",
+    "verifiedAt": "2026-10-26",
+    "legacyIds": [],
+    "legacyConceptTerms": []
+  },
+  {
+    "id": "science-coral-reef-skeleton",
+    "conceptId": "coral-reef-skeleton",
+    "tags": [
+      "海洋生态",
+      "珊瑚"
+    ],
+    "text": "百科小知识：许多珊瑚虫分泌碳酸钙骨骼，一代代骨骼积累，能慢慢形成珊瑚礁的坚硬基础。",
+    "publisher": "NOAA",
+    "link": "https://oceanservice.noaa.gov/facts/coral.html",
+    "verifiedAt": "2026-10-26",
+    "legacyIds": [
+      "museum-coral"
+    ],
+    "legacyConceptTerms": [
+      "珊瑚礁由许多珊瑚虫"
+    ]
+  },
+  {
+    "id": "science-coral-algae-symbiosis",
+    "conceptId": "coral-algae-symbiosis",
+    "tags": [
+      "海洋生态",
+      "珊瑚"
+    ],
+    "text": "百科小知识：珊瑚组织里的共生藻能进行光合作用，把部分产物供给珊瑚，而珊瑚为藻类提供保护。",
+    "publisher": "NOAA",
+    "link": "https://oceanservice.noaa.gov/facts/coral.html",
+    "verifiedAt": "2026-10-26",
+    "legacyIds": [],
+    "legacyConceptTerms": []
+  },
+  {
+    "id": "science-coral-colony",
+    "conceptId": "coral-colony",
+    "tags": [
+      "海洋生态",
+      "珊瑚"
+    ],
+    "text": "百科小知识：我们看到的一大团珊瑚，常由许多个细小珊瑚虫共同组成，并不是一只巨大动物。",
+    "publisher": "NOAA",
+    "link": "https://oceanservice.noaa.gov/facts/coral.html",
+    "verifiedAt": "2026-10-26",
+    "legacyIds": [],
+    "legacyConceptTerms": []
+  },
+  {
+    "id": "science-soft-hard-coral",
+    "conceptId": "soft-hard-coral",
+    "tags": [
+      "海洋生态",
+      "珊瑚"
+    ],
+    "text": "百科小知识：珊瑚并非全都具有相同骨骼，海扇等软珊瑚与形成坚硬礁体的石珊瑚属于不同类型。",
+    "publisher": "NOAA",
+    "link": "https://oceanservice.noaa.gov/facts/coral.html",
+    "verifiedAt": "2026-10-26",
+    "legacyIds": [],
+    "legacyConceptTerms": []
+  },
+  {
+    "id": "science-coral-bleaching",
+    "conceptId": "coral-bleaching",
+    "tags": [
+      "海洋生态",
+      "生态压力"
+    ],
+    "text": "百科小知识：水温等条件改变会使珊瑚失去组织里的共生藻，原来有颜色的珊瑚因此变白。",
+    "publisher": "NOAA",
+    "link": "https://oceanservice.noaa.gov/facts/coral_bleach.html",
+    "verifiedAt": "2026-10-26",
+    "legacyIds": [],
+    "legacyConceptTerms": []
+  },
+  {
+    "id": "science-bleached-not-dead",
+    "conceptId": "bleached-not-dead",
+    "tags": [
+      "海洋生态",
+      "生态压力"
+    ],
+    "text": "百科小知识：珊瑚白化不等于已经死亡，如果压力及时减轻，有些珊瑚还能恢复，但长期白化会增加死亡风险。",
+    "publisher": "NOAA",
+    "link": "https://oceanservice.noaa.gov/facts/coral_bleach.html",
+    "verifiedAt": "2026-10-26",
+    "legacyIds": [],
+    "legacyConceptTerms": []
+  },
+  {
+    "id": "science-cold-bleaching",
+    "conceptId": "cold-bleaching",
+    "tags": [
+      "海洋生态",
+      "生态压力"
+    ],
+    "text": "百科小知识：珊瑚白化并非只由水太热造成，异常低温也会使珊瑚承受压力，出现白化现象。",
+    "publisher": "NOAA",
+    "link": "https://oceanservice.noaa.gov/facts/coral_bleach.html",
+    "verifiedAt": "2026-10-26",
+    "legacyIds": [],
+    "legacyConceptTerms": []
+  },
+  {
+    "id": "science-kelp-light-depth",
+    "conceptId": "kelp-light-depth",
+    "tags": [
+      "海洋生态",
+      "巨藻"
+    ],
+    "text": "百科小知识：巨藻需要光进行光合作用，因此巨藻林通常出现在较浅的海水中，而不是黑暗的深海。",
+    "publisher": "NOAA",
+    "link": "https://oceanservice.noaa.gov/facts/kelp.html",
+    "verifiedAt": "2026-10-26",
+    "legacyIds": [],
+    "legacyConceptTerms": []
+  },
+  {
+    "id": "science-kelp-nursery",
+    "conceptId": "kelp-nursery",
+    "tags": [
+      "海洋生态",
+      "巨藻"
+    ],
+    "text": "百科小知识：密集巨藻能为幼小海洋动物提供藏身处，帮助它们躲避捕食者和较强的风浪。",
+    "publisher": "NOAA",
+    "link": "https://oceanservice.noaa.gov/facts/kelp.html",
+    "verifiedAt": "2026-10-26",
+    "legacyIds": [],
+    "legacyConceptTerms": []
+  },
+  {
+    "id": "science-kelp-growth",
+    "conceptId": "kelp-growth",
+    "tags": [
+      "海洋生态",
+      "巨藻"
+    ],
+    "text": "百科小知识：理想条件下，巨藻一天能长几十厘米；这种生长速度需要合适的光照、水温和养分。",
+    "publisher": "NOAA",
+    "link": "https://oceanservice.noaa.gov/facts/kelp.html",
+    "verifiedAt": "2026-10-26",
+    "legacyIds": [],
+    "legacyConceptTerms": []
+  },
+  {
+    "id": "science-kelp-monitoring",
+    "conceptId": "kelp-monitoring",
+    "tags": [
+      "海洋生态",
+      "巨藻"
+    ],
+    "text": "百科小知识：科学家会反复调查同一片巨藻林，比较生物数量的变化，帮助判断生态环境是否改变。",
+    "publisher": "NOAA",
+    "link": "https://oceanservice.noaa.gov/facts/kelp.html",
+    "verifiedAt": "2026-10-26",
+    "legacyIds": [],
+    "legacyConceptTerms": []
+  },
+  {
+    "id": "science-mangrove-sediment",
+    "conceptId": "mangrove-sediment",
+    "tags": [
+      "海洋生态",
+      "红树林"
+    ],
+    "text": "百科小知识：红树林密集根系会减慢潮水流动，使水里的细泥沙更容易沉降，帮助稳定海岸。",
+    "publisher": "NOAA",
+    "link": "https://oceanservice.noaa.gov/facts/mangroves.html",
+    "verifiedAt": "2026-10-26",
+    "legacyIds": [
+      "museum-mangrove"
+    ],
+    "legacyConceptTerms": [
+      "红树林能生活在海边潮间带"
+    ]
+  },
+  {
+    "id": "science-mangrove-temperature",
+    "conceptId": "mangrove-temperature",
+    "tags": [
+      "海洋生态",
+      "红树林"
+    ],
+    "text": "百科小知识：红树林主要生活在热带和亚热带海岸，因为它们通常无法承受冰冻环境。",
+    "publisher": "NOAA",
+    "link": "https://oceanservice.noaa.gov/facts/mangroves.html",
+    "verifiedAt": "2026-10-26",
+    "legacyIds": [],
+    "legacyConceptTerms": []
+  },
+  {
+    "id": "science-mangrove-refuge",
+    "conceptId": "mangrove-refuge",
+    "tags": [
+      "海洋生态",
+      "红树林"
+    ],
+    "text": "百科小知识：红树林交错的根部能为鱼和其他小动物提供食物与庇护，帮助它们躲避捕食者。",
+    "publisher": "NOAA",
+    "link": "https://oceanservice.noaa.gov/facts/mangroves.html",
+    "verifiedAt": "2026-10-26",
+    "legacyIds": [],
+    "legacyConceptTerms": []
+  },
+  {
+    "id": "science-mangrove-coast-protection",
+    "conceptId": "mangrove-coast-protection",
+    "tags": [
+      "海洋生态",
+      "红树林"
+    ],
+    "text": "百科小知识：红树林能减弱海浪和潮流对海岸的侵蚀，因此保护树林也有助于保护它后面的海岸。",
+    "publisher": "NOAA",
+    "link": "https://oceanservice.noaa.gov/facts/mangroves.html",
+    "verifiedAt": "2026-10-26",
+    "legacyIds": [],
+    "legacyConceptTerms": []
+  },
+  {
+    "id": "science-estuary-brackish",
+    "conceptId": "estuary-brackish",
+    "tags": [
+      "海洋生态",
+      "河口"
+    ],
+    "text": "百科小知识：河口常是河流淡水与海水混合的地方，那里的生物需要适应这种咸淡交织的水环境。",
+    "publisher": "NOAA",
+    "link": "https://oceanservice.noaa.gov/facts/estuary.html",
+    "verifiedAt": "2026-10-26",
+    "legacyIds": [],
+    "legacyConceptTerms": []
+  },
+  {
+    "id": "science-freshwater-estuary",
+    "conceptId": "freshwater-estuary",
+    "tags": [
+      "海洋生态",
+      "河口"
+    ],
+    "text": "百科小知识：有些大湖边也有淡水河口，河水与湖水混合，虽没有海盐，也能提供类似的生态功能。",
+    "publisher": "NOAA",
+    "link": "https://oceanservice.noaa.gov/facts/estuary.html",
+    "verifiedAt": "2026-10-26",
+    "legacyIds": [],
+    "legacyConceptTerms": []
+  },
+  {
+    "id": "science-estuary-migration",
+    "conceptId": "estuary-migration",
+    "tags": [
+      "海洋生态",
+      "河口"
+    ],
+    "text": "百科小知识：许多动物会在河口觅食、繁殖或迁徙停歇，河口因此是连接不同栖息地的重要区域。",
+    "publisher": "NOAA",
+    "link": "https://oceanservice.noaa.gov/facts/estuary.html",
+    "verifiedAt": "2026-10-26",
+    "legacyIds": [],
+    "legacyConceptTerms": []
+  },
+  {
+    "id": "science-upwelling-nutrients",
+    "conceptId": "upwelling-nutrients",
+    "tags": [
+      "海洋物理",
+      "上升流"
+    ],
+    "text": "百科小知识：表层海水被风推开后，深处较冷的水会补上来，并把养分带到表层，支持更多生物生长。",
+    "publisher": "NOAA",
+    "link": "https://oceanservice.noaa.gov/facts/upwelling.html",
+    "verifiedAt": "2026-10-26",
+    "legacyIds": [],
+    "legacyConceptTerms": []
+  },
+  {
+    "id": "science-downwelling",
+    "conceptId": "downwelling",
+    "tags": [
+      "海洋物理",
+      "上升流"
+    ],
+    "text": "百科小知识：海面水被风推向海岸并堆积时，部分水会向下沉，这种下沉流与上升流方向相反。",
+    "publisher": "NOAA",
+    "link": "https://oceanservice.noaa.gov/facts/upwelling.html",
+    "verifiedAt": "2026-10-26",
+    "legacyIds": [],
+    "legacyConceptTerms": []
+  },
+  {
+    "id": "science-thermocline-gradient",
+    "conceptId": "thermocline-gradient",
+    "tags": [
+      "海洋物理",
+      "海水分层"
+    ],
+    "text": "百科小知识：温跃层表示海水温度随深度迅速降低的一层，处在较暖的表层与较冷的深层之间。",
+    "publisher": "NOAA",
+    "link": "https://oceanservice.noaa.gov/facts/thermocline.html",
+    "verifiedAt": "2026-10-26",
+    "legacyIds": [],
+    "legacyConceptTerms": []
+  },
+  {
+    "id": "science-surface-mixing",
+    "conceptId": "surface-mixing",
+    "tags": [
+      "海洋物理",
+      "海水分层"
+    ],
+    "text": "百科小知识：海面附近的风和波浪会搅拌表层海水，使这一层的热量更均匀地分布；深层海水通常更冷。",
+    "publisher": "NOAA",
+    "link": "https://oceanservice.noaa.gov/facts/thermocline.html",
+    "verifiedAt": "2026-10-26",
+    "legacyIds": [],
+    "legacyConceptTerms": []
+  },
+  {
+    "id": "science-warm-layer-hurricane",
+    "conceptId": "warm-layer-hurricane",
+    "tags": [
+      "海洋物理",
+      "海水分层"
+    ],
+    "text": "百科小知识：预测飓风不能仅看海面温度，还需要了解暖水层有多深，因为海水蒸发能为风暴提供水汽。",
+    "publisher": "NOAA",
+    "link": "https://oceanservice.noaa.gov/facts/thermocline.html",
+    "verifiedAt": "2026-10-26",
+    "legacyIds": [],
+    "legacyConceptTerms": []
+  },
+  {
+    "id": "science-underwater-sound-speed",
+    "conceptId": "underwater-sound-speed",
+    "tags": [
+      "海洋物理",
+      "声音"
+    ],
+    "text": "百科小知识：声音在海水中的速度通常比在空气中快，海水温度和压力还会改变它的传播情况。",
+    "publisher": "NOAA",
+    "link": "https://oceanservice.noaa.gov/facts/sound.html",
+    "verifiedAt": "2026-10-26",
+    "legacyIds": [],
+    "legacyConceptTerms": []
+  },
+  {
+    "id": "science-sound-channel",
+    "conceptId": "sound-channel",
+    "tags": [
+      "海洋物理",
+      "声音"
+    ],
+    "text": "百科小知识：海洋不同深度的声速不同，声波会发生弯曲，某些深度形成的声道能让声音传得很远。",
+    "publisher": "NOAA",
+    "link": "https://oceanservice.noaa.gov/facts/sound.html",
+    "verifiedAt": "2026-10-26",
+    "legacyIds": [],
+    "legacyConceptTerms": []
+  },
+  {
+    "id": "science-hydrophone",
+    "conceptId": "hydrophone",
+    "tags": [
+      "海洋物理",
+      "声音"
+    ],
+    "text": "百科小知识：水听器像放在水下的麦克风，安装在合适深度时，能记录远处鲸的鸣声和其他水下声音。",
+    "publisher": "NOAA",
+    "link": "https://oceanservice.noaa.gov/facts/sound.html",
+    "verifiedAt": "2026-10-26",
+    "legacyIds": [],
+    "legacyConceptTerms": []
+  },
+  {
+    "id": "science-ocean-sunlight-zone",
+    "conceptId": "ocean-sunlight-zone",
+    "tags": [
+      "海洋物理",
+      "光照"
+    ],
+    "text": "百科小知识：海洋上层约二百米通常能获得较多阳光，许多依赖光的生命活动主要发生在这一带。",
+    "publisher": "NOAA",
+    "link": "https://oceanservice.noaa.gov/facts/light_travel.html",
+    "verifiedAt": "2026-10-26",
+    "legacyIds": [],
+    "legacyConceptTerms": []
+  },
+  {
+    "id": "science-ocean-twilight",
+    "conceptId": "ocean-twilight",
+    "tags": [
+      "海洋物理",
+      "光照"
+    ],
+    "text": "百科小知识：海洋二百至一千米左右的暮光层只有少量阳光，光线通常不足以支持光合作用。",
+    "publisher": "NOAA",
+    "link": "https://oceanservice.noaa.gov/facts/light_travel.html",
+    "verifiedAt": "2026-10-26",
+    "legacyIds": [],
+    "legacyConceptTerms": []
+  },
+  {
+    "id": "science-ocean-dark-zone",
+    "conceptId": "ocean-dark-zone",
+    "tags": [
+      "海洋物理",
+      "光照"
+    ],
+    "text": "百科小知识：海洋深处一千米以下通常没有太阳光，住在那里的生物需要适应长期黑暗的环境。",
+    "publisher": "NOAA",
+    "link": "https://oceanservice.noaa.gov/facts/light_travel.html",
+    "verifiedAt": "2026-10-26",
+    "legacyIds": [],
+    "legacyConceptTerms": []
+  },
+  {
+    "id": "science-seafoam-formation",
+    "conceptId": "seafoam-formation",
+    "tags": [
+      "海洋生态",
+      "海泡沫"
+    ],
+    "text": "百科小知识：海水含有蛋白质等有机物，风浪搅动时会形成泡沫，所以海泡沫并不全是洗涤剂造成的。",
+    "publisher": "NOAA",
+    "link": "https://oceanservice.noaa.gov/facts/seafoam.html",
+    "verifiedAt": "2026-10-26",
+    "legacyIds": [],
+    "legacyConceptTerms": []
+  },
+  {
+    "id": "science-algal-decay-foam",
+    "conceptId": "algal-decay-foam",
+    "tags": [
+      "海洋生态",
+      "海泡沫"
+    ],
+    "text": "百科小知识：大量藻类死亡分解后，释放的有机物被浪花搅动，可能使海岸出现更厚的泡沫。",
+    "publisher": "NOAA",
+    "link": "https://oceanservice.noaa.gov/facts/seafoam.html",
+    "verifiedAt": "2026-10-26",
+    "legacyIds": [],
+    "legacyConceptTerms": []
+  },
+  {
+    "id": "science-ocean-pressure-depth",
+    "conceptId": "ocean-pressure-depth",
+    "tags": [
+      "海洋物理",
+      "压力"
+    ],
+    "text": "百科小知识：在海里下潜得越深，上方水体带来的压力通常越大，每深约十米会增加约一个大气压。",
+    "publisher": "NOAA",
+    "link": "https://oceanservice.noaa.gov/facts/pressure.html",
+    "verifiedAt": "2026-10-26",
+    "legacyIds": [
+      "museum-ocean-pressure"
+    ],
+    "legacyConceptTerms": [
+      "海水越深压力越大"
+    ]
+  },
+  {
+    "id": "science-whale-pressure-adaptation",
+    "conceptId": "whale-pressure-adaptation",
+    "tags": [
+      "海洋物理",
+      "压力"
+    ],
+    "text": "百科小知识：鲸的肋骨连接较灵活，胸腔能随压力改变形状，这种结构帮助它们适应深潜时的压力。",
+    "publisher": "NOAA",
+    "link": "https://oceanservice.noaa.gov/facts/pressure.html",
+    "verifiedAt": "2026-10-26",
+    "legacyIds": [],
+    "legacyConceptTerms": []
+  },
+  {
+    "id": "science-ocean-salt-rocks",
+    "conceptId": "ocean-salt-rocks",
+    "tags": [
+      "海洋化学",
+      "盐度"
+    ],
+    "text": "百科小知识：雨水会缓慢侵蚀陆地岩石，把其中的离子带入河流和海洋，这是海水盐分的重要来源。",
+    "publisher": "NOAA",
+    "link": "https://oceanservice.noaa.gov/facts/whysalty.html",
+    "verifiedAt": "2026-10-26",
+    "legacyIds": [
+      "ocean-salty"
+    ],
+    "legacyConceptTerms": [
+      "海水为什么是咸"
+    ]
+  },
+  {
+    "id": "science-hydrothermal-minerals",
+    "conceptId": "hydrothermal-minerals",
+    "tags": [
+      "海洋化学",
+      "盐度"
+    ],
+    "text": "百科小知识：海水进入海底裂缝后被加热，会与岩石反应，再从热液喷口带出部分金属等物质。",
+    "publisher": "NOAA",
+    "link": "https://oceanservice.noaa.gov/facts/whysalty.html",
+    "verifiedAt": "2026-10-26",
+    "legacyIds": [],
+    "legacyConceptTerms": []
+  },
+  {
+    "id": "science-salinity-fraction",
+    "conceptId": "salinity-fraction",
+    "tags": [
+      "海洋化学",
+      "盐度"
+    ],
+    "text": "百科小知识：海水平均盐度约为千分之三十五，表示一千克这样的海水中，大约有三十五克溶解的盐。",
+    "publisher": "NOAA",
+    "link": "https://oceanservice.noaa.gov/facts/whysalty.html",
+    "verifiedAt": "2026-10-26",
+    "legacyIds": [],
+    "legacyConceptTerms": []
+  },
+  {
+    "id": "science-salinity-ions",
+    "conceptId": "salinity-ions",
+    "tags": [
+      "海洋化学",
+      "盐度"
+    ],
+    "text": "百科小知识：海水中的盐不只有食盐，氯离子和钠离子占主要部分，也含有镁等其他离子。",
+    "publisher": "NOAA",
+    "link": "https://oceanservice.noaa.gov/facts/whysalty.html",
+    "verifiedAt": "2026-10-26",
+    "legacyIds": [],
+    "legacyConceptTerms": []
+  },
+  {
+    "id": "science-infiltration-recharge",
+    "conceptId": "infiltration-recharge",
+    "tags": [
+      "水文",
+      "入渗"
+    ],
+    "text": "百科小知识：部分雨水会渗入土壤和岩石，继续向下移动，为地下含水层补充水，而不是全都流入河流。",
+    "publisher": "USGS",
+    "link": "https://www.usgs.gov/water-science-school/science/infiltration-and-water-cycle",
+    "verifiedAt": "2026-10-26",
+    "legacyIds": [],
+    "legacyConceptTerms": []
+  },
+  {
+    "id": "science-groundwater-baseflow",
+    "conceptId": "groundwater-baseflow",
+    "tags": [
+      "水文",
+      "入渗"
+    ],
+    "text": "百科小知识：没有下雨时，有些河流仍能持续流动，因为地下水会慢慢渗入河床和河岸补充河水。",
+    "publisher": "USGS",
+    "link": "https://www.usgs.gov/water-science-school/science/infiltration-and-water-cycle",
+    "verifiedAt": "2026-10-26",
+    "legacyIds": [],
+    "legacyConceptTerms": []
+  },
+  {
+    "id": "science-clay-sand-infiltration",
+    "conceptId": "clay-sand-infiltration",
+    "tags": [
+      "水文",
+      "入渗"
+    ],
+    "text": "百科小知识：黏土通常比沙土更难让水快速渗入，因此相同降雨下，不同土壤可能产生不同的地表径流。",
+    "publisher": "USGS",
+    "link": "https://www.usgs.gov/water-science-school/science/infiltration-and-water-cycle",
+    "verifiedAt": "2026-10-26",
+    "legacyIds": [],
+    "legacyConceptTerms": []
+  },
+  {
+    "id": "science-saturated-soil-runoff",
+    "conceptId": "saturated-soil-runoff",
+    "tags": [
+      "水文",
+      "入渗"
+    ],
+    "text": "百科小知识：已经饱含水分的土壤难以再接纳很多雨水，后续降雨就会更容易沿地表流走。",
+    "publisher": "USGS",
+    "link": "https://www.usgs.gov/water-science-school/science/infiltration-and-water-cycle",
+    "verifiedAt": "2026-10-26",
+    "legacyIds": [],
+    "legacyConceptTerms": []
+  },
+  {
+    "id": "science-pavement-runoff",
+    "conceptId": "pavement-runoff",
+    "tags": [
+      "水文",
+      "入渗"
+    ],
+    "text": "百科小知识：道路和停车场等不透水表面，会减少雨水进入土壤的机会，使更多水较快流向排水沟。",
+    "publisher": "USGS",
+    "link": "https://www.usgs.gov/water-science-school/science/infiltration-and-water-cycle",
+    "verifiedAt": "2026-10-26",
+    "legacyIds": [],
+    "legacyConceptTerms": []
+  },
+  {
+    "id": "science-slope-infiltration",
+    "conceptId": "slope-infiltration",
+    "tags": [
+      "水文",
+      "入渗"
+    ],
+    "text": "百科小知识：陡坡上的雨水通常流走得更快，停留时间较短，因此往往比平地更少渗入地下。",
+    "publisher": "USGS",
+    "link": "https://www.usgs.gov/water-science-school/science/infiltration-and-water-cycle",
+    "verifiedAt": "2026-10-26",
+    "legacyIds": [],
+    "legacyConceptTerms": []
+  },
+  {
+    "id": "science-unsaturated-zone",
+    "conceptId": "unsaturated-zone",
+    "tags": [
+      "水文",
+      "入渗"
+    ],
+    "text": "百科小知识：地下非饱和带的颗粒空隙里同时有空气和水，而饱和带的空隙主要被水填满。",
+    "publisher": "USGS",
+    "link": "https://www.usgs.gov/water-science-school/science/infiltration-and-water-cycle",
+    "verifiedAt": "2026-10-26",
+    "legacyIds": [
+      "museum-groundwater"
+    ],
+    "legacyConceptTerms": [
+      "地下水藏在土壤和岩石"
+    ]
+  },
+  {
+    "id": "science-aquifer-overpumping",
+    "conceptId": "aquifer-overpumping",
+    "tags": [
+      "水文",
+      "入渗"
+    ],
+    "text": "百科小知识：抽取地下水的速度若长期超过补充速度，地下水位会下降，有些井甚至会变干。",
+    "publisher": "USGS",
+    "link": "https://www.usgs.gov/water-science-school/science/infiltration-and-water-cycle",
+    "verifiedAt": "2026-10-26",
+    "legacyIds": [],
+    "legacyConceptTerms": []
+  },
+  {
+    "id": "science-soil-burrows",
+    "conceptId": "soil-burrows",
+    "tags": [
+      "水文",
+      "入渗"
+    ],
+    "text": "百科小知识：植物旧根留下的孔道和动物洞穴，能为雨水进入土壤提供通路，改变水的渗透情况。",
+    "publisher": "USGS",
+    "link": "https://www.usgs.gov/water-science-school/science/infiltration-and-water-cycle",
+    "verifiedAt": "2026-10-26",
+    "legacyIds": [],
+    "legacyConceptTerms": []
+  },
+  {
+    "id": "science-transpiration-route",
+    "conceptId": "transpiration-route",
+    "tags": [
+      "植物生理",
+      "蒸腾"
+    ],
+    "text": "百科小知识：植物根部吸收水后，水会经过组织到达叶片，再以水蒸气形式从气孔离开，进入空气。",
+    "publisher": "USGS",
+    "link": "https://www.usgs.gov/water-science-school/science/evapotranspiration-and-water-cycle",
+    "verifiedAt": "2026-10-26",
+    "legacyIds": [
+      "museum-xylem-vessels"
+    ],
+    "legacyConceptTerms": [
+      "蒸腾拉力"
+    ]
+  },
+  {
+    "id": "science-transpiration-bag",
+    "conceptId": "transpiration-bag",
+    "tags": [
+      "植物生理",
+      "蒸腾"
+    ],
+    "text": "百科小知识：把透明袋套在植物叶片外，叶片释放的水蒸气会在袋内凝成小水滴，让看不见的蒸腾留下痕迹。",
+    "publisher": "USGS",
+    "link": "https://www.usgs.gov/water-science-school/science/evapotranspiration-and-water-cycle",
+    "verifiedAt": "2026-10-26",
+    "legacyIds": [],
+    "legacyConceptTerms": []
+  },
+  {
+    "id": "science-humidity-transpiration",
+    "conceptId": "humidity-transpiration",
+    "tags": [
+      "植物生理",
+      "蒸腾"
+    ],
+    "text": "百科小知识：其他条件相近时，周围空气越湿，植物的蒸腾通常越慢，因为水更难继续蒸发到湿空气里。",
+    "publisher": "USGS",
+    "link": "https://www.usgs.gov/water-science-school/science/evapotranspiration-and-water-cycle",
+    "verifiedAt": "2026-10-26",
+    "legacyIds": [],
+    "legacyConceptTerms": []
+  },
+  {
+    "id": "science-wind-transpiration",
+    "conceptId": "wind-transpiration",
+    "tags": [
+      "植物生理",
+      "蒸腾"
+    ],
+    "text": "百科小知识：风会带走叶片附近较湿的空气，换来更干的空气，因此空气流动常使植物蒸腾加快。",
+    "publisher": "USGS",
+    "link": "https://www.usgs.gov/water-science-school/science/evapotranspiration-and-water-cycle",
+    "verifiedAt": "2026-10-26",
+    "legacyIds": [],
+    "legacyConceptTerms": []
+  },
+  {
+    "id": "science-stomata-regulation",
+    "conceptId": "stomata-regulation",
+    "tags": [
+      "植物生理",
+      "蒸腾"
+    ],
+    "text": "百科小知识：叶片气孔的开合会影响水蒸气离开的速度，植物能借这些细小开口调节与空气的交换。",
+    "publisher": "USGS",
+    "link": "https://www.usgs.gov/water-science-school/science/evapotranspiration-and-water-cycle",
+    "verifiedAt": "2026-10-26",
+    "legacyIds": [
+      "museum-plant-stomata"
+    ],
+    "legacyConceptTerms": [
+      "气孔由一对保卫细胞"
+    ]
+  },
+  {
+    "id": "science-evapotranspiration-sum",
+    "conceptId": "evapotranspiration-sum",
+    "tags": [
+      "植物生理",
+      "蒸腾"
+    ],
+    "text": "百科小知识：蒸散包括地面和水面的蒸发，也包括植物蒸腾，表示水从陆地回到大气的多种过程。",
+    "publisher": "USGS",
+    "link": "https://www.usgs.gov/water-science-school/science/evapotranspiration-and-water-cycle",
+    "verifiedAt": "2026-10-26",
+    "legacyIds": [],
+    "legacyConceptTerms": []
+  },
+  {
+    "id": "science-water-cohesion",
+    "conceptId": "water-cohesion",
+    "tags": [
+      "水的物理",
+      "分子作用"
+    ],
+    "text": "百科小知识：水分子之间会相互吸引，这种内聚作用帮助水聚成水滴，而不是任意散开。",
+    "publisher": "USGS",
+    "link": "https://www.usgs.gov/water-science-school/science/adhesion-and-cohesion-water",
+    "verifiedAt": "2026-10-26",
+    "legacyIds": [],
+    "legacyConceptTerms": []
+  },
+  {
+    "id": "science-water-adhesion",
+    "conceptId": "water-adhesion",
+    "tags": [
+      "水的物理",
+      "分子作用"
+    ],
+    "text": "百科小知识：水也会被其他物质的表面吸引，这种附着作用能让小水滴暂时挂在松针等物体上。",
+    "publisher": "USGS",
+    "link": "https://www.usgs.gov/water-science-school/science/adhesion-and-cohesion-water",
+    "verifiedAt": "2026-10-26",
+    "legacyIds": [],
+    "legacyConceptTerms": []
+  },
+  {
+    "id": "science-water-polarity",
+    "conceptId": "water-polarity",
+    "tags": [
+      "水的物理",
+      "分子作用"
+    ],
+    "text": "百科小知识：水分子两侧的电荷分布不均匀，一侧偏正、一侧偏负，这与水分子彼此吸引有关。",
+    "publisher": "USGS",
+    "link": "https://www.usgs.gov/water-science-school/science/adhesion-and-cohesion-water",
+    "verifiedAt": "2026-10-26",
+    "legacyIds": [],
+    "legacyConceptTerms": []
+  },
+  {
+    "id": "science-water-drop-gravity",
+    "conceptId": "water-drop-gravity",
+    "tags": [
+      "水的物理",
+      "分子作用"
+    ],
+    "text": "百科小知识：水滴倾向于形成圆球状，但地球重力会把它压扁一些，所以叶片上的水滴通常不是完美球体。",
+    "publisher": "USGS",
+    "link": "https://www.usgs.gov/water-science-school/science/adhesion-and-cohesion-water",
+    "verifiedAt": "2026-10-26",
+    "legacyIds": [],
+    "legacyConceptTerms": []
+  },
+  {
+    "id": "science-water-solvent-limits",
+    "conceptId": "water-solvent-limits",
+    "tags": [
+      "水的化学",
+      "溶解"
+    ],
+    "text": "百科小知识：水能溶解很多种物质，所以被称为通用溶剂，但这不表示它能把所有材料都溶解。",
+    "publisher": "USGS",
+    "link": "https://www.usgs.gov/water-science-school/science/water-universal-solvent",
+    "verifiedAt": "2026-10-26",
+    "legacyIds": [],
+    "legacyConceptTerms": []
+  },
+  {
+    "id": "science-salt-dissolution",
+    "conceptId": "salt-dissolution",
+    "tags": [
+      "水的化学",
+      "溶解"
+    ],
+    "text": "百科小知识：食盐进入水后，水分子会围住并分开其中的钠离子和氯离子，让盐均匀分散在水中。",
+    "publisher": "USGS",
+    "link": "https://www.usgs.gov/water-science-school/science/water-universal-solvent",
+    "verifiedAt": "2026-10-26",
+    "legacyIds": [],
+    "legacyConceptTerms": []
+  },
+  {
+    "id": "science-water-nutrient-transport",
+    "conceptId": "water-nutrient-transport",
+    "tags": [
+      "水的化学",
+      "溶解"
+    ],
+    "text": "百科小知识：水流动时能携带溶解的矿物质和养分，这种溶解能力帮助物质在环境与生物体内移动。",
+    "publisher": "USGS",
+    "link": "https://www.usgs.gov/water-science-school/science/water-universal-solvent",
+    "verifiedAt": "2026-10-26",
+    "legacyIds": [],
+    "legacyConceptTerms": []
+  },
+  {
+    "id": "science-surface-tension-insects",
+    "conceptId": "surface-tension-insects",
+    "tags": [
+      "水的物理",
+      "表面张力"
+    ],
+    "text": "百科小知识：水黾利用水的表面张力和细长疏水的腿，把身体重量分散开来，帮助自己停在水面上。",
+    "publisher": "USGS",
+    "link": "https://www.usgs.gov/water-science-school/science/surface-tension-and-water",
+    "verifiedAt": "2026-10-26",
+    "legacyIds": [],
+    "legacyConceptTerms": []
+  },
+  {
+    "id": "science-surface-tension-detergent",
+    "conceptId": "surface-tension-detergent",
+    "tags": [
+      "水的物理",
+      "表面张力"
+    ],
+    "text": "百科小知识：洗涤剂能降低水的表面张力，让水更容易浸入织物缝隙，帮助清洗脏污。",
+    "publisher": "USGS",
+    "link": "https://www.usgs.gov/water-science-school/science/surface-tension-and-water",
+    "verifiedAt": "2026-10-26",
+    "legacyIds": [],
+    "legacyConceptTerms": []
+  },
+  {
+    "id": "science-surface-tension-needle",
+    "conceptId": "surface-tension-needle",
+    "tags": [
+      "水的物理",
+      "表面张力"
+    ],
+    "text": "百科小知识：小针轻轻放在水面上可能被表面张力托住，若水面受到扰动，针就可能沉下去。",
+    "publisher": "USGS",
+    "link": "https://www.usgs.gov/water-science-school/science/surface-tension-and-water",
+    "verifiedAt": "2026-10-26",
+    "legacyIds": [],
+    "legacyConceptTerms": []
+  },
+  {
+    "id": "science-surface-tension-bubbles",
+    "conceptId": "surface-tension-bubbles",
+    "tags": [
+      "水的物理",
+      "表面张力"
+    ],
+    "text": "百科小知识：表面张力会让液膜尽量收缩，因此自由悬浮的小气泡通常趋向圆球形，而不是方块形。",
+    "publisher": "USGS",
+    "link": "https://www.usgs.gov/water-science-school/science/surface-tension-and-water",
+    "verifiedAt": "2026-10-26",
+    "legacyIds": [],
+    "legacyConceptTerms": []
+  },
+  {
+    "id": "science-fault-slip",
+    "conceptId": "fault-slip",
+    "tags": [
+      "地震",
+      "地球科学"
+    ],
+    "text": "百科小知识：断层两侧的岩块原本可能被摩擦力卡住，突然错动时释放能量，就可能引发地震。",
+    "publisher": "USGS",
+    "link": "https://www.usgs.gov/programs/earthquake-hazards/science-earthquakes",
+    "verifiedAt": "2026-10-26",
+    "legacyIds": [
+      "museum-earthquake-fault"
+    ],
+    "legacyConceptTerms": [
+      "断层突然错动"
+    ]
+  },
+  {
+    "id": "science-hypocenter-epicenter",
+    "conceptId": "hypocenter-epicenter",
+    "tags": [
+      "地震",
+      "地球科学"
+    ],
+    "text": "百科小知识：地震最先发生的地下位置叫震源，它正上方的地表位置叫震中，两者不是同一个点。",
+    "publisher": "USGS",
+    "link": "https://www.usgs.gov/programs/earthquake-hazards/science-earthquakes",
+    "verifiedAt": "2026-10-26",
+    "legacyIds": [],
+    "legacyConceptTerms": []
+  },
+  {
+    "id": "science-aftershock",
+    "conceptId": "aftershock",
+    "tags": [
+      "地震",
+      "地球科学"
+    ],
+    "text": "百科小知识：主震之后，同一区域还可能出现较小的余震；余震可以持续数周、数月，甚至更久。",
+    "publisher": "USGS",
+    "link": "https://www.usgs.gov/programs/earthquake-hazards/science-earthquakes",
+    "verifiedAt": "2026-10-26",
+    "legacyIds": [],
+    "legacyConceptTerms": []
+  },
+  {
+    "id": "science-seismic-energy",
+    "conceptId": "seismic-energy",
+    "tags": [
+      "地震",
+      "地球科学"
+    ],
+    "text": "百科小知识：地震释放的能量会以地震波向外传播，波经过地面时，会使地面和上面的物体振动。",
+    "publisher": "USGS",
+    "link": "https://www.usgs.gov/programs/earthquake-hazards/science-earthquakes",
+    "verifiedAt": "2026-10-26",
+    "legacyIds": [],
+    "legacyConceptTerms": []
+  },
+  {
+    "id": "science-magnitude-intensity",
+    "conceptId": "magnitude-intensity",
+    "tags": [
+      "地震",
+      "地球科学"
+    ],
+    "text": "百科小知识：震级表示一次地震的大小，烈度描述某处摇晃的影响；同一次地震，不同地方的烈度可以不同。",
+    "publisher": "USGS",
+    "link": "https://www.usgs.gov/programs/earthquake-hazards/science-earthquakes",
+    "verifiedAt": "2026-10-26",
+    "legacyIds": [],
+    "legacyConceptTerms": []
+  },
+  {
+    "id": "science-earth-four-layers",
+    "conceptId": "earth-four-layers",
+    "tags": [
+      "地球内部",
+      "地球科学"
+    ],
+    "text": "百科小知识：从外向内看，地球主要分为地壳、地幔、外核和内核，表面的薄层并不是整个地球。",
+    "publisher": "USGS",
+    "link": "https://www.usgs.gov/programs/earthquake-hazards/science-earthquakes",
+    "verifiedAt": "2026-10-26",
+    "legacyIds": [],
+    "legacyConceptTerms": []
+  },
+  {
+    "id": "science-p-s-speed",
+    "conceptId": "p-s-speed",
+    "tags": [
+      "地震",
+      "地球科学"
+    ],
+    "text": "百科小知识：地震产生的纵波通常比横波跑得快，因此地震仪往往先记录到纵波，随后才记录到横波。",
+    "publisher": "USGS",
+    "link": "https://www.usgs.gov/programs/earthquake-hazards/seismographs-keeping-track-earthquakes",
+    "verifiedAt": "2026-10-26",
+    "legacyIds": [
+      "museum-seismic-p-s-waves"
+    ],
+    "legacyConceptTerms": [
+      "P波传播较快"
+    ]
+  },
+  {
+    "id": "science-p-s-motion",
+    "conceptId": "p-s-motion",
+    "tags": [
+      "地震",
+      "地球科学"
+    ],
+    "text": "百科小知识：纵波使岩石沿着波前进的方向来回压缩、伸展；横波会使岩石向垂直于传播方向的方向振动。",
+    "publisher": "USGS",
+    "link": "https://www.usgs.gov/programs/earthquake-hazards/seismographs-keeping-track-earthquakes",
+    "verifiedAt": "2026-10-26",
+    "legacyIds": [],
+    "legacyConceptTerms": []
+  },
+  {
+    "id": "science-seismic-distance",
+    "conceptId": "seismic-distance",
+    "tags": [
+      "地震",
+      "地球科学"
+    ],
+    "text": "百科小知识：比较纵波与横波到达的时间差，科学家能估算地震离观测站多远；只有一个距离还不能确定方向。",
+    "publisher": "USGS",
+    "link": "https://www.usgs.gov/programs/earthquake-hazards/seismographs-keeping-track-earthquakes",
+    "verifiedAt": "2026-10-26",
+    "legacyIds": [
+      "museum-seismic-p-s-waves"
+    ],
+    "legacyConceptTerms": [
+      "两种波到达的时间"
+    ]
+  },
+  {
+    "id": "science-station-location",
+    "conceptId": "station-location",
+    "tags": [
+      "地震",
+      "地球科学"
+    ],
+    "text": "百科小知识：多个地震台站提供不同方向的观测记录，把它们合起来，才能更准确地定位地震发生的位置。",
+    "publisher": "USGS",
+    "link": "https://www.usgs.gov/programs/earthquake-hazards/seismographs-keeping-track-earthquakes",
+    "verifiedAt": "2026-10-26",
+    "legacyIds": [
+      "museum-seismic-p-s-waves"
+    ],
+    "legacyConceptTerms": [
+      "多座地震台"
+    ]
+  },
+  {
+    "id": "science-slow-cooling-crystals",
+    "conceptId": "slow-cooling-crystals",
+    "tags": [
+      "岩石",
+      "地球科学"
+    ],
+    "text": "百科小知识：岩浆在地下缓慢冷却，矿物晶体有更多时间生长，因此这类火成岩常能看到较大的颗粒。",
+    "publisher": "USGS",
+    "link": "https://www.usgs.gov/faqs/what-are-igneous-rocks?qt-news_science_products=0",
+    "verifiedAt": "2026-10-26",
+    "legacyIds": [
+      "museum-granite"
+    ],
+    "legacyConceptTerms": [
+      "颗粒比较明显"
+    ]
+  },
+  {
+    "id": "science-rapid-cooling-texture",
+    "conceptId": "rapid-cooling-texture",
+    "tags": [
+      "岩石",
+      "地球科学"
+    ],
+    "text": "百科小知识：熔岩在地表较快冷却，晶体来不及长大，因此岩石常有细小颗粒，甚至形成玻璃状结构。",
+    "publisher": "USGS",
+    "link": "https://www.usgs.gov/faqs/what-are-igneous-rocks?qt-news_science_products=0",
+    "verifiedAt": "2026-10-26",
+    "legacyIds": [
+      "museum-obsidian"
+    ],
+    "legacyConceptTerms": [
+      "岩浆快速冷却"
+    ]
+  },
+  {
+    "id": "science-lava-vesicles",
+    "conceptId": "lava-vesicles",
+    "tags": [
+      "岩石",
+      "地球科学"
+    ],
+    "text": "百科小知识：熔岩冷却时，如果气泡被留在里面，岩石就可能出现许多小孔，那是气泡曾经占据的位置。",
+    "publisher": "USGS",
+    "link": "https://www.usgs.gov/faqs/what-are-igneous-rocks?qt-news_science_products=0",
+    "verifiedAt": "2026-10-26",
+    "legacyIds": [
+      "museum-pumice"
+    ],
+    "legacyConceptTerms": [
+      "浮石里有许多小孔"
+    ]
+  },
+  {
+    "id": "science-sediment-cementation",
+    "conceptId": "sediment-cementation",
+    "tags": [
+      "岩石",
+      "地球科学"
+    ],
+    "text": "百科小知识：河流搬运的碎屑沉积后，被埋深时会逐渐压紧、胶结，松散的沉积物便可能变成沉积岩。",
+    "publisher": "USGS",
+    "link": "https://www.usgs.gov/faqs/what-are-sedimentary-rocks?page=1",
+    "verifiedAt": "2026-10-26",
+    "legacyIds": [
+      "museum-sandstone"
+    ],
+    "legacyConceptTerms": [
+      "沙粒压实胶结"
+    ]
+  },
+  {
+    "id": "science-grain-classification",
+    "conceptId": "grain-classification",
+    "tags": [
+      "岩石",
+      "地球科学"
+    ],
+    "text": "百科小知识：碎屑沉积岩可按颗粒大小区分，砂岩主要由砂粒构成，砾岩里则能看到更大的砾石颗粒。",
+    "publisher": "USGS",
+    "link": "https://www.usgs.gov/faqs/what-are-sedimentary-rocks?page=1",
+    "verifiedAt": "2026-10-26",
+    "legacyIds": [
+      "museum-sandstone"
+    ],
+    "legacyConceptTerms": [
+      "砂岩由许多沙粒"
+    ]
+  },
+  {
+    "id": "science-biological-limestone",
+    "conceptId": "biological-limestone",
+    "tags": [
+      "岩石",
+      "地球科学"
+    ],
+    "text": "百科小知识：有些沉积岩来自生物留下的材料，例如大量生物遗骸积累后，可以参与形成石灰岩。",
+    "publisher": "USGS",
+    "link": "https://www.usgs.gov/faqs/what-are-sedimentary-rocks?page=1",
+    "verifiedAt": "2026-10-26",
+    "legacyIds": [
+      "museum-limestone"
+    ],
+    "legacyConceptTerms": [
+      "石灰岩和古代海洋生物遗骸"
+    ]
+  },
+  {
+    "id": "science-rock-mineral",
+    "conceptId": "rock-mineral",
+    "tags": [
+      "岩石",
+      "地球科学"
+    ],
+    "text": "百科小知识：矿物有较有规律的内部结构和化学组成，岩石则常由一种或多种矿物集合而成，两者不是同义词。",
+    "publisher": "USGS",
+    "link": "https://www.usgs.gov/faqs/what-difference-between-a-rock-and-a-mineral?items_per_page=6&page=1",
+    "verifiedAt": "2026-10-26",
+    "legacyIds": [],
+    "legacyConceptTerms": []
+  },
+  {
+    "id": "science-metamorphic-change",
+    "conceptId": "metamorphic-change",
+    "tags": [
+      "岩石",
+      "地球科学"
+    ],
+    "text": "百科小知识：原有岩石受到高温、压力或流体作用，内部矿物和结构可能改变，这样形成的岩石叫变质岩。",
+    "publisher": "USGS",
+    "link": "https://www.usgs.gov/faqs/what-are-metamorphic-rocks?qt-news_science_products=0",
+    "verifiedAt": "2026-10-26",
+    "legacyIds": [],
+    "legacyConceptTerms": []
+  },
+  {
+    "id": "science-rock-magnetic-record",
+    "conceptId": "rock-magnetic-record",
+    "tags": [
+      "地磁",
+      "地球科学"
+    ],
+    "text": "百科小知识：熔岩冷却或沉积物固结时，可能保存当时地磁场的方向，岩石因此能留下过去磁场的记录。",
+    "publisher": "USGS",
+    "link": "https://www.usgs.gov/faqs/it-true-earths-magnetic-field-occasionally-reverses-its-polarity",
+    "verifiedAt": "2026-10-26",
+    "legacyIds": [],
+    "legacyConceptTerms": []
+  },
+  {
+    "id": "science-irregular-reversals",
+    "conceptId": "irregular-reversals",
+    "tags": [
+      "地磁",
+      "地球科学"
+    ],
+    "text": "百科小知识：地球磁场的南北极性曾多次对调，但这些倒转没有固定周期，不能按简单日历推算下一次。",
+    "publisher": "USGS",
+    "link": "https://www.usgs.gov/faqs/it-true-earths-magnetic-field-occasionally-reverses-its-polarity",
+    "verifiedAt": "2026-10-26",
+    "legacyIds": [],
+    "legacyConceptTerms": []
+  },
+  {
+    "id": "science-reversal-not-instant",
+    "conceptId": "reversal-not-instant",
+    "tags": [
+      "地磁",
+      "地球科学"
+    ],
+    "text": "百科小知识：地磁极性倒转不是像按开关那样瞬间完成，通常经历较长的变化过程，可持续数百到数千年。",
+    "publisher": "USGS",
+    "link": "https://www.usgs.gov/faqs/it-true-earths-magnetic-field-occasionally-reverses-its-polarity",
+    "verifiedAt": "2026-10-26",
+    "legacyIds": [],
+    "legacyConceptTerms": []
+  },
+  {
+    "id": "science-seafloor-spreading",
+    "conceptId": "seafloor-spreading",
+    "tags": [
+      "板块",
+      "地球科学"
+    ],
+    "text": "百科小知识：大洋中脊附近的板块分开时，新物质会上涌并冷却在板块边缘，使海底逐渐扩张。",
+    "publisher": "USGS",
+    "link": "https://www.usgs.gov/glossary/earthquake-hazards-program",
+    "verifiedAt": "2026-10-26",
+    "legacyIds": [],
+    "legacyConceptTerms": []
+  },
+  {
+    "id": "science-subduction-trench",
+    "conceptId": "subduction-trench",
+    "tags": [
+      "板块",
+      "地球科学"
+    ],
+    "text": "百科小知识：两个板块靠近时，一个板块可能俯冲到另一个下面；俯冲处的海底常形成狭长的海沟。",
+    "publisher": "USGS",
+    "link": "https://www.usgs.gov/glossary/earthquake-hazards-program",
+    "verifiedAt": "2026-10-26",
+    "legacyIds": [],
+    "legacyConceptTerms": []
+  },
+  {
+    "id": "science-transform-slip",
+    "conceptId": "transform-slip",
+    "tags": [
+      "板块",
+      "地球科学"
+    ],
+    "text": "百科小知识：有些板块边界的两侧主要沿水平方向错动，这类转换断层不是简单的相互远离或正面碰撞。",
+    "publisher": "USGS",
+    "link": "https://www.usgs.gov/glossary/earthquake-hazards-program",
+    "verifiedAt": "2026-10-26",
+    "legacyIds": [],
+    "legacyConceptTerms": []
+  },
+  {
+    "id": "science-lithosphere",
+    "conceptId": "lithosphere",
+    "tags": [
+      "地球内部",
+      "地球科学"
+    ],
+    "text": "百科小知识：岩石圈不只包括地壳，还包括最上部的一部分地幔，它们一起形成地球外侧较坚硬的部分。",
+    "publisher": "USGS",
+    "link": "https://www.usgs.gov/glossary/earthquake-hazards-program",
+    "verifiedAt": "2026-10-26",
+    "legacyIds": [],
+    "legacyConceptTerms": []
+  },
+  {
+    "id": "science-shield-volcano",
+    "conceptId": "shield-volcano",
+    "tags": [
+      "火山",
+      "地球科学"
+    ],
+    "text": "百科小知识：比较流动的熔岩能铺展到远处，多次叠加后，常形成坡度平缓、外形宽阔的盾状火山。",
+    "publisher": "USGS",
+    "link": "https://www.usgs.gov/programs/VHP/about-volcanoes",
+    "verifiedAt": "2026-10-26",
+    "legacyIds": [],
+    "legacyConceptTerms": []
+  },
+  {
+    "id": "science-lava-dome",
+    "conceptId": "lava-dome",
+    "tags": [
+      "火山",
+      "地球科学"
+    ],
+    "text": "百科小知识：有些熔岩十分黏稠，不容易流离喷口，便在附近越堆越高，形成像圆丘一样的熔岩穹丘。",
+    "publisher": "USGS",
+    "link": "https://www.usgs.gov/programs/VHP/about-volcanoes",
+    "verifiedAt": "2026-10-26",
+    "legacyIds": [],
+    "legacyConceptTerms": []
+  },
+  {
+    "id": "science-volcanic-growth",
+    "conceptId": "volcanic-growth",
+    "tags": [
+      "火山",
+      "地球科学"
+    ],
+    "text": "百科小知识：火山并不是先有一座山再被掏空，喷出的熔岩等物质反复堆积，也能逐渐建起火山地形。",
+    "publisher": "USGS",
+    "link": "https://www.usgs.gov/programs/VHP/about-volcanoes",
+    "verifiedAt": "2026-10-26",
+    "legacyIds": [],
+    "legacyConceptTerms": []
+  },
+  {
+    "id": "science-magma-lava",
+    "conceptId": "magma-lava",
+    "tags": [
+      "火山",
+      "地球科学"
+    ],
+    "text": "百科小知识：熔融的岩石在地下时叫岩浆，突破地表后叫熔岩；这两个名称主要区分它所在的位置。",
+    "publisher": "USGS",
+    "link": "https://www.usgs.gov/faqs/what-difference-between-magma-and-lava?items_per_page=6&page=1&qt-=",
+    "verifiedAt": "2026-10-26",
+    "legacyIds": [],
+    "legacyConceptTerms": []
+  },
+  {
+    "id": "science-volcanic-ash-material",
+    "conceptId": "volcanic-ash-material",
+    "tags": [
+      "火山",
+      "地球科学"
+    ],
+    "text": "百科小知识：火山灰不是木头燃烧后的灰，而是细小岩石、矿物和火山玻璃碎片，风能把它们带到远处。",
+    "publisher": "USGS",
+    "link": "https://volcanoes.usgs.gov/volcanic_ash/ash.html",
+    "verifiedAt": "2026-10-26",
+    "legacyIds": [],
+    "legacyConceptTerms": []
+  }
+]

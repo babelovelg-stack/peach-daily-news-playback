@@ -11,6 +11,11 @@ import {
   newsQualityIssues
 } from "./peach-content-quality.mjs";
 
+test('wind and solar capacity statistics cannot inherit a cleaning-robot explanation', () => {
+  const issues=newsQualityIssues({sourceTitle:'国家能源局：我国风光累计装机容量突破20亿千瓦',sourceDescription:'风电和太阳能发电累计装机容量达到20.1亿千瓦。',title:'我国风光累计装机容量突破20亿千瓦',summary:'风电和太阳能发电累计装机容量达到20.1亿千瓦。',value:'机器人负责做又脏又重复的清扫工作，让清洁能源更稳定地发电。',impact:'太阳能电站维护得更好，同一片阳光就能发出更多电。'});
+  assert.ok(issues.some(issue=>issue.includes('清扫机器人')));
+});
+
 test("deduplicates named typhoons by storm name across different response angles", () => {
   assert.equal(namedTyphoonEventKey("台风“白海豚”向华东靠近，沿海提前防御"), "named-typhoon-白海豚");
   assert.equal(namedTyphoonEventKey("福建应对第8号台风“白海豚”，暂停部分海上交通"), "named-typhoon-白海豚");

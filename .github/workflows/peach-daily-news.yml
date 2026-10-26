@@ -15,6 +15,10 @@ on:
         description: "Send a shorter test email"
         required: false
         default: "false"
+      validate_only:
+        description: "Generate and validate only; never publish, send, or save formal state"
+        required: false
+        default: "false"
       send_date:
         description: "Optional report date for backfill, YYYY-MM-DD"
         required: false
@@ -105,6 +109,20 @@ jobs:
       - name: Install dependencies
         run: npm ci
 
+      - name: Verify reliability regressions
+        run: npm test
+
+      - name: Validate no-send input scope
+        if: ${{ github.event.inputs.validate_only == 'true' }}
+        env:
+          PREPARED_DIR: ${{ github.event.inputs.prepared_dir }}
+          RESEND_RUN_ID: ${{ github.event.inputs.resend_run_id }}
+        run: test -z "$PREPARED_DIR" && test -z "$RESEND_RUN_ID"
+
+      - name: Check all science catalog sources
+        if: ${{ github.event.inputs.validate_only == 'true' }}
+        run: node peach-science-source-check.mjs
+
       - name: Check scheduled send window and duplicate state
         id: schedule_gate
         if: ${{ github.event.inputs.resend_run_id == '' && github.event.inputs.prepared_dir == '' }}
@@ -130,11 +148,11 @@ jobs:
           path: resend-artifact
 
       - name: Resend existing Peach email with fixed playback link
-        if: ${{ github.event.inputs.resend_run_id != '' && github.event.inputs.prepared_dir == '' }}
+        if: ${{ github.event.inputs.resend_run_id != '' && github.event.inputs.prepared_dir == '' && github.event.inputs.validate_only != 'true' }}
         run: node send-existing-peach-email.mjs
 
       - name: Send prepared Peach email
-        if: ${{ github.event.inputs.prepared_dir != '' }}
+        if: ${{ github.event.inputs.prepared_dir != '' && github.event.inputs.validate_only != 'true' }}
         env:
           PEACH_NEWS_RESEND_DIR: ${{ github.event.inputs.prepared_dir }}
         run: node send-existing-peach-email.mjs
@@ -156,7 +174,7 @@ jobs:
 
       - name: Publish playback page
         id: publish_playback
-        if: ${{ steps.schedule_gate.outputs.should_send == 'true' }}
+        if: ${{ steps.schedule_gate.outputs.should_send == 'true' && github.event.inputs.validate_only != 'true' }}
         shell: bash
         run: |
           date_key=$(jq -r '.lastSentDate' peach-news-next-state.json)
@@ -191,7 +209,7 @@ jobs:
           echo "Published playback page: $playback_url"
 
       - name: Verify hosted playback files
-        if: ${{ steps.schedule_gate.outputs.should_send == 'true' }}
+        if: ${{ steps.schedule_gate.outputs.should_send == 'true' && github.event.inputs.validate_only != 'true' }}
         shell: bash
         run: |
           date_key="${{ steps.publish_playback.outputs.date_key }}"
@@ -217,7 +235,7 @@ jobs:
           echo "Verified hosted playback page, audio, captions, and speech text."
 
       - name: Send verified Peach daily news
-        if: ${{ steps.schedule_gate.outputs.should_send == 'true' }}
+        if: ${{ steps.schedule_gate.outputs.should_send == 'true' && github.event.inputs.validate_only != 'true' }}
         env:
           PEACH_NEWS_RESEND_DIR: .
           PEACH_NEWS_PLAYBACK_URL_OVERRIDE: ${{ steps.publish_playback.outputs.playback_url }}
@@ -228,7 +246,7 @@ jobs:
           cp peach-news-next-state.json peach-news-state.json
 
       - name: Save question state
-        if: ${{ success() && steps.schedule_gate.outputs.should_send == 'true' }}
+        if: ${{ success() && steps.schedule_gate.outputs.should_send == 'true' && github.event.inputs.validate_only != 'true' }}
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
@@ -250,5 +268,6 @@ jobs:
             peach-news-state.json
             peach-news-next-state.json
             peach-news-audit.json
+            peach-playback-manifest.json
             peach-playback
           if-no-files-found: ignore

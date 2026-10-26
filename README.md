@@ -34,6 +34,16 @@
 
 门禁失败时工作流必须停止，不能为了按时发信而编造新闻、降低标准或复用近期内容。
 
+### 唯一的零新闻科普例外
+
+采集成功且逐条通过时效、儿童适宜性、具体解释、语义质量、来源与去重检查的新闻恰好为 **0 条** 时，当期使用“儿童科学知识版”。只有 1 条时仍是新闻版，正常日报依然必须满足 2 条／2 来源；测试与合并补发保留原有 1 条／1 来源门槛。成功解析的空 feed 可以证明零候选；所有 feed 失败时，只有真正合格的新鲜人工稿才能维持新闻模式，旧 JSON 不能掩盖采集失败。临时超时、429 或 5xx 重试后未解决，不得被当作零新闻质量结论。
+
+科普版只用 3 条科学知识替换原来的 3 条百科，并明确说明本期没有合格新闻；不伪装成新闻或新发现、不出现空新闻卡片。`peach-science-catalog.json` 有 152 个独立概念，逐条保留 NASA、NOAA、USGS 的具体来源及核对日期；每期覆盖 3 个不同主主题，保持 45 期／135 条排除窗口，并映射旧百科 ID、文本与语义。来源链接保留在邮件和页面，不朗读网址。目录损坏、来源不通或库存不足时停止，不清空历史。
+
+探索题优先采用合格的新闻关联题，次级后备池提供 24 个不同推理概念（16 类计算、8 类实验与证据），使用标明“模拟数据”的有界数值变体；不依赖 LLM 或新增密钥。14 个近期概念和长文本去重、原质量验证及选项轮换不变。回归测试覆盖真实状态起点的连续 60 期科普和 400 个日期选题，并独立重算全部数值题答案。它提高库存可靠性，但不保证采集、语音、发布或 SMTP 永远成功，也不以科普掩盖这些错误。
+
+审计 schema 2 保存逐日模式、候选／拒绝理由、合格数量、来源及相关学习历史；每个 feed 的解析数量和人工稿数量都必须与候选清单分别对账。科普与旧百科使用双向概念映射，切回新闻版也不能重讲 135 条窗口内的同一知识。发送器重新对照受信目录与审计校验正文，再验证四资产的 SHA-256、日期、模式与事实；朗读稿必须完整等于受信开场／结尾模板和已审内容的确定性拼装，仅规整空白，不接受任意“预期朗读稿”。字幕、邮件和播放页可容忍格式与句读差异，但小数点、负号、百分比、范围与算式仍严格检查；追加题干、答案或其他朗读内容即使重算哈希也拒绝。上一期题目与答案从逐日历史重新推导，在邮件正文、邮件 HTML 和播放页均须完整展示，不得缺失或改写，也不进入音频。旧 schema 1 仅兼容正常新闻重发，不支持旧零新闻邮件。科普发信成功后正常记录日期并去重，不追加同日第二封。
+
 ### 固定内容结构
 
 每期包含：
@@ -90,7 +100,7 @@ RSS / 搜索源 / 人工精选源
 
 `google-apps-script/` 提供独立于电脑的外部云触发器：北京时间 18:00 主触发、18:10 备触发，小时级修复任务负责补建缺失触发器。外部触发和 GitHub 计划任务使用同一日期门禁。
 
-定时触发成功不等于当天一定发出。当前选稿依赖 RSS、预设改写规则与 `peach-curated-news.json` 中已核对的编辑稿，尚未接入云端模型进行自主检索、阅读全文和智能编辑。遇到新闻源过期、空列表或缺少合格解释时，重复触发不会自动补齐编辑稿；须为原定 24 小时窗口补充可靠来源，并重新通过完整校验。请以实际发信日志、发送状态和线上播放文件核验投递结果，而不是只查看任务启用状态。
+定时触发成功不等于当天一定发出。当前选稿依赖 RSS、预设改写规则与 `peach-curated-news.json` 中已核对的编辑稿，尚未接入云端模型进行自主检索、阅读全文和智能编辑。成功采集后合格新闻为零时按上述规则使用科普版；只有一条、源故障或其他质量失败仍停止。请以实际发信日志、发送状态和线上播放文件核验投递结果，而不是只查看任务启用状态。
 
 ### 在线访问
 
@@ -130,6 +140,10 @@ node peach-daily-news.mjs --test --dry-run
 ```
 
 该命令仍会检查新鲜度和防重复状态；当内容池不足时主动失败属于预期保护行为。
+
+云端只验证可在手动运行工作流时设置 `validate_only=true`（默认 `false`）：运行全量测试、生成真实语音资产并自检，但不发布、不发送、不更新正式状态。不能与历史重发／准备目录组合使用。审计及哈希清单随 `peach-daily-news` 产物包一起保存，下载后须保留整个目录结构；科普重发必须有审计、哈希清单及四资产。
+
+该验证模式还会检查整个科普目录的全部独立来源 URL（当前 38 个），而不只检查当期 3 条。可单独运行只读命令 `node peach-science-source-check.mjs`：最多 6 路并发，沿用来源自检的两次尝试与超时规则，任何 URL 仍不可访问都会失败。它不发送邮件、不修改状态或目录；本机代理／网络失败不能代替云端结果，也不能据此跳过来源检查或删减库存。
 
 本地预览静态站：
 
@@ -177,6 +191,7 @@ GitHub Actions 必须配置 `REPORT_EMAIL_FROM`、`SMTP_HOST`、`SMTP_PORT`、`S
 
 - `peach-daily-news.html` 与 `peach-daily-news.txt`：准备发送的邮件正文。
 - `peach-news-audit.json`：内容、来源和质量审计数据。
+- `peach-playback-manifest.json`：四资产 SHA-256／字节数、逐日模式与知识 ID、审计摘要；四文件生成完毕后才写入。
 - `peach-news-next-state.json`：本次通过后准备写入的下一状态。
 - `peach-news-state.json`：已发送新闻、百科、题目和日期状态。
 - `peach-playback/YYYY-MM-DD/`：本地生成、等待发布的四文件目录。
@@ -249,6 +264,16 @@ Automated gates reject:
 
 When a gate fails, the workflow stops. It must never invent news, reduce standards, or reuse recent content merely to send on time.
 
+### The narrow zero-news science exception
+
+Only successful collection with **exactly zero** individually qualified fresh stories selects the clearly labelled “儿童科学知识版” (children's science edition). One story stays in news mode: normal issues still require two stories from two publishers; legacy test/merged issues retain one story/one publisher. A successfully parsed empty feed is legitimate zero-candidate evidence. All-feed failure requires genuinely qualified fresh curated news to proceed; stale curated JSON cannot hide collection failure. Unresolved timeouts, 429s, and 5xx errors are retried and never counted as quality-based zero news.
+
+Science replaces the usual three encyclopedia entries with exactly three facts from different primary topics, without empty news cards or claims of a new discovery. The 152-concept catalog retains specific NASA, NOAA, and USGS sources and verification dates. Legacy IDs, text, and semantic mappings preserve the 45-issue/135-fact exclusion window. Source links appear in email and the page, not speech. Malformed catalogs, inaccessible sources, or insufficient inventory stop delivery without resetting history.
+
+Eligible reviewed news-linked questions come first. A secondary reserve offers 24 distinct reasoning concepts (16 arithmetic and eight experiment/evidence families) with bounded deterministic numeric variations labelled simulated data. No LLM or new key is required. Existing quality checks, option rotation, 14-concept exclusion, and long-text history remain in force. Tests simulate 60 consecutive science issues and 400 question dates from real state and independently recalculate every numeric answer. This improves inventory resilience; it does not guarantee feed, speech, publication, or SMTP availability, and none of those failures triggers science mode.
+
+Audit schema 2 records per-date modes, candidates/rejection reasons, qualified counts, sources, and relevant learning history. Every feed's parsed count and the curated count must separately reconcile with its candidates. Bidirectional concept mappings also prevent repeating recent science through legacy encyclopedia IDs when returning to news mode, within the unchanged 135-entry window. The sender rechecks trusted catalog records and all four assets' SHA-256 hashes, dates, modes, and facts. Complete speech must equal the deterministic assembly of trusted greeting/closing templates and audited content, allowing whitespace differences only—not an arbitrary expected-speech field. Captions, emails, and the playback page may vary in formatting and sentence punctuation but must preserve decimals, negative signs, percentages, ranges, and arithmetic. Appended questions, answers, or other spoken content fail even with recomputed hashes. The complete previous question and answer are reconstructed from each issue's history and must remain present and unchanged in plain-text email, HTML email, and the page, never in audio. Schema 1 remains news-only; legacy zero-news resend is forbidden. A successfully sent science edition records the normal delivery date and prevents a second email for that date.
+
 ### Fixed issue structure
 
 Every issue contains:
@@ -305,7 +330,7 @@ Email is never sent when a hosted file is missing or differs from the local outp
 
 `google-apps-script/` provides a computer-independent cloud trigger: a primary event at 18:00 Beijing time, a backup at 18:10, and an hourly repair job that recreates missing triggers. External dispatch and GitHub schedules use the same date gate.
 
-A successful trigger does not guarantee daily delivery. Selection currently relies on RSS, predefined rewriting rules, and reviewed entries in `peach-curated-news.json`; no cloud model is integrated for autonomous research, full-article reading, or intelligent editing. Repeated triggers cannot replenish reviewed content when feeds are stale or empty or suitable explanations are missing. Add verified sources within the original 24-hour window and rerun the complete validation flow. Confirm delivery through actual send logs, persisted state, and hosted playback files, not merely an enabled workflow.
+A successful trigger does not guarantee daily delivery. Selection relies on RSS, predefined rewriting rules, and reviewed entries in `peach-curated-news.json`; no cloud model is integrated for autonomous research, full-article reading, or intelligent editing. Successful collection yielding zero qualified news uses the narrow science mode above; one story, source failures, and other quality failures still stop. Confirm delivery through actual send logs, persisted state, and hosted playback files, not merely an enabled workflow.
 
 ### Live site
 
@@ -356,6 +381,10 @@ Then open `http://localhost:8000/` or `http://localhost:8000/peach/YYYY-MM-DD/`.
 
 ### Common commands
 
+For a cloud no-send check, manually dispatch with `validate_only=true` (default `false`). It runs all tests, generates real speech assets, and self-checks, but does not publish, send, or save formal state. It cannot be combined with prepared-directory or historical-resend inputs. The `peach-daily-news` artifact includes the audit and hash manifest; retain its directory layout when downloading. Science resend requires both manifests and all four assets.
+
+This mode also checks every distinct source URL in the entire science catalog (currently 38), not just the current three facts. Run the read-only diagnostic separately with `node peach-science-source-check.mjs`: at most six concurrent requests, using the existing source check's two attempts and timeout rules. Any remaining inaccessible URL fails validation. It never sends email or changes state/catalog data. Local proxy/network failures do not establish cloud availability and must not be bypassed by skipping checks or removing facts.
+
 | Command | Purpose |
 | --- | --- |
 | `npm test` | Run all content-quality, self-check, schedule, quiz, and cloud-trigger tests |
@@ -392,6 +421,7 @@ GitHub Actions requires `REPORT_EMAIL_FROM`, `SMTP_HOST`, `SMTP_PORT`, `SMTP_SEC
 
 - `peach-daily-news.html` and `peach-daily-news.txt`: prepared email bodies.
 - `peach-news-audit.json`: content, source, and quality audit data.
+- `peach-playback-manifest.json`: four-file SHA-256/byte counts, per-date modes/knowledge IDs, and audit digest; written only after all four assets exist.
 - `peach-news-next-state.json`: next state prepared after a successful run.
 - `peach-news-state.json`: delivered story, encyclopedia, quiz, and date state.
 - `peach-playback/YYYY-MM-DD/`: locally generated four-file directory awaiting publication.

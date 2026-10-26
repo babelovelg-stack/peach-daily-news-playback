@@ -4,7 +4,7 @@ import { execFile } from "node:child_process";
 import { promisify } from "node:util";
 import { fileURLToPath } from "node:url";
 import nodemailer from "nodemailer";
-import { XMLParser } from "fast-xml-parser";
+import { XMLParser, XMLValidator } from "fast-xml-parser";
 import {
   classifyNewsPillar,
   dailyNewsIssueQualityIssues,
@@ -18,6 +18,10 @@ import {
   titlesAreSemanticDuplicates
 } from "./peach-content-quality.mjs";
 import { remapQuizAnswerOptionLetters } from "./peach-quiz-option-rotation.mjs";
+import { buildReserveQuestions } from './peach-reserve-quiz.mjs';
+import { assertValidState, decideContentMode, selectScienceKnowledge, readScienceCatalog, recentScienceConcepts, scienceConceptsForKnowledge, SCIENCE_TITLE, SCIENCE_NOTE } from './peach-science-mode.mjs';
+import { validateNewsAuditManifest } from './peach-news-self-check.mjs';
+import { createPlaybackManifest, validatePreparedContent, PLAYBACK_FILES } from './peach-playback-manifest.mjs';
 import {
   isPublishedInNewsWindow,
   newsWindowBounds,
@@ -1073,7 +1077,7 @@ function buildNewsQuizQuestions(news, dayIndex = 0) {
     );
   }
 
-  if (/光伏|太阳能/.test(newsText) && /清扫|灰尘|机器人|发电/.test(newsText)) {
+  if (/光伏|太阳能/.test(newsText) && /清扫|灰尘|积灰|除尘/.test(newsText)) {
     add(
       "solar-cleaning",
       ["能源", "机器人", "科技"],
@@ -1869,6 +1873,7 @@ function playbackSlugForMessage(message) {
 }
 
 function buildPlaybackSpeechSections(playbackData) {
+  if (playbackData.issues) return playbackData.issues.flatMap(buildPlaybackSpeechSections);
   const sections = [
     {
       title: "叮叮~",
@@ -1898,11 +1903,47 @@ function buildPlaybackSpeechSections(playbackData) {
   return sections;
 }
 
+function buildPlaybackSpeechText(playbackData) {
+  return buildPlaybackSpeechSections(playbackData).map(section => {
+    if (!section.title) return section.text;
+    if (section.title === '叮叮~') return `${section.title} ${section.text}`;
+    return `${section.title}。${section.text}`;
+  }).join('\n\n');
+}
+
+// Reconstruct the complete approved narration, never accepting free-form
+// expectedSpeech, intro or closing strings from an artifact.
+function approvedPlaybackDataForIssue(issue) {
+  const now = new Date(issue.asOf);
+  const dayIndex = Math.floor(+now / 86400000);
+  const state = assertValidState(issue.previousState);
+  const encouragement = selectUniqueTextVariant(encouragements, state, 'recentIntroTexts', dayIndex, 3);
+  const closing = selectUniqueTextVariant(closingNotes, state, 'recentClosingTexts', dayIndex, 11);
+  const metadata = issue.narration;
+  if (!['news','science'].includes(issue.contentMode) || !metadata
+    || Object.keys(metadata).sort().join(',') !== 'closingIndex,dayLabel,encouragementIndex'
+    || !['今天','这一天'].includes(metadata.dayLabel)
+    || metadata.encouragementIndex !== encouragements.indexOf(encouragement.text)
+    || metadata.closingIndex !== closingNotes.indexOf(closing.text)) throw new Error('Invalid approved narration metadata');
+  return {
+    dateText: formatDate(now),
+    intro: `桃子宝贝，你的每日情报${issue.contentMode === 'science' ? '·' + SCIENCE_TITLE : ''}来啦！${encouragement.text}`,
+    summaryNote: issue.contentMode === 'science' ? SCIENCE_NOTE : `${metadata.dayLabel}整理了 ${issue.newsItems.length} 条小情报，慢慢读就好。`,
+    blocks: issue.newsItems.map((item,index) => ({
+      title: `第 ${index+1} 条小情报：${item.title}`,
+      lines: [{text:item.summary},{text:item.value},{text:item.impact}]
+    })),
+    knowledgeItems: issue.knowledgeItems,
+    previousAnswer: previousAnswerText(state, previousAnswerLabel(now, state)),
+    closingText: closing.text
+  };
+}
+
 function renderPlaybackArticleHtml(playbackData, playbackUrl) {
   const blocksHtml = playbackData.blocks.map((block, index) => `
     <article class="news-card">
       <div class="card-index">小情报 ${index + 1}</div>
-      <h2>${escapeHtml(block.title)}</h2>
+      <h2>${block.issueDateText ? escapeHtml(block.issueDateText) + ' · ' : ''}${escapeHtml(block.title)}</h2>
       ${block.lines.map((line) => `
         <section class="point">
           <span>${escapeHtml(line.label)}</span>
@@ -1915,18 +1956,19 @@ function renderPlaybackArticleHtml(playbackData, playbackUrl) {
   const knowledgeHtml = playbackData.knowledgeItems.map((item, index) => `
     <section class="knowledge">
       <b>${index + 1}</b>
-      <p>${escapeHtml(item.text)}</p>
+      <p>${item.issueDateText ? escapeHtml(item.issueDateText) + ' · ' : ''}${escapeHtml(item.text)}${item.link ? `<br><a href="${escapeHtml(item.link)}">科普来源：${escapeHtml(item.publisher)}</a>` : ''}</p>
     </section>
   `).join("");
-  const quizHtml = playbackData.question
+  const quizHtml = (playbackData.issues || [playbackData]).map(issue => issue.question
     ? `<div class="section-title">今日探索题</div>
   <section class="quiz-card">
-    ${playbackData.previousAnswer ? `<div class="prev-answer">${renderTextLinesHtml(playbackData.previousAnswer)}</div>` : ""}
+    ${playbackData.issues ? `<p>${escapeHtml(issue.dateText)}</p>` : ''}
+    ${issue.previousAnswer ? `<div class="prev-answer">${renderTextLinesHtml(issue.previousAnswer)}</div>` : ""}
     <p class="quiz-label">题目只展示，不加入音频朗读</p>
-    ${renderQuizQuestionHtml(playbackData.question)}
+    ${renderQuizQuestionHtml(issue.question)}
     <p class="answer-note">参考答案：明天公布。</p>
   </section>`
-    : "";
+    : "").join('');
 
   return `<!doctype html>
 <html lang="zh-CN">
@@ -1934,6 +1976,7 @@ function renderPlaybackArticleHtml(playbackData, playbackUrl) {
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>${escapeHtml(playbackData.subject)}</title>
+<meta name="peach-content" content="${(playbackData.issues || [playbackData]).map(issue=>issue.dateKey+':'+issue.contentMode).join(';')}">
 <style>
 :root{color-scheme:light;--bg:#fff7ed;--paper:#fffdf7;--ink:#2f241d;--muted:#765b46;--brand:#16a34a;--orange:#f59e0b;--line:#fed7aa}
 *{box-sizing:border-box}
@@ -1987,8 +2030,8 @@ h2{font-size:27px;line-height:1.45;margin:12px 0 14px;color:#7c2d12}
     <p class="tip">音频不朗读探索题；题目文字保留在页面里，第二天公布参考答案。</p>
   </section>
 
-  <div class="section-title">今天的小情报</div>
-  ${blocksHtml || `<section class="news-card"><p>这一天没有抓到足够新鲜、适合小学生阅读的重点新闻，所以不编假新闻。</p></section>`}
+  ${blocksHtml ? '<div class="section-title">小情报</div>' : ''}
+  ${blocksHtml}
 
   <div class="section-title">博物小百科</div>
   <section class="learning-card">${knowledgeHtml}</section>
@@ -2063,12 +2106,7 @@ async function generatePlaybackAssets(message) {
   const playbackUrl = playbackUrlForDate(dateKey);
   await fs.mkdir(outputDir, { recursive: true });
 
-  const sections = buildPlaybackSpeechSections(message.playbackData);
-  const speechText = sections.map((section) => {
-    if (!section.title) return section.text;
-    if (section.title === "叮叮~") return `${section.title} ${section.text}`;
-    return `${section.title}。${section.text}`;
-  }).join("\n\n");
+  const speechText = buildPlaybackSpeechText(message.playbackData);
   const speechPath = path.join(outputDir, "speech.txt");
   const audioPath = path.join(outputDir, "audio.mp3");
   const captionsPath = path.join(outputDir, "captions.vtt");
@@ -2209,7 +2247,8 @@ function escapeRegex(value = "") {
 
 function normalizeItems(parsed, feed) {
   const channel = parsed?.rss?.channel || parsed?.feed || {};
-  const raw = Array.isArray(channel.item) ? channel.item : Array.isArray(channel.entry) ? channel.entry : [];
+  const entries = channel.item ?? channel.entry;
+  const raw = Array.isArray(entries) ? entries : entries && typeof entries === 'object' ? [entries] : [];
   return raw.map((item) => {
     const link = getArticleLink(item);
     const publisher = getPublisher(item, feed);
@@ -2662,30 +2701,39 @@ function sourceLabel(item) {
   return `${publisher}，${time}`;
 }
 
-async function fetchFeed(feed) {
-  const controller = new AbortController();
-  const timer = setTimeout(() => controller.abort(), 12000);
-  try {
-    const response = await fetch(feed.url, {
-      signal: controller.signal,
-      headers: { "user-agent": "PeachDailyNews/1.0" }
-    });
-    if (!response.ok) throw new Error(`${response.status} ${response.statusText}`);
-    const xml = await response.text();
-    const parser = new XMLParser({ ignoreAttributes: false });
-    return normalizeItems(parser.parse(xml), feed);
-  } catch (error) {
-    console.warn(`Feed failed: ${feed.name}: ${error.message}`);
-    return [];
-  } finally {
-    clearTimeout(timer);
+export async function requestNewsResource(url, fetchImpl = fetch, attempts = 3) {
+  let lastProblem = '';
+  for (let attempt = 0; attempt < attempts; attempt++) {
+    try {
+      const response = await fetchImpl(url, { signal: AbortSignal.timeout(12000), redirect: 'follow', headers: { 'user-agent': 'Mozilla/5.0 PeachDailyNews/1.0' } });
+      if (response.ok) return response;
+      if (response.status === 404 || response.status === 410) return response;
+      if (response.status < 500 && response.status !== 429) throw Object.assign(new Error(`HTTP ${response.status}: ${url}`), { permanent: true });
+      lastProblem = `HTTP ${response.status}`;
+    } catch (error) {
+      if (error.permanent) throw error;
+      lastProblem = error.message;
+    }
   }
+  throw Object.assign(new Error(`Transient source failure after retries: ${url}: ${lastProblem}`), { transient: true });
+}
+async function fetchFeed(feed, fetchImpl = fetch) {
+  let response;
+  try { response = await requestNewsResource(feed.url, fetchImpl); }
+  catch (error) { return { name: feed.name, url: feed.url, status: 'failed', transient: Boolean(error.transient), reason: error.message, items: [] }; }
+  if (!response.ok) return { name: feed.name, url: feed.url, status: 'failed', reason: `HTTP ${response.status}`, items: [] };
+  const xml = await response.text();
+  if (XMLValidator.validate(xml) !== true) return { name: feed.name, url: feed.url, status: 'failed', reason: 'Malformed XML', items: [] };
+  const parsed = new XMLParser({ ignoreAttributes: false }).parse(xml);
+  if (!(parsed?.rss && Object.hasOwn(parsed.rss,'channel')) && !Object.hasOwn(parsed || {},'feed')) return { name: feed.name, url: feed.url, status: 'failed', reason: 'Not an RSS/Atom feed', items: [] };
+  return { name: feed.name, url: feed.url, status: 'success', items: normalizeItems(parsed, feed) };
 }
 
 async function readCuratedNews() {
   try {
     const parsed = JSON.parse(await fs.readFile(CURATED_NEWS_FILE, "utf8"));
     if (!Array.isArray(parsed)) throw new Error("curated news must be a JSON array");
+    if (parsed.some(item => !item || !item.title || !item.link || !Number.isFinite(Date.parse(item.published || '')))) throw new Error('Malformed curated news record');
     return parsed.map((item) => ({
       ...item,
       published: Date.parse(item.published || "") || 0,
@@ -2694,35 +2742,56 @@ async function readCuratedNews() {
       domain: getSourceDomain(item.link, item.publisher || item.feed || "人工核对"),
       category: item.category || "中国",
       weight: Number(item.weight || 20)
-    })).filter((item) => item.title && item.link && item.published);
+    }));
   } catch (error) {
     if (error?.code === "ENOENT") return [];
     throw new Error(`Failed to read ${CURATED_NEWS_FILE}: ${error.message}`);
   }
 }
 
-async function collectNews(asOf = NEWS_AS_OF, previousState = {}) {
-  const batches = await Promise.all([readCuratedNews(), ...feeds.map(fetchFeed)]);
+async function collectNews(asOf = NEWS_AS_OF, previousState = {}, { feedList = feeds, fetchImpl = fetch, curatedItems } = {}) {
+  assertValidState(previousState);
+  const [curated, ...feedResults] = await Promise.all([curatedItems === undefined ? readCuratedNews() : curatedItems, ...feedList.map(feed => fetchFeed(feed, fetchImpl))]);
+  if (!Array.isArray(curated)) throw new Error('Malformed curated candidates');
+  if(curated.some(item=>!item || typeof item.title!=='string' || !item.title.trim() || !/^https?:\/\//.test(item.link || '') || !Number.isFinite(item.published))) throw new Error('Malformed curated candidate record');
+  const rawItems = [...curated.map(item => ({ ...item, collectionOrigin: 'curated' })), ...feedResults.flatMap((feed,index) => feed.items.map(item=>({...item,collectionOrigin:'feed',collectionFeedId:`feed-${index}`})))];
+  const selectionEvidence = { candidates: [], rejected: [], qualified: [], qualifiedCount: 0, curatedCount:curated.length, collectionSucceeded: false,
+    feeds: feedResults.map(({items,...result},index) => ({...result, feedId:`feed-${index}`, parsedCount:items.length})) };
   const seen = new Set();
   const seenTopics = new Set();
-  const items = batches.flat()
-    .filter((item) => isFresh(item, asOf))
-    .filter(isSuitableForKids)
-    .filter((item) => !wasRecentlySentNews(item, previousState))
-    .filter(hasConcreteChildExplanation)
-    .filter((item) => {
-      const topicKey = semanticTopicKey(item);
-      if (topicKey) {
-        if (seenTopics.has(topicKey)) return false;
-        seenTopics.add(topicKey);
-      }
-      const key = normalizeForDedupe(item.title);
-      if (seen.has(key)) return false;
-      seen.add(key);
-      return true;
-    })
-    .map((item) => ({ ...item, score: scoreItem(item, asOf) }))
-    .sort((a, b) => b.score - a.score);
+  const items = [];
+  for (const [index,item] of rawItems.entries()) {
+    const candidateId = `candidate-${index}`;
+    const record = { candidateId, title:item.title, link:item.link, published:item.published, origin:item.collectionOrigin, ...(item.collectionOrigin==='feed'?{feedId:item.collectionFeedId}:{}) };
+    selectionEvidence.candidates.push(record);
+    const reasons = [];
+    if (!isFresh(item,asOf)) reasons.push('outside-news-window');
+    if (!isSuitableForKids(item)) reasons.push('not-child-suitable');
+    if (wasRecentlySentNews(item,previousState)) reasons.push('recent-news');
+    if (!hasConcreteChildExplanation(item)) reasons.push('no-concrete-explanation');
+    const qualityRecord = newsQualityRecord(item,childNewsBlock(item,0));
+    reasons.push(...dailyNewsIssueQualityIssues({newsItems:[qualityRecord],asOf:asOf.toISOString(),minimumNewsCount:1,minimumPublisherCount:1,maxAgeHours:MAX_NEWS_AGE_HOURS,
+      recentNewsTitles:[...(previousState.recentNewsTitles || []),...(previousState.lastNewsTitles || [])]}));
+    const score = scoreItem(item,asOf);
+    if (score < 7) reasons.push('low-editorial-score');
+    const topicKey = semanticTopicKey(item), key=normalizeForDedupe(item.title);
+    if (seen.has(key) || (topicKey && seenTopics.has(topicKey)) || items.some(other=>titlesAreSemanticDuplicates(kidNewsTitle(other),kidNewsTitle(item)))) reasons.push('semantic-duplicate');
+    if (!reasons.length) {
+      const response = await requestNewsResource(item.link,fetchImpl);
+      if (!response.ok) reasons.push(`source-HTTP-${response.status}`);
+      else await response.arrayBuffer();
+    }
+    if (reasons.length) { selectionEvidence.rejected.push({...record,reasons}); continue; }
+    seen.add(key); if(topicKey) seenTopics.add(topicKey);
+    items.push({...item,score,candidateId});
+    selectionEvidence.qualified.push({...record,newsItem:qualityRecord});
+  }
+  selectionEvidence.qualifiedCount = items.length;
+  selectionEvidence.collectionSucceeded = feedResults.some(result=>result.status==='success') || items.some(item=>item.collectionOrigin==='curated');
+  if (!items.length && feedResults.some(result=>result.transient)) throw new Error('Transient feed failure prevents proving zero qualified news');
+  decideContentMode(selectionEvidence);
+  items.sort((a,b)=>b.score-a.score);
+  const withEvidence = selected => Object.assign(selected, { selectionEvidence });
 
   const valuableItems = items.filter((item) => item.score >= 7);
   const selected = [];
@@ -2760,7 +2829,7 @@ async function collectNews(asOf = NEWS_AS_OF, previousState = {}) {
 
   // Do not fill a complete, source-diverse edited issue with lower-confidence feed rewrites.
   if (selected.length >= MIN_DAILY_NEWS_COUNT && publisherCounts.size >= MIN_DAILY_PUBLISHER_COUNT) {
-    return selected.slice(0, TARGET_NEWS_COUNT);
+    return withEvidence(selected.slice(0, TARGET_NEWS_COUNT));
   }
 
   for (const preferred of ["科技", "教育", "中国", "经济", "全球", "健康"]) {
@@ -2781,14 +2850,15 @@ async function collectNews(asOf = NEWS_AS_OF, previousState = {}) {
     if (selected.length >= TARGET_NEWS_COUNT) break;
     push(item, true);
   }
-  return selected.slice(0, TARGET_NEWS_COUNT);
+  return withEvidence(selected.slice(0, TARGET_NEWS_COUNT));
 }
 
-async function readState() {
+async function readState(stateFile = STATE_FILE) {
   try {
-    return JSON.parse(await fs.readFile(STATE_FILE, "utf8"));
-  } catch {
-    return {};
+    return assertValidState(JSON.parse(await fs.readFile(stateFile, "utf8")));
+  } catch (error) {
+    if (error.code === 'ENOENT') return {};
+    throw error;
   }
 }
 
@@ -2889,7 +2959,7 @@ function takeReadableSentences(value, maxLength = 190) {
   const sentences = value.split(/(?<=[。！？.!?])\s*/).filter(Boolean);
   let result = "";
   for (const sentence of sentences) {
-    if ((result + sentence).length > maxLength && result) break;
+    if ((result + sentence).length > maxLength) break;
     result += sentence;
     if (result.length >= maxLength) break;
   }
@@ -2945,7 +3015,7 @@ function trimKidText(value, maxLength = 120) {
   if (cleaned.length <= maxLength) return ensureSentenceEnd(cleaned);
 
   const sentences = cleaned
-    .split(/(?<=[。！？.!?])\s*/)
+    .split(/(?<=[。！？!?])\s*|(?<=\.)(?!\d)\s*/)
     .map((sentence) => sentence.trim())
     .filter(Boolean)
     .filter((sentence) => !/客户端|责任编辑|点击|原文链接/.test(sentence));
@@ -2959,13 +3029,17 @@ function trimKidText(value, maxLength = 120) {
   if (!result) {
     const parts = cleaned.split(/(?<=[，,、])\s*/).filter(Boolean);
     for (const part of parts) {
-      if ((result + part).length > maxLength && result) break;
+      if ((result + part).length > maxLength) break;
       result += part;
       if (result.length >= maxLength) break;
     }
   }
 
-  return ensureSentenceEnd((result || cleaned).slice(0, maxLength));
+  // Keep complete clauses where possible. With an unusually long unbroken
+  // clause, never cut inside a numeric token (e.g. turn 20.1 into 20.).
+  const fallback=cleaned.slice(0,maxLength);
+  const numericTail=/\d(?:\.\d*)?$/.test(fallback) ? cleaned.slice(maxLength).match(/^[\d.]+(?:亿|万)?(?:千瓦|千米|毫米|米|%|％)?/)?.[0] || '' : '';
+  return ensureSentenceEnd(result || fallback+numericTail);
 }
 
 function isLabAstrophysicsStory(text = "") {
@@ -3500,7 +3574,7 @@ function kidTopicSummary(item) {
   if (/AI|人工智能|大数据/.test(text) && /教育|教学|学校|学生|课堂|基础教育/.test(text)) {
     return "这条新闻说，有地方把 AI 和大数据用到教学里。系统会记录学习情况，帮助老师知道哪些知识大家已经会了，哪些地方还需要多讲。";
   }
-  if (/光伏|太阳能/.test(text) && /清扫|灰尘|机器人/.test(text)) {
+  if (/光伏|太阳能/.test(text) && /清扫|灰尘|积灰|除尘/.test(text) && /机器人/.test(text)) {
     return "这条新闻说，光伏板要把阳光变成电，如果表面灰尘太多，就像窗户蒙上土，发电会变少。清扫机器人可以在大片光伏电站里帮忙打扫，让“阳光电站”更好工作。";
   }
   if (/火箭动力|太空算力|算力上天/.test(text)) {
@@ -3563,8 +3637,18 @@ function kidTopicSummary(item) {
   return "";
 }
 
+function windSolarCapacityFacts(item) {
+  const text=`${item.title} ${item.description}`;
+  if(!/国家能源局/.test(text) || !/风光.*装机|风电和太阳能发电.*装机/.test(text)) return null;
+  const total=text.match(/风电和太阳能发电累计装机容量(?:达到|为)\s*(\d+(?:\.\d+)?)\s*亿千瓦/)?.[1];
+  const cutoff=text.match(/截至\s*(\d{4}年\d{1,2}月底)/)?.[1];
+  return total && cutoff && Number(total)>0 ? {total,cutoff} : null;
+}
+
 function kidSummary(item) {
   if (item.kidSummary) return trimKidText(item.kidSummary, 210);
+  const capacity=windSolarCapacityFacts(item);
+  if(capacity) return `国家能源局发布的统计显示，截至${capacity.cutoff}，我国风电和太阳能发电累计装机容量达到${capacity.total}亿千瓦。这说的是发电设备的能力规模，不是这段时间已经发出的电量。`;
   const themedSummary = kidTopicSummary(item);
   if (themedSummary) return themedSummary;
   const title = cleanNewsText(item.title);
@@ -3576,6 +3660,8 @@ function kidSummary(item) {
 function kidNewsValue(item) {
   if (item.kidValue) return trimKidText(item.kidValue, 220);
   const text = `${item.title} ${item.description}`;
+  // Reviewed definition: https://www.eia.gov/tools/faqs/faq.php?id=101&t=6
+  if(windSolarCapacityFacts(item)) return '价值在于把风电和太阳能设备的建设规模说清楚。装机容量表示设备在一定条件下的最大出力；实际发电量还要看设备运行了多久、运行时的输出是多少。把两者分开，才能正确理解能源统计。';
   if (/莞香树|结香|植物.*黑科技/.test(text)) {
     return "价值在于用一个真实例子理解植物怎样保护自己。树脂不是凭空出现的香料，而是植物受伤后的防御反应，也提醒人们珍贵自然材料需要时间形成。";
   }
@@ -3762,7 +3848,7 @@ function kidNewsValue(item) {
   if (isGreenSaharaStory(text)) {
     return "价值在于把地理、历史和科学证据连起来看。沙漠不是一天形成的，科学家会用湖泊沉积物、考古遗址和气候数据，推测环境变化怎样影响人类生活。";
   }
-  if (/光伏|太阳能|新能源|电力/.test(text) && /清扫|灰尘|机器人|发电/.test(text)) {
+  if (/光伏|太阳能/.test(text) && /清扫|灰尘|积灰|除尘/.test(text) && /机器人/.test(text)) {
     return "价值在于让清洁能源更稳定地发电。机器人负责做又脏又重复的清扫工作，人就能把更多精力放在检查安全和管理电站上。";
   }
   if (/太空算力|算力上天|火箭动力/.test(text)) {
@@ -3879,6 +3965,7 @@ function kidNewsValue(item) {
 function kidNewsImpact(item) {
   if (item.kidImpact) return trimKidText(item.kidImpact, 220);
   const text = `${item.title} ${item.description}`;
+  if(windSolarCapacityFacts(item)) return '这些风电和太阳能设备为供电提供了更多可用的发电能力，但不能只用装机容量判断实际供电效果。以后观察清洁能源的变化，还需要结合实际发电量和运行情况，不能把设备的最大能力当成每时每刻都达到的结果。';
   if (/莞香树|结香|植物.*黑科技/.test(text)) {
     return "社会影响是，人们会更重视科学种植和保护莞香树，而不是为了取香随意伤害野生树木。未来研究也可能帮助人工栽培更规范，让传统香文化和生态保护一起延续。";
   }
@@ -4065,7 +4152,7 @@ function kidNewsImpact(item) {
   if (isGreenSaharaStory(text)) {
     return "社会影响是，人们会更重视水资源、气候和人类活动之间的联系。未来趋势是，研究过去的环境变化，可以帮助今天的城市和乡村更早准备干旱、降雨变化等挑战。";
   }
-  if (/光伏|太阳能|新能源|电力/.test(text) && /清扫|灰尘|机器人|发电/.test(text)) {
+  if (/光伏|太阳能/.test(text) && /清扫|灰尘|积灰|除尘/.test(text) && /机器人/.test(text)) {
     return "社会影响是，太阳能电站如果维护得更好，同一片阳光就能发出更多电。未来趋势是，更多清洁能源场站会用机器人做重复、危险或很辛苦的工作，人来负责检查和管理。";
   }
   if (/太空算力|算力上天|火箭动力/.test(text)) {
@@ -4504,14 +4591,14 @@ function questionConceptId(item = {}) {
 
 function selectDailyQuestion(news, dayIndex, state) {
   const newsText = getNewsSelectionText(news);
-  const candidateQuestions = [...buildNewsQuizQuestions(news, dayIndex), ...buildAdvancedKnowledgeQuestions(dayIndex), ...quizQuestions];
+  const candidateQuestions = [...buildNewsQuizQuestions(news, dayIndex), ...buildAdvancedKnowledgeQuestions(dayIndex), ...quizQuestions, ...buildReserveQuestions(dayIndex)];
   const inferredLastQuestionId = state.lastQuestionId || candidateQuestions.find((item) => item.q === state.lastQuestion)?.id;
   const inferredLastQuestion = candidateQuestions.find((item) => item.id === inferredLastQuestionId || item.q === state.lastQuestion)
     || { id: state.lastQuestionId, q: state.lastQuestion };
   const recentIds = new Set(getRecentIds(state, "recentQuestionIds", [inferredLastQuestionId]));
   const recentConceptIds = new Set([
     ...getRecentIds(state, "recentQuestionConceptIds", [], RECENT_QUESTION_CONCEPT_SELECTION_LIMIT),
-    ...getRecentIds(state, "recentQuestionIds").map((id) => String(id).replace(/-\d+$/, "")),
+    ...getRecentIds(state, "recentQuestionIds", [], RECENT_QUESTION_CONCEPT_SELECTION_LIMIT).map((id) => String(id).replace(/-\d+$/, "")),
     questionConceptId(inferredLastQuestion)
   ].filter(Boolean));
   const recentTags = new Set(getRecentPrimaryTags(state, "recentQuestionTags", "recentQuestionIds", candidateQuestions, [inferredLastQuestionId]));
@@ -4554,6 +4641,7 @@ function selectDailyQuestion(news, dayIndex, state) {
     ).join(" | "));
   }
   const pools = [
+    scored.filter(({ item }) => item.source === 'news' && item.qualityOk && !recentIds.has(item.id) && !recentConceptIds.has(item.conceptId) && !recentTexts.has(item.textFingerprint)),
     scored.filter(({ item }) => item.qualityOk && item.difficulty >= 3 && !recentIds.has(item.id) && !recentConceptIds.has(item.conceptId) && !recentTags.has(primaryTag(item)) && !recentTexts.has(item.textFingerprint) && hasTagMatch(item, newsText)),
     scored.filter(({ item }) => item.qualityOk && item.difficulty >= 3 && !recentIds.has(item.id) && !recentConceptIds.has(item.conceptId) && !recentTags.has(primaryTag(item)) && !recentTexts.has(item.textFingerprint)),
     scored.filter(({ item }) => item.qualityOk && item.difficulty >= 3 && !recentIds.has(item.id) && !recentConceptIds.has(item.conceptId) && !recentTexts.has(item.textFingerprint) && hasTagMatch(item, newsText)),
@@ -4573,6 +4661,8 @@ function selectDailyQuestion(news, dayIndex, state) {
 }
 
 function selectDailyKnowledge(news, dayIndex, state) {
+  const scienceCatalog = readScienceCatalog();
+  const recentConcepts = recentScienceConcepts(state, scienceCatalog, museumEncyclopedia);
   const knowledgePool = museumEncyclopedia.filter(isHighQualityKnowledgeItem);
   const newsText = getNewsSelectionText(news);
   const recentIds = new Set(getRecentIds(state, "recentEncyclopediaIds", state.lastEncyclopediaIds || [], RECENT_ENCYCLOPEDIA_MEMORY_LIMIT));
@@ -4585,10 +4675,13 @@ function selectDailyKnowledge(news, dayIndex, state) {
   const usedIds = new Set();
   const usedPrimaryTags = new Set();
   const usedTexts = new Set();
+  const usedConcepts = new Set();
 
   const tryPick = (item, avoidRecent = true, avoidSameTag = true, avoidRecentTag = true) => {
     const tag = primaryTag(item);
     const fp = textFingerprint(item.text);
+    const concepts = scienceConceptsForKnowledge(item, scienceCatalog);
+    if (concepts.some(concept => recentConcepts.has(concept) || usedConcepts.has(concept))) return false;
     if (usedIds.has(item.id)) return false;
     if (usedTexts.has(fp) || recentTexts.has(fp)) return false;
     if (recentIds.has(item.id)) return false;
@@ -4597,6 +4690,7 @@ function selectDailyKnowledge(news, dayIndex, state) {
     selected.push({ ...item, textFingerprint: fp });
     usedIds.add(item.id);
     usedTexts.add(fp);
+    concepts.forEach(concept => usedConcepts.add(concept));
     if (tag) usedPrimaryTags.add(tag);
     return true;
   };
@@ -4738,7 +4832,7 @@ function renderNewsBlockHtml(block) {
 
 function renderKnowledgeHtml(items) {
   return `<div class="learning-card">${items.map((item, index) => (
-    `<div class="knowledge-item"><span class="badge">${index + 1}</span><span><span class="knowledge-topic">${escapeHtml(knowledgeTopic(item))}</span><p class="knowledge-text">${escapeHtml(kidKnowledgeText(item))}</p></span></div>`
+    `<div class="knowledge-item"><span class="badge">${index + 1}</span><span><span class="knowledge-topic">${escapeHtml(knowledgeTopic(item))}</span><p class="knowledge-text">${escapeHtml(kidKnowledgeText(item))}</p>${item.link ? `<a href="${escapeHtml(item.link)}">科普来源：${escapeHtml(item.publisher)}</a>` : ''}</span></div>`
   )).join("")}</div>`;
 }
 
@@ -4825,6 +4919,9 @@ function validateQuestionQuality(question, previousState = {}, label = "探索�
 
 function validateKnowledgeQuality(items = [], previousState = {}, label = "博物小百科") {
   const errors = [];
+  const scienceCatalog = readScienceCatalog();
+  const recentConcepts = recentScienceConcepts(previousState, scienceCatalog, museumEncyclopedia);
+  const seenConcepts = new Set();
   const recentIds = new Set(getRecentIds(previousState, "recentEncyclopediaIds", previousState.lastEncyclopediaIds || [], RECENT_ENCYCLOPEDIA_MEMORY_LIMIT));
   const recentTexts = getRecentTextFingerprints(previousState, "recentEncyclopediaTexts", [], RECENT_ENCYCLOPEDIA_MEMORY_LIMIT);
   const ids = new Set();
@@ -4833,6 +4930,9 @@ function validateKnowledgeQuality(items = [], previousState = {}, label = "博�
 
   if (items.length !== 3) errors.push(`${label}必须正好3条`);
   for (const item of items) {
+    const concepts = scienceConceptsForKnowledge(item || {}, scienceCatalog);
+    if (concepts.some(concept => recentConcepts.has(concept) || seenConcepts.has(concept))) errors.push(`${label}科学概念近期或本期重复：${item?.id}`);
+    concepts.forEach(concept => seenConcepts.add(concept));
     const fp = textFingerprint(item?.text || "");
     const tag = primaryTag(item || {});
     const qualityIssues = knowledgeQualityIssues(item || {});
@@ -4882,46 +4982,37 @@ function validateMessageQuality(message, previousState = {}) {
     errors.push("结尾文案与近期重复");
   }
 
-  for (const issue of quality.issues || []) {
-    errors.push(...dailyNewsIssueQualityIssues({
-      newsItems: issue.newsItems,
-      recentNewsTitles: [
-        ...(Array.isArray(previousState.recentNewsTitles) ? previousState.recentNewsTitles : []),
-        ...(Array.isArray(previousState.lastNewsTitles) ? previousState.lastNewsTitles : [])
-      ],
-      asOf: issue.asOf,
-      ...(quality.requirements || {})
-    }).map((problem) => `${issue.dateKey || "当天"}：${problem}`));
-    errors.push(...validateQuestionQuality(issue.question, issue.previousState || previousState, `${issue.dateKey || "当天"}探索题`, questionSeen));
-    errors.push(...validateKnowledgeQuality(issue.knowledgeItems, issue.previousState || previousState, `${issue.dateKey || "当天"}博物小百科`));
-  }
+  errors.push(...validateNewsAuditManifest(buildNewsAuditManifest(message,previousState)));
 
   if (errors.length) {
     throw new Error(`Peach quality gate failed:\n- ${errors.join("\n- ")}`);
   }
 }
 
-function buildEmail(news, state) {
-  const now = NEWS_AS_OF;
+function buildEmail(news, state, { asOf = NEWS_AS_OF, selectionEvidence = news.selectionEvidence } = {}) {
+  assertValidState(state);
+  if (!selectionEvidence) throw new Error('Missing news selection evidence');
+  const contentMode = decideContentMode(selectionEvidence);
+  const now = asOf;
   const dateText = formatDate(now);
   const dayIndex = Math.floor(now.getTime() / 86400000);
   const question = selectDailyQuestion(news, dayIndex, state);
-  const knowledgeItems = selectDailyKnowledge(news, dayIndex, state);
+  const knowledgeItems = contentMode === 'science' ? selectScienceKnowledge(dayIndex, state, museumEncyclopedia) : selectDailyKnowledge(news, dayIndex, state);
   const blocks = news.map(childNewsBlock);
   const newsItems = news.map((item, index) => newsQualityRecord(item, blocks[index]));
   const dayLabel = DATE_OVERRIDE ? "这一天" : "今天";
-  const sourceSummary = formatSourceSummary(news);
+  const sourceSummary = news.length ? formatSourceSummary(news) : '';
 
   const previousAnswer = previousAnswerText(state, previousAnswerLabel(now, state));
 
   const encouragement = selectUniqueTextVariant(encouragements, state, "recentIntroTexts", dayIndex, 3);
   const closingNote = selectUniqueTextVariant(closingNotes, state, "recentClosingTexts", dayIndex, 11);
-  const intro = `桃子宝贝，你的每日情报来啦！${encouragement.text}`;
-  const subject = `${isTest ? "测试 - " : ""}桃子宝贝的每日情报 - ${dateText}`;
+  const intro = `桃子宝贝，你的每日情报${contentMode === 'science' ? '·' + SCIENCE_TITLE : ''}来啦！${encouragement.text}`;
+  const subject = `${isTest ? "测试 - " : ""}桃子宝贝的每日情报${contentMode === 'science' ? ' · ' + SCIENCE_TITLE : ''} - ${dateText}`;
   const freshnessNote = formatNewsWindowNote(now, dayLabel);
   const emptyNote = blocks.length
     ? ""
-    : `${dayLabel}没有抓到足够新鲜、适合小学生阅读的重点新闻，所以这封信只保留博物小百科和探索题，不编假新闻。`;
+    : SCIENCE_NOTE;
   const countNote = blocks.length
     ? `${dayLabel}整理了 ${blocks.length} 条小情报，慢慢读就好。`
     : "";
@@ -4929,6 +5020,7 @@ function buildEmail(news, state) {
     intro,
     "",
     `日期：${dateText}`,
+    `日报日期：${getLocalDateKey(now)}；内容模式：${contentMode}`,
     countNote,
     sourceSummary,
     freshnessNote,
@@ -4942,7 +5034,7 @@ function buildEmail(news, state) {
       ""
     ]),
     "博物小百科（3条）",
-    ...knowledgeItems.map(formatKnowledgeForText),
+    ...knowledgeItems.flatMap((item,index) => [formatKnowledgeForText(item,index), ...(item.link ? [`- 科普来源：${item.publisher} ${item.link}`] : [])]),
     "",
     "今日探索题",
     previousAnswer,
@@ -4985,8 +5077,9 @@ ${renderQuizQuestionHtml(question)}
     text,
     html,
     playbackData: {
+      contentMode,
       subject,
-      title: "桃子宝贝的每日情报",
+      title: `桃子宝贝的每日情报${contentMode === 'science' ? ' · ' + SCIENCE_TITLE : ''}`,
       dateKey: getLocalDateKey(now),
       dateText,
       intro,
@@ -4998,6 +5091,9 @@ ${renderQuizQuestionHtml(question)}
       closingText: closingNote.text
     },
     nextState: {
+      ...state,
+      lastContentMode: contentMode,
+      recentScienceConceptIds: mergeRecentIds(state.recentScienceConceptIds, knowledgeItems.map(item => item.conceptId || item.id), RECENT_ENCYCLOPEDIA_MEMORY_LIMIT),
       lastRunAt: new Date().toISOString(),
       lastSentDate: getLocalDateKey(now),
       lastReportDate: getLocalDateKey(now),
@@ -5033,6 +5129,9 @@ ${renderQuizQuestionHtml(question)}
         maxAgeHours: MAX_NEWS_AGE_HOURS
       },
       issues: [{
+        contentMode,
+        selectionEvidence,
+        narration: {encouragementIndex:encouragements.indexOf(encouragement.text),closingIndex:closingNotes.indexOf(closingNote.text),dayLabel},
         dateKey: getLocalDateKey(now),
         asOf: now.toISOString(),
         windowStart: newsWindowBounds(now, MAX_NEWS_AGE_HOURS).start.toISOString(),
@@ -5045,218 +5144,59 @@ ${renderQuizQuestionHtml(question)}
   };
 }
 
-async function buildMergedBackfillEmail(reportDates, initialState) {
-  const sortedDates = [...reportDates].sort((a, b) => a.getTime() - b.getTime());
+async function buildMergedBackfillEmail(reportDates, initialState, { collect = collectNews } = {}) {
+  const sortedDates = [...reportDates].sort((a,b)=>a-b);
+  if (!sortedDates.length || new Set(sortedDates.map(date=>getLocalDateKey(date))).size !== sortedDates.length) throw new Error('Invalid merged dates');
   let rollingState = { ...initialState };
-  const issues = [];
-  const mergedSeen = new Set();
-
+  const messages = [];
   for (const reportDate of sortedDates) {
-    const issuePreviousState = { ...rollingState };
-    const allNews = filterPreviouslySentNews(await collectNews(reportDate, rollingState), rollingState)
-      .filter((item) => {
-        const title = kidNewsTitle(item);
-        if (/通信试验卫星.*二十六号.*A星/.test(title)) return false;
-        if (/夏季达沃斯/.test(title)) return false;
-        if (/欧莱雅.*链博会|智能包装中心/.test(title)) return false;
-        if (/港交所|递表|聆讯|上市申请/.test(title)) return false;
-        return true;
-      });
-    const news = [];
-    for (const item of allNews) {
-      const key = semanticTopicKey(item) || normalizeForDedupe(item.title);
-      if (mergedSeen.has(key)) continue;
-      mergedSeen.add(key);
-      news.push(item);
-      if (news.length >= 3) break;
-    }
-    const dayIndex = Math.floor(reportDate.getTime() / 86400000);
-    const question = selectDailyQuestion(news, dayIndex, rollingState);
-    const knowledgeItems = selectDailyKnowledge(news, dayIndex, rollingState);
-    const blocks = news.map(childNewsBlock);
-    const newsItems = news.map((item, index) => newsQualityRecord(item, blocks[index]));
-    const dateKey = getLocalDateKey(reportDate);
-
-    issues.push({
-      date: reportDate,
-      dateKey,
-      dateText: formatDate(reportDate),
-      news,
-      blocks,
-      newsItems,
-      question,
-      knowledgeItems,
-      sourceSummary: formatSourceSummary(news),
-      freshnessNote: formatNewsWindowNote(reportDate, "这一天"),
-      previousState: issuePreviousState
-    });
-
-    rollingState = {
-      ...rollingState,
-      lastQuestionId: question.id,
-      lastQuestion: question.q,
-      lastAnswer: question.a,
-      recentQuestionIds: mergeRecentIds(rollingState.recentQuestionIds, [question.id], 36),
-      recentQuestionConceptIds: mergeRecentIds(rollingState.recentQuestionConceptIds, [questionConceptId(question)], 90),
-      recentQuestionTags: mergeRecentIds(rollingState.recentQuestionTags, [primaryTag(question)], 16),
-      recentQuestionTexts: mergeRecentIds(rollingState.recentQuestionTexts, [question.textFingerprint || textFingerprint(question.q)], 365),
-      lastEncyclopediaIds: knowledgeItems.map((item) => item.id),
-      recentEncyclopediaIds: mergeRecentIds(
-        rollingState.recentEncyclopediaIds,
-        knowledgeItems.map((item) => item.id),
-        RECENT_ENCYCLOPEDIA_MEMORY_LIMIT
-      ),
-      recentEncyclopediaTags: mergeRecentIds(rollingState.recentEncyclopediaTags, knowledgeItems.map(primaryTag), 18),
-      recentEncyclopediaTexts: mergeRecentIds(rollingState.recentEncyclopediaTexts, knowledgeItems.map((item) => item.textFingerprint || textFingerprint(item.text)), 1200),
-      lastNewsTitles: blocks.map((block) => block.title),
-      recentNewsTitles: mergeRecentIds(
-        rollingState.recentNewsTitles || rollingState.lastNewsTitles,
-        blocks.map((block) => block.title),
-        60
-      )
-    };
+    const collected = await collect(reportDate,rollingState);
+    const news = Object.assign(collected.slice(0,3), {selectionEvidence:collected.selectionEvidence});
+    const message = buildEmail(news,rollingState,{asOf:reportDate});
+    message.quality.requirements = {minimumNewsCount:1,minimumPublisherCount:1,maxItemsPerPublisher:3,maxAgeHours:MAX_NEWS_AGE_HOURS};
+    message.quality.reportType = 'merged-backfill';
+    validateMessageQuality(message,rollingState);
+    messages.push(message);
+    rollingState = message.nextState;
   }
-
-  const firstIssue = issues[0];
-  const lastIssue = issues[issues.length - 1];
-  const rangeText = `${firstIssue.dateText} 至 ${lastIssue.dateText}`;
-  const totalNewsCount = issues.reduce((count, issue) => count + issue.blocks.length, 0);
-  const totalKnowledgeCount = issues.reduce((count, issue) => count + issue.knowledgeItems.length, 0);
-  const dayIndex = Math.floor(lastIssue.date.getTime() / 86400000);
-  const encouragement = selectUniqueTextVariant(encouragements, initialState, "recentIntroTexts", dayIndex, 3);
-  const closingNote = selectUniqueTextVariant(closingNotes, initialState, "recentClosingTexts", dayIndex, 11);
-  const intro = `桃子宝贝，你的每日情报补推来啦！${encouragement.text}`;
-  const previousAnswer = previousAnswerText(initialState, "上次");
-  const subject = `${isTest ? "测试 - " : ""}桃子宝贝的每日情报补推 - ${firstIssue.dateKey} 至 ${lastIssue.dateKey}`;
-  const text = [
-    intro,
-    "",
-    `补推范围：${rangeText}`,
-    `这封把漏发的 ${issues.length} 天合并成一封；每一天最多精选 3 条重点新闻，并保留 3 条博物小百科和 1 道探索题。题目不在当天公布答案，下一天再公布上一题答案。`,
-    `本次合计：${totalNewsCount} 条小情报，${totalKnowledgeCount} 条博物小百科。`,
-    "宁可少一点，也不拿旧消息和编出来的故事凑数。",
-    "",
-    previousAnswer,
-    "",
-    ...issues.flatMap((issue, index) => [
-      `【${issue.dateText}】`,
-      issue.sourceSummary,
-      issue.freshnessNote,
-      "",
-      ...(index > 0 ? [
-        "上一天探索题答案",
-        answerRevealText(issues[index - 1].question.q, issues[index - 1].question.a, "上一天"),
-        ""
-      ] : []),
-      ...(issue.blocks.length ? issue.blocks.flatMap((block) => [
-        block.title,
-        ...block.lines.map((line) => `- ${line.label}：${line.text}`),
-        `- 小来源：${block.source}`,
-        block.link ? `- 给大人核对：${block.link}` : "",
-        ""
-      ]) : [
-        "这一天没有抓到足够新鲜、适合小学生阅读的重点新闻，所以不编假新闻。",
-        ""
-      ]),
-      "这一天的博物小百科（3条）",
-      ...issue.knowledgeItems.map(formatKnowledgeForText),
-      "",
-      "这一天的探索题：",
-      formatQuestionForText(issue.question),
-      index === issues.length - 1 ? "参考答案：下一封每日情报公布。" : "参考答案：下一天公布。",
-      ""
-    ]),
-    closingNote.text
-  ].join("\n");
-
-  const html = `<!doctype html>
-<html lang="zh-CN">
-<head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
-<style>${EMAIL_STYLES}</style></head>
-<body><div class="wrap">
-<div class="hero">
-<h1>${escapeHtml(intro)}</h1>
-<div class="date">补推范围：${escapeHtml(rangeText)}</div>
-	<p class="note">这封把漏发的 ${issues.length} 天合并成一封；每一天最多精选 3 条重点新闻，并保留 3 条博物小百科和 1 道探索题。题目不在当天公布答案，下一天再公布上一题答案。</p>
-<p class="note">本次合计：${totalNewsCount} 条小情报，${totalKnowledgeCount} 条博物小百科。补推读起来会比平时长一点，可以分两次看。</p>
-<div class="prev-answer">${renderTextLinesHtml(previousAnswer)}</div>
-</div>
-	${issues.map((issue, index) => `<div class="day">${escapeHtml(issue.dateText)}</div>
-	${issue.sourceSummary ? `<p class="note">${escapeHtml(issue.sourceSummary)}</p>` : ""}
-	<p class="note">${escapeHtml(issue.freshnessNote)}</p>
-	${index > 0 ? `<div class="prev-answer">${renderTextLinesHtml(answerRevealText(issues[index - 1].question.q, issues[index - 1].question.a, "上一天"))}</div>` : ""}
-	<div class="section-title">这一天的小情报</div>
-	${issue.blocks.length ? issue.blocks.map(renderNewsBlockHtml).join("") : `<div class="card"><p class="note">这一天没有抓到足够新鲜、适合小学生阅读的重点新闻，所以不编假新闻。</p></div>`}
-<div class="section-title">这一天的博物小百科（3条）</div>
-${renderKnowledgeHtml(issue.knowledgeItems)}
-<div class="section-title">这一天的探索题</div>
-	<div class="quiz-card">
-	<p class="quiz-label">题目</p>
-	${renderQuizQuestionHtml(issue.question)}
-	<p class="answer-note">${index === issues.length - 1 ? "参考答案：下一封每日情报公布。" : "参考答案：下一天公布。"}</p>
-	</div>`).join("")}
-<div class="closing-note">${escapeHtml(closingNote.text)}</div>
-</div></body></html>`;
-
+  const first=messages[0], last=messages.at(-1);
+  const issues=messages.flatMap(message=>message.quality.issues);
+  const hasScience=issues.some(issue=>issue.contentMode==='science');
+  const subject=`桃子宝贝的每日情报补推${hasScience ? ' · 含' + SCIENCE_TITLE : ''} - ${issues[0].dateKey} 至 ${issues.at(-1).dateKey}`;
+  const playbackIssues=messages.map(message=>message.playbackData);
   return {
     subject,
-    text,
-    html,
-    nextState: {
-      lastRunAt: new Date().toISOString(),
-      lastSentDate: lastIssue.dateKey,
-      lastReportDate: `${firstIssue.dateKey}..${lastIssue.dateKey}`,
-      lastQuestionId: lastIssue.question.id,
-      lastQuestion: lastIssue.question.q,
-      lastAnswer: lastIssue.question.a,
-      recentQuestionIds: rollingState.recentQuestionIds,
-      recentQuestionConceptIds: rollingState.recentQuestionConceptIds,
-      recentQuestionTags: rollingState.recentQuestionTags,
-      recentQuestionTexts: rollingState.recentQuestionTexts,
-      lastEncyclopediaIds: lastIssue.knowledgeItems.map((item) => item.id),
-      recentEncyclopediaIds: rollingState.recentEncyclopediaIds,
-      recentEncyclopediaTags: rollingState.recentEncyclopediaTags,
-      recentEncyclopediaTexts: rollingState.recentEncyclopediaTexts,
-      lastIntroText: encouragement.text,
-      recentIntroTexts: mergeRecentIds(initialState.recentIntroTexts, [encouragement.fingerprint], RECENT_MESSAGE_COPY_MEMORY_LIMIT),
-      lastClosingText: closingNote.text,
-      recentClosingTexts: mergeRecentIds(initialState.recentClosingTexts, [closingNote.fingerprint], RECENT_MESSAGE_COPY_MEMORY_LIMIT),
-      lastNewsTitles: issues.flatMap((issue) => issue.blocks.map((block) => `${issue.dateKey} ${block.title}`)),
-      recentNewsTitles: rollingState.recentNewsTitles
+    text:messages.map(message=>message.text).join('\n\n────────────\n\n'),
+    html:`<!doctype html><html lang="zh-CN"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><style>${EMAIL_STYLES}</style></head><body>${messages.map(message=>message.html.match(/<body>([\s\S]*)<\/body>/)?.[1] || '').join('')}</body></html>`,
+    playbackData:{
+      ...last.playbackData, subject, title:subject,
+      issues:playbackIssues,
+      blocks:playbackIssues.flatMap(issue=>issue.blocks.map(block=>({...block,issueDateText:issue.dateText}))),
+      knowledgeItems:playbackIssues.flatMap(issue=>issue.knowledgeItems.map(item=>({...item,issueDateText:issue.dateText,issueContentMode:issue.contentMode})))
     },
-    quality: {
-      introFingerprint: encouragement.fingerprint,
-      closingFingerprint: closingNote.fingerprint,
-      requirements: {
-        minimumNewsCount: 1,
-        minimumPublisherCount: 1,
-        maxItemsPerPublisher: 3,
-        maxAgeHours: MAX_NEWS_AGE_HOURS
-      },
-      issues: issues.map((issue) => ({
-        dateKey: issue.dateKey,
-        asOf: issue.date.toISOString(),
-        windowStart: newsWindowBounds(issue.date, MAX_NEWS_AGE_HOURS).start.toISOString(),
-        question: issue.question,
-        knowledgeItems: issue.knowledgeItems,
-        newsItems: issue.newsItems,
-        previousState: issue.previousState
-      }))
-    }
+    nextState:{...rollingState,lastReportDate:`${issues[0].dateKey}..${issues.at(-1).dateKey}`},
+    quality:{introFingerprint:first.quality.introFingerprint,closingFingerprint:last.quality.closingFingerprint,
+      requirements:{minimumNewsCount:1,minimumPublisherCount:1,maxItemsPerPublisher:3,maxAgeHours:MAX_NEWS_AGE_HOURS},issues}
   };
 }
 
 function buildNewsAuditManifest(message, previousState = {}) {
   return {
-    schemaVersion: 1,
+    schemaVersion: 2,
     generatedAt: new Date().toISOString(),
-    reportType: REPORT_DATES.length > 1 ? "merged-backfill" : isTest ? "test" : "daily",
+    reportType: message.quality?.reportType || (message.quality?.issues?.length > 1 ? "merged-backfill" : isTest ? "test" : "daily"),
     requirements: message.quality?.requirements || {},
     recentNewsTitles: [
       ...(Array.isArray(previousState.recentNewsTitles) ? previousState.recentNewsTitles : []),
       ...(Array.isArray(previousState.lastNewsTitles) ? previousState.lastNewsTitles : [])
     ],
     issues: (message.quality?.issues || []).map((issue) => ({
+      contentMode: issue.contentMode,
+      selectionEvidence: issue.selectionEvidence,
+      narration: issue.narration,
+      knowledgeItems: issue.knowledgeItems,
+      question: issue.question,
+      previousState: issue.previousState,
       dateKey: issue.dateKey,
       asOf: issue.asOf,
       windowStart: issue.windowStart,
@@ -5289,15 +5229,16 @@ async function sendEmail(message) {
   });
 }
 
+export async function main() {
 const state = await readState();
 const sendDecision = shouldSendScheduledEmail(state);
 if (!sendDecision.ok) {
   console.log(`Skipped send (${sendDecision.reason}) for ${EMAIL_TO}`);
-  process.exit(0);
+  return;
 }
 let message = REPORT_DATES.length > 1
   ? await buildMergedBackfillEmail(REPORT_DATES, state)
-  : buildEmail(filterPreviouslySentNews(await collectNews(NEWS_AS_OF, state), state), state);
+  : buildEmail(await collectNews(NEWS_AS_OF, state), state);
 console.log(`Selected Peach news: ${(message.nextState?.lastNewsTitles || []).join(" | ") || "none"}`);
 console.log(`Selected Peach quiz: ${message.nextState?.lastQuestionId || "none"} (${questionConceptId({
   id: message.nextState?.lastQuestionId,
@@ -5307,7 +5248,8 @@ console.log(`Selected Peach knowledge: ${(message.quality?.issues || [])
   .flatMap((issue) => issue.knowledgeItems || [])
   .map((item) => `${item.id} [${primaryTag(item)}]`)
   .join(" | ") || "none"}`);
-await fs.writeFile(OUT_NEWS_AUDIT, `${JSON.stringify(buildNewsAuditManifest(message, state), null, 2)}\n`, "utf8");
+const audit = buildNewsAuditManifest(message, state);
+await fs.writeFile(OUT_NEWS_AUDIT, `${JSON.stringify(audit, null, 2)}\n`, "utf8");
 validateMessageQuality(message, state);
 if (PLAYBACK_URL_OVERRIDE) {
   message = attachPlaybackToMessage(message, {
@@ -5324,6 +5266,13 @@ if (PLAYBACK_URL_OVERRIDE) {
 }
 await fs.writeFile(OUT_TEXT, message.text, "utf8");
 await fs.writeFile(OUT_HTML, message.html, "utf8");
+if (PLAYBACK_ENABLED && !PLAYBACK_URL_OVERRIDE) {
+  const outputDir=path.join(OUT_PLAYBACK_ROOT,playbackSlugForMessage(message));
+  const assets=Object.fromEntries(await Promise.all(PLAYBACK_FILES.map(async name=>[name,await fs.readFile(path.join(outputDir,name))])));
+  validatePreparedContent({audit,emailText:message.text,emailHtml:message.html,assets});
+  const manifest = await createPlaybackManifest(audit,outputDir);
+  await fs.writeFile('peach-playback-manifest.json',JSON.stringify(manifest,null,2)+'\n','utf8');
+}
 if (!isDryRun || PLAYBACK_URL_OVERRIDE) {
   await validateExternalPlaybackPageMatchesEmail(message.text);
 }
@@ -5331,7 +5280,17 @@ if (isDryRun) {
   await fs.writeFile(OUT_NEXT_STATE, `${JSON.stringify(message.nextState, null, 2)}\n`, "utf8");
   console.log(`Dry run generated ${OUT_TEXT} and ${OUT_HTML}`);
 } else {
-  await sendEmail(message);
+  const {resendPreparedEmail} = await import('./send-existing-peach-email.mjs');
+  await resendPreparedEmail({artifactDir:'.',playbackUrl:PLAYBACK_URL_OVERRIDE || playbackUrlForDate(playbackSlugForMessage(message)),subjectOverride:message.subject});
   await fs.writeFile(STATE_FILE, `${JSON.stringify(message.nextState, null, 2)}\n`, "utf8");
 }
 console.log(`${isDryRun ? "Prepared" : "Sent"} ${message.subject} to ${EMAIL_TO}`);
+}
+
+export { buildEmail, buildMergedBackfillEmail, buildNewsAuditManifest, collectNews, readState,
+  validateQuestionQuality, validateKnowledgeQuality, validateMessageQuality,
+  quizQualityPenalty, hasHighQualityReasoning, questionConceptId, selectDailyQuestion,
+  rotateQuestionOptions, mergeRecentIds, textFingerprint, museumEncyclopedia,
+  buildPlaybackSpeechSections, buildPlaybackSpeechText, approvedPlaybackDataForIssue, normalizeSpeechText, trimKidText, renderPlaybackArticleHtml, validateGeneratedPlaybackAssets, generatePlaybackAssets };
+const isMain = process.argv[1] && path.resolve(process.argv[1]) === fileURLToPath(import.meta.url);
+if (isMain) await main();

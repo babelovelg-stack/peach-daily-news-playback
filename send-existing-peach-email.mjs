@@ -1,6 +1,10 @@
 import fs from "node:fs/promises";
 import path from "node:path";
 import nodemailer from "nodemailer";
+import { fileURLToPath } from 'node:url';
+import { validateNewsAuditManifest, checkNewsSourceLinks } from './peach-news-self-check.mjs';
+import { verifyPlaybackManifest, validatePreparedContent } from './peach-playback-manifest.mjs';
+import { SCIENCE_TITLE } from './peach-science-mode.mjs';
 
 const EMAIL_TO = process.env.PEACH_NEWS_EMAIL_TO || "ctmt1412@qq.com";
 const ARTIFACT_DIR = process.env.PEACH_NEWS_RESEND_DIR || "resend-artifact";
@@ -16,7 +20,7 @@ function escapeHtml(value = "") {
     .replace(/"/g, "&quot;");
 }
 
-function patchPlaybackUrl(text, html) {
+function patchPlaybackUrl(text, html, PLAYBACK_URL = '') {
   if (!PLAYBACK_URL) return { text, html };
 
   const patchedText = text.includes("图文语音版：")
@@ -144,20 +148,20 @@ function playbackValidationUrl(url) {
   return parsed.href;
 }
 
-async function fetchRequiredPlaybackText(url, label) {
-  const response = await fetch(playbackValidationUrl(url), { cache: "no-store" });
+async function fetchRequiredPlaybackText(url, label, fetchImpl) {
+  const response = await fetchImpl(playbackValidationUrl(url), { cache: "no-store" });
   if (!response.ok) {
     throw new Error(`Failed to fetch ${label}: ${response.status} ${response.statusText}`);
   }
   return response.text();
 }
 
-async function validateRemotePlaybackAudio(pageUrl) {
+async function validateRemotePlaybackAudio(pageUrl, fetchImpl) {
   const audioUrl = playbackValidationUrl(playbackAssetUrl(pageUrl, "audio.mp3"));
-  let response = await fetch(audioUrl, { method: "HEAD", cache: "no-store" });
+  let response = await fetchImpl(audioUrl, { method: "HEAD", cache: "no-store" });
   let usedRangeGet = false;
   if (!response.ok) {
-    response = await fetch(audioUrl, { cache: "no-store", headers: { Range: "bytes=0-2047" } });
+    response = await fetchImpl(audioUrl, { cache: "no-store", headers: { Range: "bytes=0-2047" } });
     usedRangeGet = true;
   }
   if (!response.ok) {
@@ -202,14 +206,14 @@ function validatePlaybackSpeechContent({ emailText, playbackHtml, speechText }) 
   }
 }
 
-async function validatePlaybackPageMatchesEmail(text) {
-  if (!PLAYBACK_URL) return;
+async function validatePlaybackPageMatchesEmail(text, PLAYBACK_URL, fetchImpl) {
+  if (!PLAYBACK_URL) throw new Error('A playback URL is required before resend');
 
   const emailTitles = extractNewsTitlesFromText(text);
-  if (!emailTitles.length) return;
+  if (!emailTitles.length) throw new Error('Legacy zero-news resend is forbidden');
   validateUniqueNewsTitles(emailTitles, "Email");
 
-  const response = await fetch(playbackValidationUrl(PLAYBACK_URL), { cache: "no-store" });
+  const response = await fetchImpl(playbackValidationUrl(PLAYBACK_URL), { cache: "no-store" });
   if (!response.ok) {
     throw new Error(`Failed to fetch playback page for validation: ${response.status} ${response.statusText}`);
   }
@@ -227,8 +231,10 @@ async function validatePlaybackPageMatchesEmail(text) {
     ].filter(Boolean).join(" "));
   }
 
-  await validateRemotePlaybackAudio(PLAYBACK_URL);
-  const speechText = await fetchRequiredPlaybackText(playbackAssetUrl(PLAYBACK_URL, "speech.txt"), "playback speech");
+  await validateRemotePlaybackAudio(PLAYBACK_URL,fetchImpl);
+  const speechText = await fetchRequiredPlaybackText(playbackAssetUrl(PLAYBACK_URL, "speech.txt"), "playback speech",fetchImpl);
+  const captions = await fetchRequiredPlaybackText(playbackAssetUrl(PLAYBACK_URL, "captions.vtt"), "playback captions",fetchImpl);
+  if (!/^\s*WEBVTT/.test(captions) || !captions.includes('-->')) throw new Error('Missing valid playback captions');
   validatePlaybackSpeechContent({ emailText: text, playbackHtml, speechText });
 }
 
@@ -264,15 +270,39 @@ async function sendEmail({ subject, text, html }) {
   });
 }
 
-const textPath = path.join(ARTIFACT_DIR, "peach-daily-news.txt");
-const htmlPath = path.join(ARTIFACT_DIR, "peach-daily-news.html");
+export async function resendPreparedEmail({
+  artifactDir = ARTIFACT_DIR, playbackUrl = PLAYBACK_URL, fetchImpl = fetch, send = sendEmail,
+  subjectOverride = process.env.PEACH_NEWS_RESEND_SUBJECT || ''
+} = {}) {
+const textPath = path.join(artifactDir, "peach-daily-news.txt");
+const htmlPath = path.join(artifactDir, "peach-daily-news.html");
 const originalText = await fs.readFile(textPath, "utf8");
 const originalHtml = await fs.readFile(htmlPath, "utf8");
-const patched = patchPlaybackUrl(originalText, originalHtml);
-await validatePlaybackPageMatchesEmail(patched.text);
-const subject = process.env.PEACH_NEWS_RESEND_SUBJECT || subjectFromText(patched.text);
+const patched = patchPlaybackUrl(originalText, originalHtml, playbackUrl);
+let audit;
+try { audit = JSON.parse(await fs.readFile(path.join(artifactDir,'peach-news-audit.json'),'utf8')); }
+catch(error) {if(error.code!=='ENOENT') throw error;}
+const hasScience=Boolean(audit?.issues?.some(issue=>issue.contentMode==='science'));
+if (audit) {
+  const problems=validateNewsAuditManifest(audit);
+  if(problems.length) throw new Error('Prepared audit failed: '+problems.join('; '));
+}
+if (audit?.schemaVersion === 2) {
+  const manifest = JSON.parse(await fs.readFile(path.join(artifactDir,'peach-playback-manifest.json'),'utf8'));
+  const assets = await verifyPlaybackManifest({audit,manifest,artifactDir,playbackUrl,fetchImpl});
+  validatePreparedContent({audit,emailText:patched.text,emailHtml:patched.html,assets});
+  const errors=await checkNewsSourceLinks(audit,{fetchImpl});
+  if(errors.length) throw new Error(errors.join('; '));
+} else {
+  if(/儿童科学知识版|内容模式：science/.test(originalText) || !extractNewsTitlesFromText(originalText).length) throw new Error('Science resend requires schema 2 audit and playback manifest');
+  await validatePlaybackPageMatchesEmail(patched.text,playbackUrl,fetchImpl);
+}
+let subject = subjectOverride || subjectFromText(patched.text);
+if(hasScience && !subject.includes(SCIENCE_TITLE)) subject += ' · '+SCIENCE_TITLE;
 
-await fs.writeFile("peach-daily-news-resend.txt", patched.text, "utf8");
-await fs.writeFile("peach-daily-news-resend.html", patched.html, "utf8");
-await sendEmail({ subject, ...patched });
+await send({ subject, ...patched });
 console.log(`Sent ${subject} to ${EMAIL_TO}`);
+return {subject,...patched};
+}
+const isMain=process.argv[1] && path.resolve(process.argv[1])===fileURLToPath(import.meta.url);
+if(isMain) await resendPreparedEmail();

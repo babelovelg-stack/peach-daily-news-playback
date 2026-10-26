@@ -16,6 +16,7 @@ This repository generates, validates, publishes, and emails the child-readable P
 
 - Follow [README.md](README.md) for the content contract, commands, state files, and publishing workflow.
 - Do not lower the minimum of two eligible stories from two independent sources, bypass semantic deduplication, or substitute stale and promotional material to force a send.
+- The only exception is an explicitly audited `science` issue after successful collection yields exactly zero individually qualified news stories. One story still uses the news thresholds (legacy test/merged thresholds remain unchanged). Science replaces, not supplements, the three encyclopedia entries with reviewed, sourced facts from three primary topics; preserve the 45-issue exclusion and all quiz/playback/source checks. Collection, quiz, synthesis, or publication failures must not be converted into zero-news evidence.
 - Preserve the delivery order: generate, run the mandatory self-check, publish all four playback files, verify the hosted files byte-for-byte, send the email, then save state.
 - Do not edit an already published `peach/YYYY-MM-DD/` issue by hand or clear `peach-news-state.json`; rerun the complete generation and validation flow instead.
 - Keep credentials in GitHub Secrets and never commit SMTP passwords, GitHub tokens, or generated secret material.

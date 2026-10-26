@@ -28,3 +28,13 @@ test("points the external cloud scheduler to this repository", () => {
   assert.match(cloudScheduler, /repo: "peach-daily-news-playback"/);
   assert.match(cloudScheduler, /workflow: "peach-daily-news\.yml"/);
 });
+
+test('validate-only cannot publish, send or save state; artifacts include hash evidence',()=>{
+  assert.match(workflow,/validate_only:[\s\S]*?default: "false"/);
+  for(const name of ['Publish playback page','Verify hosted playback files','Send verified Peach daily news','Save question state','Send prepared Peach email','Resend existing Peach email with fixed playback link']){
+    const block=workflow.slice(workflow.indexOf('- name: '+name)).split('\n      - name:')[0];
+    assert.ok(block.includes("github.event.inputs.validate_only != 'true'"),name);
+  }
+  assert.ok(workflow.includes('peach-playback-manifest.json'));
+  assert.ok(workflow.includes('run: npm test'));
+});
