@@ -125,8 +125,9 @@ export async function checkNewsSourceLinks(manifest = {}, {
   for (const link of links) {
     let lastProblem = "unknown error";
     for (let attempt = 1; attempt <= attempts; attempt += 1) {
+      let response;
       try {
-        const response = await fetchImpl(link, {
+        response = await fetchImpl(link, {
           method: "GET",
           redirect: "follow",
           headers: {
@@ -142,6 +143,10 @@ export async function checkNewsSourceLinks(manifest = {}, {
         lastProblem = `HTTP ${response.status}`;
       } catch (error) {
         lastProblem = error?.message || String(error);
+      } finally {
+        // Header-only checks must release Node fetch connections on every
+        // status; cleanup failure must not replace the accessibility result.
+        try { await response?.body?.cancel(); } catch {}
       }
       if (attempt < attempts) await wait(500 * attempt);
     }

@@ -235,6 +235,61 @@ test("checks every final source link and reports an unreachable article", async 
   assert.ok(errors.some((issue) => issue.includes("water-ice") && issue.includes("HTTP 404")), errors.join("\n"));
 });
 
+test("source checks release successful full and partial response bodies", async () => {
+  for (const status of [200, 206]) {
+    let released = 0;
+    const errors = await checkNewsSourceLinks(manifest([story()]), {
+      fetchImpl: async (url, options) => {
+        assert.equal(options.method, "GET");
+        assert.equal(options.headers.range, "bytes=0-2047");
+        assert.equal(options.headers["user-agent"], "Mozilla/5.0 PeachDailyNewsSelfCheck/1.0");
+        return { ok: true, status, body: { cancel: async () => { released++; } } };
+      }
+    });
+    assert.deepEqual(errors, []);
+    assert.equal(released, 1);
+  }
+});
+
+test("source checks release a failed response before the unchanged second attempt", async () => {
+  let requests = 0, released = 0;
+  const errors = await checkNewsSourceLinks(manifest([story()]), {
+    fetchImpl: async () => {
+      assert.equal(released, requests);
+      requests++;
+      return { ok: requests === 2, status: requests === 2 ? 206 : 503, body: { cancel: async () => { released++; } } };
+    }
+  });
+  assert.deepEqual(errors, []);
+  assert.equal(requests, 2);
+  assert.equal(released, 2);
+});
+
+test("source checks accept absent bodies without hiding HTTP failures", async () => {
+  for (const status of [200, 403]) {
+    const errors = await checkNewsSourceLinks(manifest([story()]), {
+      attempts: 1,
+      fetchImpl: async () => ({ ok: status === 200, status, body: null })
+    });
+    if (status === 200) assert.deepEqual(errors, []);
+    else assert.match(errors.join("\n"), /HTTP 403/);
+  }
+});
+
+test("response cleanup rejection cannot replace the source accessibility result", async () => {
+  let released = 0;
+  for (const status of [200, 503]) {
+    const errors = await checkNewsSourceLinks(manifest([story()]), {
+      attempts: 1,
+      fetchImpl: async () => ({ ok: status === 200, status, body: { cancel: async () => { released++; throw new Error("cleanup failed"); } } })
+    });
+    if (status === 200) assert.deepEqual(errors, []);
+    else assert.match(errors.join("\n"), /HTTP 503/);
+    assert.ok(!errors.join("\n").includes("cleanup failed"));
+  }
+  assert.equal(released, 2);
+});
+
 test("places the mandatory self-check before playback publication and email send", async () => {
   const workflow = await fs.readFile(".github/workflows/peach-daily-news.yml", "utf8");
   const check = workflow.indexOf("Mandatory news self-check");
