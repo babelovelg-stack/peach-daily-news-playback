@@ -1,12 +1,11 @@
 {
-  "lastRunAt": "2026-10-27T15:45:50.986Z",
-  "lastSentDate": "2026-10-27",
-  "lastReportDate": "2026-10-27",
-  "lastQuestionId": "reserve-necessary-condition-20753",
-  "lastQuestion": "探究题（模拟数据）：某种培养条件下，24 份发芽种子都有水，但另外 3 份有水的种子没有发芽。根据记录，哪种判断更合理？\nA. 记录支持发芽需要水，但还应检查温度等其他条件\nB. 记录支持有水的样本更容易发芽，可先按有水预测\nC. 记录支持不同样本需要不同水量，可先增加供水比较",
-  "lastAnswer": "答案：A。这些记录表明有水并不保证发芽，水可能是必要条件，还需检查其他生长条件。",
+  "lastRunAt": "2026-10-28T10:01:49.475Z",
+  "lastSentDate": "2026-10-28",
+  "lastReportDate": "2026-10-28",
+  "lastQuestionId": "reserve-counterexample-20754",
+  "lastQuestion": "探究题（模拟数据）：有人依据 25 次记录提出：这种材料遇水后长度都增加 3 毫米。要检查这个说法，哪组记录最应该复核？\nA. 同样条件的多次记录长度增加相同，并保留完整测量步骤\nB. 不同条件的多次记录长度增加不同，并保留完整测量步骤\nC. 同样条件的一次记录长度没有增加，并保留完整测量步骤",
+  "lastAnswer": "答案：C。声称每次都如此的结论，会被一个可靠的反例挑战；先复核条件和测量，确认反例是否成立。",
   "recentQuestionIds": [
-    "news-floating-wind-wave-impact-comparison",
     "news-daming-mountain-frog-evidence-chain-3",
     "news-employment-rate-labor-force-evidence-1",
     "news-geohazard-point-area-risk-1",
@@ -41,7 +40,8 @@
     "advanced-bus-exception-5",
     "advanced-delivery-exception-9",
     "reserve-repeatability-20752",
-    "reserve-necessary-condition-20753"
+    "reserve-necessary-condition-20753",
+    "reserve-counterexample-20754"
   ],
   "recentQuestionConceptIds": [
     "concept-pollination",
@@ -98,10 +98,10 @@
     "concept-exception-arithmetic-bus",
     "concept-exception-arithmetic-delivery",
     "reserve-repeatability",
-    "reserve-necessary-condition"
+    "reserve-necessary-condition",
+    "reserve-counterexample"
   ],
   "recentQuestionTags": [
-    "地质灾害",
     "矿物学",
     "地理信息",
     "C919",
@@ -116,7 +116,8 @@
     "科学",
     "数学",
     "repeatability",
-    "necessary-condition"
+    "necessary-condition",
+    "counterexample"
   ],
   "recentQuestionTexts": [
     "关于学习和学校你还想继续追问哪一个更细的为什么",
@@ -211,17 +212,15 @@
     "计算题一辆校车每趟最多接13名同学今天早上跑了7趟其中2趟各接10名其他趟都坐满一共接了多少名同学a.85名b.91名c.88名",
     "计算题一辆无人配送车每趟最多送7个包裹上午它跑了6趟其中2趟各送4个其他趟都装满上午一共送了多少个包裹a.39个b.36个c.42个",
     "探究题模拟数据同一长度测23次多数记录在30毫米附近一次记录为50毫米判断这次异常下一步更合理的是哪种a.把异常值保留在记录中先按全部数据计算一次平均b.增加另一种长度的测量次数再比较两种长度",
-    "探究题模拟数据某种培养条件下24份发芽种子都有水但另外3份有水的种子没有发芽根据记录哪种判断更合理a.记录支持发芽需要水但还应检查温度等其他条件b.记录支持有水的样本更容易发芽可先按有水预测c"
+    "探究题模拟数据某种培养条件下24份发芽种子都有水但另外3份有水的种子没有发芽根据记录哪种判断更合理a.记录支持发芽需要水但还应检查温度等其他条件b.记录支持有水的样本更容易发芽可先按有水预测c",
+    "探究题模拟数据有人依据25次记录提出这种材料遇水后长度都增加3毫米要检查这个说法哪组记录最应该复核a.同样条件的多次记录长度增加相同并保留完整测量步骤b.不同条件的多次记录长度增加不同并保留完"
   ],
   "lastEncyclopediaIds": [
-    "science-solar-fusion",
-    "science-seafoam-formation",
-    "science-warm-layer-hurricane"
+    "science-solar-corona",
+    "science-algal-decay-foam",
+    "science-underwater-sound-speed"
   ],
   "recentEncyclopediaIds": [
-    "museum-pottery-thermoluminescence",
-    "museum-diatom-shells",
-    "museum-lost-wax-casting",
     "museum-palimpsest-multispectral",
     "museum-tooth-enamel-isotopes",
     "museum-monsoon",
@@ -353,7 +352,10 @@
     "museum-cuneiform-clay",
     "science-solar-fusion",
     "science-seafoam-formation",
-    "science-warm-layer-hurricane"
+    "science-warm-layer-hurricane",
+    "science-solar-corona",
+    "science-algal-decay-foam",
+    "science-underwater-sound-speed"
   ],
   "recentEncyclopediaTags": [
     "历史",
@@ -561,11 +563,13 @@
     "楔形文字常写在湿黏土板上书写者用芦苇杆压出像楔子一样的笔画",
     "太阳核心十分炽热核聚变会把氢变成氦并释放支持太阳发光发热的能量",
     "海水含有蛋白质等有机物风浪搅动时会形成泡沫所以海泡沫并不全是洗涤剂造成的",
-    "预测飓风不能仅看海面温度还需要了解暖水层有多深因为海水蒸发能为风暴提供水汽"
+    "预测飓风不能仅看海面温度还需要了解暖水层有多深因为海水蒸发能为风暴提供水汽",
+    "太阳外侧的日冕比我们看到的表面更热说明距离变化与温度的关系不是简单的越远越冷",
+    "大量藻类死亡分解后释放的有机物被浪花搅动可能使海岸出现更厚的泡沫",
+    "声音在海水中的速度通常比在空气中快海水温度和压力还会改变它的传播情况"
   ],
-  "lastIntroText": "🌤️📡🍑 今天把世界慢慢看清一点：你愿意分清事实和理由，就是很棒的进步！",
+  "lastIntroText": "🧭🌿📊 今天一起把数字背后的故事看清楚：会比较、会追问的你，正在长出可靠的判断力！",
   "recentIntroTexts": [
-    "🌞✈️👓今天跟着月影飞机和新科技去发现变化把现象看清把理由想明白你的思考正在发光",
     "🍑✨📮今天也把好奇心装进口袋吧你认真望向世界的样子闪闪发光",
     "🧭🍑🌟世界很大你正在一点一点长出理解它的力量",
     "🐬🌈📝愿你的想法像海浪一样有力量也像阳光一样明亮",
@@ -594,11 +598,11 @@
     "🍀🔭⭐愿你看见身边的小美好也看见远方的大世界",
     "🍑🔬☀️新知识正在敲门愿你既敢大胆猜想也愿耐心核对每一个理由",
     "🌋🧪🧭今天也带着好奇和耐心出发重要的发现常常藏在认真核对的细节里",
-    "🌤️📡🍑今天把世界慢慢看清一点你愿意分清事实和理由就是很棒的进步"
+    "🌤️📡🍑今天把世界慢慢看清一点你愿意分清事实和理由就是很棒的进步",
+    "🧭🌿📊今天一起把数字背后的故事看清楚会比较会追问的你正在长出可靠的判断力"
   ],
-  "lastClosingText": "今天的新发现先放进记忆里，明天我们再用答案检验一次推理。",
+  "lastClosingText": "世界不会只给一种线索，愿你学会把数字、规则和人的生活连起来看。",
   "recentClosingTexts": [
-    "月影会移过大地航线会连接城市新工具也需要守住规则；愿你带着知识和善意继续观察世界",
     "今天的声音先停在这里新的知识会在脑海里慢慢找到自己的位置",
     "小小的知识已经装进口袋愿它在未来某一天帮你看懂更大的事情",
     "今天的探索告一段落愿认真好奇和善意继续陪着你",
@@ -627,7 +631,8 @@
     "今天的新闻读完了愿你把好奇留在心里把判断建立在证据上",
     "把问题留给今晚把核对留给明天；会等待证据也是一种本领",
     "世界很大可靠的理解从一条事实和一次认真比较开始",
-    "今天的新发现先放进记忆里明天我们再用答案检验一次推理"
+    "今天的新发现先放进记忆里明天我们再用答案检验一次推理",
+    "世界不会只给一种线索愿你学会把数字规则和人的生活连起来看"
   ],
   "lastNewsTitles": [],
   "recentNewsTitles": [
@@ -699,6 +704,9 @@
     "museum-cuneiform-clay",
     "solar-fusion",
     "seafoam-formation",
-    "warm-layer-hurricane"
+    "warm-layer-hurricane",
+    "solar-corona",
+    "algal-decay-foam",
+    "underwater-sound-speed"
   ]
 }
