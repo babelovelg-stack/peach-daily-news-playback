@@ -36,7 +36,7 @@ export function catalogIssues(catalog) {
     const body = String(item?.text || '').replace(/^百科小知识：/, '');
     if (!item?.text?.startsWith('百科小知识：') || body.length < 22 || body.length > 90 || !/[，。]/.test(body)) errors.push(`invalid science text: ${item?.id}`);
     if (!Array.isArray(item?.tags) || item.tags.length < 2 || new Set(item.tags).size !== item.tags.length) errors.push('invalid science tags');
-    if (!item?.publisher || !/^https:\/\/(?:science\.nasa\.gov|oceanservice\.noaa\.gov|www\.usgs\.gov|volcanoes\.usgs\.gov)\//.test(item.link || '') || !/^\d{4}-\d{2}-\d{2}$/.test(item.verifiedAt || '')) errors.push('missing trusted source provenance');
+    if (!item?.publisher || !/^https:\/\/(?:science\.nasa\.gov|oceanservice\.noaa\.gov|www\.usgs\.gov|volcanoes\.usgs\.gov|pubs\.usgs\.gov)\//.test(item.link || '') || !/^\d{4}-\d{2}-\d{2}$/.test(item.verifiedAt || '')) errors.push('missing trusted source provenance');
     if (!Array.isArray(item?.legacyIds) || !Array.isArray(item?.legacyConceptTerms)) errors.push('missing legacy semantic mapping');
     ids.add(item?.id); concepts.add(item?.conceptId); texts.add(factFingerprint(item?.text));
   }

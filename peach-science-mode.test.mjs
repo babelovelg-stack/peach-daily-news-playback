@@ -79,6 +79,18 @@ test('catalog rejects missing and duplicate pool; legacy IDs prevent relabeling'
   assert.ok(!selected.some(item=>item.conceptId===original.conceptId));
   assert.throws(()=>selectScienceKnowledge(1,{},museumEncyclopedia,catalog.slice(0,149)));
 });
+test('USGS publication provenance accepts the exact HTTPS host, not lookalikes',()=>{
+  for(const link of ['https://pubs.usgs.gov/gip/dynamic/understanding.html','https://pubs.usgs.gov/gip/dynamic/inside.html']) {
+    const catalog=structuredClone(readScienceCatalog());
+    catalog.find(item=>item.id==='science-lithosphere').link=link;
+    assert.deepEqual(catalogIssues(catalog),[]);
+  }
+  for(const link of ['http://pubs.usgs.gov/gip/dynamic/inside.html','https://pubs.usgs.gov.evil.test/inside.html','https://unreviewed.usgs.gov/inside.html']) {
+    const catalog=structuredClone(readScienceCatalog());
+    catalog.find(item=>item.id==='science-lithosphere').link=link;
+    assert.ok(catalogIssues(catalog).includes('missing trusted source provenance'));
+  }
+});
 test('zero evidence and trusted catalog contents are rechecked, not trusted from audit', () => {
   const message=buildEmail([],{}, {asOf:new Date('2026-10-24T10:00:00Z'),selectionEvidence:emptyEvidence()});
   const good=buildNewsAuditManifest(message,{});

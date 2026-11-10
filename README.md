@@ -143,7 +143,7 @@ node peach-daily-news.mjs --test --dry-run
 
 云端只验证可在手动运行工作流时设置 `validate_only=true`（默认 `false`）：运行全量测试、生成真实语音资产并自检，但不发布、不发送、不更新正式状态。不能与历史重发／准备目录组合使用。审计及哈希清单随 `peach-daily-news` 产物包一起保存，下载后须保留整个目录结构；科普重发必须有审计、哈希清单及四资产。
 
-该验证模式还会检查整个科普目录的全部独立来源 URL（当前 38 个），而不只检查当期 3 条。可单独运行只读命令 `node peach-science-source-check.mjs`：最多 6 路并发，沿用来源自检的两次尝试与超时规则，任何 URL 仍不可访问都会失败。它不发送邮件、不修改状态或目录；本机代理／网络失败不能代替云端结果，也不能据此跳过来源检查或删减库存。
+该验证模式还会检查整个科普目录的全部独立来源 URL（当前 39 个），而不只检查当期 3 条。USGS 引用也允许经过核对的官方出版物站点 `pubs.usgs.gov`，仍严格校验 HTTPS 和完整域名。可单独运行只读命令 `node peach-science-source-check.mjs`：最多 6 路并发，沿用来源自检的两次尝试与超时规则，任何 URL 仍不可访问都会失败。它不发送邮件、不修改状态或目录；本机代理／网络失败不能代替云端结果，也不能据此跳过来源检查或删减库存。
 
 本地预览静态站：
 
@@ -383,7 +383,7 @@ Then open `http://localhost:8000/` or `http://localhost:8000/peach/YYYY-MM-DD/`.
 
 For a cloud no-send check, manually dispatch with `validate_only=true` (default `false`). It runs all tests, generates real speech assets, and self-checks, but does not publish, send, or save formal state. It cannot be combined with prepared-directory or historical-resend inputs. The `peach-daily-news` artifact includes the audit and hash manifest; retain its directory layout when downloading. Science resend requires both manifests and all four assets.
 
-This mode also checks every distinct source URL in the entire science catalog (currently 38), not just the current three facts. Run the read-only diagnostic separately with `node peach-science-source-check.mjs`: at most six concurrent requests, using the existing source check's two attempts and timeout rules. Any remaining inaccessible URL fails validation. It never sends email or changes state/catalog data. Local proxy/network failures do not establish cloud availability and must not be bypassed by skipping checks or removing facts.
+This mode also checks every distinct source URL in the entire science catalog (currently 39), not just the current three facts. Reviewed USGS references may also use its official publication host `pubs.usgs.gov`, with HTTPS and exact-host validation retained. Run the read-only diagnostic separately with `node peach-science-source-check.mjs`: at most six concurrent requests, using the existing source check's two attempts and timeout rules. Any remaining inaccessible URL fails validation. It never sends email or changes state/catalog data. Local proxy/network failures do not establish cloud availability and must not be bypassed by skipping checks or removing facts.
 
 | Command | Purpose |
 | --- | --- |
