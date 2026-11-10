@@ -223,6 +223,7 @@ GitHub Actions 必须配置 `REPORT_EMAIL_FROM`、`SMTP_HOST`、`SMTP_PORT`、`S
 
 - 内容生成、状态更新和静态页面发布必须保持在同一个并发组中。
 - 必须先运行整期自检，再发布播放页；必须先验证线上文件，再发送邮件。
+- GitHub Pages 可能需要约 10 分钟完成发布。线上四文件校验保留最多 120 次、间隔 5 秒的尝试，步骤总超时为 12 分钟；每次请求连接超时 5 秒、总超时 20 秒。发布未完成或文件不一致仍禁止发信，不再仅等待约 2 分钟就提前失败。
 - 每次发布必须同时提交页面、音频、字幕和播报文本。
 - 已发布日期目录不应手工改写，修订应重新通过完整生成与校验链路。
 - 不要删除或手工清空 `peach-news-state.json`，否则可能导致重复内容或重复发送。
@@ -453,6 +454,7 @@ GitHub Actions requires `REPORT_EMAIL_FROM`, `SMTP_HOST`, `SMTP_PORT`, `SMTP_SEC
 
 - Content generation, state updates, and static-page publication must remain in the same concurrency group.
 - Run the full-issue self-check before publishing; verify hosted files before sending email.
+- GitHub Pages can take about 10 minutes to publish. Hosted four-file verification allows up to 120 attempts with 5-second intervals and a 12-minute step limit; each request has a 5-second connection timeout and a 20-second total timeout. Missing or mismatched assets still block email instead of giving up after only about 2 minutes.
 - Every release must contain the page, audio, captions, and narration text together.
 - Do not hand-edit a published date directory; regenerate revisions through the full validation pipeline.
 - Never delete or manually empty `peach-news-state.json`, which protects against repeated content and duplicate delivery.

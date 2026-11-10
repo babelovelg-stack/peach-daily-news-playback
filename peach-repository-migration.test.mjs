@@ -29,6 +29,16 @@ test("points the external cloud scheduler to this repository", () => {
   assert.match(cloudScheduler, /workflow: "peach-daily-news\.yml"/);
 });
 
+test('hosted playback verification allows Pages propagation while bounding network waits', () => {
+  const block = workflow.slice(workflow.indexOf('- name: Verify hosted playback files')).split('\n      - name:')[0];
+  assert.match(block, /timeout-minutes: 12/);
+  assert.match(block, /seq 1 120/);
+  assert.match(block, /sleep 5/);
+  assert.equal((block.match(/curl -fsSL --connect-timeout 5 --max-time 20/g) || []).length, 4);
+  assert.equal((block.match(/cmp -s/g) || []).length, 4);
+  assert.match(block, /test "\$verified" = "true"/);
+});
+
 test('validate-only cannot publish, send or save state; artifacts include hash evidence',()=>{
   assert.match(workflow,/validate_only:[\s\S]*?default: "false"/);
   for(const name of ['Publish playback page','Verify hosted playback files','Send verified Peach daily news','Save question state','Send prepared Peach email','Resend existing Peach email with fixed playback link']){

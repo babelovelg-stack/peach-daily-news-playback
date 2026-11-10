@@ -210,18 +210,20 @@ jobs:
 
       - name: Verify hosted playback files
         if: ${{ steps.schedule_gate.outputs.should_send == 'true' && github.event.inputs.validate_only != 'true' }}
+        timeout-minutes: 12
         shell: bash
         run: |
           date_key="${{ steps.publish_playback.outputs.date_key }}"
           playback_url="${{ steps.publish_playback.outputs.playback_url }}"
           local_dir="peach-playback/$date_key"
           verified=false
-          for attempt in $(seq 1 24); do
+          # Pages propagation can take 10 minutes; never send before all four files match.
+          for attempt in $(seq 1 120); do
             cache_key="$GITHUB_RUN_ID-$GITHUB_RUN_ATTEMPT-$attempt"
-            if curl -fsSL "$playback_url/index.html?v=$cache_key" -o "$RUNNER_TEMP/peach-index.html" \
-              && curl -fsSL "$playback_url/audio.mp3?v=$cache_key" -o "$RUNNER_TEMP/peach-audio.mp3" \
-              && curl -fsSL "$playback_url/captions.vtt?v=$cache_key" -o "$RUNNER_TEMP/peach-captions.vtt" \
-              && curl -fsSL "$playback_url/speech.txt?v=$cache_key" -o "$RUNNER_TEMP/peach-speech.txt" \
+            if curl -fsSL --connect-timeout 5 --max-time 20 "$playback_url/index.html?v=$cache_key" -o "$RUNNER_TEMP/peach-index.html" \
+              && curl -fsSL --connect-timeout 5 --max-time 20 "$playback_url/audio.mp3?v=$cache_key" -o "$RUNNER_TEMP/peach-audio.mp3" \
+              && curl -fsSL --connect-timeout 5 --max-time 20 "$playback_url/captions.vtt?v=$cache_key" -o "$RUNNER_TEMP/peach-captions.vtt" \
+              && curl -fsSL --connect-timeout 5 --max-time 20 "$playback_url/speech.txt?v=$cache_key" -o "$RUNNER_TEMP/peach-speech.txt" \
               && cmp -s "$local_dir/index.html" "$RUNNER_TEMP/peach-index.html" \
               && cmp -s "$local_dir/audio.mp3" "$RUNNER_TEMP/peach-audio.mp3" \
               && cmp -s "$local_dir/captions.vtt" "$RUNNER_TEMP/peach-captions.vtt" \
