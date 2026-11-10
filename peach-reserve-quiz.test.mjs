@@ -37,22 +37,54 @@ test('every reserve family passes unchanged real quality checks and independent 
     else assert.equal(q.verification.correctIndex,0);
   }
 });
-test('400 consecutive dates with real October 23 state keep the 14-concept and long-text exclusions', () => {
-  let state=JSON.parse(fs.readFileSync(new URL('./peach-news-state.json',import.meta.url)));
-  const start=Math.floor(Date.parse('2026-10-24T10:00:00Z')/86400000);
+test('question text stays excluded for 365 subsequent selections, then may be reused', () => {
+  const day=20755;
+  const question=selectDailyQuestion([],day,{});
+  const fingerprint=textFingerprint(question.q);
+  let recentQuestionTexts=[fingerprint];
+  for(let i=0;i<364;i++) {
+    recentQuestionTexts=mergeRecentIds(recentQuestionTexts,[textFingerprint(`历史题面 ${i}`)],365);
+  }
+  assert.equal(recentQuestionTexts.length,365);
+  assert.ok(recentQuestionTexts.includes(fingerprint));
+  assert.notEqual(textFingerprint(selectDailyQuestion([],day,{recentQuestionTexts}).q),fingerprint);
+  assert.ok(validateQuestionQuality(question,{recentQuestionTexts}).some(error=>error.includes('文本重复')));
+
+  recentQuestionTexts=mergeRecentIds(recentQuestionTexts,[textFingerprint('历史题面 364')],365);
+  assert.equal(recentQuestionTexts.length,365);
+  assert.ok(!recentQuestionTexts.includes(fingerprint));
+  assert.equal(textFingerprint(selectDailyQuestion([],day,{recentQuestionTexts}).q),fingerprint);
+  assert.deepEqual(validateQuestionQuality(question,{recentQuestionTexts}),[]);
+});
+
+for(const scenario of ['empty history','current delivery history']) test(`400 consecutive dates preserve rolling exclusions from ${scenario}`, () => {
+  let state=scenario==='empty history' ? {} : JSON.parse(fs.readFileSync(new URL('./peach-news-state.json',import.meta.url)));
+  // Production state advances after every email. Never rewind that state to a
+  // fixed historical date or require global uniqueness beyond its 365-text window.
+  const start=Math.floor(Date.parse(`${state.lastSentDate || '2026-10-23'}T10:00:00Z`)/86400000)+1;
+  assert.ok(Number.isSafeInteger(start));
   const selected=[];
+  const recentTexts=(state.recentQuestionTexts || []).map(textFingerprint);
+  const recentConcepts=[...(state.recentQuestionConceptIds || [])];
   for(let day=start;day<start+400;day++){
     const q=selectDailyQuestion([],day,state);
     assert.deepEqual(validateQuestionQuality(q,state),[],q.id);
     const concept=questionConceptId(q);
-    assert.ok(!selected.slice(-14).some(entry=>entry.concept===concept));
+    const fingerprint=textFingerprint(q.q);
+    // Independent history assertions also catch a regression shared by the
+    // selector and validator; neither assertion relies on their internal sets.
+    assert.ok(!recentConcepts.slice(-14).includes(concept),q.id);
+    assert.ok(!recentTexts.slice(-365).includes(fingerprint),q.id);
+    assert.notEqual(fingerprint,textFingerprint(state.lastQuestion || ''),q.id);
     state={...state,lastQuestion:q.q,lastQuestionId:q.id,lastAnswer:q.a,
       recentQuestionIds:mergeRecentIds(state.recentQuestionIds,[q.id],36),
       recentQuestionConceptIds:mergeRecentIds(state.recentQuestionConceptIds,[concept],90),
-      recentQuestionTexts:mergeRecentIds(state.recentQuestionTexts,[textFingerprint(q.q)],365),
+      recentQuestionTexts:mergeRecentIds(state.recentQuestionTexts,[fingerprint],365),
       recentQuestionTags:mergeRecentIds(state.recentQuestionTags,[q.tags[0]],16)};
+    recentTexts.push(fingerprint);
+    recentConcepts.push(concept);
+    assert.deepEqual(state.recentQuestionTexts,recentTexts.slice(-365));
     selected.push({concept,text:q.q});
   }
   assert.equal(selected.length,400);
-  assert.equal(new Set(selected.map(q=>q.text)).size,400);
 });
