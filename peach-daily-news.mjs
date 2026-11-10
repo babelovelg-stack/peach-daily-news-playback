@@ -13,6 +13,7 @@ import {
   isLowQualityNewsSource,
   isPromotionalStudyTourNews,
   isSmartMountainHighwayStory,
+  isStudentRailReservationAnnouncement,
   namedTyphoonEventKey,
   newsQualityIssues,
   titlesAreSemanticDuplicates
@@ -3172,7 +3173,7 @@ function isMaritimeScienceSeasonStory(text = "") {
 }
 
 function isStudentRailTicketStory(text = "") {
-  return /学生票|学生优惠票|学生购票|学生.*预约购票|铁路.*学生|暑运.*学生|暑期.*返校/.test(text);
+  return isStudentRailReservationAnnouncement(text);
 }
 
 function isYouthRobotCompetitionStory(text = "") {
@@ -3299,7 +3300,7 @@ function kidNewsTitle(item) {
     return "暑托班带孩子了解脑机接口";
   }
   if (isStudentRailTicketStory(`${title} ${item.description}`)) {
-    return "暑运期间学生买火车票规则有变化";
+    return "铁路12306新增学生预约购票服务";
   }
   if (/黏土大桥|万名工程师进课堂|工程师进课堂|搭起科学梦/.test(`${title} ${item.description}`)) {
     return "工程师进课堂带孩子做黏土大桥";
@@ -4075,7 +4076,7 @@ function kidNewsImpact(item) {
     return "社会影响是，脑机接口未来可能帮助康复训练、医疗辅助和无障碍设备发展。趋势不是让机器随便读取人的想法，而是在清楚规则和隐私保护下，让技术更安全地帮助需要的人。";
   }
   if (isStudentRailTicketStory(text)) {
-    return "社会影响是，学生暑期返校和回家时多了一种购票安排方式，但仍要核对身份、查看兑现通知并按时付款。未来交通服务会更多用预约数据安排运力和提醒。";
+    return "社会影响是，学生返校和回家时多了一种购票安排方式，但仍要核对身份、查看兑现通知并按时付款。未来交通服务会更多用预约数据安排运力和提醒。";
   }
   if (isYouthRobotCompetitionStory(text)) {
     return "社会影响是，科技教育会更重视做项目、测结果和团队合作，而不只背知识点。比赛能发现兴趣和能力，但名次不能代表一个孩子全部的科学素养。";

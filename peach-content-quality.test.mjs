@@ -16,6 +16,18 @@ test('wind and solar capacity statistics cannot inherit a cleaning-robot explana
   assert.ok(issues.some(issue=>issue.includes('清扫机器人')));
 });
 
+test('scenic student tickets cannot inherit a railway reservation explanation', () => {
+  const issues=newsQualityIssues({
+    sourceTitle:'黄果树瀑布学生票怎么买？2026免160元大门票3步搞定+FAQ',
+    sourceDescription:'景区学生门票购买攻略',
+    title:'暑运期间学生买火车票规则有变化',
+    summary:'铁路12306增加了学生预约购票功能。符合优惠条件的学生完成身份和优惠资质核验后，可以提前提交乘车日期、车次和席别需求。',
+    value:'学生集中出行的需求提前交给系统处理，减少学生反复刷新。',
+    impact:'学生返校和回家时多了一种购票安排方式，仍要查看兑现通知并按时付款。'
+  });
+  assert.ok(issues.some(issue=>issue.includes('铁路预约购票')),issues.join('\n'));
+});
+
 test("deduplicates named typhoons by storm name across different response angles", () => {
   assert.equal(namedTyphoonEventKey("台风“白海豚”向华东靠近，沿海提前防御"), "named-typhoon-白海豚");
   assert.equal(namedTyphoonEventKey("福建应对第8号台风“白海豚”，暂停部分海上交通"), "named-typhoon-白海豚");

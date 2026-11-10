@@ -35,6 +35,24 @@ test('only zero qualified stories selects science, one and two remain news', () 
   assert.equal(decideContentMode({ qualifiedCount: 1, collectionSucceeded: true }), 'news');
   assert.equal(decideContentMode({ qualifiedCount: 2, collectionSucceeded: true }), 'news');
 });
+
+test('student-ticket collection requires an actual new railway reservation service',async()=>{
+  const cases=[
+    ['黄果树瀑布学生票怎么买？2026免160元大门票3步搞定+FAQ',false],
+    ['博物馆学生票预约购票指南',false],
+    ['铁路学生优惠票资格核验常见问题',false],
+    ['国外铁路新增学生预约购票服务',false],
+    ['铁路12306新增学生优惠票预约购票服务',true]
+  ];
+  for(const [title,eligible] of cases) {
+    const xml=`<rss><channel><item><title>${title}</title><description>${title}</description><pubDate>2026-11-10T01:00:00Z</pubDate><link>https://example.test/student-ticket</link></item></channel></rss>`;
+    const news=await collectNews(new Date('2026-11-10T10:00:00Z'),{}, {feedList:[emptyFeed],curatedItems:[],fetchImpl:async url=>new Response(url===emptyFeed.url?xml:'article')});
+    assert.equal(news.selectionEvidence.qualifiedCount,eligible ? 1 : 0,title);
+    assert.equal(decideContentMode(news.selectionEvidence),eligible ? 'news' : 'science');
+    if(eligible) assert.doesNotMatch(JSON.stringify(news.selectionEvidence.qualified[0].newsItem),/暑运|暑期/);
+    else assert.equal(news.selectionEvidence.rejected.length,1);
+  }
+});
 test('152 reviewed facts retain 45-issue exclusion for 60 consecutive science issues from current state', async () => {
   const catalog=readScienceCatalog();
   assert.ok(catalog.length>=150);

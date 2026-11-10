@@ -14,6 +14,14 @@ export function isSmartMountainHighwayStory(text = "") {
     (/(?:高速公路|山区公路)/.test(value) && /空地协同/.test(value));
 }
 
+export function isStudentRailReservationAnnouncement(text = "") {
+  const value=String(text);
+  return /学生/.test(value)
+    && /12306/.test(value)
+    && /预约购票|购票预约/.test(value)
+    && /新增|增加|推出|上线|开通|启用/.test(value);
+}
+
 const STUDY_TOUR_PATTERN = /研学|游学|夏令营|冬令营/;
 const STUDY_TOUR_PROMOTION_PATTERN = /路线|产品|基地|营地|打卡|招募|报名|开营|文旅|景区|推荐|推介|攻略|热门|火热|走红|新选择|新体验|亲子|旅行|课堂/;
 const STUDY_TOUR_PUBLIC_INTEREST_PATTERN = /监管|规范|整治|管理办法|安全标准|安全风险|事故|通报|处罚|收费乱象|征求意见|教育部|文旅部/;
@@ -270,6 +278,10 @@ export function newsQualityIssues({
   if (RAW_NEWSROOM_SUMMARY_PATTERN.test(summary)) issues.push("发生了什么仍是成人新闻稿原句");
   if (GENERIC_NEWS_EXPLANATION_PATTERN.test(explanationText)) issues.push("价值或影响使用通用套话");
   if (/光伏|太阳能|风光|新能源/.test(sourceText) && !/清扫|灰尘|积灰|除尘/.test(sourceText) && /机器人.{0,20}清扫|清扫机器人|机器人做重复/.test(explanationText)) issues.push('能源新闻错配清扫机器人解释');
+  if (sourceText && /学生/.test(summary) && /铁路|12306|火车|列车|高铁/.test(summary)
+    && /预约购票|购票预约/.test(summary) && !isStudentRailReservationAnnouncement(sourceText)) {
+    issues.push('学生票新闻错配铁路预约购票解释：来源未说明新增铁路预约服务');
+  }
 
   const sourceRegions = REGION_NAMES.filter((region) => sourceTitle.includes(region));
   const summaryRegions = REGION_NAMES.filter((region) => summary.includes(region));
