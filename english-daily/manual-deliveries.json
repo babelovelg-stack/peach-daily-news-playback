@@ -1,0 +1,10 @@
+{
+  "schema": 1,
+  "history": [],
+  "inFlight": {
+    "request": "user-20261111-latest-01",
+    "lesson": 2,
+    "date": "2026-11-11",
+    "sha": "102fa7a2f19934a7fd779e1497c3b8efd40a966b2bd040e43dad797d22098c64"
+  }
+}
