@@ -4,6 +4,8 @@ git config user.name 'github-actions[bot]'
 git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
 if [ "$1" = 'publish' ]; then
   git add english/
+elif [ "$1" = 'manual' ]; then
+  git add english-daily/manual-deliveries.json
 else
   git add english-daily/state.json
 fi

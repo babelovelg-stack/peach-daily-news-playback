@@ -52,6 +52,8 @@ node english-daily/v2/delivery.mjs readiness
 
 ### 验证与来源
 
+用户明确要求立即推送时，可手动运行云端 `Peach English Manual Delivery`（`manual-workflow.yml` 部署到 `.github/workflows/peach-english-manual.yml`），指定已发布课号和唯一 `request_id`。沿用原 SMTP 和收件人，邮件附完整课程 HTML 与私人链接；不修改每日 `state.json` 或18:00计划。独立 `manual-deliveries.json` 在发送前持久化占位，确认 SMTP 接受后保存记录。同一请求不重复发送，不明确结果阻止自动重试。`node --test english-daily/v2/manual.test.mjs` 验证补发状态与工作流边界。
+
 30项课程/投递测试通过，覆盖来源、引用预算、配量、加密篡改、缺书阻断、连续状态及邮件联网说明。三课均构建并核对22段音频的文本/声音指纹与字节哈希。真实浏览器验证了出版社样章在桌面与390px手机宽度的加载、翻页、重点片段音频播放、答题反馈、阅读确认和完成门槛；390px无横向溢出。旧内嵌阅读模式的逐句高亮与解密使用明确标记的测试文本验证，测试文本不是原书。
 
 - [Cambridge 官方样章](https://assets.cambridge.org/97810098/09887/excerpt/9781009809887_excerpt.pdf)
@@ -108,6 +110,8 @@ AES-256-GCM protects production lesson HTML. The public page contains ciphertext
 Plaintext books, offline attachments, audio caches and keys are excluded from workflow artifacts. Public Actions caching is disabled. Artifacts contain only text-free plans, redacted receipts, state and public ciphertext. Manual dispatch defaults to `validate_only=true`; `false` enables sending complete lessons. Neither mode sends when original material is missing.
 
 ### Validation and sources
+
+When explicitly requested by the user, dispatch `Peach English Manual Delivery` (`manual-workflow.yml` deployed as `.github/workflows/peach-english-manual.yml`) with a published lesson number and unique `request_id`. It reuses the original SMTP account/recipient and attaches the lesson HTML plus its private link, without changing daily `state.json` or the 18:00 schedule. Separate `manual-deliveries.json` persists a claim before sending and records confirmed SMTP acceptance. A request is not sent twice; uncertain outcomes block automatic retries. Run `node --test english-daily/v2/manual.test.mjs` to check manual state and workflow boundaries.
 
 All 30 curriculum/delivery tests passed, covering sources, quotation budgets, workload, encryption tampering, missing-content blocking, sequential state and online/offline email disclosure. All three lessons were built with 22 audio clips each and verified text/voice fingerprints and byte hashes. Browser QA covered the real publisher sample on desktop and a 390px mobile viewport, page turns, real excerpt audio, answer feedback, reading acknowledgement and completion gates. No horizontal overflow occurred at 390px. Clearly labelled fixtures test sentence highlighting/decryption in the older embedded-original mode; they are not original books.
 

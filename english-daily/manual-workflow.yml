@@ -1,0 +1,70 @@
+name: Peach English Manual Delivery
+on:
+  workflow_dispatch:
+    inputs:
+      lesson:
+        description: 'Published lesson number explicitly requested for delivery'
+        type: number
+        required: true
+        default: 2
+      request_id:
+        description: 'Unique user request ID; reuse this ID when retrying the same request'
+        type: string
+        required: true
+permissions:
+  contents: write
+concurrency:
+  group: peach-english-daily
+  cancel-in-progress: false
+env:
+  FORCE_JAVASCRIPT_ACTIONS_TO_NODE24: true
+jobs:
+  send:
+    runs-on: ubuntu-latest
+    timeout-minutes: 12
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '24'
+          cache: npm
+      - run: npm ci
+      - run: node --test english-daily/test.mjs english-daily/v2/test.mjs english-daily/v2/manual.test.mjs
+      - name: Restore and verify the requested published lesson
+        id: plan
+        env:
+          ENGLISH_CONTENT_KEY: ${{ secrets.ENGLISH_CONTENT_KEY }}
+          ENGLISH_MANUAL_LESSON: ${{ inputs.lesson }}
+          ENGLISH_MANUAL_REQUEST: ${{ inputs.request_id }}
+        run: node english-daily/v2/manual.mjs prepare
+      - name: Persist manual send claim
+        if: steps.plan.outputs.should_send == 'true'
+        run: |
+          node english-daily/v2/manual.mjs claim
+          bash english-daily/push-state.sh manual
+      - name: Send requested latest lesson
+        if: steps.plan.outputs.should_send == 'true'
+        env:
+          ENGLISH_EMAIL_TO: ctmt1412@qq.com
+          REPORT_EMAIL_FROM: ${{ secrets.REPORT_EMAIL_FROM }}
+          SMTP_HOST: ${{ secrets.SMTP_HOST }}
+          SMTP_PORT: ${{ secrets.SMTP_PORT }}
+          SMTP_SECURE: ${{ secrets.SMTP_SECURE }}
+          SMTP_USER: ${{ secrets.SMTP_USER }}
+          SMTP_PASS: ${{ secrets.SMTP_PASS }}
+          ENGLISH_CONTENT_KEY: ${{ secrets.ENGLISH_CONTENT_KEY }}
+        run: node english-daily/v2/manual.mjs send
+      - name: Persist manual acceptance
+        if: steps.plan.outputs.should_send == 'true'
+        run: bash english-daily/push-state.sh manual
+      - name: Keep redacted receipt
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: peach-english-manual-receipt
+          path: |
+            english-daily/output/v2/manual-plan.json
+            english-daily/output/v2/manual-receipt.json
+            english-daily/manual-deliveries.json
+          if-no-files-found: ignore
+          retention-days: 30
