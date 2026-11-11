@@ -1,12 +1,11 @@
 {
-  "lastRunAt": "2026-11-10T11:50:59.360Z",
-  "lastSentDate": "2026-11-10",
-  "lastReportDate": "2026-11-10",
-  "lastQuestionId": "reserve-zero-offset-20767",
-  "lastQuestion": "探究题（模拟数据）：空秤显示 4 克，放入物品显示 13 克，多次记录相同。判断物品质量，哪种处理更合理？\nA. 先检查归零情况，校正后测量并与 9 克的推算比较\nB. 先保留原来的归零情况，多次测量并与 13 克比较\nC. 先增加另一件物品重复测量，并与 22 克的推算比较",
-  "lastAnswer": "答案：A。空秤多出的 4 克属于偏差，应先归零复测；按记录扣除偏差推算是 9 克。",
+  "lastRunAt": "2026-11-11T10:02:09.118Z",
+  "lastSentDate": "2026-11-11",
+  "lastReportDate": "2026-11-11",
+  "lastQuestionId": "reserve-time-confounding-20768",
+  "lastQuestion": "探究题（模拟数据）：上午测路面温度 20 摄氏度，下午洒水后测得 14 摄氏度。判断洒水作用，哪组资料最适合补充？\nA. 同一时刻比较相邻的洒水区与未洒水区，并记录多次\nB. 同一地点增加上午测量次数，再和下午的记录比较\nC. 不同日期增加洒水后的测量次数，再比较每天记录",
+  "lastAnswer": "答案：A。上午和下午本来就可能温度不同；同时设置未洒水区，才能较好分离时间变化与洒水作用。",
   "recentQuestionIds": [
-    "news-employment-rate-labor-force-evidence-1",
     "news-geohazard-point-area-risk-1",
     "news-wusiheite-balanced-evidence-1",
     "news-one-map-data-conflict-provenance-1",
@@ -41,7 +40,8 @@
     "reserve-repeatability-20752",
     "reserve-necessary-condition-20753",
     "reserve-counterexample-20754",
-    "reserve-zero-offset-20767"
+    "reserve-zero-offset-20767",
+    "reserve-time-confounding-20768"
   ],
   "recentQuestionConceptIds": [
     "concept-pollination",
@@ -100,10 +100,10 @@
     "reserve-repeatability",
     "reserve-necessary-condition",
     "reserve-counterexample",
-    "reserve-zero-offset"
+    "reserve-zero-offset",
+    "reserve-time-confounding"
   ],
   "recentQuestionTags": [
-    "地理信息",
     "C919",
     "材料",
     "高光谱",
@@ -118,7 +118,8 @@
     "repeatability",
     "necessary-condition",
     "counterexample",
-    "zero-offset"
+    "zero-offset",
+    "time-confounding"
   ],
   "recentQuestionTexts": [
     "关于学习和学校你还想继续追问哪一个更细的为什么",
@@ -215,17 +216,15 @@
     "探究题模拟数据同一长度测23次多数记录在30毫米附近一次记录为50毫米判断这次异常下一步更合理的是哪种a.把异常值保留在记录中先按全部数据计算一次平均b.增加另一种长度的测量次数再比较两种长度",
     "探究题模拟数据某种培养条件下24份发芽种子都有水但另外3份有水的种子没有发芽根据记录哪种判断更合理a.记录支持发芽需要水但还应检查温度等其他条件b.记录支持有水的样本更容易发芽可先按有水预测c",
     "探究题模拟数据有人依据25次记录提出这种材料遇水后长度都增加3毫米要检查这个说法哪组记录最应该复核a.同样条件的多次记录长度增加相同并保留完整测量步骤b.不同条件的多次记录长度增加不同并保留完",
-    "探究题模拟数据空秤显示4克放入物品显示13克多次记录相同判断物品质量哪种处理更合理a.先检查归零情况校正后测量并与9克的推算比较b.先保留原来的归零情况多次测量并与13克比较c.先增加另一件物"
+    "探究题模拟数据空秤显示4克放入物品显示13克多次记录相同判断物品质量哪种处理更合理a.先检查归零情况校正后测量并与9克的推算比较b.先保留原来的归零情况多次测量并与13克比较c.先增加另一件物",
+    "探究题模拟数据上午测路面温度20摄氏度下午洒水后测得14摄氏度判断洒水作用哪组资料最适合补充a.同一时刻比较相邻的洒水区与未洒水区并记录多次b.同一地点增加上午测量次数再和下午的记录比较c.不"
   ],
   "lastEncyclopediaIds": [
-    "museum-fossil-pollen",
-    "museum-diatom-shells",
-    "museum-lost-wax-casting"
+    "science-solar-differential-rotation",
+    "science-coral-animal",
+    "science-wind-driven-currents"
   ],
   "recentEncyclopediaIds": [
-    "museum-rainfall-millimetre",
-    "museum-plant-stomata",
-    "museum-obsidian-provenance",
     "museum-herbarium-label",
     "museum-magnetic-declination",
     "museum-papyrus-cross-layers",
@@ -357,7 +356,10 @@
     "science-underwater-sound-speed",
     "museum-fossil-pollen",
     "museum-diatom-shells",
-    "museum-lost-wax-casting"
+    "museum-lost-wax-casting",
+    "science-solar-differential-rotation",
+    "science-coral-animal",
+    "science-wind-driven-currents"
   ],
   "recentEncyclopediaTags": [
     "天气",
@@ -372,12 +374,12 @@
     "建筑",
     "海洋生物",
     "文字史",
-    "天文",
-    "海洋生态",
-    "海洋物理",
     "古生态",
     "微体化石",
-    "铸造史"
+    "铸造史",
+    "天文",
+    "海洋生态",
+    "海洋物理"
   ],
   "recentEncyclopediaTexts": [
     "地球科学不是冷知识它能帮助我们理解自然生活或社会洋流像海洋里的大河会影响气候鱼群和船只航行",
@@ -568,11 +570,13 @@
     "声音在海水中的速度通常比在空气中快海水温度和压力还会改变它的传播情况",
     "花粉外壁很耐保存科学家会分析沉积物中的古花粉推测过去生长过哪些植物和当时环境",
     "硅藻有像玻璃一样的微小外壳不同种类喜欢不同水环境沉积物里的硅藻能为过去的水质和气候留下线索",
-    "失蜡法先做蜡模再包上耐火材料熔掉蜡后把金属液倒进空腔能铸出形状复杂纹饰细致的器物"
+    "失蜡法先做蜡模再包上耐火材料熔掉蜡后把金属液倒进空腔能铸出形状复杂纹饰细致的器物",
+    "太阳不是坚硬的球体赤道附近自转一圈约需二十五天两极附近转得更慢",
+    "珊瑚虽然固定在海底却属于动物；珊瑚虫会用细小触手捕捉水中的食物",
+    "风能推动靠近海面的水流动所以海洋表层洋流与上方的风向和风力有关"
   ],
-  "lastIntroText": "🧩🌾🔭 今天把好奇心变成小侦探：先看事实，再比较证据，你会发现世界比一个答案更有层次！",
+  "lastIntroText": "🌞✈️👓 今天跟着月影、飞机和新科技去发现变化：把现象看清，把理由想明白，你的思考正在发光！",
   "recentIntroTexts": [
-    "🧭🍑🌟世界很大你正在一点一点长出理解它的力量",
     "🐬🌈📝愿你的想法像海浪一样有力量也像阳光一样明亮",
     "🌻📖🔎愿你一直温柔认真有主见心里也住着明亮的光",
     "🌻🫧🚀每学会一个新东西都是给未来的自己存下一颗小太阳",
@@ -601,11 +605,11 @@
     "🌋🧪🧭今天也带着好奇和耐心出发重要的发现常常藏在认真核对的细节里",
     "🌤️📡🍑今天把世界慢慢看清一点你愿意分清事实和理由就是很棒的进步",
     "🧭🌿📊今天一起把数字背后的故事看清楚会比较会追问的你正在长出可靠的判断力",
-    "🧩🌾🔭今天把好奇心变成小侦探先看事实再比较证据你会发现世界比一个答案更有层次"
+    "🧩🌾🔭今天把好奇心变成小侦探先看事实再比较证据你会发现世界比一个答案更有层次",
+    "🌞✈️👓今天跟着月影飞机和新科技去发现变化把现象看清把理由想明白你的思考正在发光"
   ],
-  "lastClosingText": "把今天核对过的证据装进口袋，明天再用新的问题打开它。",
+  "lastClosingText": "今天的线索来自地图、浮冰和地震波；愿你记住，可靠的答案总能说清数据从哪里来。",
   "recentClosingTexts": [
-    "小小的知识已经装进口袋愿它在未来某一天帮你看懂更大的事情",
     "今天的探索告一段落愿认真好奇和善意继续陪着你",
     "每次愿意多想一步都是在给未来的自己增加一种能力",
     "愿你既能看见科技的力量也能记得规则安全和人的判断同样重要",
@@ -634,12 +638,10 @@
     "世界很大可靠的理解从一条事实和一次认真比较开始",
     "今天的新发现先放进记忆里明天我们再用答案检验一次推理",
     "世界不会只给一种线索愿你学会把数字规则和人的生活连起来看",
-    "把今天核对过的证据装进口袋明天再用新的问题打开它"
+    "把今天核对过的证据装进口袋明天再用新的问题打开它",
+    "今天的线索来自地图浮冰和地震波；愿你记住可靠的答案总能说清数据从哪里来"
   ],
-  "lastNewsTitles": [
-    "第 1 条小情报：6G还没正式商用，工程师先研究网络怎样共同配合",
-    "第 2 条小情报：用两种旋转方向的光，寻找第三类磁性的证据"
-  ],
+  "lastNewsTitles": [],
   "recentNewsTitles": [
     "第 2 条小情报：智能机器人从会动走向会干活",
     "第 1 条小情报：赤道太平洋大片海水继续升温，超强厄尔尼诺可能带来跨年度影响",
@@ -702,7 +704,7 @@
     "第 1 条小情报：6G还没正式商用，工程师先研究网络怎样共同配合",
     "第 2 条小情报：用两种旋转方向的光，寻找第三类磁性的证据"
   ],
-  "lastContentMode": "news",
+  "lastContentMode": "science",
   "recentScienceConceptIds": [
     "museum-arch-compression",
     "museum-nautilus-chambers",
@@ -715,6 +717,9 @@
     "underwater-sound-speed",
     "museum-fossil-pollen",
     "museum-diatom-shells",
-    "museum-lost-wax-casting"
+    "museum-lost-wax-casting",
+    "solar-differential-rotation",
+    "coral-animal",
+    "wind-driven-currents"
   ]
 }
