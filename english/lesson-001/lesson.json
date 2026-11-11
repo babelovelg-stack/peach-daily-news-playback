@@ -1,0 +1,217 @@
+{
+  "number": 1,
+  "week": 1,
+  "day": 1,
+  "total": 189,
+  "version": "2026-11-11-v1",
+  "title": "我的放学时光",
+  "type": "认识新词",
+  "focus": "一般现在时：I 与 she/he",
+  "rule": "说经常发生的事情，用一般现在时。主语是 he 或 she 时，很多动词要加 s。",
+  "example": "I read after school. Mia reads after school.",
+  "words": [
+    {
+      "en": "arrive",
+      "zh": "到达",
+      "sentence": "I arrive home at four."
+    },
+    {
+      "en": "snack",
+      "zh": "点心",
+      "sentence": "I have a snack after school."
+    },
+    {
+      "en": "practise",
+      "zh": "练习",
+      "sentence": "I practise the piano."
+    }
+  ],
+  "allWords": [
+    {
+      "en": "arrive",
+      "zh": "到达",
+      "sentence": "I arrive home at four."
+    },
+    {
+      "en": "snack",
+      "zh": "点心",
+      "sentence": "I have a snack after school."
+    },
+    {
+      "en": "practise",
+      "zh": "练习",
+      "sentence": "I practise the piano."
+    },
+    {
+      "en": "collect",
+      "zh": "收集",
+      "sentence": "I collect small stones."
+    },
+    {
+      "en": "tidy",
+      "zh": "整理",
+      "sentence": "I tidy my desk."
+    },
+    {
+      "en": "rest",
+      "zh": "休息",
+      "sentence": "I rest before dinner."
+    }
+  ],
+  "story": "Mia arrives home at four. She has an apple and some milk. Then she practises the piano for ten minutes. Her brother Ben collects stones in the garden. Before dinner, Mia tidies her desk and Ben puts his stones in a box. They both have time to rest.",
+  "questions": [
+    {
+      "q": "“arrive”是什么意思？",
+      "options": [
+        "点心",
+        "收集",
+        "到达"
+      ],
+      "answer": 2,
+      "why": "I arrive home at four."
+    },
+    {
+      "q": "“snack”是什么意思？",
+      "options": [
+        "整理",
+        "点心",
+        "练习"
+      ],
+      "answer": 1,
+      "why": "I have a snack after school."
+    },
+    {
+      "q": "“practise”是什么意思？",
+      "options": [
+        "练习",
+        "收集",
+        "休息"
+      ],
+      "answer": 0,
+      "why": "I practise the piano."
+    },
+    {
+      "q": "Mia ___ her desk before dinner.",
+      "options": [
+        "tidies",
+        "tidying",
+        "tidy"
+      ],
+      "answer": 0,
+      "why": "Mia相当于she；一般现在时的tidy要变成tidies。"
+    }
+  ],
+  "sentence": "I arrive home at four.",
+  "writing": {
+    "prompt": "用4句话介绍你的放学生活。再把其中一句改为介绍家人。",
+    "starter": "I arrive home at … After school, I …",
+    "check": [
+      "写出至少两种活动",
+      "介绍家人时检查动词形式",
+      "先说一遍，再写下来"
+    ]
+  },
+  "focusTask": "认识今天的三个词，并各说一个自己的例子。",
+  "speech": {
+    "intro": "你好，欢迎来到桃子英语十五分钟。今天是第1课，我的放学时光，认识新词。今天先听一个小故事，再学三个词，发现一个句子规律，完成小挑战，最后说一说或写下来。遇到不懂的地方，可以重听。",
+    "story": "Mia arrives home at four. She has an apple and some milk. Then she practises the piano for ten minutes. Her brother Ben collects stones in the garden. Before dinner, Mia tidies her desk and Ben puts his stones in a box. They both have time to rest.",
+    "rule": "今天的语法是，一般现在时：I 与 she/he。说经常发生的事情，用一般现在时。主语是 he 或 she 时，很多动词要加 s。 先理解意思，再听英语例句。",
+    "example": "I read after school. Mia reads after school.",
+    "task": "今天的小任务：用4句话介绍你的放学生活。再把其中一句改为介绍家人。 先自己说一遍，再记录下来。完成后，对照下面的三个小提示检查。",
+    "sentence": "I arrive home at four.",
+    "word0": "arrive. I arrive home at four.",
+    "word1": "snack. I have a snack after school.",
+    "word2": "practise. I practise the piano."
+  },
+  "minutes": [
+    2,
+    3,
+    3,
+    4,
+    3
+  ],
+  "review": false,
+  "audio": {
+    "intro": {
+      "sha256": "9d3c45f6c88eca897d865515d7800894baa19104e052bd2804fd77d59ee4fe12",
+      "job": {
+        "text": "你好，欢迎来到桃子英语十五分钟。今天是第1课，我的放学时光，认识新词。今天先听一个小故事，再学三个词，发现一个句子规律，完成小挑战，最后说一说或写下来。遇到不懂的地方，可以重听。",
+        "voice": "zh-CN-XiaoyiNeural",
+        "rate": "-4%",
+        "pitch": "+8Hz"
+      }
+    },
+    "story": {
+      "sha256": "f513a72013b5d100956196bd93f2e90478c49b74f057e69613e715321a240018",
+      "job": {
+        "text": "Mia arrives home at four. She has an apple and some milk. Then she practises the piano for ten minutes. Her brother Ben collects stones in the garden. Before dinner, Mia tidies her desk and Ben puts his stones in a box. They both have time to rest.",
+        "voice": "en-GB-SoniaNeural",
+        "rate": "-12%",
+        "pitch": "+0Hz"
+      }
+    },
+    "rule": {
+      "sha256": "f4bc3c0cc78599b2279ba57bc44750e32f06bd5a6ecb8095424cbac5c25350d8",
+      "job": {
+        "text": "今天的语法是，一般现在时：I 与 she/he。说经常发生的事情，用一般现在时。主语是 he 或 she 时，很多动词要加 s。 先理解意思，再听英语例句。",
+        "voice": "zh-CN-XiaoyiNeural",
+        "rate": "-4%",
+        "pitch": "+8Hz"
+      }
+    },
+    "example": {
+      "sha256": "00d5e14e285552e5e41014f12f7b651ff598fce2fe401f239b3ead17b82f0785",
+      "job": {
+        "text": "I read after school. Mia reads after school.",
+        "voice": "en-GB-SoniaNeural",
+        "rate": "-12%",
+        "pitch": "+0Hz"
+      }
+    },
+    "task": {
+      "sha256": "86d8a7538b86bf148bc370d979164d6575fb59dd9568c93027230254273ed6d5",
+      "job": {
+        "text": "今天的小任务：用4句话介绍你的放学生活。再把其中一句改为介绍家人。 先自己说一遍，再记录下来。完成后，对照下面的三个小提示检查。",
+        "voice": "zh-CN-XiaoyiNeural",
+        "rate": "-4%",
+        "pitch": "+8Hz"
+      }
+    },
+    "sentence": {
+      "sha256": "bc8e6ae69c9a601fe2e156a5681b72593711dcf975b75bbf44ac2d8b77670d45",
+      "job": {
+        "text": "I arrive home at four.",
+        "voice": "en-GB-SoniaNeural",
+        "rate": "-12%",
+        "pitch": "+0Hz"
+      }
+    },
+    "word0": {
+      "sha256": "94f5cadd37462307d971c1133be8e661e09990f026c241877b4a7b23d38ddfe8",
+      "job": {
+        "text": "arrive. I arrive home at four.",
+        "voice": "en-GB-SoniaNeural",
+        "rate": "-12%",
+        "pitch": "+0Hz"
+      }
+    },
+    "word1": {
+      "sha256": "66de1da0a0e02f716ca7e24ea460eb026511cc0c192905dd7a2e0cc88ea8495b",
+      "job": {
+        "text": "snack. I have a snack after school.",
+        "voice": "en-GB-SoniaNeural",
+        "rate": "-12%",
+        "pitch": "+0Hz"
+      }
+    },
+    "word2": {
+      "sha256": "c96b2cb048b36c5ed18c80171d4c8afe1d9e70f85deb8986b8e7d731d31688f5",
+      "job": {
+        "text": "practise. I practise the piano.",
+        "voice": "en-GB-SoniaNeural",
+        "rate": "-12%",
+        "pitch": "+0Hz"
+      }
+    }
+  }
+}

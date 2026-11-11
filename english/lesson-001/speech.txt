@@ -1,0 +1,26 @@
+[intro]
+你好，欢迎来到桃子英语十五分钟。今天是第1课，我的放学时光，认识新词。今天先听一个小故事，再学三个词，发现一个句子规律，完成小挑战，最后说一说或写下来。遇到不懂的地方，可以重听。
+
+[story]
+Mia arrives home at four. She has an apple and some milk. Then she practises the piano for ten minutes. Her brother Ben collects stones in the garden. Before dinner, Mia tidies her desk and Ben puts his stones in a box. They both have time to rest.
+
+[rule]
+今天的语法是，一般现在时：I 与 she/he。说经常发生的事情，用一般现在时。主语是 he 或 she 时，很多动词要加 s。 先理解意思，再听英语例句。
+
+[example]
+I read after school. Mia reads after school.
+
+[task]
+今天的小任务：用4句话介绍你的放学生活。再把其中一句改为介绍家人。 先自己说一遍，再记录下来。完成后，对照下面的三个小提示检查。
+
+[sentence]
+I arrive home at four.
+
+[word0]
+arrive. I arrive home at four.
+
+[word1]
+snack. I have a snack after school.
+
+[word2]
+practise. I practise the piano.
