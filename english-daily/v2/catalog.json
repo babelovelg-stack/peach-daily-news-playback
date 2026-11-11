@@ -2,7 +2,19 @@
   "schema": 2,
   "firstDelivery": 2,
   "readingPreference": "Oxford Reading Tree Level 7, Biff, Chip and Kipper Stories",
-  "firstBook": "Lost in the Jungle",
+  "firstBook": "Red Planet",
+  "readingAccess": {
+    "title": "Red Planet",
+    "series": "Oxford Reading Tree: Biff, Chip and Kipper Stories",
+    "level": "7",
+    "libraryUrl": "https://www.oxfordowl.co.uk/library-page?view=image&query=&type=book&age_group=&level=oxford+level+7&level_select=oxford+level+7&book_type=&series=",
+    "readerUrl": "https://www.oxfordowl.co.uk/api/digital_books/1363.html",
+    "helpUrl": "https://home.oxfordowl.co.uk/reading/free-ebooks/",
+    "catalogVerifiedOn": "2026-11-11",
+    "requiresFreeLogin": true,
+    "fullTextVerified": false,
+    "status": "publisher-login-required"
+  },
   "bookListSource": "https://www.oupjapan.co.jp/en/gradedreaders/ort/resources/index.shtml?language=en",
   "readerBaseline": "RAZ C–D",
   "lessons": []

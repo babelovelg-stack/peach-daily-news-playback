@@ -8,7 +8,7 @@
 
 ### 桃子英语每日课
 
-[英语学习模块](english-daily/README.md)已调整为每天五词＋原书伴读，整体按25分钟以内配量。词汇从 Power Up 3 起步；阅读选择 Oxford Reading Tree Level 7，从 Lost in the Jungle 开始安排。目前原书图文待提供，18:00检查保持启用，材料缺失时不发半份课、不推进状态，也不回退旧版故事。原书采用加密网页和邮件离线附件。可先打开[新版词汇试学](https://babelovelg-stack.github.io/peach-daily-news-playback/english/preview/)。
+[英语学习模块](english-daily/README.md)已调整为每天五词＋原书伴读，整体按25分钟以内配量。词汇从 Power Up 3 起步；阅读选择 Oxford Reading Tree Level 7，已自行找到免费书库中的 Red Planet，试学加入官方原书入口。官网需免费账号登录，全文与伴读仍待核对，18:00检查保持启用，材料缺失时不发半份课、不推进状态，也不回退旧版故事。原书采用加密网页和邮件离线附件。无需用户上传图书。官网原书需联网阅读，不包含在离线试学附件中。可先打开[新版词汇试学](https://babelovelg-stack.github.io/peach-daily-news-playback/english/preview/)。
 
 ### 项目简介
 
@@ -243,7 +243,7 @@ GitHub Actions 必须配置 `REPORT_EMAIL_FROM`、`SMTP_HOST`、`SMTP_PORT`、`S
 
 ### Peach Daily English
 
-The [English module](english-daily/README.md) now combines five words and an original-book reading selection, budgeted within 25 minutes. Vocabulary starts at Power Up 3; reading starts with Lost in the Jungle from Oxford Reading Tree Level 7. Original pages are pending. The 18:00 check remains active, but missing content blocks delivery/state advancement with no legacy-story fallback. Original readings use encrypted hosting and offline email attachments. Try the [vocabulary preview](https://babelovelg-stack.github.io/peach-daily-news-playback/english/preview/).
+The [English module](english-daily/README.md) offers five Power Up 3 vocabulary targets plus original-book reading, planned within 25 minutes. Oxford Owl’s free library lists Level 7 *Red Planet*, and the [preview](https://babelovelg-stack.github.io/peach-daily-news-playback/english/preview/) now includes official reader and bookshelf links. Free publisher login and full-text verification remain pending; the 18:00 check stays enabled without sending incomplete lessons or advancing state. No user-uploaded book is required. Publisher reading requires internet access and is not embedded in the offline preview. The complete original-book delivery path retains encrypted hosting and email attachments.
 
 ### Overview
 

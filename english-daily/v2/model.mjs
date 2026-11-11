@@ -12,7 +12,7 @@ export function validateReading(r,{allowFixture=false}={}){
  assert(r&&r.id&&r.title,'Original book missing');
  assert(['Oxford Reading Tree','TreeTops','RAZ'].includes(r.series),'Original series must be identified');
  assert(r.level&&r.sourceName&&r.sourceSha256?.match(/^[a-f0-9]{64}$/),'Book level and source evidence required');
- assert(r.verifiedAgainstSource===true,'Original text and images must be checked against provided source');
+ assert(r.verifiedAgainstSource===true,'Original text and images must be checked against the source');
  assert(!r.testFixture||allowFixture,'Test reading cannot be delivered');
  assert(Array.isArray(r.pages)&&r.pages.length>0&&r.pages.length<=12,'Use 1–12 original pages per lesson');
  const sentences=[];
@@ -32,7 +32,7 @@ export function validateReading(r,{allowFixture=false}={}){
 }
 export function assemble(number,pack,reading=null,{preview=false,allowFixture=false}={}){
  assert(pack?.words?.length===5,'Each lesson needs exactly five target words');
- if(!preview&&!reading)throw Error('Awaiting the supplied original book');
+ if(!preview&&!reading)throw Error('Awaiting verified original-book content');
  const meta=reading?validateReading(reading,{allowFixture}):{wordCount:0,minutes:{vocabulary:10,reading:10,review:3}};
  const speech={},add=(id,text,language='en')=>{speech[id]={text,language};};
  add('intro','今天学习五个词，再读一小段原书。先看图听音，盖住文字想一想，再开口说。完成内容比赶时间更重要。','zh');
@@ -42,11 +42,11 @@ export function assemble(number,pack,reading=null,{preview=false,allowFixture=fa
 }
 export function lessonFor(number,{catalog=readCatalog(),library,preview=false}={}){
  if(preview)return assemble(number,PACKS.food,null,{preview:true});
- const entry=catalog.lessons.find(l=>l.number===number);if(!entry)throw Error('Awaiting original book selection and provided content');
+ const entry=catalog.lessons.find(l=>l.number===number);if(!entry)throw Error('Awaiting original-book access and content verification');
  const reading=(library||loadLibrary()).books.find(b=>b.id===entry.readingId);return assemble(number,PACKS[entry.packId],reading);
 }
 export function availability(number,{catalog=readCatalog(),library}={}){
  const entry=catalog.lessons.find(l=>l.number===number);
- if(!entry)return {ready:false,reason:'Awaiting the selected original book and supplied pages; no partial or legacy lesson will be sent'};
+ if(!entry)return {ready:false,reason:'Official Oxford Owl Level 7 reading found; publisher login and full-text verification are still required before complete lessons can be sent'};
  try{lessonFor(number,{catalog,library});return {ready:true};}catch(e){return {ready:false,reason:e.message};}
 }

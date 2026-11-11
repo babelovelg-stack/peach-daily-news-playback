@@ -9,9 +9,9 @@
 
 当前入口为 `v2/`。每天两部分：五个 Power Up 3 起步的重点词，加一段原书阅读。词汇有原创插画、语音、例句、遮挡回忆、听音选图与拼写；本机记录学后第1、3、7天的复习日期，配课时优先安排复习词。阅读有原书图片、逐句音频与同步高亮、1–3个词汇解释、一个语法点和1–2道带原文依据的理解题。
 
-用户已选 Oxford Reading Tree Level 7，按出版社主干 Stories 目录从 *Lost in the Jungle* 开始安排。孩子目前的 RAZ C–D 用于确定伴读支持，不与其他分级直接等同。长书分为不超过150词、12页、24句的选段；整课按25分钟以内配量，不设强制倒计时。
+用户已选 Oxford Reading Tree Level 7。已自行查到 Oxford Owl 免费书库中的 *Red Planet*（Biff, Chip and Kipper Stories），改从这本有官方电子书入口的书开始。孩子目前的 RAZ C–D 用于确定伴读支持，不与其他分级直接等同。长书分为不超过150词、12页、24句的选段；整课按25分钟以内配量，不设强制倒计时。
 
-**原书图文尚未提供，正式课程目录为空。** 每日18:00检查保留，但缺书时不发布、不发送、不推进状态，也不退回旧故事。试学只含已核对的五个词，明确标记阅读待接入。旧版27周/189课库停止用于定时发送，已发送第1课保留回看。
+**已找到官方电子书入口；免费账号登录及全文核对尚未完成，正式课程目录仍为空。** 每日18:00检查保留，但缺书时不发布、不发送、不推进状态，也不退回旧故事。试学含已核对的五个词，以及第二部分的官方原书和 Level 7 书架链接。已在官网页面核实书名、系列、级别和“Log in to Read eBook”入口；未登录读取正文，不能把目录当作正文已核对。官网阅读需联网，建议电脑或平板，原书未内嵌在离线附件中。旧版27周/189课库停止用于定时发送，已发送第1课保留回看。
 
 首组词为 cereal、yoghurt、pancake、noodles、cabbage，对照 Power Up 3 第二版 Unit 2 官方样章第19页；这是可核对的词汇示例，不是全书第一单元。图片、记忆提示和例句原创，见[插画生成记录](v2/assets/PROVENANCE.md)。
 
@@ -27,7 +27,7 @@ node --test english-daily/test.mjs english-daily/v2/test.mjs
 
 试学文件为 `english-daily/output/v2/preview/index.html`，图片与语音全部内嵌。`--cached` 仅复用文字、声音参数及音频哈希匹配的音频。中文为 Xiaoyi，英文为 Sonia。原书逐句音频与页面绑定，不用估计时间点伪造同步。作答和复习记录只保存在当前浏览器。
 
-用户提供电子书或清晰书页后，核对书名、级别、原文、图片和来源哈希，按 `v2/model.mjs` 的验证规则准备私有 JSON：`{books:[...],lessons:[{number:2,packId:"food",readingId:"..."}]}`。页面包含图片 data URI、原文和单独标记的中文讲解；语法引用与题目依据必须对应原文中的一句。测试样本不能用于正式推送，找到书目不等于已核对原书。私有输入放在已忽略的 `english-daily/private-content/`。
+原书由课程维护者主动查找，优先出版社免费书库或官方样章；当前访问条件记录在 `v2/catalog.json` 的 `readingAccess`。登录官网后先核对正文并确认可用方式；官方在线可阅读不等于授权复制整本书到邮件或仓库。对于具有适当使用许可的电子书或用户提供的书页，核对书名、级别、原文、图片和来源哈希，按 `v2/model.mjs` 的验证规则准备私有 JSON：`{books:[...],lessons:[{number:2,packId:"food",readingId:"..."}]}`。页面包含图片 data URI、原文和单独标记的中文讲解；语法引用与题目依据必须对应原文中的一句。测试样本不能用于正式推送，找到书目不等于已核对原书。私有输入放在已忽略的 `english-daily/private-content/`。
 
 设置32字节十六进制 `ENGLISH_CONTENT_KEY` 后运行：
 
@@ -51,6 +51,8 @@ node english-daily/v2/delivery.mjs readiness
 自动测试覆盖原书来源、原文引用、题量与配量、语音一致性、加密篡改、缺书阻断、连续状态与脱敏产物。浏览器验证记录在 `qa/`，含真实词汇音频、离线图片、听音/拼写、记忆记录与手机布局；逐句高亮、翻页、证据回跳和网页解密使用明确标记的人工测试文本验证，测试阅读不是原书。
 
 - [Cambridge 官方样章](https://assets.cambridge.org/97810098/09887/excerpt/9781009809887_excerpt.pdf)
+- [Oxford Owl 免费书库与登录说明](https://home.oxfordowl.co.uk/reading/free-ebooks/)
+- [Red Planet 官方书目](https://home.oxfordowl.co.uk/ebooks/red-planet/)
 - [Oxford Level 7 目录](https://www.oupjapan.co.jp/en/gradedreaders/ort/resources/index.shtml?language=en)
 - [Oxford 分级说明](https://home.oxfordowl.co.uk/reading/reading-schemes-oxford-levels/oxford-reading-tree-levels/)
 - [RAZ 文本难度框架](https://www.readinga-z.com/evaluating-text-complexity/)
@@ -62,9 +64,9 @@ node english-daily/v2/delivery.mjs readiness
 
 The active entry point is `v2/`. Each lesson has five vocabulary targets starting at Power Up 3 level and an original-book reading selection. Vocabulary combines original illustrations, audio, examples, concealed recall, listening-to-picture matching and spelling. Browser-local records schedule reviews on days 1, 3 and 7; editorial planning prioritises review terms. Reading uses original images, sentence audio/highlighting, 1–3 glossary explanations, one grammar pattern and 1–2 questions with exact textual evidence.
 
-The user selected Oxford Reading Tree Level 7, beginning with *Lost in the Jungle* from the publisher's core Stories listing. RAZ C–D informs scaffolding, not a direct level equivalence. Longer books are split into selections of at most 150 words, 12 pages and 24 sentences, budgeted within 25 minutes without a forced countdown.
+The user selected Oxford Reading Tree Level 7. Independent research found *Red Planet* (Biff, Chip and Kipper Stories) in Oxford Owl’s free library, so it replaces *Lost in the Jungle* as the intended first title. RAZ C–D informs scaffolding, not a direct level equivalence. Longer books are split into selections of at most 150 words, 12 pages and 24 sentences, budgeted within 25 minutes without a forced countdown.
 
-**Original pages are still required; the production catalog is empty.** The daily 18:00 check remains, but missing content blocks publishing, email and state advancement, with no fallback story. The preview contains five verified terms and labels reading as pending. The old 27-week/189-lesson library is retired from scheduled delivery; previously sent lesson 1 remains available.
+**The official ebook has been located; free-account login and full-text verification are pending, and the production catalog remains empty.** The daily 18:00 check remains, but missing content blocks publishing, email and state advancement, with no fallback story. The preview contains five verified terms plus official reader and Level 7 bookshelf links in part two. The publisher UI confirms the title, series, level and “Log in to Read eBook” control; the full text has not been accessed. Catalog verification does not verify story content. Publisher reading requires internet access and is best on a computer or tablet; the original book is not embedded in the offline preview. The old 27-week/189-lesson library is retired from scheduled delivery; previously sent lesson 1 remains available.
 
 The first sample terms are cereal, yoghurt, pancake, noodles and cabbage, checked against page 19 of the official Power Up 3 second-edition Unit 2 sample. This is not Unit 1. Illustrations, memory cues and examples are original; see [image provenance](v2/assets/PROVENANCE.md).
 
@@ -80,7 +82,7 @@ node --test english-daily/test.mjs english-daily/v2/test.mjs
 
 The preview is `english-daily/output/v2/preview/index.html`, with embedded images/audio. `--cached` requires matching text, voice and hashes. Xiaoyi narrates Chinese and Sonia English. Each original sentence has audio bound to its page; no guessed timings are used. Learning records remain in the current browser.
 
-After receiving the user's ebook or clear page images, verify title, level, original text/images and source hash. Prepare private JSON using the validation rules in `v2/model.mjs`: `{books:[...],lessons:[{number:2,packId:"food",readingId:"..."}]}`. Pages include image data URIs, original text and separately labelled explanations. Grammar quotations and question evidence must match original sentences. Fixtures cannot be delivered; a catalog listing does not verify the book. Keep private inputs under ignored `english-daily/private-content/`.
+Course maintainers find books themselves, prioritising free publisher libraries or official samples; `v2/catalog.json` records current access conditions under `readingAccess`. After publisher login, verify the text and permitted usage. Online reading availability does not authorise copying whole books into email or a repository. For suitably licensed ebooks or user-supplied page images, verify title, level, original text/images and source hash. Prepare private JSON using the validation rules in `v2/model.mjs`: `{books:[...],lessons:[{number:2,packId:"food",readingId:"..."}]}`. Pages include image data URIs, original text and separately labelled explanations. Grammar quotations and question evidence must match original sentences. Fixtures cannot be delivered; a catalog listing does not verify the book. Keep private inputs under ignored `english-daily/private-content/`.
 
 Configure a 32-byte hexadecimal `ENGLISH_CONTENT_KEY`, then run:
 
@@ -104,6 +106,8 @@ Plaintext books, offline attachments, audio caches and keys are excluded from wo
 Tests cover source evidence, exact quotations, exercise/workload limits, audio integrity, encryption tampering, missing-book blocking, sequential state and redacted artifacts. Browser QA in `qa/` covers real vocabulary audio, offline images, listening/spelling, recall records and mobile layout. Explicitly synthetic test text verifies sentence highlighting, page turns, evidence links and browser decryption; it is not an original book.
 
 - [Cambridge sample](https://assets.cambridge.org/97810098/09887/excerpt/9781009809887_excerpt.pdf)
+- [Oxford Owl free library and login requirements](https://home.oxfordowl.co.uk/reading/free-ebooks/)
+- [Red Planet publisher listing](https://home.oxfordowl.co.uk/ebooks/red-planet/)
 - [Oxford Level 7 catalog](https://www.oupjapan.co.jp/en/gradedreaders/ort/resources/index.shtml?language=en)
 - [Oxford level guide](https://home.oxfordowl.co.uk/reading/reading-schemes-oxford-levels/oxford-reading-tree-levels/)
 - [RAZ text-complexity framework](https://www.readinga-z.com/evaluating-text-complexity/)

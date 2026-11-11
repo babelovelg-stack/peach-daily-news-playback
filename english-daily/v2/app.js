@@ -15,7 +15,7 @@ function updateProgress(){$('#progress').textContent=`听音 ${new Set(state.lis
 function tile(el,n){el.style.backgroundImage=`url("${LESSON.atlas}")`;el.style.backgroundPosition=`${(n%3)*50}% ${Math.floor(n/3)*100}%`;}
 $$('[data-tile]').forEach(el=>tile(el,Number(el.dataset.tile)));
 $('#title').textContent=LESSON.title;$('#timeTag').textContent=LESSON.preview?'完整课按 25 分钟以内配量':`本课约 ${Object.values(LESSON.minutes).reduce((a,b)=>a+b,0)} 分钟`;
-$('#previewNotice').hidden=!LESSON.preview;$('#readingTag').textContent=LESSON.preview?'原书图文待接入':'1 段原书阅读';
+$('#previewNotice').hidden=!LESSON.preview;$('#readingTag').textContent=LESSON.preview?'官网原书入口已找到':'1 段原书阅读';
 $('#sourceNote').innerHTML=`词汇对照 <a href="${E(LESSON.source.url)}" target="_blank" rel="noopener noreferrer">${E(LESSON.source.title)}</a>。${E(LESSON.source.note)}`;
 function clearHighlight(){$$('.speaking').forEach(n=>n.classList.remove('speaking'));$$('.sentence.active').forEach(n=>n.classList.remove('active'));}
 function stop(){queue=[];audio.pause();clearHighlight();audioTarget=null;}
