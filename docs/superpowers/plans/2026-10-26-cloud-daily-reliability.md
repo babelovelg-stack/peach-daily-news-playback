@@ -1,5 +1,7 @@
 # Cloud Daily Reliability Implementation Plan
 
+Policy update, 2026-11-11: the user approved sending a single qualified story. The historical two-story/two-source minimum and singleton failure below are superseded by a one-story/one-verifiable-source minimum. All other per-story checks, publisher concentration caps, the 24-hour window, deduplication, and zero-only science fallback remain unchanged; see the current README contract.
+
 > **For agentic workers:** REQUIRED: Use superpowers:subagent-driven-development. Steps use checkbox (`- [ ]`) syntax for tracking.
 
 **Goal:** Restore the existing cloud daily delivery by implementing the approved zero-qualified-news science edition and a sustainable reviewed exploration-question reserve, without weakening quality or date deduplication.

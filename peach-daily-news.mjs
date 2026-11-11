@@ -49,8 +49,11 @@ const MAX_NEWS_AGE_HOURS = Number(process.env.PEACH_NEWS_MAX_AGE_HOURS || 24);
 // Five is a preferred maximum, not a quota; quality filters may return fewer stories.
 const TARGET_NEWS_COUNT = isTest ? 2 : 5;
 const MAX_NEWS_COUNT = isTest ? 2 : 8;
-const MIN_DAILY_NEWS_COUNT = isTest ? 1 : 2;
-const MIN_DAILY_PUBLISHER_COUNT = isTest ? 1 : 2;
+const MIN_DAILY_NEWS_COUNT = 1;
+const MIN_DAILY_PUBLISHER_COUNT = 1;
+// A one-story delivery is valid, but do not stop collecting other eligible stories early.
+const COMPLETE_EDITED_NEWS_COUNT = isTest ? 1 : 2;
+const COMPLETE_EDITED_PUBLISHER_COUNT = isTest ? 1 : 2;
 const MAX_ITEMS_PER_PUBLISHER = Number(process.env.PEACH_NEWS_MAX_PER_PUBLISHER || 2);
 const RECENT_MESSAGE_COPY_MEMORY_LIMIT = 30;
 // Keep a 45-issue no-repeat window so the finite, reviewed fact set can rotate without halting delivery.
@@ -2829,7 +2832,7 @@ async function collectNews(asOf = NEWS_AS_OF, previousState = {}, { feedList = f
   }
 
   // Do not fill a complete, source-diverse edited issue with lower-confidence feed rewrites.
-  if (selected.length >= MIN_DAILY_NEWS_COUNT && publisherCounts.size >= MIN_DAILY_PUBLISHER_COUNT) {
+  if (selected.length >= COMPLETE_EDITED_NEWS_COUNT && publisherCounts.size >= COMPLETE_EDITED_PUBLISHER_COUNT) {
     return withEvidence(selected.slice(0, TARGET_NEWS_COUNT));
   }
 

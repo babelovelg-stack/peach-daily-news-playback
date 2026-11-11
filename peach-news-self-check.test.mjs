@@ -107,7 +107,7 @@ test("rejects the title-to-body mismatches that passed on July 17 and July 18", 
   }
 });
 
-test("rejects an automatic issue with too few stories or only one publisher", () => {
+test("preserves explicitly requested stricter story and publisher thresholds", () => {
   const onePublisher = passingStories().map((item, index) => ({
     ...item,
     publisher: "中国新闻网",
@@ -133,6 +133,14 @@ test("rejects an automatic issue with too few stories or only one publisher", ()
 
   assert.ok(tooFewIssues.some((issue) => issue.includes("至少2条")), tooFewIssues.join("\n"));
   assert.ok(singleSourceIssues.some((issue) => issue.includes("至少2个独立来源")), singleSourceIssues.join("\n"));
+});
+
+test('default news thresholds accept one fresh qualified story but never empty news', () => {
+  const item=story({published:Date.parse(AS_OF)-3600000});
+  assert.deepEqual(dailyNewsIssueQualityIssues({newsItems:[item],asOf:AS_OF}),[]);
+  assert.ok(dailyNewsIssueQualityIssues({newsItems:[],asOf:AS_OF}).some(issue=>issue.includes('至少1条')));
+  const missingSource={...item,publisher:'',domain:'',feed:''};
+  assert.ok(dailyNewsIssueQualityIssues({newsItems:[missingSource],asOf:AS_OF}).some(issue=>issue.includes('缺少可识别')));
 });
 
 test("rejects semantically duplicated stories and stale or invalid sources", () => {

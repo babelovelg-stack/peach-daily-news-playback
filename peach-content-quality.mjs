@@ -305,8 +305,8 @@ export function dailyNewsIssueQualityIssues({
   newsItems = [],
   recentNewsTitles = [],
   asOf = new Date().toISOString(),
-  minimumNewsCount = 2,
-  minimumPublisherCount = 2,
+  minimumNewsCount = 1,
+  minimumPublisherCount = 1,
   maxItemsPerPublisher = 2,
   maxAgeHours = 24
 } = {}) {

@@ -41,19 +41,34 @@ test('actual resend entry validates four files even with zero news and preserves
   assert.match(result.subject,/儿童科学知识版/);
   for(const name of Object.keys(f.assets)) assert.ok(requested.includes(f.url+name));
 });
-async function newsMessage(merged=false){
+async function newsMessage(merged=false,count=2){
   const asOf=new Date('2026-10-13T10:00:00Z');
   const saved=JSON.parse(await fs.readFile(new URL('./peach-news-state.json',import.meta.url)));
   // This historical news fixture supplies a prior answer without importing the
   // later production news history that correctly excludes October 13 stories.
   const state={lastQuestion:saved.lastQuestion,lastQuestionId:saved.lastQuestionId,lastAnswer:saved.lastAnswer,lastSentDate:'2026-10-12'};
   const curated=JSON.parse(await fs.readFile(new URL('./peach-curated-news.json',import.meta.url)));
-  const items=curated.filter(item=>Date.parse(item.published)>asOf-86400000 && Date.parse(item.published)<=+asOf).slice(0,2).map(item=>({...item,published:Date.parse(item.published),domain:new URL(item.link).hostname,feed:'人工核对'}));
+  const items=curated.filter(item=>Date.parse(item.published)>asOf-86400000 && Date.parse(item.published)<=+asOf).slice(0,count).map(item=>({...item,published:Date.parse(item.published),domain:new URL(item.link).hostname,feed:'人工核对'}));
   const news=await collectNews(asOf,{}, {feedList:[],curatedItems:items,fetchImpl:async()=>new Response('article')});
   if(!merged) return buildEmail(news,state,{asOf});
   const collect=async date=>+date===+asOf?news:Object.assign([],{selectionEvidence:{qualifiedCount:0,curatedCount:0,qualified:[],candidates:[],rejected:[],collectionSucceeded:true,feeds:[{feedId:'feed-0',status:'success',parsedCount:0}]}});
   return buildMergedBackfillEmail([asOf,new Date('2026-10-14T10:00:00Z')],state,{collect});
 }
+test('actual sender accepts one qualified daily story after checking all four playback files',async t=>{
+  const f=await fixture(t,await newsMessage(false,1)),requested=[];
+  assert.equal(f.audit.issues[0].newsItems.length,1);
+  assert.equal(f.audit.issues[0].contentMode,'news');
+  const result=await f.run({fetchImpl:async url=>{requested.push(url);return f.fetchImpl(url);}});
+  assert.equal(f.sent(),1);
+  assert.doesNotMatch(result.subject,/儿童科学知识版/);
+  for(const name of Object.keys(f.assets)) assert.ok(requested.includes(f.url+name));
+});
+test('one-story delivery still stops before SMTP when its source is unavailable',async t=>{
+  const f=await fixture(t,await newsMessage(false,1));
+  const source=f.audit.issues[0].newsItems[0].link;
+  await assert.rejects(f.run({fetchImpl:async url=>url===source?new Response('',{status:404}):f.fetchImpl(url)}),/404/);
+  assert.equal(f.sent(),0);
+});
 test('actual sender accepts complete schema 2 news and mixed merged issues',async t=>{
   for(const merged of [false,true]){
     const f=await fixture(t,await newsMessage(merged));

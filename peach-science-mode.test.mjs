@@ -163,10 +163,10 @@ test('malformed persisted state fails closed without rewriting it',async t=>{
     assert.equal(await fs.readFile(file,'utf8'),content);
   }
 });
-async function newsFixture(count, { status=200, feedStatus=200 }={}) {
+async function newsFixture(count, { status=200, feedStatus=200, priorityCount=count }={}) {
   const asOf=new Date('2026-10-13T10:00:00Z');
   const curated=JSON.parse(await fs.readFile(new URL('./peach-curated-news.json',import.meta.url)));
-  const items=curated.filter(item=>Date.parse(item.published)>asOf-86400000 && Date.parse(item.published)<=+asOf).slice(0,count).map(item=>({...item,published:Date.parse(item.published),domain:new URL(item.link).hostname,feed:item.feed || '人工核对',category:item.category || '科技'}));
+  const items=curated.filter(item=>Date.parse(item.published)>asOf-86400000 && Date.parse(item.published)<=+asOf).slice(0,count).map((item,index)=>({...item,weight:index<priorityCount?item.weight:20,published:Date.parse(item.published),domain:new URL(item.link).hostname,feed:item.feed || '人工核对',category:item.category || '科技'}));
   assert.equal(items.length,count);
   let articleRequests=0;
   const fetchImpl=async url=>{
@@ -176,15 +176,46 @@ async function newsFixture(count, { status=200, feedStatus=200 }={}) {
   };
   return {news:await collectNews(asOf,{}, {feedList:[emptyFeed],curatedItems:items,fetchImpl}),asOf,articleRequests};
 }
-test('one qualified news stays news and fails daily threshold; two retain healthy news mode',async()=>{
+test('one qualified news passes daily generation and final audit without switching to science',async()=>{
   const one=await newsFixture(1);
   const message=buildEmail(one.news,previousAnswerState, {asOf:one.asOf});
   assert.equal(message.quality.issues[0].contentMode,'news');
-  assert.throws(()=>validateMessageQuality(message,{}),/至少2/);
+  validateMessageQuality(message,{});
+  const audit=buildNewsAuditManifest(message,{});
+  assert.equal(audit.requirements.minimumNewsCount,1);
+  assert.equal(audit.requirements.minimumPublisherCount,1);
+  assert.deepEqual(validateNewsAuditManifest(audit),[]);
+  delete audit.requirements;
+  assert.deepEqual(validateNewsAuditManifest(audit),[]);
+  assert.ok(!message.subject.includes('儿童科学知识版'));
   const two=await newsFixture(2);
   const healthy=buildEmail(two.news,previousAnswerState, {asOf:two.asOf});
   assert.equal(healthy.quality.issues[0].contentMode,'news');
   validateMessageQuality(healthy,{});
+});
+test('one-story delivery minimum does not stop collection at one priority story',async()=>{
+  const {news}=await newsFixture(2,{priorityCount:1});
+  assert.equal(news.selectionEvidence.qualifiedCount,2);
+  assert.equal(news.length,2);
+  assert.equal(new Set(news.map(item=>item.domain)).size,2);
+});
+test('one-story daily audit still rejects bad evidence, lowered thresholds and poor content',async()=>{
+  const {news,asOf}=await newsFixture(1);
+  const good=buildNewsAuditManifest(buildEmail(news,previousAnswerState,{asOf}),{});
+  assert.deepEqual(validateNewsAuditManifest(good),[]);
+  for(const mutate of [
+    a=>a.requirements.minimumNewsCount=0,
+    a=>a.requirements.minimumPublisherCount=0,
+    a=>a.requirements.minimumNewsCount=0.5,
+    a=>a.issues[0].newsItems=[],
+    a=>a.issues[0].selectionEvidence.qualifiedCount=0,
+    a=>a.issues[0].contentMode='science',
+    a=>a.issues[0].newsItems[0].summary='',
+    a=>a.issues[0].newsItems[0].published-=86400000
+  ]) {
+    const audit=structuredClone(good);mutate(audit);
+    assert.ok(validateNewsAuditManifest(audit).length);
+  }
 });
 test('fresh qualified curated news can survive all-feed failure, stale curated cannot',async()=>{
   const {news}=await newsFixture(2,{feedStatus:404});

@@ -14,7 +14,7 @@
 
 ### 不可降低的内容与质量约束
 
-正常模式每期最多 5 条新闻，不把 5 条当作配额；至少需要 2 条合格新闻和 2 个独立来源。完整且来源多样的人工编辑稿不会再用低置信度抓取稿补足数量。同一来源默认最多入选 2 条。新闻默认按相邻推送截止点之间的滚动 24 小时收集；北京时区的默认推送截止点是 18:00，因此窗口从前一天 18:00 之后开始，到当天 18:00 为止，不按自然日的 00:00–24:00 切分。测试模式使用更小样本，但不绕过质量规则。
+正常模式每期最多 5 条新闻，不把 5 条当作配额；至少需要 1 条合格新闻和 1 个可核验来源，只有 1 条也正常发送新闻版。有更多合格稿时继续选取并优先保留来源多样性；至少 2 条、2 来源的完整人工编辑稿不会再用低置信度抓取稿补足数量。同一来源默认最多入选 2 条。新闻默认按相邻推送截止点之间的滚动 24 小时收集；北京时区的默认推送截止点是 18:00，因此窗口从前一天 18:00 之后开始，到当天 18:00 为止，不按自然日的 00:00–24:00 切分。测试模式使用更小样本，但不绕过质量规则。
 
 每条新闻必须包含：
 
@@ -36,7 +36,7 @@
 
 ### 唯一的零新闻科普例外
 
-采集成功且逐条通过时效、儿童适宜性、具体解释、语义质量、来源与去重检查的新闻恰好为 **0 条** 时，当期使用“儿童科学知识版”。只有 1 条时仍是新闻版，正常日报依然必须满足 2 条／2 来源；测试与合并补发保留原有 1 条／1 来源门槛。成功解析的空 feed 可以证明零候选；所有 feed 失败时，只有真正合格的新鲜人工稿才能维持新闻模式，旧 JSON 不能掩盖采集失败。临时超时、429 或 5xx 重试后未解决，不得被当作零新闻质量结论。
+采集成功且逐条通过时效、儿童适宜性、具体解释、语义质量、来源与去重检查的新闻恰好为 **0 条** 时，当期使用“儿童科学知识版”。只有 1 条时仍是新闻版，正常日报、测试与合并补发均以 1 条／1 来源为最低门槛；新闻版不允许零条，且其他检查仍须全部通过。成功解析的空 feed 可以证明零候选；所有 feed 失败时，只有真正合格的新鲜人工稿才能维持新闻模式，旧 JSON 不能掩盖采集失败。临时超时、429 或 5xx 重试后未解决，不得被当作零新闻质量结论。
 
 科普版只用 3 条科学知识替换原来的 3 条百科，并明确说明本期没有合格新闻；不伪装成新闻或新发现、不出现空新闻卡片。`peach-science-catalog.json` 有 152 个独立概念，逐条保留 NASA、NOAA、USGS 的具体来源及核对日期；每期覆盖 3 个不同主主题，保持 45 期／135 条排除窗口，并映射旧百科 ID、文本与语义。来源链接保留在邮件和页面，不朗读网址。目录损坏、来源不通或库存不足时停止，不清空历史。
 
@@ -100,7 +100,7 @@ RSS / 搜索源 / 人工精选源
 
 `google-apps-script/` 提供独立于电脑的外部云触发器：北京时间 18:00 主触发、18:10 备触发，小时级修复任务负责补建缺失触发器。外部触发和 GitHub 计划任务使用同一日期门禁。
 
-定时触发成功不等于当天一定发出。当前选稿依赖 RSS、预设改写规则与 `peach-curated-news.json` 中已核对的编辑稿，尚未接入云端模型进行自主检索、阅读全文和智能编辑。成功采集后合格新闻为零时按上述规则使用科普版；只有一条、源故障或其他质量失败仍停止。请以实际发信日志、发送状态和线上播放文件核验投递结果，而不是只查看任务启用状态。
+定时触发成功不等于当天一定发出。当前选稿依赖 RSS、预设改写规则与 `peach-curated-news.json` 中已核对的编辑稿，尚未接入云端模型进行自主检索、阅读全文和智能编辑。成功采集后有至少一条合格新闻就使用新闻版，恰好零条才按上述规则使用科普版；源故障或其他质量失败仍停止。请以实际发信日志、发送状态和线上播放文件核验投递结果，而不是只查看任务启用状态。
 
 ### 在线访问
 
@@ -245,7 +245,7 @@ It is both the generator and the static playback site. A daily issue is sent onl
 
 ### Non-negotiable content and quality rules
 
-Normal mode accepts up to five stories rather than treating five as a quota, and it requires at least two eligible stories from at least two independent publishers. A complete, source-diverse edited issue is not padded with lower-confidence feed rewrites. One publisher contributes at most two stories by default. Stories are collected from the rolling 24-hour interval between adjacent delivery cutoffs. With the default 18:00 cutoff in the Beijing time zone, the interval starts just after the previous day's 18:00 cutoff and ends at the current day's 18:00 cutoff, rather than following the natural 00:00–24:00 calendar day. Test mode uses a smaller sample without bypassing quality rules.
+Normal mode accepts up to five stories rather than treating five as a quota, and it requires at least one eligible story from one verifiable source. A single story may be sent as a news issue. Continue selecting additional eligible stories when available, preferring source diversity; a complete edited issue with at least two stories from two sources is not padded with lower-confidence feed rewrites. One publisher contributes at most two stories by default. Stories are collected from the rolling 24-hour interval between adjacent delivery cutoffs. With the default 18:00 cutoff in the Beijing time zone, the interval starts just after the previous day's 18:00 cutoff and ends at the current day's 18:00 cutoff, rather than following the natural 00:00–24:00 calendar day. Test mode uses a smaller sample without bypassing quality rules.
 
 Every story must include:
 
@@ -267,7 +267,7 @@ When a gate fails, the workflow stops. It must never invent news, reduce standar
 
 ### The narrow zero-news science exception
 
-Only successful collection with **exactly zero** individually qualified fresh stories selects the clearly labelled “儿童科学知识版” (children's science edition). One story stays in news mode: normal issues still require two stories from two publishers; legacy test/merged issues retain one story/one publisher. A successfully parsed empty feed is legitimate zero-candidate evidence. All-feed failure requires genuinely qualified fresh curated news to proceed; stale curated JSON cannot hide collection failure. Unresolved timeouts, 429s, and 5xx errors are retried and never counted as quality-based zero news.
+Only successful collection with **exactly zero** individually qualified fresh stories selects the clearly labelled “儿童科学知识版” (children's science edition). One story stays in news mode: normal, test, and merged issues all require at least one story from one source. News mode never permits zero stories, and every other check must still pass. A successfully parsed empty feed is legitimate zero-candidate evidence. All-feed failure requires genuinely qualified fresh curated news to proceed; stale curated JSON cannot hide collection failure. Unresolved timeouts, 429s, and 5xx errors are retried and never counted as quality-based zero news.
 
 Science replaces the usual three encyclopedia entries with exactly three facts from different primary topics, without empty news cards or claims of a new discovery. The 152-concept catalog retains specific NASA, NOAA, and USGS sources and verification dates. Legacy IDs, text, and semantic mappings preserve the 45-issue/135-fact exclusion window. Source links appear in email and the page, not speech. Malformed catalogs, inaccessible sources, or insufficient inventory stop delivery without resetting history.
 
@@ -331,7 +331,7 @@ Email is never sent when a hosted file is missing or differs from the local outp
 
 `google-apps-script/` provides a computer-independent cloud trigger: a primary event at 18:00 Beijing time, a backup at 18:10, and an hourly repair job that recreates missing triggers. External dispatch and GitHub schedules use the same date gate.
 
-A successful trigger does not guarantee daily delivery. Selection relies on RSS, predefined rewriting rules, and reviewed entries in `peach-curated-news.json`; no cloud model is integrated for autonomous research, full-article reading, or intelligent editing. Successful collection yielding zero qualified news uses the narrow science mode above; one story, source failures, and other quality failures still stop. Confirm delivery through actual send logs, persisted state, and hosted playback files, not merely an enabled workflow.
+A successful trigger does not guarantee daily delivery. Selection relies on RSS, predefined rewriting rules, and reviewed entries in `peach-curated-news.json`; no cloud model is integrated for autonomous research, full-article reading, or intelligent editing. Successful collection yielding at least one qualified story uses news mode; exactly zero uses the narrow science mode above. Source failures and other quality failures still stop. Confirm delivery through actual send logs, persisted state, and hosted playback files, not merely an enabled workflow.
 
 ### Live site
 

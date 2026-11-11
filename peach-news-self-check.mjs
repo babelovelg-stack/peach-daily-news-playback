@@ -11,8 +11,8 @@ const DEFAULT_AUDIT_FILE = "peach-news-audit.json";
 
 function requirementsFor(manifest = {}) {
   return {
-    minimumNewsCount: 2,
-    minimumPublisherCount: 2,
+    minimumNewsCount: 1,
+    minimumPublisherCount: 1,
     maxItemsPerPublisher: 2,
     maxAgeHours: 24,
     ...(manifest.requirements || {})
@@ -29,7 +29,7 @@ export function validateNewsAuditManifest(manifest = {}) {
   const questionSeen={texts:new Set(),concepts:new Set()}, knowledgeSeen=new Set(), dateSeen=new Set();
   const isV2=manifest.schemaVersion===2;
   if (isV2 && !['daily','test','merged-backfill'].includes(manifest.reportType)) errors.push('Unknown report type');
-  const minimum=isV2 && manifest.reportType==='daily' ? 2 : 1;
+  const minimum=1;
   if (!Number.isInteger(requirements.minimumNewsCount) || requirements.minimumNewsCount<minimum || !Number.isInteger(requirements.minimumPublisherCount) || requirements.minimumPublisherCount<minimum) errors.push('Invalid news thresholds');
   for (const [index, issue] of manifest.issues.entries()) {
     const label = issue.dateKey || `第${index + 1}天`;
