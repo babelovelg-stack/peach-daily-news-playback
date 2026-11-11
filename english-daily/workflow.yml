@@ -33,12 +33,17 @@ jobs:
           cache: npm
       - run: npm ci
       - name: Verify English delivery and curriculum
-        run: node --test english-daily/test.mjs
+        run: node --test english-daily/test.mjs english-daily/v2/test.mjs
+      - name: Check original-book readiness
+        env:
+          ENGLISH_CONTENT_KEY: ${{ secrets.ENGLISH_CONTENT_KEY }}
+        run: node english-daily/v2/delivery.mjs readiness
       - name: Plan next unsent lesson
         id: plan
         env:
           ENGLISH_SCHEDULED: ${{ github.event_name != 'workflow_dispatch' }}
-        run: node english-daily/daily.mjs prepare
+          ENGLISH_CONTENT_KEY: ${{ secrets.ENGLISH_CONTENT_KEY }}
+        run: node english-daily/v2/delivery.mjs prepare
       - uses: actions/setup-python@v5
         if: steps.plan.outputs.should_send == 'true'
         with:
@@ -46,20 +51,17 @@ jobs:
       - name: Install speech engine
         if: steps.plan.outputs.should_send == 'true'
         run: python -m pip install --disable-pip-version-check edge-tts==7.2.8
-      - name: Restore exact-text audio cache
-        if: steps.plan.outputs.should_send == 'true'
-        uses: actions/cache@v4
-        with:
-          path: english-daily/.audio-cache
-          key: english-audio-v1-${{ runner.os }}-${{ github.run_id }}
-          restore-keys: english-audio-v1-${{ runner.os }}-
       - name: Generate embedded audio lesson
         if: steps.plan.outputs.should_send == 'true'
-        run: node english-daily/daily.mjs build
+        env:
+          ENGLISH_CONTENT_KEY: ${{ secrets.ENGLISH_CONTENT_KEY }}
+        run: node english-daily/v2/delivery.mjs build
       - name: Publish learning page
         if: steps.plan.outputs.should_send == 'true' && inputs.validate_only != true
+        env:
+          ENGLISH_CONTENT_KEY: ${{ secrets.ENGLISH_CONTENT_KEY }}
         run: |
-          node english-daily/daily.mjs publish
+          node english-daily/v2/delivery.mjs publish
           bash english-daily/push-state.sh publish
       - name: Request GitHub Pages build
         if: steps.plan.outputs.should_send == 'true' && inputs.validate_only != true
@@ -69,11 +71,15 @@ jobs:
       - name: Verify public page before delivery
         timeout-minutes: 12
         if: steps.plan.outputs.should_send == 'true' && inputs.validate_only != true
-        run: node english-daily/daily.mjs verify
+        env:
+          ENGLISH_CONTENT_KEY: ${{ secrets.ENGLISH_CONTENT_KEY }}
+        run: node english-daily/v2/delivery.mjs verify
       - name: Persist send claim before SMTP
         if: steps.plan.outputs.should_send == 'true' && inputs.validate_only != true
+        env:
+          ENGLISH_CONTENT_KEY: ${{ secrets.ENGLISH_CONTENT_KEY }}
         run: |
-          node english-daily/daily.mjs claim
+          node english-daily/v2/delivery.mjs claim
           bash english-daily/push-state.sh claim
       - name: Email verified lesson
         if: steps.plan.outputs.should_send == 'true' && inputs.validate_only != true
@@ -85,7 +91,8 @@ jobs:
           SMTP_SECURE: ${{ secrets.SMTP_SECURE }}
           SMTP_USER: ${{ secrets.SMTP_USER }}
           SMTP_PASS: ${{ secrets.SMTP_PASS }}
-        run: node english-daily/daily.mjs send
+          ENGLISH_CONTENT_KEY: ${{ secrets.ENGLISH_CONTENT_KEY }}
+        run: node english-daily/v2/delivery.mjs send
       - name: Save SMTP acceptance and advance curriculum
         if: steps.plan.outputs.should_send == 'true' && inputs.validate_only != true
         run: bash english-daily/push-state.sh sent
@@ -95,7 +102,9 @@ jobs:
         with:
           name: peach-english-daily
           path: |
-            english-daily/output
+            english-daily/output/v2/plan.json
+            english-daily/output/v2/receipt.json
+            english-daily/output/v2/lesson-*/public
             english-daily/state.json
           if-no-files-found: ignore
           retention-days: 30

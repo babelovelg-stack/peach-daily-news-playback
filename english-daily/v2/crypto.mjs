@@ -1,0 +1,5 @@
+import crypto from 'node:crypto';
+export function requireKey(hex){if(!/^[a-f0-9]{64}$/i.test(hex||''))throw Error('Missing or invalid ENGLISH_CONTENT_KEY');return Buffer.from(hex,'hex');}
+export function seal(text,key){const iv=crypto.randomBytes(12),cipher=crypto.createCipheriv('aes-256-gcm',key,iv);const encrypted=Buffer.concat([cipher.update(text,'utf8'),cipher.final()]);return {algorithm:'AES-256-GCM',iv:iv.toString('base64'),data:Buffer.concat([encrypted,cipher.getAuthTag()]).toString('base64')};}
+export function unseal(box,key){if(box.algorithm!=='AES-256-GCM')throw Error('Invalid encrypted format');const data=Buffer.from(box.data,'base64');const decipher=crypto.createDecipheriv('aes-256-gcm',key,Buffer.from(box.iv,'base64'));decipher.setAuthTag(data.subarray(-16));return Buffer.concat([decipher.update(data.subarray(0,-16)),decipher.final()]).toString('utf8');}
+export function lessonKey(master,number,contentHash){return crypto.createHmac('sha256',master).update(`peach-v2:${number}:${contentHash}`).digest();}

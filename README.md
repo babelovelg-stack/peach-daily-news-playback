@@ -8,7 +8,7 @@
 
 ### 桃子英语每日课
 
-新增独立的 [英语学习模块](english-daily/README.md)：Level 3 难度起步，27 周 / 189 课，每天约 15 分钟，包含原创内容、内嵌中英文语音及离线互动。`Peach English Daily` 工作流每天北京时间 18:00 开始，复用本仓库 SMTP 和收件地址，并独立保存发送进度；新闻任务结束也会触发补偿检查。课程入口为 [英语学习目录](https://babelovelg-stack.github.io/peach-daily-news-playback/english/)。
+[英语学习模块](english-daily/README.md)已调整为每天五词＋原书伴读，整体按25分钟以内配量。词汇从 Power Up 3 起步；阅读选择 Oxford Reading Tree Level 7，从 Lost in the Jungle 开始安排。目前原书图文待提供，18:00检查保持启用，材料缺失时不发半份课、不推进状态，也不回退旧版故事。原书采用加密网页和邮件离线附件。可先打开[新版词汇试学](https://babelovelg-stack.github.io/peach-daily-news-playback/english/preview/)。
 
 ### 项目简介
 
@@ -243,7 +243,7 @@ GitHub Actions 必须配置 `REPORT_EMAIL_FROM`、`SMTP_HOST`、`SMTP_PORT`、`S
 
 ### Peach Daily English
 
-The separate [English learning module](english-daily/README.md) provides 27 weeks / 189 original lessons starting at Level 3 difficulty, about 15 minutes daily, with embedded Chinese/English audio and offline interactions. `Peach English Daily` begins delivery at 18:00 Asia/Shanghai, reusing this repository's SMTP settings and recipient with independent progress state. News workflow completion also triggers a recovery check. Open the [English lesson archive](https://babelovelg-stack.github.io/peach-daily-news-playback/english/).
+The [English module](english-daily/README.md) now combines five words and an original-book reading selection, budgeted within 25 minutes. Vocabulary starts at Power Up 3; reading starts with Lost in the Jungle from Oxford Reading Tree Level 7. Original pages are pending. The 18:00 check remains active, but missing content blocks delivery/state advancement with no legacy-story fallback. Original readings use encrypted hosting and offline email attachments. Try the [vocabulary preview](https://babelovelg-stack.github.io/peach-daily-news-playback/english/preview/).
 
 ### Overview
 

@@ -1,88 +1,109 @@
-# 桃子英语 · 每天 15 分钟
+# 桃子英语 · 词汇与原书伴读
 
 [中文](#中文) | [English](#english)
 
 <a id="中文"></a>
 ## 中文
 
-### 孩子如何学习
+### 课程与当前状态
 
-邮件中的按钮打开当天课程；也可下载 HTML 附件，在浏览器离线使用。五步依次为：听故事 2 分钟、学词汇 3 分钟、语法 3 分钟、互动练习 4 分钟、自己表达 3 分钟。计时器供参考，不强制限时。
+当前入口为 `v2/`。每天两部分：五个 Power Up 3 起步的重点词，加一段原书阅读。词汇有原创插画、语音、例句、遮挡回忆、听音选图与拼写；本机记录学后第1、3、7天的复习日期，配课时优先安排复习词。阅读有原书图片、逐句音频与同步高亮、1–3个词汇解释、一个语法点和1–2道带原文依据的理解题。
 
-内容从已确认适合的 Level 3 难度起步，为原创 A1 至初步 A2 练习，不是 Power Up 官方教材、逐单元配套或等级认证。课程预置 27 周 / 189 天，每周六个重点词、一个语法重点和一个故事。七天分别侧重新词、词汇运用、语法观察、听力、句子、表达及复习；同周故事会重复以便巩固。第 189 课后停止，不自动宣称升级或衔接考试。
+用户已选 Oxford Reading Tree Level 7，按出版社主干 Stories 目录从 *Lost in the Jungle* 开始安排。孩子目前的 RAZ C–D 用于确定伴读支持，不与其他分级直接等同。长书分为不超过150词、12页、24句的选段；整课按25分钟以内配量，不设强制倒计时。
 
-前六周依次练习一般现在时、现在进行时、频率副词、可数/不可数名词、数量询问、should/must；之后学习过去时、比较级、最高级、方位、将来表达、连接词等。完整路线由 `course.mjs` 生成到课程目录页。
+**原书图文尚未提供，正式课程目录为空。** 每日18:00检查保留，但缺书时不发布、不发送、不推进状态，也不退回旧故事。试学只含已核对的五个词，明确标记阅读待接入。旧版27周/189课库停止用于定时发送，已发送第1课保留回看。
 
-页面提供中英文合成语音、变速、词卡、选择题即时反馈、拼句、自查、英文草稿和口语录音。选择题可自动核对；作文、口语及自查不自动评分。麦克风只在主动点击后请求权限；不支持录音时可直接开口练习。录音离页前需下载。草稿与进度仅在当前浏览器保存，不跨设备同步；清除浏览器数据可能丢失，可导出 TXT。
+首组词为 cereal、yoghurt、pancake、noodles、cabbage，对照 Power Up 3 第二版 Unit 2 官方样章第19页；这是可核对的词汇示例，不是全书第一单元。图片、记忆提示和例句原创，见[插画生成记录](v2/assets/PROVENANCE.md)。
 
-### 本地构建
+### 构建与原书接入
 
-需要 Node.js 24、Python 3.12（本机 3.9 亦已验证）及联网语音服务：
+需要 Node.js 24、Python 和 `edge-tts==7.2.8`：
 
 ```sh
 python3 -m pip install edge-tts==7.2.8
-node english-daily/build.mjs 1
-node --test english-daily/test.mjs
+node english-daily/v2/build.mjs 2 --preview
+node --test english-daily/test.mjs english-daily/v2/test.mjs
 ```
 
-生成文件为 `english-daily/output/lesson-001/index.html`。所有语音内嵌，可断网播放；`--cached` 只在现有音频清单匹配时使用。中文为 Xiaoyi，英文为 Sonia，生成时核对完整文字边界、声音参数和 SHA-256。修改内容后必须重建，不能复用不匹配的音频。
+试学文件为 `english-daily/output/v2/preview/index.html`，图片与语音全部内嵌。`--cached` 仅复用文字、声音参数及音频哈希匹配的音频。中文为 Xiaoyi，英文为 Sonia。原书逐句音频与页面绑定，不用估计时间点伪造同步。作答和复习记录只保存在当前浏览器。
 
-### 云端推送
+用户提供电子书或清晰书页后，核对书名、级别、原文、图片和来源哈希，按 `v2/model.mjs` 的验证规则准备私有 JSON：`{books:[...],lessons:[{number:2,packId:"food",readingId:"..."}]}`。页面包含图片 data URI、原文和单独标记的中文讲解；语法引用与题目依据必须对应原文中的一句。测试样本不能用于正式推送，找到书目不等于已核对原书。私有输入放在已忽略的 `english-daily/private-content/`。
 
-部署仓库为 `babelovelg-stack/peach-daily-news-playback`。本目录源码复制到其 `english-daily/`，`workflow.yml` 部署为 `.github/workflows/peach-english-daily.yml`。依赖 SMTP 的发送命令使用父仓库已锁定的 nodemailer；本地构建与测试不依赖邮件凭据。
+设置32字节十六进制 `ENGLISH_CONTENT_KEY` 后运行：
 
-- 收件地址：`ctmt1412@qq.com`，与现有桃子项目一致。
-- 复用仓库的 `REPORT_EMAIL_FROM`、`SMTP_HOST`、`SMTP_PORT`、`SMTP_SECURE`、`SMTP_USER`、`SMTP_PASS` Secrets，不保存明文凭据。
-- 北京时间 18:00 开始，18:15、18:30、18:45、19:15、21:15 补偿检查。现有 `Peach Daily News` 工作流结束也会触发检查，沿用其外部云端触发链路；06:00–18:00 自动运行不发邮件，00:00–06:00 处理前一天。
-- GitHub 定时任务可能排队延迟；每天最多成功推送一课，按上次成功序号继续，漏发不跳课。
-- 在线入口：<https://babelovelg-stack.github.io/peach-daily-news-playback/english/>。
-- `workflow_dispatch` 默认 `validate_only=true`，仅生成验证；设 `false` 才正式推送。当天已发会跳过。
+```sh
+node english-daily/v2/pack-library.mjs english-daily/private-content/library.json
+node english-daily/v2/delivery.mjs readiness
+```
 
-发送顺序：测试 → 规划 → 生成/复用已发布课 → 验证 → 发布四个文件 → 线上逐字节核对 → 持久化发送占位 → SMTP → 保存成功记录。HTML 附件与线上版本一致。`state.json` 独立于新闻状态；本地初始状态是部署模板，部署后不得覆盖云端实际状态。
+打包器生成加密 `v2/library.enc.json` 及无正文的目录。相同密钥须设置为 GitHub Secret `ENGLISH_CONTENT_KEY`。不得提交明文输入、音频缓存或密钥。
 
-如果在 SMTP 与成功状态保存之间中断，保留 `inFlight` 并阻止自动重发。维护者需检查对应工作流 Artifact 的 `receipt.json`、SMTP 日志/邮件记录，再依据证据补录成功或清除确认未发的占位，不能只因重试失败就清空状态。已发布但未发出的课程按哈希复用，避免重新合成语音导致版本冲突。正式发送完成不等于证明邮件已进入收件箱。
+### 云端与内容保护
 
-### 文件与验证
+沿用 `babelovelg-stack/peach-daily-news-playback` 的 SMTP Secrets、收件人 `ctmt1412@qq.com` 和每日18:00（北京时间）开始的检查。18:15、18:30、18:45、19:15、21:15以及新闻工作流完成触发保留；云端排队可能延迟。新增内容加密 Secret，不改变新闻推送逻辑。
 
-`course.mjs` 为完整课程；`lesson.html`、`style.css`、`app.js` 为页面；`audio.py`、`build.mjs` 生成语音与课件；`daily.mjs`、`push-state.sh`、`workflow.yml` 维护推送。`output/`、`.audio-cache/`、`qa/`、`node_modules/` 不纳入源码。
+原书采用 AES-256-GCM 加密：公开页面只有密文，每课密钥通过邮件链接的 URL fragment 传递，浏览器解密后清除地址中的密钥。邮件另附完整离线 HTML。发信前逐字节核对公开密文及清单，已发布未发送的课程从密文还原，避免重新合成造成版本漂移。发送占位先持久化，SMTP不明确时停止自动重发并核查回执，确认接受后再推进原有 `state.json`，保留旧版第1课记录。本地 `state.json` 是初始化模板，云端仓库保存实际进度；部署不得用本地模板覆盖云端状态。
 
-自动测试覆盖 189 天结构、答案、语音一致性、时区、连续推进、日期去重、不明确发送阻断与课程终止。本机 Chrome 验证离线音频解码/实际播放、答题反馈、拼句、完成门槛、草稿恢复、无存储权限、离线下载、1440px / 390px 布局，以及使用模拟麦克风的录制回听与下载入口。测试证据保存在本机 `qa/`。
+原书明文、离线附件、音频缓存和密钥不上传为工作流产物，公开 Actions 缓存关闭；产物仅含无正文的计划、脱敏回执、状态和公开密文。手动运行默认 `validate_only=true`，改为 `false` 才允许完整课程发送；缺少原书时两种模式均不发信。
+
+### 验证与来源
+
+自动测试覆盖原书来源、原文引用、题量与配量、语音一致性、加密篡改、缺书阻断、连续状态与脱敏产物。浏览器验证记录在 `qa/`，含真实词汇音频、离线图片、听音/拼写、记忆记录与手机布局；逐句高亮、翻页、证据回跳和网页解密使用明确标记的人工测试文本验证，测试阅读不是原书。
+
+- [Cambridge 官方样章](https://assets.cambridge.org/97810098/09887/excerpt/9781009809887_excerpt.pdf)
+- [Oxford Level 7 目录](https://www.oupjapan.co.jp/en/gradedreaders/ort/resources/index.shtml?language=en)
+- [Oxford 分级说明](https://home.oxfordowl.co.uk/reading/reading-schemes-oxford-levels/oxford-reading-tree-levels/)
+- [RAZ 文本难度框架](https://www.readinga-z.com/evaluating-text-complexity/)
 
 <a id="english"></a>
 ## English
 
-### Learning flow
+### Course and current status
 
-Open the daily email link, or download its self-contained HTML attachment for offline use. Each lesson budgets 2 minutes for listening, 3 for vocabulary, 3 for grammar, 4 for challenges and 3 for expression. The optional timer does not lock the page.
+The active entry point is `v2/`. Each lesson has five vocabulary targets starting at Power Up 3 level and an original-book reading selection. Vocabulary combines original illustrations, audio, examples, concealed recall, listening-to-picture matching and spelling. Browser-local records schedule reviews on days 1, 3 and 7; editorial planning prioritises review terms. Reading uses original images, sentence audio/highlighting, 1–3 glossary explanations, one grammar pattern and 1–2 questions with exact textual evidence.
 
-The original course starts at the agreed Level 3 difficulty, covering A1 to early A2 practice. It is not an official Power Up textbook, unit-by-unit companion or level certification. There are 27 weeks / 189 lessons. Each week uses six target terms, one grammar focus and one story, revisited through vocabulary, usage, grammar, listening, sentence building, expression and review. Delivery stops after lesson 189. The published archive includes the complete weekly route.
+The user selected Oxford Reading Tree Level 7, beginning with *Lost in the Jungle* from the publisher's core Stories listing. RAZ C–D informs scaffolding, not a direct level equivalence. Longer books are split into selections of at most 150 words, 12 pages and 24 sentences, budgeted within 25 minutes without a forced countdown.
 
-The first six weeks cover present simple, present continuous, frequency, countability, quantity questions and should/must; later weeks cover past tense, comparisons, location, future expressions and conjunctions. Embedded Chinese/English synthesized speech, speed controls, word cards, quizzes, sentence ordering and self-checks support independent practice. Writing and pronunciation are not automatically graded. Microphone permission is requested only on click; recordings stay in memory and should be downloaded before leaving. Drafts and progress are browser-local, with TXT export and no cross-device sync.
+**Original pages are still required; the production catalog is empty.** The daily 18:00 check remains, but missing content blocks publishing, email and state advancement, with no fallback story. The preview contains five verified terms and labels reading as pending. The old 27-week/189-lesson library is retired from scheduled delivery; previously sent lesson 1 remains available.
 
-### Build
+The first sample terms are cereal, yoghurt, pancake, noodles and cabbage, checked against page 19 of the official Power Up 3 second-edition Unit 2 sample. This is not Unit 1. Illustrations, memory cues and examples are original; see [image provenance](v2/assets/PROVENANCE.md).
 
-Use Node.js 24 and Python 3.12 (Python 3.9 was also verified locally):
+### Build and original-book intake
+
+Use Node.js 24, Python and `edge-tts==7.2.8`:
 
 ```sh
 python3 -m pip install edge-tts==7.2.8
-node english-daily/build.mjs 1
-node --test english-daily/test.mjs
+node english-daily/v2/build.mjs 2 --preview
+node --test english-daily/test.mjs english-daily/v2/test.mjs
 ```
 
-The output is `english-daily/output/lesson-001/index.html`, with all audio embedded. Generation requires network access; playback does not. Xiaoyi narrates Chinese and Sonia narrates English. Full speech boundaries, exact text/voice fingerprints and SHA-256 hashes must match. `--cached` requires an existing matching manifest.
+The preview is `english-daily/output/v2/preview/index.html`, with embedded images/audio. `--cached` requires matching text, voice and hashes. Xiaoyi narrates Chinese and Sonia English. Each original sentence has audio bound to its page; no guessed timings are used. Learning records remain in the current browser.
 
-### Cloud delivery
+After receiving the user's ebook or clear page images, verify title, level, original text/images and source hash. Prepare private JSON using the validation rules in `v2/model.mjs`: `{books:[...],lessons:[{number:2,packId:"food",readingId:"..."}]}`. Pages include image data URIs, original text and separately labelled explanations. Grammar quotations and question evidence must match original sentences. Fixtures cannot be delivered; a catalog listing does not verify the book. Keep private inputs under ignored `english-daily/private-content/`.
 
-Deploy this directory into `babelovelg-stack/peach-daily-news-playback/english-daily/` and install `workflow.yml` as `.github/workflows/peach-english-daily.yml`. SMTP uses the parent repository's locked nodemailer dependency. Reuse its `REPORT_EMAIL_FROM`, `SMTP_HOST`, `SMTP_PORT`, `SMTP_SECURE`, `SMTP_USER` and `SMTP_PASS` Secrets. The recipient is `ctmt1412@qq.com`, matching Peach Daily News.
+Configure a 32-byte hexadecimal `ENGLISH_CONTENT_KEY`, then run:
 
-Delivery begins at 18:00 Asia/Shanghai, with checks at 18:15, 18:30, 18:45, 19:15 and 21:15. Completion of `Peach Daily News` also triggers a check, retaining its external cloud trigger path. Automatic runs from 06:00 to 18:00 skip delivery; midnight to 06:00 checks the previous date. GitHub schedules may be delayed. At most one successful lesson is sent per date, advancing from the last successful lesson without skipping missed days. Manual dispatch defaults to validation only; set `validate_only=false` for delivery.
+```sh
+node english-daily/v2/pack-library.mjs english-daily/private-content/library.json
+node english-daily/v2/delivery.mjs readiness
+```
 
-The sequence is tests → plan → generate/reuse → validate → publish four assets → byte-check the hosted files → persist the send claim → SMTP → persist acceptance. The email attachment matches the published page. The public archive is <https://babelovelg-stack.github.io/peach-daily-news-playback/english/>. English state is separate from news state. The local initial `state.json` is a deployment template and must never overwrite live cloud progress.
+The packer writes encrypted `v2/library.enc.json` and a text-free catalog. Store the same key as GitHub Secret `ENGLISH_CONTENT_KEY`. Never commit plaintext inputs, audio caches or keys.
 
-An ambiguous SMTP outcome leaves an `inFlight` claim and blocks automatic retries. Inspect the run artifact's `receipt.json` and mail evidence before recording a confirmed success or clearing a confirmed-unsent claim. Never erase state simply to bypass a retry failure. Already-published unsent lessons are hash-verified and reused. SMTP acceptance does not prove inbox placement.
+### Cloud delivery and content protection
 
-### Source and validation
+Reuse SMTP Secrets, recipient `ctmt1412@qq.com`, and the 18:00 Asia/Shanghai schedule in `babelovelg-stack/peach-daily-news-playback`. Recovery checks at 18:15, 18:30, 18:45, 19:15 and 21:15 and the news-workflow completion trigger remain. Queues can delay execution. The content-key Secret is additional; news behavior is unchanged.
 
-`course.mjs` defines the curriculum; `lesson.html`, `style.css` and `app.js` implement the UI; `audio.py` and `build.mjs` produce lessons; `daily.mjs`, `push-state.sh` and `workflow.yml` implement delivery. Generated output, audio caches, local QA and dependencies are ignored.
+AES-256-GCM protects original-book HTML. The public page contains ciphertext, while each lesson key is sent in the email URL fragment and removed after browser decryption. The email also attaches a full offline HTML lesson. Hosted ciphertext and manifest must match before SMTP. Already-published unsent lessons are decrypted and reused to prevent audio drift. Persist a claim before SMTP; uncertain outcomes block automatic retries pending evidence review. Confirmed acceptance advances the existing `state.json` while retaining legacy lesson 1. The local `state.json` is an initial template; the cloud repository owns live progress and must not be overwritten during deployment.
 
-Tests cover all 189 lessons, answer consistency, audio integrity, time zones, sequential progress, daily deduplication, uncertain-send blocking and course completion. Local Chrome checks cover offline decoding/playback, feedback, sentence ordering, completion gates, draft restoration, denied storage, offline downloads, 1440px / 390px layouts, and recording/replay with a synthetic microphone. Local evidence is in `qa/`.
+Plaintext books, offline attachments, audio caches and keys are excluded from workflow artifacts. Public Actions caching is disabled. Artifacts contain only text-free plans, redacted receipts, state and public ciphertext. Manual dispatch defaults to `validate_only=true`; `false` enables sending complete lessons. Neither mode sends when original material is missing.
+
+### Validation and sources
+
+Tests cover source evidence, exact quotations, exercise/workload limits, audio integrity, encryption tampering, missing-book blocking, sequential state and redacted artifacts. Browser QA in `qa/` covers real vocabulary audio, offline images, listening/spelling, recall records and mobile layout. Explicitly synthetic test text verifies sentence highlighting, page turns, evidence links and browser decryption; it is not an original book.
+
+- [Cambridge sample](https://assets.cambridge.org/97810098/09887/excerpt/9781009809887_excerpt.pdf)
+- [Oxford Level 7 catalog](https://www.oupjapan.co.jp/en/gradedreaders/ort/resources/index.shtml?language=en)
+- [Oxford level guide](https://home.oxfordowl.co.uk/reading/reading-schemes-oxford-levels/oxford-reading-tree-levels/)
+- [RAZ text-complexity framework](https://www.readinga-z.com/evaluating-text-complexity/)

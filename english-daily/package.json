@@ -2,6 +2,13 @@
   "name": "peach-english-daily",
   "private": true,
   "type": "module",
-  "scripts": {"test": "node --test test.mjs", "build": "node build.mjs", "daily": "node daily.mjs"},
-  "engines": {"node": ">=24"}
+  "scripts": {
+    "test": "node --test test.mjs v2/test.mjs",
+    "build": "node v2/build.mjs",
+    "preview": "node v2/build.mjs 2 --preview",
+    "daily": "node v2/delivery.mjs"
+  },
+  "engines": {
+    "node": ">=24"
+  }
 }

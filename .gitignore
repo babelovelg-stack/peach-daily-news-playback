@@ -12,3 +12,5 @@ node_modules/
 /english-daily/output/
 /english-daily/.audio-cache/
 /english-daily/qa/
+
+/english-daily/private-content/
