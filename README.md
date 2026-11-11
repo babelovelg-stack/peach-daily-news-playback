@@ -6,6 +6,10 @@
 
 ## 中文
 
+### 桃子英语每日课
+
+新增独立的 [英语学习模块](english-daily/README.md)：Level 3 难度起步，27 周 / 189 课，每天约 15 分钟，包含原创内容、内嵌中英文语音及离线互动。`Peach English Daily` 工作流每天北京时间 18:00 开始，复用本仓库 SMTP 和收件地址，并独立保存发送进度；新闻任务结束也会触发补偿检查。课程入口为 [英语学习目录](https://babelovelg-stack.github.io/peach-daily-news-playback/english/)。
+
 ### 项目简介
 
 本仓库完整承载“桃子宝贝每日情报”：资讯采集、儿童内容改写、质量门禁、探索题与百科状态、邮件生成、Xiaoyi 语音、字幕、静态播放页、GitHub Pages 发布、线上文件校验和邮件发送都在这里完成。
@@ -236,6 +240,10 @@ GitHub Actions 必须配置 `REPORT_EMAIL_FROM`、`SMTP_HOST`、`SMTP_PORT`、`S
 <a id="english"></a>
 
 ## English
+
+### Peach Daily English
+
+The separate [English learning module](english-daily/README.md) provides 27 weeks / 189 original lessons starting at Level 3 difficulty, about 15 minutes daily, with embedded Chinese/English audio and offline interactions. `Peach English Daily` begins delivery at 18:00 Asia/Shanghai, reusing this repository's SMTP settings and recipient with independent progress state. News workflow completion also triggers a recovery check. Open the [English lesson archive](https://babelovelg-stack.github.io/peach-daily-news-playback/english/).
 
 ### Overview
 

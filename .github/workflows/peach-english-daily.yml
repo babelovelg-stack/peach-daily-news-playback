@@ -1,0 +1,101 @@
+name: Peach English Daily
+on:
+  workflow_run:
+    workflows: ['Peach Daily News']
+    types: [completed]
+  schedule:
+    - cron: '0,15,30,45 10 * * *'
+    - cron: '15 11 * * *'
+    - cron: '15 13 * * *'
+  workflow_dispatch:
+    inputs:
+      validate_only:
+        description: 'Build and validate without publishing, emailing, or changing delivery state'
+        type: boolean
+        default: true
+permissions:
+  contents: write
+  pages: write
+concurrency:
+  group: peach-english-daily
+  cancel-in-progress: false
+env:
+  FORCE_JAVASCRIPT_ACTIONS_TO_NODE24: true
+jobs:
+  lesson:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '24'
+          cache: npm
+      - run: npm ci
+      - name: Verify English delivery and curriculum
+        run: node --test english-daily/test.mjs
+      - name: Plan next unsent lesson
+        id: plan
+        env:
+          ENGLISH_SCHEDULED: ${{ github.event_name != 'workflow_dispatch' }}
+        run: node english-daily/daily.mjs prepare
+      - uses: actions/setup-python@v5
+        if: steps.plan.outputs.should_send == 'true'
+        with:
+          python-version: '3.12'
+      - name: Install speech engine
+        if: steps.plan.outputs.should_send == 'true'
+        run: python -m pip install --disable-pip-version-check edge-tts==7.2.8
+      - name: Restore exact-text audio cache
+        if: steps.plan.outputs.should_send == 'true'
+        uses: actions/cache@v4
+        with:
+          path: english-daily/.audio-cache
+          key: english-audio-v1-${{ runner.os }}-${{ github.run_id }}
+          restore-keys: english-audio-v1-${{ runner.os }}-
+      - name: Generate embedded audio lesson
+        if: steps.plan.outputs.should_send == 'true'
+        run: node english-daily/daily.mjs build
+      - name: Publish learning page
+        if: steps.plan.outputs.should_send == 'true' && inputs.validate_only != true
+        run: |
+          node english-daily/daily.mjs publish
+          bash english-daily/push-state.sh publish
+      - name: Request GitHub Pages build
+        if: steps.plan.outputs.should_send == 'true' && inputs.validate_only != true
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: gh api --method POST "repos/$GITHUB_REPOSITORY/pages/builds" --silent
+      - name: Verify public page before delivery
+        timeout-minutes: 12
+        if: steps.plan.outputs.should_send == 'true' && inputs.validate_only != true
+        run: node english-daily/daily.mjs verify
+      - name: Persist send claim before SMTP
+        if: steps.plan.outputs.should_send == 'true' && inputs.validate_only != true
+        run: |
+          node english-daily/daily.mjs claim
+          bash english-daily/push-state.sh claim
+      - name: Email verified lesson
+        if: steps.plan.outputs.should_send == 'true' && inputs.validate_only != true
+        env:
+          ENGLISH_EMAIL_TO: ctmt1412@qq.com
+          REPORT_EMAIL_FROM: ${{ secrets.REPORT_EMAIL_FROM }}
+          SMTP_HOST: ${{ secrets.SMTP_HOST }}
+          SMTP_PORT: ${{ secrets.SMTP_PORT }}
+          SMTP_SECURE: ${{ secrets.SMTP_SECURE }}
+          SMTP_USER: ${{ secrets.SMTP_USER }}
+          SMTP_PASS: ${{ secrets.SMTP_PASS }}
+        run: node english-daily/daily.mjs send
+      - name: Save SMTP acceptance and advance curriculum
+        if: steps.plan.outputs.should_send == 'true' && inputs.validate_only != true
+        run: bash english-daily/push-state.sh sent
+      - name: Keep lesson and delivery receipt
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: peach-english-daily
+          path: |
+            english-daily/output
+            english-daily/state.json
+          if-no-files-found: ignore
+          retention-days: 30

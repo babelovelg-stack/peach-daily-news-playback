@@ -8,3 +8,7 @@ node_modules/
 /peach-news-audit.json
 /peach-playback-manifest.json
 /peach-playback/
+
+/english-daily/output/
+/english-daily/.audio-cache/
+/english-daily/qa/

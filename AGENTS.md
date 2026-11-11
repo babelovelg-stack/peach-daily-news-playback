@@ -20,3 +20,7 @@ This repository generates, validates, publishes, and emails the child-readable P
 - Preserve the delivery order: generate, run the mandatory self-check, publish all four playback files, verify the hosted files byte-for-byte, send the email, then save state.
 - Do not edit an already published `peach/YYYY-MM-DD/` issue by hand or clear `peach-news-state.json`; rerun the complete generation and validation flow instead.
 - Keep credentials in GitHub Secrets and never commit SMTP passwords, GitHub tokens, or generated secret material.
+
+## Independent English lessons
+
+The original English curriculum lives in `english-daily/`; follow its [AGENTS.md](english-daily/AGENTS.md) and [README.md](english-daily/README.md). Its workflow and delivery state are separate from news; never overwrite live `english-daily/state.json` with the initial deployment template. Apply the news-specific content rules above only to news issues.
