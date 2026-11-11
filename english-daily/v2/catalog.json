@@ -2,20 +2,47 @@
   "schema": 2,
   "firstDelivery": 2,
   "readingPreference": "Oxford Reading Tree Level 7, Biff, Chip and Kipper Stories",
-  "firstBook": "Red Planet",
+  "firstBook": "The Broken Roof",
   "readingAccess": {
-    "title": "Red Planet",
+    "title": "The Broken Roof",
     "series": "Oxford Reading Tree: Biff, Chip and Kipper Stories",
     "level": "7",
-    "libraryUrl": "https://www.oxfordowl.co.uk/library-page?view=image&query=&type=book&age_group=&level=oxford+level+7&level_select=oxford+level+7&book_type=&series=",
-    "readerUrl": "https://www.oxfordowl.co.uk/api/digital_books/1363.html",
-    "helpUrl": "https://home.oxfordowl.co.uk/reading/free-ebooks/",
+    "readerUrl": "https://oup.pagetiger.com/ort-broken-roof/",
+    "sourceUrl": "https://shop.oupchina.com.hk/en/products/oxford-reading-tree-biff-chip-and-kipper-stories-level-7-mixed-pack-of-6",
     "catalogVerifiedOn": "2026-11-11",
-    "requiresFreeLogin": true,
+    "requiresFreeLogin": false,
     "fullTextVerified": false,
-    "status": "publisher-login-required"
+    "samplePagesVerified": [
+      1,
+      2,
+      3,
+      4,
+      5,
+      6
+    ],
+    "status": "publisher-sample-ready",
+    "scope": "Original printed pages 1–6 only; not the complete book"
   },
   "bookListSource": "https://www.oupjapan.co.jp/en/gradedreaders/ort/resources/index.shtml?language=en",
   "readerBaseline": "RAZ C–D",
-  "lessons": []
+  "lessons": [
+    {
+      "number": 2,
+      "packId": "food",
+      "readingId": "broken-roof-1",
+      "practice": "learn"
+    },
+    {
+      "number": 3,
+      "packId": "food",
+      "readingId": "broken-roof-2",
+      "practice": "recall"
+    },
+    {
+      "number": 4,
+      "packId": "food",
+      "readingId": "broken-roof-3",
+      "practice": "use"
+    }
+  ]
 }

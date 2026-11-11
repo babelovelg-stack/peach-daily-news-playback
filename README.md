@@ -8,7 +8,7 @@
 
 ### 桃子英语每日课
 
-[英语学习模块](english-daily/README.md)已调整为每天五词＋原书伴读，整体按25分钟以内配量。词汇从 Power Up 3 起步；阅读选择 Oxford Reading Tree Level 7，已自行找到免费书库中的 Red Planet，试学加入官方原书入口。官网需免费账号登录，全文与伴读仍待核对，18:00检查保持启用，材料缺失时不发半份课、不推进状态，也不回退旧版故事。原书采用加密网页和邮件离线附件。无需用户上传图书。官网原书需联网阅读，不包含在离线试学附件中。可先打开[新版词汇试学](https://babelovelg-stack.github.io/peach-daily-news-playback/english/preview/)。
+[英语学习模块](english-daily/README.md)已接入免登录的 Oxford Reading Tree Level 7《The Broken Roof》出版社样章第1–6页。备好3课，每课2页、约23分钟：首课学五词，后两课复习同组词并继续阅读；包含重点片段音频、词汇语法讲解和两道理解题。原书图文需联网，课程词汇与讲解可离线使用；原书页面不会随课程音频高亮。每天18:00按未发送课推进，后续素材未备好时停止，不替换旧版故事。正式课通过加密网页与邮件附件交付，进度与新闻独立。可直接打开[免登录试学](https://babelovelg-stack.github.io/peach-daily-news-playback/english/preview/)。
 
 ### 项目简介
 
@@ -243,7 +243,7 @@ GitHub Actions 必须配置 `REPORT_EMAIL_FROM`、`SMTP_HOST`、`SMTP_PORT`、`S
 
 ### Peach Daily English
 
-The [English module](english-daily/README.md) offers five Power Up 3 vocabulary targets plus original-book reading, planned within 25 minutes. Oxford Owl’s free library lists Level 7 *Red Planet*, and the [preview](https://babelovelg-stack.github.io/peach-daily-news-playback/english/preview/) now includes official reader and bookshelf links. Free publisher login and full-text verification remain pending; the 18:00 check stays enabled without sending incomplete lessons or advancing state. No user-uploaded book is required. Publisher reading requires internet access and is not embedded in the offline preview. The complete original-book delivery path retains encrypted hosting and email attachments.
+The [English module](english-daily/README.md) now uses the no-login publisher sample of Oxford Reading Tree Level 7 *The Broken Roof*, printed pages 1–6. Three lessons are prepared, two pages and about 23 minutes each: the first teaches five terms and the next two review them while continuing the reading. Short-excerpt audio, glossary/grammar explanations and two questions are included. Original pages require internet access; vocabulary and companion explanations work offline. Publisher pages do not highlight with course audio. The 18:00 workflow advances to the next unsent lesson and stops when further verified content is unavailable, without legacy-story substitution. Encrypted pages, email attachments and independent delivery state remain. Open the [no-login preview](https://babelovelg-stack.github.io/peach-daily-news-playback/english/preview/).
 
 ### Overview
 

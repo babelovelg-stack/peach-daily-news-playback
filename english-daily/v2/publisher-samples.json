@@ -1,0 +1,260 @@
+{
+  "schema": 1,
+  "readings": [
+    {
+      "id": "broken-roof-1",
+      "pageNumbers": [
+        1,
+        2
+      ],
+      "readerPages": "2–3 / 8",
+      "readingGuide": "先翻到书上标着一和二的两页。看图找出学校的活动场地，再留意孩子们发现了什么。读不顺时，先看人物、地点和物品，不必逐词翻译。",
+      "glossary": [
+        {
+          "term": "field",
+          "meaning": "场地；田地",
+          "explanation": "这里结合学校活动的画面，理解为活动场地。",
+          "page": 1
+        },
+        {
+          "term": "cross",
+          "meaning": "生气的",
+          "explanation": "看人物的情绪来判断；这里不是“十字形”。",
+          "page": 2
+        }
+      ],
+      "grammar": {
+        "title": "讲过去的事：was / were",
+        "quote": "The children were",
+        "page": 1,
+        "explanation": "这段在讲过去的事情。复数主语搭配 were，单数主语常搭配 was。先把“谁”和“过去在哪里”连起来，不必一次背完整张变化表。",
+        "example": "My friends were in the library.",
+        "translation": "我的朋友们当时在图书馆。"
+      },
+      "questions": [
+        {
+          "prompt": "故事开头，孩子们在哪里活动？",
+          "options": [
+            "教室里",
+            "学校的场地上",
+            "商店里"
+          ],
+          "answer": 1,
+          "explanation": "第1页的文字和画面都能帮助你确定地点。",
+          "evidencePage": 1
+        },
+        {
+          "prompt": "Wilf 为什么生气？",
+          "options": [
+            "有人把废弃物倒在场地上",
+            "他找不到书",
+            "他错过了午餐"
+          ],
+          "answer": 0,
+          "explanation": "第2页说明了场地上出现的问题。",
+          "evidencePage": 2
+        }
+      ],
+      "mode": "publisher-sample",
+      "title": "The Broken Roof",
+      "series": "Oxford Reading Tree",
+      "strand": "Biff, Chip and Kipper Stories",
+      "level": "7",
+      "sourceName": "Oxford University Press (China) official sample",
+      "sourceUrl": "https://shop.oupchina.com.hk/en/products/oxford-reading-tree-biff-chip-and-kipper-stories-level-7-mixed-pack-of-6",
+      "readerUrl": "https://oup.pagetiger.com/ort-broken-roof/",
+      "requiresLogin": false,
+      "distribution": "publisher-link-only",
+      "verifiedAgainstSource": true,
+      "verifiedOn": "2026-11-11",
+      "wordCountUpperBound": 110,
+      "evidenceAssets": [
+        {
+          "page": 1,
+          "readerPage": 2,
+          "url": "https://view.pagetiger.com/ort-broken-roof/1/Thumbs/Page_305b4be59b096c133abc0fb40ca38ccc_0002-1258-0-0.jpg?cpc=true",
+          "bytes": 410859,
+          "sha256": "a6c109818f731b251b090641baf788020823b245ac68d573689daa175d353100"
+        },
+        {
+          "page": 2,
+          "readerPage": 3,
+          "url": "https://view.pagetiger.com/ort-broken-roof/1/Thumbs/Page_de242c3463325e47d0037d2b0b83f599_0003-1258-0-0.jpg?cpc=true",
+          "bytes": 513484,
+          "sha256": "9ff329cece1c7ef40d7d6fa7c225efbc9f039bbcec99cfa5af74f347b9426423"
+        }
+      ],
+      "sourceSha256": "f2874223e9a7f2965712f7adf0538854d6bc92d9105bedbc669b0279ba26862f"
+    },
+    {
+      "id": "broken-roof-2",
+      "pageNumbers": [
+        3,
+        4
+      ],
+      "readerPages": "4–5 / 8",
+      "readingGuide": "今天接着读书上标着三和四的两页。先看旧机器，再观察人物的手和布料。带着“它有什么用”和“谁在操作”的问题去读。",
+      "glossary": [
+        {
+          "term": "mangle",
+          "meaning": "旧式轧衣机",
+          "explanation": "这种机器用滚筒挤出湿布中的水；配合图片理解就好，不列入今天必须拼写的五个词。",
+          "page": 3
+        },
+        {
+          "term": "wet",
+          "meaning": "湿的",
+          "explanation": "用手摸一摸湿毛巾，再想一想这个感觉。",
+          "page": 4
+        }
+      ],
+      "grammar": {
+        "title": "问“它怎么做到的”：How does …?",
+        "quote": "How does it do that?",
+        "page": 3,
+        "explanation": "想问一种东西怎样工作，可以用 How does it 后接动词原形。does 已经帮助我们提问，后面的动词不再加 s。",
+        "example": "How does this toy work?",
+        "translation": "这个玩具是怎样工作的？"
+      },
+      "questions": [
+        {
+          "prompt": "Mrs May 找到的旧机器能做什么？",
+          "options": [
+            "把衣服染色",
+            "把布料剪开",
+            "挤出湿衣物里的水"
+          ],
+          "answer": 2,
+          "explanation": "第3页介绍了这台机器的用途。",
+          "evidencePage": 3
+        },
+        {
+          "prompt": "第4页中，谁转动了机器的把手？",
+          "options": [
+            "Nadim",
+            "Biff",
+            "Mrs May"
+          ],
+          "answer": 0,
+          "explanation": "回到第4页，找人物名字旁边描述的动作。",
+          "evidencePage": 4
+        }
+      ],
+      "mode": "publisher-sample",
+      "title": "The Broken Roof",
+      "series": "Oxford Reading Tree",
+      "strand": "Biff, Chip and Kipper Stories",
+      "level": "7",
+      "sourceName": "Oxford University Press (China) official sample",
+      "sourceUrl": "https://shop.oupchina.com.hk/en/products/oxford-reading-tree-biff-chip-and-kipper-stories-level-7-mixed-pack-of-6",
+      "readerUrl": "https://oup.pagetiger.com/ort-broken-roof/",
+      "requiresLogin": false,
+      "distribution": "publisher-link-only",
+      "verifiedAgainstSource": true,
+      "verifiedOn": "2026-11-11",
+      "wordCountUpperBound": 110,
+      "evidenceAssets": [
+        {
+          "page": 3,
+          "readerPage": 4,
+          "url": "https://view.pagetiger.com/ort-broken-roof/1/Thumbs/Page_315b39a972d5d0cb8971aaddf55857ae_0004-1258-0-0.jpg?cpc=true",
+          "bytes": 474055,
+          "sha256": "e23d2237efb8c49a28d0c151dc653234c275398f394207f5477d91a05e165e10"
+        },
+        {
+          "page": 4,
+          "readerPage": 5,
+          "url": "https://view.pagetiger.com/ort-broken-roof/1/Thumbs/Page_7f6749e6c9151dad6573326f48d69e8e_0005-1258-0-0.jpg?cpc=true",
+          "bytes": 483575,
+          "sha256": "466e92560dc3158a1ce4159171effa752ece42ab2d5dd908a017ab51118dc33a"
+        }
+      ],
+      "sourceSha256": "f66582c735d336b8ebf60f349481fcfcfed5d38409c267915c6f164d007f7d3d"
+    },
+    {
+      "id": "broken-roof-3",
+      "pageNumbers": [
+        5,
+        6
+      ],
+      "readerPages": "6–7 / 8",
+      "readingGuide": "今天读书上标着五和六的两页。观察水最后去了哪里，再比较教室里的机器和书中的旧照片。用自己的话说一个你注意到的变化。",
+      "glossary": [
+        {
+          "term": "bucket",
+          "meaning": "水桶",
+          "explanation": "注意有提手、用来装水的容器。",
+          "page": 5
+        },
+        {
+          "term": "dry",
+          "meaning": "干的；使变干",
+          "explanation": "和前一课的 wet 放在一起记：摸摸干毛巾和湿毛巾，比较它们。",
+          "page": 5
+        }
+      ],
+      "grammar": {
+        "title": "问“我们用什么”：What do we …?",
+        "quote": "What do we use?",
+        "page": 5,
+        "explanation": "What 用来问“什么”。主语是 we，提问时用 do，后面接动词原形。把 use 换成 eat、read，就能询问不同的事情。",
+        "example": "What do we read after school?",
+        "translation": "我们放学后读什么？"
+      },
+      "questions": [
+        {
+          "prompt": "从布料里流出的水去了哪里？",
+          "options": [
+            "杯子里",
+            "地板上",
+            "水桶里"
+          ],
+          "answer": 2,
+          "explanation": "第5页的文字和图画给出了去向。",
+          "evidencePage": 5
+        },
+        {
+          "prompt": "第6页展示了什么内容的旧图片？",
+          "options": [
+            "有人在做饭",
+            "有人在洗衣服",
+            "有人在修屋顶"
+          ],
+          "answer": 1,
+          "explanation": "第6页请你观察过去人们做的家务。",
+          "evidencePage": 6
+        }
+      ],
+      "mode": "publisher-sample",
+      "title": "The Broken Roof",
+      "series": "Oxford Reading Tree",
+      "strand": "Biff, Chip and Kipper Stories",
+      "level": "7",
+      "sourceName": "Oxford University Press (China) official sample",
+      "sourceUrl": "https://shop.oupchina.com.hk/en/products/oxford-reading-tree-biff-chip-and-kipper-stories-level-7-mixed-pack-of-6",
+      "readerUrl": "https://oup.pagetiger.com/ort-broken-roof/",
+      "requiresLogin": false,
+      "distribution": "publisher-link-only",
+      "verifiedAgainstSource": true,
+      "verifiedOn": "2026-11-11",
+      "wordCountUpperBound": 110,
+      "evidenceAssets": [
+        {
+          "page": 5,
+          "readerPage": 6,
+          "url": "https://view.pagetiger.com/ort-broken-roof/1/Thumbs/Page_37bee08b9e8f71c8c496d5af0ccf41aa_0006-1258-0-0.jpg?cpc=true",
+          "bytes": 471912,
+          "sha256": "3f96c674988dcaa60b04f3e8a9996f28270e4378878aedff199d79dd970f8ad6"
+        },
+        {
+          "page": 6,
+          "readerPage": 7,
+          "url": "https://view.pagetiger.com/ort-broken-roof/1/Thumbs/Page_db562966319eb306f6c5df91b841d421_0007-1258-0-0.jpg?cpc=true",
+          "bytes": 467712,
+          "sha256": "08d1bfc5b3269d2402331c3e18cbcbb6ba76b22fb07bee146e2c828c907d6134"
+        }
+      ],
+      "sourceSha256": "1e86ffd49ff7a0ae6e4a814d389970c8cf1c92b825ce43a85cf12f4b4dd45e35"
+    }
+  ]
+}

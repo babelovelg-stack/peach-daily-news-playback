@@ -3,12 +3,14 @@ import path from 'node:path';
 import {fileURLToPath} from 'node:url';
 import {PACKS} from './vocabulary.mjs';
 import {requireKey,unseal} from './crypto.mjs';
+import {SAMPLES,validateSample} from './publisher-samples.mjs';
 export const ROOT=path.dirname(fileURLToPath(import.meta.url));
 export const VERSION='2026-11-11-v2';
 export function readCatalog(){return JSON.parse(fs.readFileSync(path.join(ROOT,'catalog.json'),'utf8'));}
 export function loadLibrary(){const p=path.join(ROOT,'library.enc.json');if(!fs.existsSync(p))return {books:[]};return JSON.parse(unseal(JSON.parse(fs.readFileSync(p,'utf8')),requireKey(process.env.ENGLISH_CONTENT_KEY)));}
 const assert=(ok,msg)=>{if(!ok)throw Error(msg);};
 export function validateReading(r,{allowFixture=false}={}){
+ if(r?.mode==='publisher-sample')return validateSample(r);
  assert(r&&r.id&&r.title,'Original book missing');
  assert(['Oxford Reading Tree','TreeTops','RAZ'].includes(r.series),'Original series must be identified');
  assert(r.level&&r.sourceName&&r.sourceSha256?.match(/^[a-f0-9]{64}$/),'Book level and source evidence required');
@@ -30,23 +32,23 @@ export function validateReading(r,{allowFixture=false}={}){
  assert(Object.values(minutes).reduce((a,b)=>a+b,0)<=25,'Content exceeds the 25-minute planning limit');
  return {wordCount,minutes};
 }
-export function assemble(number,pack,reading=null,{preview=false,allowFixture=false}={}){
+export function assemble(number,pack,reading=null,{preview=false,allowFixture=false,practice='learn'}={}){
  assert(pack?.words?.length===5,'Each lesson needs exactly five target words');
  if(!preview&&!reading)throw Error('Awaiting verified original-book content');
  const meta=reading?validateReading(reading,{allowFixture}):{wordCount:0,minutes:{vocabulary:10,reading:10,review:3}};
  const speech={},add=(id,text,language='en')=>{speech[id]={text,language};};
- add('intro','今天学习五个词，再读一小段原书。先看图听音，盖住文字想一想，再开口说。完成内容比赶时间更重要。','zh');
+ add('intro',practice==='learn'?'今天学习五个词，再读一小段原书。先看图听音，盖住文字想一想，再开口说。完成内容比赶时间更重要。':'今天先复习前面学过的五个词，再读两页新内容。先不看答案，听声音、看图片，把单词自己想起来。','zh');
  pack.words.forEach((w,i)=>{add(`word${i}`,w.word);add(`example${i}`,w.example);add(`guide${i}`,`${w.meaning}。${w.hint}`,'zh');});
- if(reading){reading.pages.forEach((p,i)=>p.sentences.forEach((s,j)=>add(`line${i}_${j}`,s.text)));reading.glossary.forEach((g,i)=>add(`gloss${i}`,`${g.term}。${g.meaning}。${g.explanation}`,'zh'));add('grammar',reading.grammar.explanation,'zh');}
- return {number,version:VERSION,preview,title:pack.title,packId:pack.id,source:pack.source,words:pack.words,reading,readerBaseline:'RAZ C–D',minutes:meta.minutes,wordCount:meta.wordCount,speech};
+ if(reading){if(reading.mode==='publisher-sample'){add('readingGuide',reading.readingGuide,'zh');add('focusQuote',reading.grammar.quote);add('patternExample',reading.grammar.example);}else reading.pages.forEach((p,i)=>p.sentences.forEach((s,j)=>add(`line${i}_${j}`,s.text)));reading.glossary.forEach((g,i)=>add(`gloss${i}`,`${g.term}。${g.meaning}。${g.explanation}`,'zh'));add('grammar',reading.grammar.explanation,'zh');}
+ return {number,version:VERSION,preview,practice,title:pack.title,packId:pack.id,source:pack.source,words:pack.words,reading,readerBaseline:'RAZ C–D',minutes:meta.minutes,wordCount:meta.wordCount,speech};
 }
 export function lessonFor(number,{catalog=readCatalog(),library,preview=false}={}){
- if(preview)return assemble(number,PACKS.food,null,{preview:true});
+ if(preview)return assemble(number,PACKS.food,SAMPLES[0],{preview:true});
  const entry=catalog.lessons.find(l=>l.number===number);if(!entry)throw Error('Awaiting original-book access and content verification');
- const reading=(library||loadLibrary()).books.find(b=>b.id===entry.readingId);return assemble(number,PACKS[entry.packId],reading);
+ const reading=SAMPLES.find(b=>b.id===entry.readingId)||(library||loadLibrary()).books.find(b=>b.id===entry.readingId);return assemble(number,PACKS[entry.packId],reading,{practice:entry.practice||'learn'});
 }
 export function availability(number,{catalog=readCatalog(),library}={}){
  const entry=catalog.lessons.find(l=>l.number===number);
- if(!entry)return {ready:false,reason:'Official Oxford Owl Level 7 reading found; publisher login and full-text verification are still required before complete lessons can be sent'};
+ if(!entry)return {ready:false,reason:'No verified reading remains in the catalog; preserve progress and wait for the next reviewed original-book selection'};
  try{lessonFor(number,{catalog,library});return {ready:true};}catch(e){return {ready:false,reason:e.message};}
 }
