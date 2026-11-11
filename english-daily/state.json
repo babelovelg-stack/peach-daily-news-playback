@@ -1,1 +1,12 @@
-{"schema":1,"lastLesson":0,"history":[]}
+{
+  "schema": 1,
+  "lastLesson": 0,
+  "history": [],
+  "inFlight": {
+    "date": "2026-11-11",
+    "lesson": 1,
+    "sha": "e4ef6f8f04621b03be40a825e8e3bd0bfdef534ad336a12e7121c248248ce3e9",
+    "status": "sending",
+    "run": "42958796155"
+  }
+}
