@@ -1,12 +1,11 @@
 {
-  "lastRunAt": "2026-11-11T10:02:09.118Z",
-  "lastSentDate": "2026-11-11",
-  "lastReportDate": "2026-11-11",
-  "lastQuestionId": "reserve-time-confounding-20768",
-  "lastQuestion": "探究题（模拟数据）：上午测路面温度 20 摄氏度，下午洒水后测得 14 摄氏度。判断洒水作用，哪组资料最适合补充？\nA. 同一时刻比较相邻的洒水区与未洒水区，并记录多次\nB. 同一地点增加上午测量次数，再和下午的记录比较\nC. 不同日期增加洒水后的测量次数，再比较每天记录",
-  "lastAnswer": "答案：A。上午和下午本来就可能温度不同；同时设置未洒水区，才能较好分离时间变化与洒水作用。",
+  "lastRunAt": "2026-11-12T10:02:02.703Z",
+  "lastSentDate": "2026-11-12",
+  "lastReportDate": "2026-11-12",
+  "lastQuestionId": "reserve-sampling-bias-20769",
+  "lastQuestion": "探究题（模拟数据）：调查 110 名学生的阅读情况，计划访问其中 12 人。要让样本覆盖更多情况，哪种选人方式更合理？\nA. 按图书馆读者人数分配名额，再在读者中随机选人记录\nB. 按阅读社团人数分配名额，再在社团中随机选人记录\nC. 按各年级人数分配名额，再在各年级随机选人记录",
+  "lastAnswer": "答案：C。先覆盖不同年级再随机抽取，能减少样本集中在本来就爱读书的同学中的偏差。",
   "recentQuestionIds": [
-    "news-geohazard-point-area-risk-1",
     "news-wusiheite-balanced-evidence-1",
     "news-one-map-data-conflict-provenance-1",
     "news-c919-international-route-matched-comparison-1",
@@ -41,7 +40,8 @@
     "reserve-necessary-condition-20753",
     "reserve-counterexample-20754",
     "reserve-zero-offset-20767",
-    "reserve-time-confounding-20768"
+    "reserve-time-confounding-20768",
+    "reserve-sampling-bias-20769"
   ],
   "recentQuestionConceptIds": [
     "concept-pollination",
@@ -101,10 +101,10 @@
     "reserve-necessary-condition",
     "reserve-counterexample",
     "reserve-zero-offset",
-    "reserve-time-confounding"
+    "reserve-time-confounding",
+    "reserve-sampling-bias"
   ],
   "recentQuestionTags": [
-    "C919",
     "材料",
     "高光谱",
     "量子计算",
@@ -119,7 +119,8 @@
     "necessary-condition",
     "counterexample",
     "zero-offset",
-    "time-confounding"
+    "time-confounding",
+    "sampling-bias"
   ],
   "recentQuestionTexts": [
     "关于学习和学校你还想继续追问哪一个更细的为什么",
@@ -217,17 +218,15 @@
     "探究题模拟数据某种培养条件下24份发芽种子都有水但另外3份有水的种子没有发芽根据记录哪种判断更合理a.记录支持发芽需要水但还应检查温度等其他条件b.记录支持有水的样本更容易发芽可先按有水预测c",
     "探究题模拟数据有人依据25次记录提出这种材料遇水后长度都增加3毫米要检查这个说法哪组记录最应该复核a.同样条件的多次记录长度增加相同并保留完整测量步骤b.不同条件的多次记录长度增加不同并保留完",
     "探究题模拟数据空秤显示4克放入物品显示13克多次记录相同判断物品质量哪种处理更合理a.先检查归零情况校正后测量并与9克的推算比较b.先保留原来的归零情况多次测量并与13克比较c.先增加另一件物",
-    "探究题模拟数据上午测路面温度20摄氏度下午洒水后测得14摄氏度判断洒水作用哪组资料最适合补充a.同一时刻比较相邻的洒水区与未洒水区并记录多次b.同一地点增加上午测量次数再和下午的记录比较c.不"
+    "探究题模拟数据上午测路面温度20摄氏度下午洒水后测得14摄氏度判断洒水作用哪组资料最适合补充a.同一时刻比较相邻的洒水区与未洒水区并记录多次b.同一地点增加上午测量次数再和下午的记录比较c.不",
+    "探究题模拟数据调查110名学生的阅读情况计划访问其中12人要让样本覆盖更多情况哪种选人方式更合理a.按图书馆读者人数分配名额再在读者中随机选人记录b.按阅读社团人数分配名额再在社团中随机选人记"
   ],
   "lastEncyclopediaIds": [
-    "science-solar-differential-rotation",
-    "science-coral-animal",
-    "science-wind-driven-currents"
+    "museum-tooth-enamel-isotopes",
+    "museum-palimpsest-multispectral",
+    "museum-pottery-thermoluminescence"
   ],
   "recentEncyclopediaIds": [
-    "museum-herbarium-label",
-    "museum-magnetic-declination",
-    "museum-papyrus-cross-layers",
     "museum-ice-core-air-bubbles",
     "museum-feather-barbules",
     "museum-fish-otolith-rings",
@@ -359,12 +358,12 @@
     "museum-lost-wax-casting",
     "science-solar-differential-rotation",
     "science-coral-animal",
-    "science-wind-driven-currents"
+    "science-wind-driven-currents",
+    "museum-tooth-enamel-isotopes",
+    "museum-palimpsest-multispectral",
+    "museum-pottery-thermoluminescence"
   ],
   "recentEncyclopediaTags": [
-    "天气",
-    "地球",
-    "动物",
     "文化遗产",
     "生命",
     "木星",
@@ -379,7 +378,10 @@
     "铸造史",
     "天文",
     "海洋生态",
-    "海洋物理"
+    "海洋物理",
+    "生物考古",
+    "古籍保护",
+    "考古科学"
   ],
   "recentEncyclopediaTexts": [
     "地球科学不是冷知识它能帮助我们理解自然生活或社会洋流像海洋里的大河会影响气候鱼群和船只航行",
@@ -432,9 +434,6 @@
     "三叶虫是已经灭绝的海洋动物身体分成许多节坚硬外壳比较容易形成化石",
     "远洋航海要确定经度需要比较出发地时间和当地时间准确航海钟因此非常重要",
     "古钱币的铭文重量和金属成分可以帮助研究者判断年代铸造技术和贸易往来",
-    "陶器受热烧制后会重新积累辐射能量实验室再次加热时测量微弱发光可以帮助估算它上次烧制的大致年代",
-    "覆写手稿把旧文字刮掉后再次书写多光谱成像会利用墨迹和纸张在不同波长下反光不同让肉眼难见的旧字重新显现",
-    "牙釉质形成后很少改变其中锶氧等同位素比例能与当地岩石和饮水比较帮助推测人或动物小时候生活过的大致地区",
     "季风会随季节改变主要风向能影响一些地区的雨季和旱季",
     "降雨量1毫米表示每平方米水平地面上平均落下约1升水；气象站会用雨量器收集并测量雨水",
     "叶片上的气孔由一对保卫细胞围成能调节二氧化碳进入和水蒸气离开",
@@ -573,11 +572,13 @@
     "失蜡法先做蜡模再包上耐火材料熔掉蜡后把金属液倒进空腔能铸出形状复杂纹饰细致的器物",
     "太阳不是坚硬的球体赤道附近自转一圈约需二十五天两极附近转得更慢",
     "珊瑚虽然固定在海底却属于动物；珊瑚虫会用细小触手捕捉水中的食物",
-    "风能推动靠近海面的水流动所以海洋表层洋流与上方的风向和风力有关"
+    "风能推动靠近海面的水流动所以海洋表层洋流与上方的风向和风力有关",
+    "牙釉质形成后很少改变其中锶氧等同位素比例能与当地岩石和饮水比较帮助推测人或动物小时候生活过的大致地区",
+    "覆写手稿把旧文字刮掉后再次书写多光谱成像会利用墨迹和纸张在不同波长下反光不同让肉眼难见的旧字重新显现",
+    "陶器受热烧制后会重新积累辐射能量实验室再次加热时测量微弱发光可以帮助估算它上次烧制的大致年代"
   ],
-  "lastIntroText": "🌞✈️👓 今天跟着月影、飞机和新科技去发现变化：把现象看清，把理由想明白，你的思考正在发光！",
+  "lastIntroText": "🧭🍑🌟 世界很大，你正在一点一点长出理解它的力量！",
   "recentIntroTexts": [
-    "🐬🌈📝愿你的想法像海浪一样有力量也像阳光一样明亮",
     "🌻📖🔎愿你一直温柔认真有主见心里也住着明亮的光",
     "🌻🫧🚀每学会一个新东西都是给未来的自己存下一颗小太阳",
     "🚀🍓📖小脑袋准备起飞愿今天有惊喜也有让你自豪的新收获",
@@ -606,11 +607,11 @@
     "🌤️📡🍑今天把世界慢慢看清一点你愿意分清事实和理由就是很棒的进步",
     "🧭🌿📊今天一起把数字背后的故事看清楚会比较会追问的你正在长出可靠的判断力",
     "🧩🌾🔭今天把好奇心变成小侦探先看事实再比较证据你会发现世界比一个答案更有层次",
-    "🌞✈️👓今天跟着月影飞机和新科技去发现变化把现象看清把理由想明白你的思考正在发光"
+    "🌞✈️👓今天跟着月影飞机和新科技去发现变化把现象看清把理由想明白你的思考正在发光",
+    "🧭🍑🌟世界很大你正在一点一点长出理解它的力量"
   ],
-  "lastClosingText": "今天的线索来自地图、浮冰和地震波；愿你记住，可靠的答案总能说清数据从哪里来。",
+  "lastClosingText": "月影会移过大地，航线会连接城市，新工具也需要守住规则；愿你带着知识和善意继续观察世界。",
   "recentClosingTexts": [
-    "今天的探索告一段落愿认真好奇和善意继续陪着你",
     "每次愿意多想一步都是在给未来的自己增加一种能力",
     "愿你既能看见科技的力量也能记得规则安全和人的判断同样重要",
     "知识不会一下子长成大树但每天的一片新叶子都算数",
@@ -639,14 +640,16 @@
     "今天的新发现先放进记忆里明天我们再用答案检验一次推理",
     "世界不会只给一种线索愿你学会把数字规则和人的生活连起来看",
     "把今天核对过的证据装进口袋明天再用新的问题打开它",
-    "今天的线索来自地图浮冰和地震波；愿你记住可靠的答案总能说清数据从哪里来"
+    "今天的线索来自地图浮冰和地震波；愿你记住可靠的答案总能说清数据从哪里来",
+    "月影会移过大地航线会连接城市新工具也需要守住规则；愿你带着知识和善意继续观察世界"
   ],
-  "lastNewsTitles": [],
+  "lastNewsTitles": [
+    "第 1 条小情报：新能源乘用车出口占比创新高",
+    "第 2 条小情报：学校举行智慧课程建设工作交流研讨会（第二期）",
+    "第 3 条小情报：@高校毕业生 131场就业服务活动等你来",
+    "第 4 条小情报：大气科学学院赴成都、南京开展毕业生就业推介和人才引进工作"
+  ],
   "recentNewsTitles": [
-    "第 2 条小情报：智能机器人从会动走向会干活",
-    "第 1 条小情报：赤道太平洋大片海水继续升温，超强厄尔尼诺可能带来跨年度影响",
-    "第 2 条小情报：把车停进交接区，机器人会自动搬运到停车位",
-    "第 3 条小情报：量子叠加让微观粒子可以同时处于多种状态",
     "第 1 条小情报：上海科技馆迎来第1亿名观众，已从一馆发展成三馆集群",
     "第 2 条小情报：重离子碰撞数据提示，核子内部可能还有一种意外结构",
     "第 3 条小情报：一艘能装9.9万立方米液化气的运输船正式交付",
@@ -702,9 +705,13 @@
     "第 2 条小情报：国家能源局：我国风光累计装机容量突破20亿千瓦",
     "第 3 条小情报：广西10部门联合出台指导意见 推动儿童福利机构开门办院",
     "第 1 条小情报：6G还没正式商用，工程师先研究网络怎样共同配合",
-    "第 2 条小情报：用两种旋转方向的光，寻找第三类磁性的证据"
+    "第 2 条小情报：用两种旋转方向的光，寻找第三类磁性的证据",
+    "第 1 条小情报：新能源乘用车出口占比创新高",
+    "第 2 条小情报：学校举行智慧课程建设工作交流研讨会（第二期）",
+    "第 3 条小情报：@高校毕业生 131场就业服务活动等你来",
+    "第 4 条小情报：大气科学学院赴成都、南京开展毕业生就业推介和人才引进工作"
   ],
-  "lastContentMode": "science",
+  "lastContentMode": "news",
   "recentScienceConceptIds": [
     "museum-arch-compression",
     "museum-nautilus-chambers",
@@ -720,6 +727,9 @@
     "museum-lost-wax-casting",
     "solar-differential-rotation",
     "coral-animal",
-    "wind-driven-currents"
+    "wind-driven-currents",
+    "museum-tooth-enamel-isotopes",
+    "museum-palimpsest-multispectral",
+    "museum-pottery-thermoluminescence"
   ]
 }
