@@ -10,5 +10,12 @@
       "messageId": "<peach-english-2026-11-11-1@peach-lessons.local>",
       "run": "42958796155"
     }
-  ]
+  ],
+  "inFlight": {
+    "date": "2026-11-12",
+    "lesson": 2,
+    "sha": "102fa7a2f19934a7fd779e1497c3b8efd40a966b2bd040e43dad797d22098c64",
+    "version": "2026-11-11-v2",
+    "run": "43196890381"
+  }
 }
