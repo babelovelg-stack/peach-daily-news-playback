@@ -1,7 +1,7 @@
 (()=>{'use strict';
 const $=s=>document.querySelector(s),$$=s=>[...document.querySelectorAll(s)],E=s=>String(s).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
 const pristine='<!doctype html>\n'+document.documentElement.outerHTML;
-const storageKey=`peach-v2:${LESSON.number}:${LESSON.preview?'preview':'lesson'}`,memoryKey='peach-word-memory-v2';
+const storageKey=`peach-v2:${LESSON.number}:${LESSON.packId}:${LESSON.preview?'preview':'lesson'}`,memoryKey='peach-word-memory-v2';
 const blank=()=>({part:'words',mode:LESSON.practice==='recall'?'listen':LESSON.practice==='use'?'spell':'learn',word:0,readSourceAcknowledged:false,listen:[],spell:[],readingAnswers:{},doneWords:false,doneReading:false});
 let state=blank(),memory={},storageOK=true;
 try{const s=JSON.parse(localStorage.getItem(storageKey)||'null');if(s&&typeof s==='object')state={...state,...s};const m=JSON.parse(localStorage.getItem(memoryKey)||'{}');if(m&&typeof m==='object'&&!Array.isArray(m))memory=m;}catch{storageOK=false;}
@@ -48,7 +48,7 @@ $('#remember').onclick=()=>{const w=LESSON.words[state.word],old=memory[w.id]||{
  const first=old.firstLearned||day(),today=day(),offsets=[1,3,7],next=offsets.map(n=>{const d=new Date(first+'T12:00:00');d.setDate(d.getDate()+n);return d.toLocaleDateString('en-CA');}).find(d=>d>today);
  memory[w.id]={word:w.word,firstLearned:first,lastReviewed:today,nextDue:next||null,reviewComplete:!next};}
  save();renderWord();renderDue();};
-function renderDue(){const due=Object.values(memory).filter(m=>m.nextDue&&m.nextDue<=day());$('#dueSummary').textContent=due.length?`今天到期的词：${due.map(m=>m.word).join('、')}。后续配课优先复习；今天仍只练本课五个词。`:'当前没有到期的旧词；完成后用自己的话说一句。';}
+function renderDue(){const due=Object.values(memory).filter(m=>m.nextDue&&m.nextDue<=day());$('#dueSummary').textContent=due.length?`今天到期的词：${due.map(m=>m.word).join('、')}。先花1–3分钟口头回忆这些旧词，再学今天五个新词。`:'当前没有到期的旧词；完成后用自己的话说一句。';}
 function renderListen(){const indexes=[listenIndex,(listenIndex+2)%5,(listenIndex+4)%5].sort((a,b)=>((a*3+listenIndex)%7)-((b*3+listenIndex)%7));$('#imageChoices').innerHTML=indexes.map((i,j)=>`<button data-choice="${i}" aria-label="选图片 ${j+1}"><div class="picture" data-choice-picture="${i}"></div><span>${j+1}</span></button>`).join('');$$('[data-choice-picture]').forEach(el=>tile(el,LESSON.words[Number(el.dataset.choicePicture)].tile));$('#listenFeedback').textContent='';$('#listenProgress').textContent=`已答对 ${new Set(state.listen).size} / 5 个词`;
  $$('[data-choice]').forEach(b=>b.onclick=()=>{const ok=Number(b.dataset.choice)===listenIndex;$$('[data-choice]').forEach(n=>n.classList.remove('correct','wrong'));b.classList.add(ok?'correct':'wrong');$('#listenFeedback').textContent=ok?`✓ ${LESSON.words[listenIndex].word}，${LESSON.words[listenIndex].meaning}。再跟读一次。`:'再听一遍，想想声音对应哪幅图。';if(ok&&!state.listen.includes(listenIndex))state.listen.push(listenIndex);save();$('#listenProgress').textContent=`已答对 ${new Set(state.listen).size} / 5 个词`;});}
 $('#quizAudio').onclick=()=>play(`word${listenIndex}`,'听音选图');$('#nextListen').onclick=()=>{stop();listenIndex=(listenIndex+1)%5;renderListen();};
@@ -86,5 +86,5 @@ if(LESSON.reading){const r=LESSON.reading,isSample=r.mode==='publisher-sample';$
 }
 $('#finishReading').onclick=()=>{const r=LESSON.reading;if(r?.mode==='publisher-sample'&&!state.readSourceAcknowledged){$('#readingGate').textContent='先打开并读完指定的两页，再勾选阅读完成。';return;}if(!r||r.questions.some((q,i)=>state.readingAnswers[i]!==q.answer)){$('#readingGate').textContent='请先完成理解题，再回到原书核对依据。';return;}if(!state.doneWords){$('#readingGate').textContent='原书题目已答对，词汇部分还有练习未完成。';return;}state.doneReading=true;stop();save();$('#celebration').scrollIntoView({behavior:'smooth'});};
 $('#download').onclick=()=>{const url=URL.createObjectURL(new Blob([pristine],{type:'text/html;charset=utf-8'}));const a=document.createElement('a');a.href=url;a.download=`Peach-English-${LESSON.preview?'Preview':'Day-'+LESSON.number}.html`;a.click();setTimeout(()=>URL.revokeObjectURL(url),3000);};
-renderWord();renderListen();renderSpell();renderDue();mode(state.mode);setPart(state.part);if(!storageOK)$('#saved').textContent='浏览器未允许保存，当前练习仍可使用';window.addEventListener('pagehide',()=>{stop();save();});
+renderWord();renderListen();renderSpell();renderDue();mode(state.mode);setPart(state.part);if(!storageOK)$('#saved').textContent='浏览器未允许保存，当前练习仍可使用';window.addEventListener('pagehide',()=>{stop();save();});$('#openHelp').hidden=true;$('#courseApp').hidden=false;
 })();

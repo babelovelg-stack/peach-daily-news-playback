@@ -1,8 +1,11 @@
 <!doctype html>
 <html lang="zh-CN"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="referrer" content="no-referrer"><title>桃子英语 · 词汇与原书伴读</title><style>/*__STYLE__*/</style></head>
 <body>
+<section id="openHelp" style="max-width:650px;margin:32px auto;padding:24px;background:#fff5d9;color:#254b3b;font:17px/1.8 -apple-system,'PingFang SC',sans-serif">
+<h1>请在浏览器中打开学习课</h1><p>邮件的附件预览不能运行声音和答题按钮。</p><ol><li>返回邮件正文，点击“在浏览器中开始学习”。</li><li>若仍是邮件内预览，用右上角菜单选择“在浏览器中打开”（Safari、Chrome 或 Edge）。</li><li>也可以先下载本 HTML 附件，再选择浏览器打开；不要留在附件预览中。</li></ol><p>词汇与讲解音频已内嵌；出版社原书阅读需要联网。</p></section>
+<div id="courseApp" hidden>
 <header class="top"><a class="brand" href="#">🍑 桃子英语 <small>WORDS & STORIES</small></a><div><label>语速 <select id="speed"><option value="0.8">慢一点</option><option value="1" selected>正常</option><option value="1.15">快一点</option></select></label><button id="download" class="soft">保存离线课</button></div></header>
-<main><section class="hero"><div><p class="eyebrow">POWER UP 3 词汇 · 原书伴读</p><h1 id="title">今天，记住五个词。</h1><p id="subtitle">看图、听音、自己想起来，再到书里读一读。</p><div class="tags"><span>5 个重点词</span><span id="readingTag">1 段原书阅读</span><span id="timeTag">整课不超过 25 分钟</span></div></div><div class="hero-picture picture" data-tile="5" role="img" aria-label="五种食物的复习图"></div></section>
+<main><section class="hero"><div><p class="eyebrow">POWER UP 3 词汇 · 原书伴读</p><h1 id="title">今天，记住五个词。</h1><p id="subtitle">看图、听音、自己想起来，再到书里读一读。</p><div class="tags"><span>5 个重点词</span><span id="readingTag">1 段原书阅读</span><span id="timeTag">整课不超过 25 分钟</span></div></div><div class="hero-picture picture" data-tile="5" role="img" aria-label="本课主题插画"></div></section>
 <div id="previewNotice" class="notice" hidden><strong>原书伴读试学</strong><p>先完成词汇练习，再进入第二部分阅读与答题。</p></div>
 <nav class="parts"><button data-part="words" class="active"><b>01</b><span>五个单词<small>看懂 → 想起 → 会用</small></span></button><button data-part="reading"><b>02</b><span>原书伴读<small>听读 → 讲解 → 找证据</small></span></button></nav>
 <div class="status-row"><span id="progress">今天的小进步</span><span id="saved">记录只保存在本机</span></div>
@@ -18,4 +21,4 @@
 <section id="celebration" class="celebration" hidden><h2>今天的学习完成了。</h2><p>用其中一个词说说自己的生活。明天再试试，你还记得吗？</p></section>
 <footer><p id="sourceNote"></p><p>插画与例句为原创学习辅助。原书页面与补充讲解分开标明。学习进度只保存在当前浏览器。</p></footer></main>
 <aside id="player" class="player" hidden><span id="audioLabel"></span><audio id="audio" controls preload="metadata"></audio><button id="closeAudio" aria-label="停止播放">×</button></aside>
-<script>const LESSON=/*__DATA__*/;</script><script>/*__APP__*/</script></body></html>
+</div><script>const LESSON=/*__DATA__*/;</script><script>/*__APP__*/</script></body></html>

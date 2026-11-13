@@ -32,6 +32,7 @@ jobs:
           node-version: '24'
           cache: npm
       - run: npm ci
+      - run: npm test
       - name: Verify English delivery and curriculum
         run: node --test english-daily/test.mjs english-daily/v2/test.mjs
       - name: Check original-book readiness

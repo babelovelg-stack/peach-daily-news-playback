@@ -6,7 +6,19 @@ import {requireKey,unseal} from './crypto.mjs';
 import {SAMPLES,validateSample} from './publisher-samples.mjs';
 export const ROOT=path.dirname(fileURLToPath(import.meta.url));
 export const VERSION='2026-11-11-v2';
-export function readCatalog(){return JSON.parse(fs.readFileSync(path.join(ROOT,'catalog.json'),'utf8'));}
+export function validateCatalog(c){
+ const words=new Set(),readings=new Set(),numbers=new Set();let previous=null;
+ for(const entry of c.lessons){
+  if(numbers.has(entry.number)||!Number.isInteger(entry.number)||(previous!==null&&entry.number!==previous+1))throw Error('Catalog lesson sequence is invalid');
+  if(entry.practice&&entry.practice!=='learn')throw Error('Daily lessons require new target words; review is supplementary');
+  const pack=PACKS[entry.packId];if(!pack||pack.words.length!==5)throw Error('Missing five-word pack');
+  for(const w of pack.words){if(words.has(w.id))throw Error('Repeated target word: '+w.id);words.add(w.id);}
+  if(readings.has(entry.readingId))throw Error('Repeated reading selection');
+  readings.add(entry.readingId);numbers.add(entry.number);previous=entry.number;
+ }return c;
+}
+export function readCatalog(){return validateCatalog(JSON.parse(fs.readFileSync(path.join(ROOT,'catalog.json'),'utf8')));}
+
 export function loadLibrary(){const p=path.join(ROOT,'library.enc.json');if(!fs.existsSync(p))return {books:[]};return JSON.parse(unseal(JSON.parse(fs.readFileSync(p,'utf8')),requireKey(process.env.ENGLISH_CONTENT_KEY)));}
 const assert=(ok,msg)=>{if(!ok)throw Error(msg);};
 export function validateReading(r,{allowFixture=false}={}){
@@ -40,7 +52,7 @@ export function assemble(number,pack,reading=null,{preview=false,allowFixture=fa
  add('intro',practice==='learn'?'今天学习五个词，再读一小段原书。先看图听音，盖住文字想一想，再开口说。完成内容比赶时间更重要。':'今天先复习前面学过的五个词，再读两页新内容。先不看答案，听声音、看图片，把单词自己想起来。','zh');
  pack.words.forEach((w,i)=>{add(`word${i}`,w.word);add(`example${i}`,w.example);add(`guide${i}`,`${w.meaning}。${w.hint}`,'zh');});
  if(reading){if(reading.mode==='publisher-sample'){add('readingGuide',reading.readingGuide,'zh');add('focusQuote',reading.grammar.quote);add('patternExample',reading.grammar.example);}else reading.pages.forEach((p,i)=>p.sentences.forEach((s,j)=>add(`line${i}_${j}`,s.text)));reading.glossary.forEach((g,i)=>add(`gloss${i}`,`${g.term}。${g.meaning}。${g.explanation}`,'zh'));add('grammar',reading.grammar.explanation,'zh');}
- return {number,version:VERSION,preview,practice,title:pack.title,packId:pack.id,source:pack.source,words:pack.words,reading,readerBaseline:'RAZ C–D',minutes:meta.minutes,wordCount:meta.wordCount,speech};
+ return {number,version:VERSION,preview,practice,title:pack.title,packId:pack.id,atlasFile:pack.atlasFile||'food-atlas.png',source:pack.source,words:pack.words,reading,readerBaseline:'RAZ C–D',minutes:meta.minutes,wordCount:meta.wordCount,speech};
 }
 export function lessonFor(number,{catalog=readCatalog(),library,preview=false}={}){
  if(preview)return assemble(number,PACKS.food,SAMPLES[0],{preview:true});

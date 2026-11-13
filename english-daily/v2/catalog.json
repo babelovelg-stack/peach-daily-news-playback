@@ -30,19 +30,40 @@
       "number": 2,
       "packId": "food",
       "readingId": "broken-roof-1",
-      "practice": "learn"
+      "practice": "learn",
+      "revision": 2
     },
     {
       "number": 3,
-      "packId": "food",
+      "packId": "drinks",
       "readingId": "broken-roof-2",
-      "practice": "recall"
+      "practice": "learn",
+      "revision": 2
     },
     {
       "number": 4,
-      "packId": "food",
+      "packId": "tableware",
       "readingId": "broken-roof-3",
-      "practice": "use"
+      "practice": "learn",
+      "revision": 2
+    },
+    {
+      "number": 5,
+      "packId": "body1",
+      "readingId": "hunt-gold-1",
+      "practice": "learn"
+    },
+    {
+      "number": 6,
+      "packId": "body2",
+      "readingId": "hunt-gold-2",
+      "practice": "learn"
+    },
+    {
+      "number": 7,
+      "packId": "health",
+      "readingId": "hunt-gold-3",
+      "practice": "learn"
     }
   ]
 }

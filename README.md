@@ -8,7 +8,7 @@
 
 ### 桃子英语每日课
 
-[英语学习模块](english-daily/README.md)已接入免登录的 Oxford Reading Tree Level 7《The Broken Roof》出版社样章第1–6页。备好3课，每课2页、约23分钟：首课学五词，后两课复习同组词并继续阅读；包含重点片段音频、词汇语法讲解和两道理解题。原书图文需联网，课程词汇与讲解可离线使用；原书页面不会随课程音频高亮。每天18:00按未发送课推进，后续素材未备好时停止，不替换旧版故事。正式课通过加密网页与邮件附件交付，进度与新闻独立。可直接打开[免登录试学](https://babelovelg-stack.github.io/peach-daily-news-playback/english/preview/)。
+[英语学习模块](english-daily/README.md)每天提供5个新重点词、新的原书选段和两道理解题，约23分钟；复习只作补充。当前课号2–7共30个不同词，使用两本牛津树Level 7的已核对公开样章，并非整本书。邮件正文为浏览器学习入口；附件预览显示打开说明。18:00按未发课程推进，已确认手动投递计入选课，不覆盖云端历史。后续由Codex本地续编任务预备，原书不足时停止并提示，不能重发旧课。
 
 ### 项目简介
 
@@ -243,7 +243,7 @@ GitHub Actions 必须配置 `REPORT_EMAIL_FROM`、`SMTP_HOST`、`SMTP_PORT`、`S
 
 ### Peach Daily English
 
-The [English module](english-daily/README.md) now uses the no-login publisher sample of Oxford Reading Tree Level 7 *The Broken Roof*, printed pages 1–6. Three lessons are prepared, two pages and about 23 minutes each: the first teaches five terms and the next two review them while continuing the reading. Short-excerpt audio, glossary/grammar explanations and two questions are included. Original pages require internet access; vocabulary and companion explanations work offline. Publisher pages do not highlight with course audio. The 18:00 workflow advances to the next unsent lesson and stops when further verified content is unavailable, without legacy-story substitution. Encrypted pages, email attachments and independent delivery state remain. Open the [no-login preview](https://babelovelg-stack.github.io/peach-daily-news-playback/english/preview/).
+The [English module](english-daily/README.md) provides five new words, a new original reading selection and two questions daily, planned for 23 minutes. Six reviewed lessons (2–7) contain 30 distinct words from two ORT Level 7 publisher samples, not complete books. Email directs learners to a browser; script-blocked attachment previews show opening instructions. The 18:00 selector counts accepted manual deliveries without rewriting cloud history. Local Codex preparation replenishes later lessons; missing originals stop delivery instead of replaying content.
 
 ### Overview
 

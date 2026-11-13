@@ -29,6 +29,7 @@ jobs:
           node-version: '24'
           cache: npm
       - run: npm ci
+      - run: npm test
       - run: node --test english-daily/test.mjs english-daily/v2/test.mjs english-daily/v2/manual.test.mjs
       - name: Restore and verify the requested published lesson
         id: plan

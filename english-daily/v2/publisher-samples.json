@@ -255,6 +255,261 @@
         }
       ],
       "sourceSha256": "1e86ffd49ff7a0ae6e4a814d389970c8cf1c92b825ce43a85cf12f4b4dd45e35"
+    },
+    {
+      "readingGuide": "今天开始读新的原书样章。翻到印刷页一和二，先看妈妈手腕上的饰物，再找出发生了什么变化。读不顺时，先从图中找人物、物品和地点。",
+      "glossary": [
+        {
+          "term": "bracelet",
+          "meaning": "手镯；手链",
+          "explanation": "看妈妈手腕上戴着的饰物。",
+          "page": 1
+        },
+        {
+          "term": "gold",
+          "meaning": "金；金子",
+          "explanation": "这里讲饰物的材料，不只是颜色。",
+          "page": 1
+        }
+      ],
+      "grammar": {
+        "title": "描述材料：be made of",
+        "quote": "It was made of gold.",
+        "page": 1,
+        "explanation": "was made of 表示过去所说的物品由什么材料制成。先把物品和材料连起来；谈现在的一件物品，可以用 is made of。",
+        "example": "My cup is made of glass.",
+        "translation": "我的杯子由玻璃制成。"
+      },
+      "questions": [
+        {
+          "prompt": "妈妈手链上的小挂饰是什么材料做的？",
+          "options": [
+            "木头",
+            "金子",
+            "纸"
+          ],
+          "answer": 1,
+          "explanation": "第1页介绍了手链和挂饰的材料。",
+          "evidencePage": 1
+        },
+        {
+          "prompt": "一个小挂饰掉进了哪里？",
+          "options": [
+            "水槽的排水孔",
+            "书包",
+            "花盆"
+          ],
+          "answer": 0,
+          "explanation": "第2页描述洗手时发生的意外。",
+          "evidencePage": 2
+        }
+      ],
+      "id": "hunt-gold-1",
+      "pageNumbers": [
+        1,
+        2
+      ],
+      "readerPages": "2–3 / 8",
+      "mode": "publisher-sample",
+      "title": "The Hunt for Gold",
+      "series": "Oxford Reading Tree",
+      "strand": "Biff, Chip and Kipper Stories",
+      "level": "7",
+      "sourceName": "Oxford University Press (China) official sample",
+      "sourceUrl": "https://shop.oupchina.com.hk/en/products/oxford-reading-tree-biff-chip-and-kipper-stories-level-7-mixed-pack-of-6",
+      "readerUrl": "https://oup.pagetiger.com/ort-hunt-for-gold/",
+      "requiresLogin": false,
+      "distribution": "publisher-link-only",
+      "verifiedAgainstSource": true,
+      "verifiedOn": "2026-11-13",
+      "wordCountUpperBound": 130,
+      "evidenceAssets": [
+        {
+          "page": 1,
+          "readerPage": 2,
+          "url": "https://view.pagetiger.com/ort-hunt-for-gold/1/Thumbs/Page_c269cd0dca6fe4370b5ea649d83cc996_0002-1258-0-0.jpg?cpc=true",
+          "bytes": 406626,
+          "sha256": "39526d2ef36c1a6c76bff9064ad51f017272a4bf2d009cf50dc6138059e1e04c"
+        },
+        {
+          "page": 2,
+          "readerPage": 3,
+          "url": "https://view.pagetiger.com/ort-hunt-for-gold/1/Thumbs/Page_8fe22de1f6edfd049ff3cd72c71be89e_0003-1258-0-0.jpg?cpc=true",
+          "bytes": 380161,
+          "sha256": "b151d056f6f24466dffd5951e90d034fff4c487da0225d1fa74fdb874abce277"
+        }
+      ],
+      "sourceSha256": "7491e316459812e0bc02669a7389862b498136718fbb0c88ea9164485373103e"
+    },
+    {
+      "readingGuide": "接着读印刷页三和四。观察是谁来帮忙，她把碗放在什么位置。读完后说一说人物从担心到高兴的原因。",
+      "glossary": [
+        {
+          "term": "upset",
+          "meaning": "难过的；心烦的",
+          "explanation": "东西丢了，人物感到难过。留意她的表情。",
+          "page": 3
+        },
+        {
+          "term": "bowl",
+          "meaning": "碗；盆",
+          "explanation": "这里是放在水槽下面接东西的塑料容器。",
+          "page": 4
+        }
+      ],
+      "grammar": {
+        "title": "说过去的动作：looked",
+        "quote": "Everyone looked in the bowl.",
+        "page": 4,
+        "explanation": "look 是看；故事中已经发生的动作写作 looked。规则动词过去式常加 ed。先把今天做和刚才做对比着说。",
+        "example": "I looked in my bag.",
+        "translation": "我刚才在包里找了找。"
+      },
+      "questions": [
+        {
+          "prompt": "Chip 找谁来帮忙取挂饰？",
+          "options": [
+            "老师",
+            "自己的妈妈",
+            "邮递员"
+          ],
+          "answer": 1,
+          "explanation": "第3页写了 Chip 找来的帮手。",
+          "evidencePage": 3
+        },
+        {
+          "prompt": "找到挂饰后，Wilma 的妈妈感觉如何？",
+          "options": [
+            "很高兴",
+            "很困",
+            "更生气"
+          ],
+          "answer": 0,
+          "explanation": "第4页末尾交代了她找回挂饰后的心情。",
+          "evidencePage": 4
+        }
+      ],
+      "id": "hunt-gold-2",
+      "pageNumbers": [
+        3,
+        4
+      ],
+      "readerPages": "4–5 / 8",
+      "mode": "publisher-sample",
+      "title": "The Hunt for Gold",
+      "series": "Oxford Reading Tree",
+      "strand": "Biff, Chip and Kipper Stories",
+      "level": "7",
+      "sourceName": "Oxford University Press (China) official sample",
+      "sourceUrl": "https://shop.oupchina.com.hk/en/products/oxford-reading-tree-biff-chip-and-kipper-stories-level-7-mixed-pack-of-6",
+      "readerUrl": "https://oup.pagetiger.com/ort-hunt-for-gold/",
+      "requiresLogin": false,
+      "distribution": "publisher-link-only",
+      "verifiedAgainstSource": true,
+      "verifiedOn": "2026-11-13",
+      "wordCountUpperBound": 130,
+      "evidenceAssets": [
+        {
+          "page": 3,
+          "readerPage": 4,
+          "url": "https://view.pagetiger.com/ort-hunt-for-gold/1/Thumbs/Page_74f7016dea4849aa16db3eb06c9e22bb_0004-1258-0-0.jpg?cpc=true",
+          "bytes": 400474,
+          "sha256": "0abe338cdcc125d4bae739a4abd9d397af0a2f736288bd911d7e01a8f1470bc9"
+        },
+        {
+          "page": 4,
+          "readerPage": 5,
+          "url": "https://view.pagetiger.com/ort-hunt-for-gold/1/Thumbs/Page_91a84b75a73eba7b5c894dcb48a0b128_0005-1258-0-0.jpg?cpc=true",
+          "bytes": 423797,
+          "sha256": "64958cc22f59d3a1013e1722ac9b5e99ce3a09808d409ade058157d77c31dcf0"
+        }
+      ],
+      "sourceSha256": "07f5db6c0ecdd55a138c7306b78492aa1c39283e94128931303a4981f4ac4d71"
+    },
+    {
+      "readingGuide": "今天读印刷页五和六。先看水槽下面又找到了什么，再看孩子们去了哪个房间。留意 Biff 为什么提醒大家注意旧口香糖。",
+      "glossary": [
+        {
+          "term": "chewing gum",
+          "meaning": "口香糖",
+          "explanation": "看夹出来的旧东西；gum 在这里与 chewing 一起理解。",
+          "page": 5
+        },
+        {
+          "term": "bedroom",
+          "meaning": "卧室",
+          "explanation": "bed 是床，room 是房间，连起来记卧室。",
+          "page": 6
+        }
+      ],
+      "grammar": {
+        "title": "物主表达：谁的房间",
+        "quote": "This is my bedroom,",
+        "page": 6,
+        "explanation": "my 表示“我的”，放在名词前说明归属。换一个人说话时，可比较 my 和 your。先用身边物品练习。",
+        "example": "This is my pencil.",
+        "translation": "这是我的铅笔。"
+      },
+      "questions": [
+        {
+          "prompt": "妈妈从水槽下面还找到了谁的旧口香糖？",
+          "options": [
+            "Wilf 的",
+            "Biff 的",
+            "Chip 的"
+          ],
+          "answer": 0,
+          "explanation": "第5页直接写出了旧口香糖属于谁。",
+          "evidencePage": 5
+        },
+        {
+          "prompt": "第6页中，孩子们去了哪里？",
+          "options": [
+            "花园",
+            "学校",
+            "Biff 的卧室"
+          ],
+          "answer": 2,
+          "explanation": "第6页开头交代了孩子们的新地点。",
+          "evidencePage": 6
+        }
+      ],
+      "id": "hunt-gold-3",
+      "pageNumbers": [
+        5,
+        6
+      ],
+      "readerPages": "6–7 / 8",
+      "mode": "publisher-sample",
+      "title": "The Hunt for Gold",
+      "series": "Oxford Reading Tree",
+      "strand": "Biff, Chip and Kipper Stories",
+      "level": "7",
+      "sourceName": "Oxford University Press (China) official sample",
+      "sourceUrl": "https://shop.oupchina.com.hk/en/products/oxford-reading-tree-biff-chip-and-kipper-stories-level-7-mixed-pack-of-6",
+      "readerUrl": "https://oup.pagetiger.com/ort-hunt-for-gold/",
+      "requiresLogin": false,
+      "distribution": "publisher-link-only",
+      "verifiedAgainstSource": true,
+      "verifiedOn": "2026-11-13",
+      "wordCountUpperBound": 130,
+      "evidenceAssets": [
+        {
+          "page": 5,
+          "readerPage": 6,
+          "url": "https://view.pagetiger.com/ort-hunt-for-gold/1/Thumbs/Page_4402bab672e101120a9c474a0120702e_0006-1258-0-0.jpg?cpc=true",
+          "bytes": 386842,
+          "sha256": "0c1a50f4b8318f1fb901ce59abc2dc157835182af68ea8b9260640a33177489e"
+        },
+        {
+          "page": 6,
+          "readerPage": 7,
+          "url": "https://view.pagetiger.com/ort-hunt-for-gold/1/Thumbs/Page_9470f173140aaaa2075d82111121e727_0007-1258-0-0.jpg?cpc=true",
+          "bytes": 377524,
+          "sha256": "144eae07a32e851e6a335f62838007fc450b577594a88b82b95e8f58681f7e1d"
+        }
+      ],
+      "sourceSha256": "e15aa060363c7e68cb5aa89c80445c974bb1ab08bcfc3a1abc6bb14e5b8b4751"
     }
   ]
 }

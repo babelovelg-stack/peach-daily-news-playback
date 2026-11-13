@@ -5,12 +5,13 @@ const count=s=>(s.match(/[A-Za-z]+(?:['’-][A-Za-z]+)*/g)||[]).length;
 const assert=(x,m)=>{if(!x)throw Error(m);};
 export function validateSample(r){
  assert(r.mode==='publisher-sample'&&r.distribution==='publisher-link-only','Publisher sample must remain on its original host');
- assert(r.readerUrl==='https://oup.pagetiger.com/ort-broken-roof/'&&r.sourceUrl.startsWith('https://shop.oupchina.com.hk/en/products/'),'Unapproved publisher sample');
+ const slug={'The Broken Roof':'ort-broken-roof','The Hunt for Gold':'ort-hunt-for-gold'}[r.title];
+ assert(slug&&r.readerUrl===`https://oup.pagetiger.com/${slug}/`&&r.sourceUrl.startsWith('https://shop.oupchina.com.hk/en/products/'),'Unapproved publisher sample');
  assert(r.requiresLogin===false&&r.verifiedAgainstSource===true&&r.verifiedOn,'Public sample access and content must be checked');
  assert(!r.pages&&!r.images&&!r.fullText,'Do not republish publisher pages or full text');
  assert(r.pageNumbers?.length===2&&r.pageNumbers.every(n=>Number.isInteger(n)&&n>=1&&n<=6),'Use a verified two-page sample');
  assert(r.evidenceAssets?.length===2,'Source evidence required');
- for(const a of r.evidenceAssets)assert(r.pageNumbers.includes(a.page)&&new URL(a.url).origin==='https://view.pagetiger.com'&&new URL(a.url).pathname.startsWith('/ort-broken-roof/1/Thumbs/')&&/^[a-f0-9]{64}$/.test(a.sha256),'Source-page evidence is invalid');
+ for(const a of r.evidenceAssets)assert(r.pageNumbers.includes(a.page)&&new URL(a.url).origin==='https://view.pagetiger.com'&&new URL(a.url).pathname.startsWith(`/${slug}/1/Thumbs/`)&&/^[a-f0-9]{64}$/.test(a.sha256),'Source-page evidence is invalid');
  const evidenceHash=createHash('sha256').update(r.evidenceAssets.map(a=>a.sha256).join('')).digest('hex');
  assert(evidenceHash===r.sourceSha256,'Source evidence fingerprint mismatch');
  assert(r.wordCountUpperBound>0&&r.wordCountUpperBound<=150&&r.readingGuide,'Reading portion needs a bounded workload and guidance');
@@ -22,7 +23,7 @@ export function validateSample(r){
 }
 export function validateSampleLibrary(readings=SAMPLES){
  const quotes=new Map();
- for(const r of readings){validateSample(r);const q=quotes.get(r.title)||new Set();q.add(r.grammar.quote);quotes.set(r.title,q);}
+ for(const r of readings){validateSample(r);const q=quotes.get(r.title)||new Set();q.add(r.grammar.quote);for(const g of r.glossary)q.add(g.term);quotes.set(r.title,q);}
  for(const q of quotes.values())assert(count([...q].join(' '))<=25,'Quotation budget exceeded for one book');
  return true;
 }
