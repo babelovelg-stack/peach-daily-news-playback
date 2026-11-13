@@ -20,6 +20,6 @@ test('manual delivery rejects invalid request IDs and mismatched claims',()=>{
 test('manual workflow is explicit only and excludes plaintext lessons and key-bearing files',()=>{
  const w=fs.readFileSync(new URL('../manual-workflow.yml',import.meta.url),'utf8');
  assert.ok(w.includes('workflow_dispatch:'));assert.ok(!w.includes('schedule:'));assert.ok(!w.includes('workflow_run:'));
- assert.ok(w.includes('group: peach-english-daily'));assert.ok(w.includes('ctmt1412@qq.com'));
+ assert.ok(w.includes('group: peach-english-daily'));assert.ok(w.includes('ref: main')); assert.ok(w.includes('ctmt1412@qq.com'));
  assert.ok(!w.includes('offline.html'));assert.ok(!w.includes('private.json'));assert.ok(!w.includes('output/v2/\n'));
 });
