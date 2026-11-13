@@ -10,12 +10,16 @@
       "messageId": "<peach-english-manual-user-20261111-latest-01@peach-lessons.local>",
       "at": "2026-11-11T08:11:17.811Z",
       "run": "42984981841"
+    },
+    {
+      "request": "user-20261113-fixed-course-01",
+      "lesson": 3,
+      "date": "2026-11-13",
+      "sha": "71046820c48a6f68110d0b6430e2ddaf5a25742a0cc84e1c72f5c2fc9c58fba6",
+      "status": "sent",
+      "messageId": "<peach-english-manual-user-20261113-fixed-course-01@peach-lessons.local>",
+      "at": "2026-11-13T10:36:46.397Z",
+      "run": "43410310941"
     }
-  ],
-  "inFlight": {
-    "request": "user-20261113-fixed-course-01",
-    "lesson": 3,
-    "date": "2026-11-13",
-    "sha": "71046820c48a6f68110d0b6430e2ddaf5a25742a0cc84e1c72f5c2fc9c58fba6"
-  }
+  ]
 }
