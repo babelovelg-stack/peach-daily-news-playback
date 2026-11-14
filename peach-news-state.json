@@ -1,12 +1,11 @@
 {
-  "lastRunAt": "2026-11-13T10:01:26.183Z",
-  "lastSentDate": "2026-11-13",
-  "lastReportDate": "2026-11-13",
-  "lastQuestionId": "reserve-absence-detection-20770",
-  "lastQuestion": "探究题（模拟数据）：夜间相机连续拍摄 12 晚，没有记录到某动物；过去另一地点每 4 晚偶尔能记录到。哪种判断更合理？\nA. 增加不同位置和时段的观察，检查相机能否探测这种动物\nB. 增加原位置同一时段的观察，再按记录推测附近数量\nC. 比较两个地点相同天数的记录，再按出现次数判断范围",
-  "lastAnswer": "答案：A。没有拍到可能因为位置、时间或探测能力，不能把未发现当作不存在；先检查观察方法。",
+  "lastRunAt": "2026-11-14T10:01:31.283Z",
+  "lastSentDate": "2026-11-14",
+  "lastReportDate": "2026-11-14",
+  "lastQuestionId": "reserve-thermal-control-20771",
+  "lastQuestion": "探究题（模拟数据）：比较两种隔热材料，准备每组 13 个相同容器，测 4 次温度。材料不同，哪种测试更公平？\nA. 每组使用相同水量和起始温度，记录相同时刻的温度\nB. 每组使用相同水量但不同起始温度，记录相同时刻的温度\nC. 每组使用不同水量和相同起始温度，记录相同时刻的温度",
+  "lastAnswer": "答案：A。水量和起始温度也会影响结果；控制这两个条件，才更能判断材料的作用。",
   "recentQuestionIds": [
-    "news-one-map-data-conflict-provenance-1",
     "news-c919-international-route-matched-comparison-1",
     "advanced-experiment-6",
     "advanced-rover-7",
@@ -41,7 +40,8 @@
     "reserve-zero-offset-20767",
     "reserve-time-confounding-20768",
     "reserve-sampling-bias-20769",
-    "reserve-absence-detection-20770"
+    "reserve-absence-detection-20770",
+    "reserve-thermal-control-20771"
   ],
   "recentQuestionConceptIds": [
     "concept-pollination",
@@ -103,10 +103,10 @@
     "reserve-zero-offset",
     "reserve-time-confounding",
     "reserve-sampling-bias",
-    "reserve-absence-detection"
+    "reserve-absence-detection",
+    "reserve-thermal-control"
   ],
   "recentQuestionTags": [
-    "高光谱",
     "量子计算",
     "航天",
     "花青素",
@@ -121,7 +121,8 @@
     "zero-offset",
     "time-confounding",
     "sampling-bias",
-    "absence-detection"
+    "absence-detection",
+    "thermal-control"
   ],
   "recentQuestionTexts": [
     "关于学习和学校你还想继续追问哪一个更细的为什么",
@@ -221,17 +222,15 @@
     "探究题模拟数据空秤显示4克放入物品显示13克多次记录相同判断物品质量哪种处理更合理a.先检查归零情况校正后测量并与9克的推算比较b.先保留原来的归零情况多次测量并与13克比较c.先增加另一件物",
     "探究题模拟数据上午测路面温度20摄氏度下午洒水后测得14摄氏度判断洒水作用哪组资料最适合补充a.同一时刻比较相邻的洒水区与未洒水区并记录多次b.同一地点增加上午测量次数再和下午的记录比较c.不",
     "探究题模拟数据调查110名学生的阅读情况计划访问其中12人要让样本覆盖更多情况哪种选人方式更合理a.按图书馆读者人数分配名额再在读者中随机选人记录b.按阅读社团人数分配名额再在社团中随机选人记",
-    "探究题模拟数据夜间相机连续拍摄12晚没有记录到某动物；过去另一地点每4晚偶尔能记录到哪种判断更合理a.增加不同位置和时段的观察检查相机能否探测这种动物b.增加原位置同一时段的观察再按记录推测附"
+    "探究题模拟数据夜间相机连续拍摄12晚没有记录到某动物；过去另一地点每4晚偶尔能记录到哪种判断更合理a.增加不同位置和时段的观察检查相机能否探测这种动物b.增加原位置同一时段的观察再按记录推测附",
+    "探究题模拟数据比较两种隔热材料准备每组13个相同容器测4次温度材料不同哪种测试更公平a.每组使用相同水量和起始温度记录相同时刻的温度b.每组使用相同水量但不同起始温度记录相同时刻的温度c.每组"
   ],
   "lastEncyclopediaIds": [
-    "museum-herbarium-label",
-    "museum-magnetic-declination",
-    "museum-papyrus-cross-layers"
+    "science-solar-galactic-orbit",
+    "science-coral-algae-symbiosis",
+    "science-tidal-current-prediction"
   ],
   "recentEncyclopediaIds": [
-    "museum-insect-compound-eyes",
-    "museum-middle-ear-bones",
-    "museum-jade-abrasive-sand",
     "museum-chip-photomask",
     "museum-bird-banding",
     "museum-reference-material",
@@ -363,7 +362,10 @@
     "museum-pottery-thermoluminescence",
     "museum-herbarium-label",
     "museum-magnetic-declination",
-    "museum-papyrus-cross-layers"
+    "museum-papyrus-cross-layers",
+    "science-solar-galactic-orbit",
+    "science-coral-algae-symbiosis",
+    "science-tidal-current-prediction"
   ],
   "recentEncyclopediaTags": [
     "海洋",
@@ -375,15 +377,15 @@
     "古生态",
     "微体化石",
     "铸造史",
-    "天文",
-    "海洋生态",
-    "海洋物理",
     "生物考古",
     "古籍保护",
     "考古科学",
     "标本学",
     "地磁学",
-    "书写材料史"
+    "书写材料史",
+    "天文",
+    "海洋生态",
+    "海洋物理"
   ],
   "recentEncyclopediaTexts": [
     "地球科学不是冷知识它能帮助我们理解自然生活或社会洋流像海洋里的大河会影响气候鱼群和船只航行",
@@ -577,11 +579,13 @@
     "陶器受热烧制后会重新积累辐射能量实验室再次加热时测量微弱发光可以帮助估算它上次烧制的大致年代",
     "植物标本会把采到的植物压平干燥并贴上地点和日期标签研究者能比较不同时代的标本追踪植物分布怎样变化",
     "指南针指向的磁北与地图上的正北通常并不完全重合两者之间的夹角叫磁偏角而且会随地点和时间缓慢改变",
-    "古埃及纸莎草纸会把植物茎里的薄片横竖交叠再压紧晾干；交叉排列能让书写材料在两个方向都更结实"
+    "古埃及纸莎草纸会把植物茎里的薄片横竖交叠再压紧晾干；交叉排列能让书写材料在两个方向都更结实",
+    "太阳会带着行星一起绕银河系中心运动完成一圈大约需要二亿三千万年",
+    "珊瑚组织里的共生藻能进行光合作用把部分产物供给珊瑚而珊瑚为藻类提供保护",
+    "潮汐引起的潮流会较有规律地改变掌握这种规律能帮助人们预测未来的潮流情况"
   ],
-  "lastIntroText": "🗺️🧊🌍 今天把世界当成一本会更新的地图：看清数据从哪里来，也记得给每个结论留一条能回头检查的路！",
+  "lastIntroText": "🍑✨📮 今天也把好奇心装进口袋吧：你认真望向世界的样子，闪闪发光！",
   "recentIntroTexts": [
-    "🌻🫧🚀每学会一个新东西都是给未来的自己存下一颗小太阳",
     "🚀🍓📖小脑袋准备起飞愿今天有惊喜也有让你自豪的新收获",
     "🌞📚🧡新知识像一扇小窗愿它为你照进不一样的光",
     "🍑🧩✨世界的知识拼图很大而你今天又会找到新的一块",
@@ -610,11 +614,11 @@
     "🧩🌾🔭今天把好奇心变成小侦探先看事实再比较证据你会发现世界比一个答案更有层次",
     "🌞✈️👓今天跟着月影飞机和新科技去发现变化把现象看清把理由想明白你的思考正在发光",
     "🧭🍑🌟世界很大你正在一点一点长出理解它的力量",
-    "🗺️🧊🌍今天把世界当成一本会更新的地图看清数据从哪里来也记得给每个结论留一条能回头检查的路"
+    "🗺️🧊🌍今天把世界当成一本会更新的地图看清数据从哪里来也记得给每个结论留一条能回头检查的路",
+    "🍑✨📮今天也把好奇心装进口袋吧你认真望向世界的样子闪闪发光"
   ],
-  "lastClosingText": "今天的声音先停在这里，新的知识会在脑海里慢慢找到自己的位置。",
+  "lastClosingText": "每次愿意多想一步，都是在给未来的自己增加一种能力。",
   "recentClosingTexts": [
-    "愿你既能看见科技的力量也能记得规则安全和人的判断同样重要",
     "知识不会一下子长成大树但每天的一片新叶子都算数",
     "今天的情报到这里愿你带着一个新发现进入今晚心里亮亮的",
     "世界每天都有新变化而你正在一点点长出理解它的力量",
@@ -643,15 +647,10 @@
     "把今天核对过的证据装进口袋明天再用新的问题打开它",
     "今天的线索来自地图浮冰和地震波；愿你记住可靠的答案总能说清数据从哪里来",
     "月影会移过大地航线会连接城市新工具也需要守住规则；愿你带着知识和善意继续观察世界",
-    "今天的声音先停在这里新的知识会在脑海里慢慢找到自己的位置"
+    "今天的声音先停在这里新的知识会在脑海里慢慢找到自己的位置",
+    "每次愿意多想一步都是在给未来的自己增加一种能力"
   ],
-  "lastNewsTitles": [
-    "第 1 条小情报：智能机器人从会动走向会干活",
-    "第 2 条小情报：锚定ECE培养目标，AI时代基础与前沿课程建设",
-    "第 3 条小情报：践行人工智能帮助大思政育人教育教学展示交流活动在京举办",
-    "第 4 条小情报：中国移动研究院发布卫星相控阵天线关键技术实践案例",
-    "第 5 条小情报：中国联通手机直连卫星试验星项目，公示中标候选人"
-  ],
+  "lastNewsTitles": [],
   "recentNewsTitles": [
     "第 1 条小情报：把超导材料放进“暗腔”，临界温度最高提高5.4%",
     "第 2 条小情报：中国240小时过境免签适用国家增加到57个",
@@ -714,7 +713,7 @@
     "第 4 条小情报：中国移动研究院发布卫星相控阵天线关键技术实践案例",
     "第 5 条小情报：中国联通手机直连卫星试验星项目，公示中标候选人"
   ],
-  "lastContentMode": "news",
+  "lastContentMode": "science",
   "recentScienceConceptIds": [
     "museum-arch-compression",
     "museum-nautilus-chambers",
@@ -736,6 +735,9 @@
     "museum-pottery-thermoluminescence",
     "museum-herbarium-label",
     "museum-magnetic-declination",
-    "museum-papyrus-cross-layers"
+    "museum-papyrus-cross-layers",
+    "solar-galactic-orbit",
+    "coral-algae-symbiosis",
+    "tidal-current-prediction"
   ]
 }
