@@ -1,12 +1,11 @@
 {
-  "lastRunAt": "2026-11-14T10:01:31.283Z",
-  "lastSentDate": "2026-11-14",
-  "lastReportDate": "2026-11-14",
-  "lastQuestionId": "reserve-thermal-control-20771",
-  "lastQuestion": "探究题（模拟数据）：比较两种隔热材料，准备每组 13 个相同容器，测 4 次温度。材料不同，哪种测试更公平？\nA. 每组使用相同水量和起始温度，记录相同时刻的温度\nB. 每组使用相同水量但不同起始温度，记录相同时刻的温度\nC. 每组使用不同水量和相同起始温度，记录相同时刻的温度",
-  "lastAnswer": "答案：A。水量和起始温度也会影响结果；控制这两个条件，才更能判断材料的作用。",
+  "lastRunAt": "2026-11-15T10:01:49.076Z",
+  "lastSentDate": "2026-11-15",
+  "lastReportDate": "2026-11-15",
+  "lastQuestionId": "reserve-range-spread-20772",
+  "lastQuestion": "计算题（模拟数据）：一组测量记录的最大值是 26，最小值是 14。这组记录的最大与最小相差多少？\nA. 按记录中的条件计算，结果为 40。\nB. 按记录中的条件计算，结果为 12。\nC. 按记录中的条件计算，结果为 26。",
+  "lastAnswer": "答案：B。极差用最大值减最小值：26－14＝12。",
   "recentQuestionIds": [
-    "news-c919-international-route-matched-comparison-1",
     "advanced-experiment-6",
     "advanced-rover-7",
     "advanced-evidence-control-8",
@@ -41,7 +40,8 @@
     "reserve-time-confounding-20768",
     "reserve-sampling-bias-20769",
     "reserve-absence-detection-20770",
-    "reserve-thermal-control-20771"
+    "reserve-thermal-control-20771",
+    "reserve-range-spread-20772"
   ],
   "recentQuestionConceptIds": [
     "concept-pollination",
@@ -104,10 +104,10 @@
     "reserve-time-confounding",
     "reserve-sampling-bias",
     "reserve-absence-detection",
-    "reserve-thermal-control"
+    "reserve-thermal-control",
+    "reserve-range-spread"
   ],
   "recentQuestionTags": [
-    "量子计算",
     "航天",
     "花青素",
     "化石",
@@ -122,7 +122,8 @@
     "time-confounding",
     "sampling-bias",
     "absence-detection",
-    "thermal-control"
+    "thermal-control",
+    "range-spread"
   ],
   "recentQuestionTexts": [
     "关于学习和学校你还想继续追问哪一个更细的为什么",
@@ -223,17 +224,15 @@
     "探究题模拟数据上午测路面温度20摄氏度下午洒水后测得14摄氏度判断洒水作用哪组资料最适合补充a.同一时刻比较相邻的洒水区与未洒水区并记录多次b.同一地点增加上午测量次数再和下午的记录比较c.不",
     "探究题模拟数据调查110名学生的阅读情况计划访问其中12人要让样本覆盖更多情况哪种选人方式更合理a.按图书馆读者人数分配名额再在读者中随机选人记录b.按阅读社团人数分配名额再在社团中随机选人记",
     "探究题模拟数据夜间相机连续拍摄12晚没有记录到某动物；过去另一地点每4晚偶尔能记录到哪种判断更合理a.增加不同位置和时段的观察检查相机能否探测这种动物b.增加原位置同一时段的观察再按记录推测附",
-    "探究题模拟数据比较两种隔热材料准备每组13个相同容器测4次温度材料不同哪种测试更公平a.每组使用相同水量和起始温度记录相同时刻的温度b.每组使用相同水量但不同起始温度记录相同时刻的温度c.每组"
+    "探究题模拟数据比较两种隔热材料准备每组13个相同容器测4次温度材料不同哪种测试更公平a.每组使用相同水量和起始温度记录相同时刻的温度b.每组使用相同水量但不同起始温度记录相同时刻的温度c.每组",
+    "计算题模拟数据一组测量记录的最大值是26最小值是14这组记录的最大与最小相差多少a.按记录中的条件计算结果为40b.按记录中的条件计算结果为12c.按记录中的条件计算结果为26"
   ],
   "lastEncyclopediaIds": [
-    "science-solar-galactic-orbit",
-    "science-coral-algae-symbiosis",
-    "science-tidal-current-prediction"
+    "museum-ice-core-air-bubbles",
+    "museum-feather-barbules",
+    "museum-insect-compound-eyes"
   ],
   "recentEncyclopediaIds": [
-    "museum-chip-photomask",
-    "museum-bird-banding",
-    "museum-reference-material",
     "museum-quipu-knots",
     "museum-xylem-vessels",
     "museum-pyritized-fossil",
@@ -365,12 +364,12 @@
     "museum-papyrus-cross-layers",
     "science-solar-galactic-orbit",
     "science-coral-algae-symbiosis",
-    "science-tidal-current-prediction"
+    "science-tidal-current-prediction",
+    "museum-ice-core-air-bubbles",
+    "museum-feather-barbules",
+    "museum-insect-compound-eyes"
   ],
   "recentEncyclopediaTags": [
-    "海洋",
-    "生态",
-    "身体",
     "建筑",
     "海洋生物",
     "文字史",
@@ -385,7 +384,10 @@
     "书写材料史",
     "天文",
     "海洋生态",
-    "海洋物理"
+    "海洋物理",
+    "冰川学",
+    "鸟类学",
+    "昆虫学"
   ],
   "recentEncyclopediaTexts": [
     "地球科学不是冷知识它能帮助我们理解自然生活或社会洋流像海洋里的大河会影响气候鱼群和船只航行",
@@ -442,10 +444,7 @@
     "降雨量1毫米表示每平方米水平地面上平均落下约1升水；气象站会用雨量器收集并测量雨水",
     "叶片上的气孔由一对保卫细胞围成能调节二氧化碳进入和水蒸气离开",
     "不同火山形成的黑曜石含有不同微量元素研究者会比较古代石器的元素指纹寻找原料来源和远距离交换线索",
-    "积雪被一层层压成冰时会封住当时空气的小气泡；科学家测量其中的二氧化碳能比较古代大气和气候变化",
-    "鸟的飞羽由许多羽枝和带小钩的羽小枝互相扣住形成连续羽片；梳理羽毛能让松开的部分重新连接",
     "鱼的内耳里有叫耳石的硬组织会随生长留下层纹；研究者观察纹路能估算鱼的年龄并了解生长环境",
-    "许多昆虫的复眼由许多小眼组成每个小眼接收一个方向的光合起来能帮助昆虫快速发现运动",
     "哺乳动物中耳里的锤骨砧骨和镫骨会把鼓膜振动传向内耳；镫骨还是人体最小的骨头",
     "古人用竹管钻玉时竹管负责带动磨料旋转；硬度较高的石英砂会一点点磨走玉料水则帮助带走碎屑",
     "光刻制造芯片时会把掩膜版上的电路图形用光转印到涂有光刻胶的晶圆上；一块芯片通常要重复许多层加工",
@@ -582,11 +581,13 @@
     "古埃及纸莎草纸会把植物茎里的薄片横竖交叠再压紧晾干；交叉排列能让书写材料在两个方向都更结实",
     "太阳会带着行星一起绕银河系中心运动完成一圈大约需要二亿三千万年",
     "珊瑚组织里的共生藻能进行光合作用把部分产物供给珊瑚而珊瑚为藻类提供保护",
-    "潮汐引起的潮流会较有规律地改变掌握这种规律能帮助人们预测未来的潮流情况"
+    "潮汐引起的潮流会较有规律地改变掌握这种规律能帮助人们预测未来的潮流情况",
+    "积雪被一层层压成冰时会封住当时空气的小气泡；科学家测量其中的二氧化碳能比较古代大气和气候变化",
+    "鸟的飞羽由许多羽枝和带小钩的羽小枝互相扣住形成连续羽片；梳理羽毛能让松开的部分重新连接",
+    "许多昆虫的复眼由许多小眼组成每个小眼接收一个方向的光合起来能帮助昆虫快速发现运动"
   ],
-  "lastIntroText": "🍑✨📮 今天也把好奇心装进口袋吧：你认真望向世界的样子，闪闪发光！",
+  "lastIntroText": "🌻🫧🚀 每学会一个新东西，都是给未来的自己存下一颗小太阳！",
   "recentIntroTexts": [
-    "🚀🍓📖小脑袋准备起飞愿今天有惊喜也有让你自豪的新收获",
     "🌞📚🧡新知识像一扇小窗愿它为你照进不一样的光",
     "🍑🧩✨世界的知识拼图很大而你今天又会找到新的一块",
     "🌙🍓🧭愿今天的新发现陪着你走向一个更开阔更有趣的世界",
@@ -615,11 +616,11 @@
     "🌞✈️👓今天跟着月影飞机和新科技去发现变化把现象看清把理由想明白你的思考正在发光",
     "🧭🍑🌟世界很大你正在一点一点长出理解它的力量",
     "🗺️🧊🌍今天把世界当成一本会更新的地图看清数据从哪里来也记得给每个结论留一条能回头检查的路",
-    "🍑✨📮今天也把好奇心装进口袋吧你认真望向世界的样子闪闪发光"
+    "🍑✨📮今天也把好奇心装进口袋吧你认真望向世界的样子闪闪发光",
+    "🌻🫧🚀每学会一个新东西都是给未来的自己存下一颗小太阳"
   ],
-  "lastClosingText": "每次愿意多想一步，都是在给未来的自己增加一种能力。",
+  "lastClosingText": "小小的知识已经装进口袋，愿它在未来某一天帮你看懂更大的事情。",
   "recentClosingTexts": [
-    "知识不会一下子长成大树但每天的一片新叶子都算数",
     "今天的情报到这里愿你带着一个新发现进入今晚心里亮亮的",
     "世界每天都有新变化而你正在一点点长出理解它的力量",
     "新的知识已经抵达让眼睛休息一下也让大脑安静地整理它们",
@@ -648,11 +649,13 @@
     "今天的线索来自地图浮冰和地震波；愿你记住可靠的答案总能说清数据从哪里来",
     "月影会移过大地航线会连接城市新工具也需要守住规则；愿你带着知识和善意继续观察世界",
     "今天的声音先停在这里新的知识会在脑海里慢慢找到自己的位置",
-    "每次愿意多想一步都是在给未来的自己增加一种能力"
+    "每次愿意多想一步都是在给未来的自己增加一种能力",
+    "小小的知识已经装进口袋愿它在未来某一天帮你看懂更大的事情"
   ],
-  "lastNewsTitles": [],
+  "lastNewsTitles": [
+    "第 1 条小情报：上海高校课堂，“AI浓度”越来越高了"
+  ],
   "recentNewsTitles": [
-    "第 1 条小情报：把超导材料放进“暗腔”，临界温度最高提高5.4%",
     "第 2 条小情报：中国240小时过境免签适用国家增加到57个",
     "第 3 条小情报：住房公积金新规将在9月20日开始施行",
     "第 1 条小情报：青藏高原识别出13万多个“石冰川”，数据集向全球开放",
@@ -711,9 +714,10 @@
     "第 2 条小情报：锚定ECE培养目标，AI时代基础与前沿课程建设",
     "第 3 条小情报：践行人工智能帮助大思政育人教育教学展示交流活动在京举办",
     "第 4 条小情报：中国移动研究院发布卫星相控阵天线关键技术实践案例",
-    "第 5 条小情报：中国联通手机直连卫星试验星项目，公示中标候选人"
+    "第 5 条小情报：中国联通手机直连卫星试验星项目，公示中标候选人",
+    "第 1 条小情报：上海高校课堂，“AI浓度”越来越高了"
   ],
-  "lastContentMode": "science",
+  "lastContentMode": "news",
   "recentScienceConceptIds": [
     "museum-arch-compression",
     "museum-nautilus-chambers",
@@ -738,6 +742,9 @@
     "museum-papyrus-cross-layers",
     "solar-galactic-orbit",
     "coral-algae-symbiosis",
-    "tidal-current-prediction"
+    "tidal-current-prediction",
+    "museum-ice-core-air-bubbles",
+    "museum-feather-barbules",
+    "museum-insect-compound-eyes"
   ]
 }
