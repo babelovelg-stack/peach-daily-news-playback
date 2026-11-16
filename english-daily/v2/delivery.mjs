@@ -31,13 +31,34 @@ export function checkAssets(p){const dir=dirFor(p),pub=path.join(dir,'public'),m
 export async function restoreOrBuild(p){const source=path.resolve(ROOT,'..','..','english',folder(p.lesson)),dir=dirFor(p);if(!fs.existsSync(source)){await build(p.lesson);return;}const m=JSON.parse(fs.readFileSync(path.join(source,'manifest.json'),'utf8'));if(m.schema!==2||m.version!==VERSION||m.number!==p.lesson)throw Error('Existing lesson is not the expected version');const locked=fs.readFileSync(path.join(source,'index.html'),'utf8');if(hash(locked)!==m.assets['index.html'])throw Error('Published encrypted page was changed');const key=lessonKey(requireKey(process.env.ENGLISH_CONTENT_KEY),p.lesson,m.contentHash),box=JSON.parse(locked.match(/const BOX=(.*?);async function/)?.[1]||'null'),html=unseal(box,key);if(hash(html)!==m.contentHash)throw Error('Published offline content was changed');fs.mkdirSync(path.join(dir,'public'),{recursive:true});fs.writeFileSync(path.join(dir,'offline.html'),html);const l=lessonFor(p.lesson);fs.writeFileSync(path.join(dir,'private.json'),JSON.stringify({number:p.lesson,contentHash:m.contentHash,key:key.toString('hex'),title:l.title,book:l.reading.title,minutes:l.minutes,requiresNetwork:l.reading.mode==='publisher-sample',pages:l.reading.pageNumbers||null,practice:l.practice}));for(const name of ['index.html','manifest.json'])fs.copyFileSync(path.join(source,name),path.join(dir,'public',name));console.log('Reused verified encrypted lesson');}
 export async function verifyHosted(p,{attempts=120,delay=5000}={}){checkAssets(p);const reading=lessonFor(p.lesson).reading;if(reading.mode==='publisher-sample')await verifySampleOnline(reading);for(let i=0;i<attempts;i++){try{for(const name of ['index.html','manifest.json']){const r=await fetch(`${baseURL}/${folder(p.lesson)}/${name}?v=${Date.now()}`,{signal:AbortSignal.timeout(15000),cache:'no-store'});if(!r.ok||hash(Buffer.from(await r.arrayBuffer()))!==hash(fs.readFileSync(path.join(dirFor(p),'public',name))))throw Error('Hosted file mismatch');}console.log('Encrypted hosted assets verified byte-for-byte');return;}catch{if(i===attempts-1)throw Error('Hosted verification failed; no email sent');await new Promise(r=>setTimeout(r,delay));}}}
 export function emailFor(p,meta){
- const url=`${baseURL}/${folder(p.lesson)}/#key=${meta.key}`,subject=`桃子英语｜5词＋原书伴读｜第${p.lesson}课｜${p.date}`,minutes=Object.values(meta.minutes).reduce((a,b)=>a+b,0),network=meta.requiresNetwork===true;
+ const url=`${baseURL}/${folder(p.lesson)}/#key=${meta.key}`,subject=`桃子英语｜第${p.lesson}课｜${meta.title}｜${p.date}`,minutes=Object.values(meta.minutes).reduce((a,b)=>a+b,0),network=meta.requiresNetwork===true;
  const scope=network?` · 原书第${meta.pages.join('–')}页（官方样章）`:'';
  const offline=network?'附件中的词汇、讲解音频和题目可离线使用；原书图文需联网打开出版社阅读器，无需登录。':'附件为内嵌图文音频的完整HTML，用浏览器打开可离线学习。';
  const flow=network?'看图听音 → 遮住回忆 → 听音选图 → 补全拼写；官方原书样章 → 重点片段跟读 → 词汇语法讲解 → 1–2道理解题。':'看图听音 → 遮住回忆 → 听音选图 → 补全拼写；原书逐句伴读、词汇语法讲解和1–2道理解题。';
  const practice=meta.practice&&meta.practice!=='learn'?'本课复习上一课的五个词，不新增五个词。':'本课学习五个重点词。';
- return {url,subject,text:`${subject}\n\n词汇：${meta.title}\n${practice}\n原书：${meta.book}${scope}\n约${minutes}分钟，整课按25分钟以内配量。\n\n在浏览器中开始学习：${url}\n请点邮件正文中的链接。附件预览不支持音频和答题；如进入邮件内预览，请用菜单选择“在浏览器中打开”。\n\n${offline}链接中包含学习密钥，请保留完整链接。\n${flow}`,
- html:`<!doctype html><html lang="zh-CN"><meta charset="utf-8"><body style="font-family:-apple-system,'PingFang SC',sans-serif;color:#254b3b;background:#f6f6ef;padding:24px"><div style="max-width:620px;margin:auto;padding:28px;background:white;border-radius:22px"><p>🍑 桃子英语 · 第${p.lesson}课</p><h1>今天的新词和新阅读</h1><p style="margin:24px 0"><a href="${url}" style="display:inline-block;background:#276a56;color:white;text-decoration:none;padding:16px 24px;border-radius:12px">在浏览器中开始学习 →</a></p><p style="background:#fff3d8;padding:14px"><b>请点上面的按钮，不要在附件预览中学习。</b><br>若进入邮件内预览，用右上角菜单选择“在浏览器中打开”（Safari / Chrome / Edge）。</p><p><b>词汇：</b>${esc(meta.title)}</p><p>${esc(practice)}</p><p><b>阅读：</b>${esc(meta.book+scope)}</p><p>本课约 ${minutes} 分钟，内容按 25 分钟以内安排。</p><p>${esc(flow)}</p><p>${esc(offline)}</p><p>若按钮被邮件软件拦截，可复制邮件纯文本里的完整学习链接到浏览器。离线附件请先下载，再用浏览器打开。</p><p style="font-size:13px;color:#68776d">每天北京时间18:00开始推送，云端排队可能延迟。作答只保存在当前浏览器。</p></div></body></html>`};
+ const lesson=lessonFor(p.lesson),reading=lesson.reading;
+ const words=lesson.words.map(w=>w.word+'（'+w.meaning+'）').join('、');
+ const location=reading.guidePanel?reading.readerPages:reading.readerPages?'阅读器 '+reading.readerPages:'';
+ const sourceLink=reading.mode==='publisher-sample'?reading.readerUrl:null;
+ const questions=reading.questions.map((q,i)=>(i+1)+'. '+q.prompt);
+ const text=[
+  subject,'在浏览器中开始学习：'+url,'附件预览不支持声音和答题，请用浏览器打开。',
+  meta.title,practice,words,meta.book+scope,location,reading.readingGuide||'',
+  sourceLink?'出版社原书：'+sourceLink:'',reading.grammar.title,...questions,
+  '约'+minutes+'分钟。'+offline,flow,'学习密钥（仅本课）：'+meta.key
+ ].filter(Boolean).join('\n\n');
+ const html=`<!doctype html><html lang="zh-CN"><meta charset="utf-8"><body style="font-family:-apple-system,'PingFang SC',sans-serif;color:#254b3b;padding:20px"><div style="max-width:620px;margin:auto">
+ <p>🍑 桃子英语 · 第${p.lesson}课 · ${minutes}分钟</p><h1>${esc(meta.title)}</h1>
+ <p><a href="${esc(url)}" style="display:inline-block;background:#276a56;color:white;padding:14px 22px;border-radius:10px">在浏览器中开始学习 →</a></p>
+ <p>请从邮件正文进入，不要在附件预览中学习。若邮件内打不开，用 Safari、Chrome 或 Edge 打开下面的完整地址。</p>
+ <p style="overflow-wrap:anywhere;word-break:break-all">${esc(url)}</p>
+ <p><b>词汇：</b>${esc(words)}</p><h2>${esc(meta.book+scope)}</h2>
+ <p>${esc(location)}　${esc(reading.readingGuide||'')}</p>
+ ${sourceLink?`<p><a href="${esc(sourceLink)}">直接打开出版社原书 ↗</a></p>`:''}
+ <p>${esc(reading.grammar.title)}</p><ol>${reading.questions.map(q=>'<li>'+esc(q.prompt)+'</li>').join('')}</ol>
+ <p>${esc(flow)}</p><p>${esc(offline)}</p>
+ <p>如果网页提示输入学习密钥，复制下面这串字符。</p><p style="overflow-wrap:anywhere;word-break:break-all">${esc(meta.key)}</p></div></body></html>`;
+ return {url,subject,text,html};
 }
 
 async function command(cmd){fs.mkdirSync(OUTPUT,{recursive:true});if(cmd==='readiness'){const s=readState(),n=nextLesson(s,readManual()),status=availability(n);if(status.ready){const reading=lessonFor(n).reading;if(reading.mode==='publisher-sample')await verifySampleOnline(reading);}console.log(JSON.stringify({nextLesson:n,...status}));return;}

@@ -8,7 +8,7 @@
 
 ### 桃子英语每日课
 
-[英语学习模块](english-daily/README.md)每天提供5个新重点词、新的原书选段和两道理解题，约23分钟；复习只作补充。当前课号2–7共30个不同词，使用两本牛津树Level 7的已核对公开样章，并非整本书。邮件正文为浏览器学习入口；附件预览显示打开说明。18:00按未发课程推进，已确认手动投递计入选课，不覆盖云端历史。后续由Codex本地续编任务预备，原书不足时停止并提示，不能重发旧课。
+[英语学习模块](english-daily/README.md)每天提供5个新重点词、新的原书选段和两道理解题，约23分钟；复习只作补充。现有课号2–12共55个不同词，阅读选自五本牛津树Level 7读物的官方样章及指南跨页。邮件正文列出当天五词、指定页码、问题和可复制的课程地址。邮件正文为浏览器学习入口；附件预览显示打开说明。18:00按未发课程推进，已确认手动投递计入选课，不覆盖云端历史。后续由Codex本地续编任务预备，原书不足时停止并提示，不能重发旧课。
 
 ### 项目简介
 
@@ -243,7 +243,7 @@ GitHub Actions 必须配置 `REPORT_EMAIL_FROM`、`SMTP_HOST`、`SMTP_PORT`、`S
 
 ### Peach Daily English
 
-The [English module](english-daily/README.md) provides five new words, a new original reading selection and two questions daily, planned for 23 minutes. Six reviewed lessons (2–7) contain 30 distinct words from two ORT Level 7 publisher samples, not complete books. Email directs learners to a browser; script-blocked attachment previews show opening instructions. The 18:00 selector counts accepted manual deliveries without rewriting cloud history. Local Codex preparation replenishes later lessons; missing originals stop delivery instead of replaying content.
+The [English module](english-daily/README.md) provides five new words, a new original reading selection and two questions daily, planned for 23 minutes. Eleven reviewed lessons (2–12) contain 55 distinct words with selections from five ORT Level 7 titles. Each email lists the target words, assigned pages, questions and a copyable course address. Email directs learners to a browser; script-blocked attachment previews show opening instructions. The 18:00 selector counts accepted manual deliveries without rewriting cloud history. Local Codex preparation replenishes later lessons; missing originals stop delivery instead of replaying content.
 
 ### Overview
 

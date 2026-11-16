@@ -50,3 +50,40 @@ PACKS.health=pack('health','健康主题 · 怎样说不舒服',source(3,'目标
 ]);
 PACKS.food.words[3].example='I eat noodles with chopsticks.';
 PACKS.food.words[3].translation='我用筷子吃面条。';
+
+const extension = (unit, note) => ({...source(unit, note), checked:'2026-11-16'});
+PACKS.moves = pack('moves', '身体主题 · 用英语做动作', extension(3,'延伸身体主题，做动作说动词，再试着进行比较。'), [
+ ['bend','弯曲','/bend/','b · end','弯一下膝盖说 bend，再站直。听清末尾的 d。','I bend my knees.','我弯曲膝盖。','像小教练一样给口令：Bend your knees.','b_nd'],
+ ['stretch','伸展','/stretʃ/','str · etch','看看图里的两只手往哪儿伸。把双手举高时说 stretch。','I stretch my arms.','我伸展双臂。','做一次动作，说出伸展的是哪个部位。','str_tch'],
+ ['balance','保持平衡','/ˈbæləns/','bal · ance','张开双臂想象自己是一架天平。第一拍读得重一些。','I can balance on one foot.','我能单脚站稳。','指着图说出孩子靠哪只脚站稳。','bal_nce'],
+ ['jump','跳','/dʒʌmp/','j · ump','用两根手指在桌上跳一下，落下时轻轻收住 mp 的声音。','I can jump as high as Ben.','我能跳得和本一样高。','把 Ben 换成你认识的人，再说一遍。','j_mp'],
+ ['turn','转身；转动','/tɜːn/','t · ur · n','观察图上的弯箭头，用手指转个方向，再说 turn。','I turn to the left.','我向左转。','想象自己换了方向，把 left 换成 right。','t_rn']
+]);
+PACKS.kit = pack('kit', '运动主题 · 给运动包装装备', extension(3,'用运动装备承接身体主题，在情景中练习 need to、比较级和 which。'), [
+ ['helmet','头盔','/ˈhelmɪt/','hel · met','假装系好下巴旁的扣带，看到扣带就想起 helmet。','I need to wear my helmet.','我需要戴头盔。','说一说骑车前需要做什么。','hel_et'],
+ ['goggles','护目镜；泳镜','/ˈɡɒɡəlz/','gog · gles','两手围成镜片放在眼前。两个 g 在词中相遇，末尾还有 s。','My goggles keep water out.','我的泳镜能挡住水。','说出图上的颜色：My goggles are …','go_gles'],
+ ['boots','靴子','/buːts/','b · oo · ts','想象两只高帮靴，记住中间有两个 o，末尾有 s。','These boots are heavier than my shoes.','这双靴子比我的鞋重。','用手比重量，再读 heavier than。','b_ots'],
+ ['gloves','手套','/ɡlʌvz/','gl · ove · s','伸出十指，想象手套一个指套包住一根手指。','These are the gloves which I wore yesterday.','这是我昨天戴的那副手套。','先说 These are the gloves. 再加上哪一副。','glo_es'],
+ ['knee pads','护膝','/ˈniː pædz/','knee + pads','轻点自己的膝盖，说 knee，再把保护它的软垫 pads 接上。','My knee pads protect my knees.','我的护膝保护膝盖。','指图说出哪件装备可以保护膝盖。','knee p_ds']
+]);
+PACKS.terrain = pack('terrain', '自然主题 · 给探险地图标地点', extension(4,'按自然景物主题扩展，先认地点，再用方位和动作描述。'), [
+ ['river','河流','/ˈrɪvə/','riv · er','让手指沿弯弯的水线往前走，分两拍读 river。','A river runs through the valley.','一条河流穿过山谷。','用手描出水流的线路，再说整句。','r_ver'],
+ ['waterfall','瀑布','/ˈwɔːtəfɔːl/','water + fall','水 water 从高处落下 fall，两部分拼成一个词。','Water drops over the waterfall.','水从瀑布上倾泻而下。','盖住英文，用两个小词拼回瀑布。','waterf_ll'],
+ ['island','岛','/ˈaɪlənd/','is · land','用手指在图上绕岛一圈，四周都有水。写 island 时记得不发音的 s。','The island is in the sea.','这座岛在海里。','闭上眼想象岛和海，说出它在哪里。','i_land'],
+ ['cave','洞穴','/keɪv/','c · a · ve','把手掌弯成洞口。末尾的 e 不单独读，a 读字母音。','A bat flies out of the cave.','一只蝙蝠飞出了洞穴。','用手做出飞出洞口的动作，读 out of the cave。','ca_e'],
+ ['mountain','山；高山','/ˈmaʊntɪn/','moun · tain','两手搭一个高山尖，听到第一拍的 /aʊ/ 再合起来读。','Snow covers the mountain.','雪覆盖着这座山。','看着有雪的山顶，说出整句。','moun_ain']
+]);
+PACKS.animals = pack('animals', '自然主题 · 看动物怎样移动', extension(4,'把自然景物延伸到动物，用动作和副词描述观察结果。'), [
+ ['tiger','老虎','/ˈtaɪɡə/','ti · ger','在手背上比划几条虎纹。先读重音 ti，再轻轻带出 ger。','The tiger walks quietly.','老虎轻轻地走。','用轻轻的脚步演一次 quietly。','ti_er'],
+ ['monkey','猴子','/ˈmʌŋki/','mon · key','想象猴子用一只手勾住树枝。末尾 key 在这里读短促的 /ki/。','The monkey climbs quickly.','猴子爬得很快。','用手做爬树的动作，强调 quickly。','mon_ey'],
+ ['crocodile','鳄鱼','/ˈkrɒkədaɪl/','croc · o · dile','两手张合做长嘴，用三个节拍说 croc-o-dile。','The crocodile swims slowly.','鳄鱼慢慢地游。','把 slowly 改为 quickly，说说动作怎么变了。','croco_ile'],
+ ['parrot','鹦鹉','/ˈpærət/','par · rot','看彩色翅膀和弯嘴。把中间的两个 r 一起圈起来记。','The parrot calls loudly.','鹦鹉大声地叫。','把手放在耳后，想象你听见的叫声。','par_ot'],
+ ['snake','蛇','/sneɪk/','sn · ake','让手指沿蛇形滑行，先连读 sn，再接 /eɪk/。','The snake slides past a rock.','蛇从一块岩石旁滑过。','用手指表演 slides past，再读完整句子。','sn_ke']
+]);
+PACKS.trail = pack('trail', '自然主题 · 沿小径介绍风景', extension(4,'连接景物、方位与路线，用完整句带家人看一张想象的地图。'), [
+ ['lake','湖','/leɪk/','l · ake','指着图里平静的大片水面。lake 和 snake 的尾音相同。','We walk around the lake.','我们绕着湖走。','用手指绕一圈，把动作配上 around。','l_ke'],
+ ['forest','森林','/ˈfɒrɪst/','for · est','一棵树旁再加很多树，想象它们组成一片森林。','We walk through the forest.','我们步行穿过森林。','把手指当作人，演出 through 的方向。','for_st'],
+ ['hill','小山；山丘','/hɪl/','h · ill','把手背拱成矮矮的小山，写 hill 时把末尾两个 l 写齐。','The hill is lower than the mountain.','这座小山比那座高山矮。','用双手比两个高度，说 lower than。','hi_l'],
+ ['rock','岩石','/rɒk/','r · o · ck','想象摸到粗糙的岩石，词尾 ck 合起来只发一个 /k/。','A grey rock is beside the path.','小路旁有一块灰色岩石。','在图上找石头，用 beside 说位置。','r_ck'],
+ ['path','小路；小径','/pɑːθ/','p · a · th','在空中画一条小路，读到词尾 th 时把舌尖轻放在上下齿间。','Follow the path up the hill.','沿着小路走上山丘。','给家人指路，说 Follow the path.','pa_h']
+]);

@@ -510,6 +510,417 @@
         }
       ],
       "sourceSha256": "e15aa060363c7e68cb5aa89c80445c974bb1ab08bcfc3a1abc6bb14e5b8b4751"
+    },
+    {
+      "mode": "publisher-sample",
+      "series": "Oxford Reading Tree",
+      "strand": "Biff, Chip and Kipper Stories",
+      "level": "7",
+      "sourceName": "Oxford University Press (China) official sample",
+      "sourceUrl": "https://shop.oupchina.com.hk/en/products/oxford-reading-tree-biff-chip-and-kipper-stories-level-7-mixed-pack-of-6",
+      "requiresLogin": false,
+      "distribution": "publisher-link-only",
+      "verifiedAgainstSource": true,
+      "id": "power-cut-1",
+      "title": "The Power Cut",
+      "pageNumbers": [
+        1,
+        2
+      ],
+      "readingGuide": "先看车旁的人和行李，找出同行的朋友。再看 Wilf 的表情，他为什么坚持带一件东西？",
+      "verifiedOn": "2026-11-16",
+      "wordCountUpperBound": 90,
+      "glossary": [
+        {
+          "term": "holiday",
+          "meaning": "假期",
+          "explanation": "看一家人准备出发的画面，想一想平时放假会带什么。",
+          "page": 1
+        },
+        {
+          "term": "game",
+          "meaning": "游戏",
+          "explanation": "这里是孩子想带的游戏机里可以玩的游戏。",
+          "page": 2
+        }
+      ],
+      "grammar": {
+        "title": "表达非做不可的事",
+        "quote": "We must take",
+        "page": 2,
+        "explanation": "must 后面接动词原形。说 We must take 时，是在坚持一定要带上某样东西。换个动作也一样。",
+        "example": "We must pack our boots.",
+        "translation": "我们一定要把靴子装好。"
+      },
+      "questions": [
+        {
+          "prompt": "谁要跟 Wilf 和 Wilma 一家去度假？",
+          "options": [
+            "Mrs May 和 Kipper",
+            "Biff 和 Chip",
+            "Wilf 的同学全班"
+          ],
+          "answer": 1,
+          "explanation": "第1页先交代了同行的人。看看车旁边站着哪些孩子。",
+          "evidencePage": 1
+        },
+        {
+          "prompt": "Wilf 为什么坚持带游戏机？",
+          "options": [
+            "他有一个很棒的新游戏想玩",
+            "他想把它送给爸爸",
+            "他想用它看地图"
+          ],
+          "answer": 0,
+          "explanation": "第2页把他的坚持和新游戏联系起来。",
+          "evidencePage": 2
+        }
+      ],
+      "readerUrl": "https://oup.pagetiger.com/ort-power-cut/",
+      "readerPages": "2–3 / 8",
+      "evidenceAssets": [
+        {
+          "page": 1,
+          "readerPage": 2,
+          "url": "https://view.pagetiger.com/ort-power-cut/1/Thumbs/Page_3fed975103d48852c1cb7baf7a26a2d6_0002-1258-0-0.jpg?cpc=true",
+          "bytes": 492945,
+          "sha256": "d3b36e69784623d828774aa3dcae150f1fe0f3748d99f49ed44f4faea8be5e9c"
+        },
+        {
+          "page": 2,
+          "readerPage": 3,
+          "url": "https://view.pagetiger.com/ort-power-cut/1/Thumbs/Page_584e086c24a4018e685b4bd50b2a2c44_0003-1258-0-0.jpg?cpc=true",
+          "bytes": 448448,
+          "sha256": "b4bc2e7da85b59d4ef73854f6dd286979be6c58cf904274527d515f05810bd61"
+        }
+      ],
+      "sourceSha256": "457cf2a007895688e128cb177ed2a7eef860e40aa61d9c56af057a35aaf4b3a9"
+    },
+    {
+      "mode": "publisher-sample",
+      "series": "Oxford Reading Tree",
+      "strand": "Biff, Chip and Kipper Stories",
+      "level": "7",
+      "sourceName": "Oxford University Press (China) official sample",
+      "sourceUrl": "https://shop.oupchina.com.hk/en/products/oxford-reading-tree-biff-chip-and-kipper-stories-level-7-mixed-pack-of-6",
+      "requiresLogin": false,
+      "distribution": "publisher-link-only",
+      "verifiedAgainstSource": true,
+      "id": "power-cut-2",
+      "title": "The Power Cut",
+      "pageNumbers": [
+        3,
+        4
+      ],
+      "readingGuide": "今天从孩子抱着影片的那页开始。车停下后，妈妈和 Wilf 提出了两个不同的建议，试着分别指给家人看。",
+      "verifiedOn": "2026-11-16",
+      "wordCountUpperBound": 90,
+      "glossary": [
+        {
+          "term": "films",
+          "meaning": "影片",
+          "explanation": "看孩子抱着的盒子，想想它们可以用来做什么。",
+          "page": 3
+        },
+        {
+          "term": "journey",
+          "meaning": "旅程",
+          "explanation": "注意车开了好久才停下。这个词指从一地到另一地的过程。",
+          "page": 4
+        }
+      ],
+      "grammar": {
+        "title": "说自己想做的事",
+        "quote": "We want to watch",
+        "page": 3,
+        "explanation": "want 后接 to，再接动作的原形。先想你想做的动作，再说 I want to 加上这个动作。",
+        "example": "I want to draw a map.",
+        "translation": "我想画一张地图。"
+      },
+      "questions": [
+        {
+          "prompt": "Wilma 为什么想带这些影片？",
+          "options": [
+            "她要送给朋友",
+            "每部都看过很多遍",
+            "其中有些她还没看过"
+          ],
+          "answer": 2,
+          "explanation": "第3页 Wilma 解释了把影片带上的理由。",
+          "evidencePage": 3
+        },
+        {
+          "prompt": "停车休息时，妈妈先提议做什么？",
+          "options": [
+            "买明信片",
+            "去喝点东西",
+            "去游戏厅"
+          ],
+          "answer": 1,
+          "explanation": "第4页先看妈妈说的话，再找 Wilf 提出的另一个想法。",
+          "evidencePage": 4
+        }
+      ],
+      "readerUrl": "https://oup.pagetiger.com/ort-power-cut/",
+      "readerPages": "4–5 / 8",
+      "evidenceAssets": [
+        {
+          "page": 3,
+          "readerPage": 4,
+          "url": "https://view.pagetiger.com/ort-power-cut/1/Thumbs/Page_d09384a148abf81348b93d31cb956886_0004-1258-0-0.jpg?cpc=true",
+          "bytes": 406524,
+          "sha256": "dd3e239681446f081baa45db1d6b57f63df5a4d2e527cb47c7a9335b9c3693a9"
+        },
+        {
+          "page": 4,
+          "readerPage": 5,
+          "url": "https://view.pagetiger.com/ort-power-cut/1/Thumbs/Page_01ea2bae6d7039766fbf523bcc53aa6d_0005-1258-0-0.jpg?cpc=true",
+          "bytes": 496246,
+          "sha256": "d0e49b05476f62be901faeeb35bed91ce2cdcbab822c7115c99b116ff1a18553"
+        }
+      ],
+      "sourceSha256": "23ef242c8221e1bddfccded8bf20951d94d0456e57d2b359a5fe3e8841e1c02d"
+    },
+    {
+      "mode": "publisher-sample",
+      "series": "Oxford Reading Tree",
+      "strand": "Biff, Chip and Kipper Stories",
+      "level": "7",
+      "sourceName": "Oxford University Press (China) official sample",
+      "sourceUrl": "https://shop.oupchina.com.hk/en/products/oxford-reading-tree-biff-chip-and-kipper-stories-level-7-mixed-pack-of-6",
+      "requiresLogin": false,
+      "distribution": "publisher-link-only",
+      "verifiedAgainstSource": true,
+      "id": "power-cut-3",
+      "title": "The Power Cut",
+      "pageNumbers": [
+        5,
+        6
+      ],
+      "readingGuide": "先看小屋外面，再看里面。Wilf 关注小屋在哪里，Chip 则注意到屋内的一件东西。这是这个公开样章的最后两页。",
+      "verifiedOn": "2026-11-16",
+      "wordCountUpperBound": 90,
+      "glossary": [
+        {
+          "term": "cottage",
+          "meaning": "乡间小屋",
+          "explanation": "看汽车停在什么样的房子旁，注意房子四周的树。",
+          "page": 5
+        },
+        {
+          "term": "unpack",
+          "meaning": "卸下行李；打开包取物",
+          "explanation": "pack 是收拾行李，到了目的地再 unpack，把带来的东西拿出来。",
+          "page": 6
+        }
+      ],
+      "grammar": {
+        "title": "提议一起做件事",
+        "quote": "Let’s watch TV.",
+        "page": 6,
+        "explanation": "Let’s 是 let us 的缩写。后面加动词原形，就能邀请对方一起做一件事。",
+        "example": "Let’s find the river.",
+        "translation": "我们一起去找那条河吧。"
+      },
+      "questions": [
+        {
+          "prompt": "Wilf 说小屋周围是什么？",
+          "options": [
+            "一大片森林",
+            "闹市街道",
+            "一片沙滩"
+          ],
+          "answer": 0,
+          "explanation": "第5页 Wilf 说出了周围的环境，图中也能看到树木。",
+          "evidencePage": 5
+        },
+        {
+          "prompt": "走进小屋后，什么让 Chip 想看电视？",
+          "options": [
+            "妈妈正在放电影",
+            "墙上有电影海报",
+            "前面的房间里有一台大电视"
+          ],
+          "answer": 2,
+          "explanation": "第6页在 Chip 开口前提到房间里有一台大电视。",
+          "evidencePage": 6
+        }
+      ],
+      "readerUrl": "https://oup.pagetiger.com/ort-power-cut/",
+      "readerPages": "6–7 / 8",
+      "evidenceAssets": [
+        {
+          "page": 5,
+          "readerPage": 6,
+          "url": "https://view.pagetiger.com/ort-power-cut/1/Thumbs/Page_468bada9e105e95da64e4e2a837e76bc_0006-1258-0-0.jpg?cpc=true",
+          "bytes": 517979,
+          "sha256": "9211e5185de3ff304653edbec6d95c6ca5878449d2310a00f66ba4a25f2a2cde"
+        },
+        {
+          "page": 6,
+          "readerPage": 7,
+          "url": "https://view.pagetiger.com/ort-power-cut/1/Thumbs/Page_8ae571822822c698758f8b7e2068c862_0007-1258-0-0.jpg?cpc=true",
+          "bytes": 451632,
+          "sha256": "8c2ec3714430c653f709832f3684674bbda5299dbd91aa7e47761dce02be3313"
+        }
+      ],
+      "sourceSha256": "1967a332fd3acd7a51b691bee0d214f1f1340da22bdc70a790accad2d85e807b"
+    },
+    {
+      "mode": "publisher-sample",
+      "series": "Oxford Reading Tree",
+      "strand": "Traditional Tales",
+      "level": "7",
+      "sourceName": "Oxford University Press · Oxford Reading Buddy placement guide",
+      "sourceUrl": "https://cdn.oxfordowl.co.uk/2020/05/13/08/54/28/35767d4e-ff04-41d4-9229-eb74b568e7a1/Oxford-Reading-Buddy-Oxford-Levels-Placement-Guide.pdf",
+      "requiresLogin": false,
+      "distribution": "publisher-link-only",
+      "verifiedAgainstSource": true,
+      "id": "rumpel-12-13",
+      "title": "Rumpelstiltskin",
+      "pageNumbers": [
+        12,
+        13
+      ],
+      "readingGuide": "这次读的是童话中的一段。打开出版社指南的第八页，放大右上方的两页故事。先找到婴儿，再找来访的小妖精，读一读发生了什么。",
+      "verifiedOn": "2026-11-16",
+      "wordCountUpperBound": 90,
+      "glossary": [
+        {
+          "term": "promise",
+          "meaning": "诺言；承诺",
+          "explanation": "这里是 Lily 以前答应过小妖精的事。",
+          "page": 13
+        },
+        {
+          "term": "castle",
+          "meaning": "城堡",
+          "explanation": "看右图里高大的房间，人物在城堡里相遇。",
+          "page": 13
+        }
+      ],
+      "grammar": {
+        "title": "给人取名字",
+        "quote": "They called him Tom.",
+        "page": 12,
+        "explanation": "call 在这里表示给人取名字。过去的事情用 called。him 指前面提到的男婴，后面直接接名字。",
+        "example": "We called our puppy Pip.",
+        "translation": "我们给小狗取名叫 Pip。"
+      },
+      "questions": [
+        {
+          "prompt": "Lily 和王子给儿子取了什么名字？",
+          "options": [
+            "Pip",
+            "Tom",
+            "Chip"
+          ],
+          "answer": 1,
+          "explanation": "看上方左页最后一句。名字紧跟在 him 后面。",
+          "evidencePage": 12
+        },
+        {
+          "prompt": "小妖精在哪一天来到城堡？",
+          "options": [
+            "王子结婚那天",
+            "孩子出生那天",
+            "Tom 一岁生日那天"
+          ],
+          "answer": 2,
+          "explanation": "上方右页先交代生日，再讲谁来到了城堡。",
+          "evidencePage": 13
+        }
+      ],
+      "readerUrl": "https://cdn.oxfordowl.co.uk/2020/05/13/08/54/28/35767d4e-ff04-41d4-9229-eb74b568e7a1/Oxford-Reading-Buddy-Oxford-Levels-Placement-Guide.pdf#page=8",
+      "guidePanel": "upper",
+      "readerPages": "PDF 第8页右上方",
+      "evidenceAssets": [
+        {
+          "readerPage": 8,
+          "url": "https://cdn.oxfordowl.co.uk/2020/05/13/08/54/28/35767d4e-ff04-41d4-9229-eb74b568e7a1/Oxford-Reading-Buddy-Oxford-Levels-Placement-Guide.pdf",
+          "bytes": 7047571,
+          "sha256": "ef79f7f0c7ba4e102d862fc60d3235c098cd5fc230a9f5f856ac7d01a346f203"
+        }
+      ],
+      "sourceSha256": "e1aa5ee08cfc5554b2708afcb458421ff386415dff3eeaf1b452d5dd0a294d64"
+    },
+    {
+      "mode": "publisher-sample",
+      "series": "Oxford Reading Tree",
+      "strand": "Decode and Develop",
+      "level": "7",
+      "sourceName": "Oxford University Press · Oxford Reading Buddy placement guide",
+      "sourceUrl": "https://cdn.oxfordowl.co.uk/2020/05/13/08/54/28/35767d4e-ff04-41d4-9229-eb74b568e7a1/Oxford-Reading-Buddy-Oxford-Levels-Placement-Guide.pdf",
+      "requiresLogin": false,
+      "distribution": "publisher-link-only",
+      "verifiedAgainstSource": true,
+      "id": "portrait-4-5",
+      "title": "The Portrait Problem",
+      "pageNumbers": [
+        4,
+        5
+      ],
+      "readingGuide": "今天打开同一份指南，放大第八页右下方的肖像故事。看左图墙上的画，再看右图 Chip 递出的本子。注意两段对话是谁在鼓励谁。",
+      "verifiedOn": "2026-11-16",
+      "wordCountUpperBound": 90,
+      "glossary": [
+        {
+          "term": "portraits",
+          "meaning": "肖像画",
+          "explanation": "图中墙上挂着的是画人物样子的作品。注意词尾的 s。",
+          "page": 4
+        },
+        {
+          "term": "sketch",
+          "meaning": "速写；素描",
+          "explanation": "右图孩子手里的本子上画了一个人，找出模特是谁。",
+          "page": 5
+        }
+      ],
+      "grammar": {
+        "title": "给出改进建议",
+        "quote": "you need to practise",
+        "page": 5,
+        "explanation": "need to 后面接动词原形。要说明为了进步需要做什么，可以说 You need to，再加一个具体动作。",
+        "example": "You need to listen carefully.",
+        "translation": "你需要仔细听。"
+      },
+      "questions": [
+        {
+          "prompt": "Biff 觉得 Wilf 画的哪里还不太像？",
+          "options": [
+            "耳朵",
+            "头发",
+            "鼻子"
+          ],
+          "answer": 0,
+          "explanation": "下方左页 Biff 回应 Wilf 时提到了一个身体部位。",
+          "evidencePage": 4
+        },
+        {
+          "prompt": "Mrs May 给 Chip 的建议是什么？",
+          "options": [
+            "换一支新笔",
+            "尽可能经常练习画画",
+            "把素描本收起来"
+          ],
+          "answer": 1,
+          "explanation": "下方右页老师先鼓励 Chip，接着告诉他怎样画得更好。",
+          "evidencePage": 5
+        }
+      ],
+      "readerUrl": "https://cdn.oxfordowl.co.uk/2020/05/13/08/54/28/35767d4e-ff04-41d4-9229-eb74b568e7a1/Oxford-Reading-Buddy-Oxford-Levels-Placement-Guide.pdf#page=8",
+      "guidePanel": "lower",
+      "readerPages": "PDF 第8页右下方",
+      "evidenceAssets": [
+        {
+          "readerPage": 8,
+          "url": "https://cdn.oxfordowl.co.uk/2020/05/13/08/54/28/35767d4e-ff04-41d4-9229-eb74b568e7a1/Oxford-Reading-Buddy-Oxford-Levels-Placement-Guide.pdf",
+          "bytes": 7047571,
+          "sha256": "ef79f7f0c7ba4e102d862fc60d3235c098cd5fc230a9f5f856ac7d01a346f203"
+        }
+      ],
+      "sourceSha256": "e1aa5ee08cfc5554b2708afcb458421ff386415dff3eeaf1b452d5dd0a294d64"
     }
   ]
 }

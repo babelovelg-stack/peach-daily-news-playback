@@ -64,6 +64,36 @@
       "packId": "health",
       "readingId": "hunt-gold-3",
       "practice": "learn"
+    },
+    {
+      "number": 8,
+      "packId": "moves",
+      "readingId": "power-cut-1",
+      "practice": "learn"
+    },
+    {
+      "number": 9,
+      "packId": "kit",
+      "readingId": "power-cut-2",
+      "practice": "learn"
+    },
+    {
+      "number": 10,
+      "packId": "terrain",
+      "readingId": "power-cut-3",
+      "practice": "learn"
+    },
+    {
+      "number": 11,
+      "packId": "animals",
+      "readingId": "rumpel-12-13",
+      "practice": "learn"
+    },
+    {
+      "number": 12,
+      "packId": "trail",
+      "readingId": "portrait-4-5",
+      "practice": "learn"
     }
   ]
 }

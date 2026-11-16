@@ -17,3 +17,15 @@
 通用提示：Educational English vocabulary sprite sheet, exact uniform 3-column by 2-row grid, six equal 512x512 square cells, no gutters or borders, warm ivory background, friendly watercolor/gouache, centered self-contained objects, no text. Six cells follow the pack word order above, final cell combines the theme. Anatomy must be accurate and body-part markers precise.
 
 饮品与餐具按 Unit 2 官方目录主题补充选词，并非教材逐页复制；身体与健康词已对照第二版 Unit 3 官方公开样章第31、34–36页。
+
+## 2026-11-16 动作、装备和自然主题
+
+五张图集沿用上方六格格式，使用 ImageGen 原创生成并按词序核对前五格。第六格画出整课主题。
+
+| 图集 | 图格顺序 |
+|---|---|
+| moves | 弯腰、伸展、单脚站稳、跳、转身 |
+| kit | 头盔、泳镜、靴子、手套、护膝 |
+| terrain | 河流、瀑布、岛、洞穴、高山 |
+| animals | 老虎、猴子、鳄鱼、鹦鹉、蛇 |
+| trail | 湖、森林、小山、岩石、小路 |

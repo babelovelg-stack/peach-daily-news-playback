@@ -3,15 +3,34 @@ import {createHash} from 'node:crypto';
 export const SAMPLES=JSON.parse(fs.readFileSync(new URL('./publisher-samples.json',import.meta.url),'utf8')).readings;
 const count=s=>(s.match(/[A-Za-z]+(?:['’-][A-Za-z]+)*/g)||[]).length;
 const assert=(x,m)=>{if(!x)throw Error(m);};
+const guideUrl='https://cdn.oxfordowl.co.uk/2020/05/13/08/54/28/35767d4e-ff04-41d4-9229-eb74b568e7a1/Oxford-Reading-Buddy-Oxford-Levels-Placement-Guide.pdf';
+const guideSelections=new Map([
+ ['Rumpelstiltskin',{panel:'upper',pages:[12,13]}],
+ ['The Portrait Problem',{panel:'lower',pages:[4,5]}]
+]);
+function validatePublisherPages(r){
+ const selection=guideSelections.get(r.title);
+ if(selection){
+  const a=r.evidenceAssets?.[0];
+  assert(r.readerUrl===guideUrl+'#page=8'&&r.sourceUrl===guideUrl&&r.guidePanel===selection.panel,'Unapproved guide location');
+  assert(JSON.stringify(r.pageNumbers)===JSON.stringify(selection.pages),'Incorrect original folios');
+  assert(r.evidenceAssets.length===1&&a?.url===guideUrl&&a.readerPage===8&&a.bytes===7047571&&a.sha256==='ef79f7f0c7ba4e102d862fc60d3235c098cd5fc230a9f5f856ac7d01a346f203','Guide evidence differs');
+  return;
+ }
+ const slug={'The Broken Roof':'ort-broken-roof','The Hunt for Gold':'ort-hunt-for-gold','The Power Cut':'ort-power-cut'}[r.title];
+ assert(slug&&!r.guidePanel&&r.readerUrl===`https://oup.pagetiger.com/${slug}/`&&r.sourceUrl.startsWith('https://shop.oupchina.com.hk/en/products/'),'Unapproved publisher sample');
+ assert(r.pageNumbers?.length===2&&r.pageNumbers[1]===r.pageNumbers[0]+1&&r.pageNumbers.every(n=>Number.isInteger(n)&&n>=1&&n<=6),'Use a verified two-page sample');
+ assert(r.evidenceAssets?.length===2,'Source evidence required');
+ for(const [i,a] of r.evidenceAssets.entries()){
+  const url=new URL(a.url);
+  assert(a.page===r.pageNumbers[i]&&a.readerPage===a.page+1&&a.bytes>0&&url.origin==='https://view.pagetiger.com'&&url.pathname.startsWith(`/${slug}/1/Thumbs/`)&&/^[a-f0-9]{64}$/.test(a.sha256),'Source-page evidence is invalid');
+ }
+}
 export function validateSample(r){
  assert(r.mode==='publisher-sample'&&r.distribution==='publisher-link-only','Publisher sample must remain on its original host');
- const slug={'The Broken Roof':'ort-broken-roof','The Hunt for Gold':'ort-hunt-for-gold'}[r.title];
- assert(slug&&r.readerUrl===`https://oup.pagetiger.com/${slug}/`&&r.sourceUrl.startsWith('https://shop.oupchina.com.hk/en/products/'),'Unapproved publisher sample');
+ validatePublisherPages(r);
  assert(r.requiresLogin===false&&r.verifiedAgainstSource===true&&r.verifiedOn,'Public sample access and content must be checked');
  assert(!r.pages&&!r.images&&!r.fullText,'Do not republish publisher pages or full text');
- assert(r.pageNumbers?.length===2&&r.pageNumbers.every(n=>Number.isInteger(n)&&n>=1&&n<=6),'Use a verified two-page sample');
- assert(r.evidenceAssets?.length===2,'Source evidence required');
- for(const a of r.evidenceAssets)assert(r.pageNumbers.includes(a.page)&&new URL(a.url).origin==='https://view.pagetiger.com'&&new URL(a.url).pathname.startsWith(`/${slug}/1/Thumbs/`)&&/^[a-f0-9]{64}$/.test(a.sha256),'Source-page evidence is invalid');
  const evidenceHash=createHash('sha256').update(r.evidenceAssets.map(a=>a.sha256).join('')).digest('hex');
  assert(evidenceHash===r.sourceSha256,'Source evidence fingerprint mismatch');
  assert(r.wordCountUpperBound>0&&r.wordCountUpperBound<=150&&r.readingGuide,'Reading portion needs a bounded workload and guidance');
@@ -22,8 +41,12 @@ export function validateSample(r){
  return {wordCount:null,minutes:{vocabulary:10,reading:10,review:3}};
 }
 export function validateSampleLibrary(readings=SAMPLES){
- const quotes=new Map();
- for(const r of readings){validateSample(r);const q=quotes.get(r.title)||new Set();q.add(r.grammar.quote);for(const g of r.glossary)q.add(g.term);quotes.set(r.title,q);}
+ const quotes=new Map(),occupied=new Set();
+ for(const r of readings){validateSample(r);
+  for(const page of r.pageNumbers){
+   const key=JSON.stringify([r.title,page]);assert(!occupied.has(key),'Repeated original book page');occupied.add(key);
+  }
+  const q=quotes.get(r.title)||new Set();q.add(r.grammar.quote);for(const g of r.glossary)q.add(g.term);quotes.set(r.title,q);}
  for(const q of quotes.values())assert(count([...q].join(' '))<=25,'Quotation budget exceeded for one book');
  return true;
 }
