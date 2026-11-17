@@ -1,12 +1,11 @@
 {
-  "lastRunAt": "2026-11-16T10:03:01.858Z",
-  "lastSentDate": "2026-11-16",
-  "lastReportDate": "2026-11-16",
-  "lastQuestionId": "reserve-rectangle-perimeter-20773",
-  "lastQuestion": "计算题（模拟数据）：长方形观察区长 19 米、宽 4 米，四周围一圈绳子，不留开口。根据记录一共需要多少米？\nA. 按记录中的条件计算，结果为 46。\nB. 按记录中的条件计算，结果为 23。\nC. 按记录中的条件计算，结果为 76。",
-  "lastAnswer": "答案：A。四边总长是（长＋宽）×2＝（19＋4）×2＝46 米。",
+  "lastRunAt": "2026-11-17T10:01:39.237Z",
+  "lastSentDate": "2026-11-17",
+  "lastReportDate": "2026-11-17",
+  "lastQuestionId": "advanced-rover-0",
+  "lastQuestion": "计算题：一辆月球车计划每分钟前进 4 米，连续行驶 6 分钟。实际前 2 分钟为了绕开石块，每分钟只走 3 米；其余时间按原速度行驶。它一共前进多少米？\nA. 24 米\nB. 18 米\nC. 22 米",
+  "lastAnswer": "答案：C。前 2 分钟走 2×3=6 米，其余 4 分钟走 4×4=16 米，一共 22 米。",
   "recentQuestionIds": [
-    "advanced-rover-7",
     "advanced-evidence-control-8",
     "advanced-helmet-evidence-9",
     "advanced-tree-ring-10",
@@ -41,7 +40,8 @@
     "reserve-absence-detection-20770",
     "reserve-thermal-control-20771",
     "reserve-range-spread-20772",
-    "reserve-rectangle-perimeter-20773"
+    "reserve-rectangle-perimeter-20773",
+    "advanced-rover-0"
   ],
   "recentQuestionConceptIds": [
     "concept-pollination",
@@ -86,7 +86,6 @@
     "news-quantum-memory-scaling-evidence-1",
     "concept-space-computing-warning",
     "concept-control-variable-evaporation",
-    "concept-exception-arithmetic-rover",
     "concept-evidence-control",
     "news-peach-pigment-light-interaction-1",
     "news-fossil-preservation-missing-evidence-1",
@@ -106,10 +105,10 @@
     "reserve-absence-detection",
     "reserve-thermal-control",
     "reserve-range-spread",
-    "reserve-rectangle-perimeter"
+    "reserve-rectangle-perimeter",
+    "concept-exception-arithmetic-rover"
   ],
   "recentQuestionTags": [
-    "花青素",
     "化石",
     "植物",
     "候鸟",
@@ -124,7 +123,8 @@
     "absence-detection",
     "thermal-control",
     "range-spread",
-    "rectangle-perimeter"
+    "rectangle-perimeter",
+    "航天"
   ],
   "recentQuestionTexts": [
     "关于学习和学校你还想继续追问哪一个更细的为什么",
@@ -227,17 +227,15 @@
     "探究题模拟数据夜间相机连续拍摄12晚没有记录到某动物；过去另一地点每4晚偶尔能记录到哪种判断更合理a.增加不同位置和时段的观察检查相机能否探测这种动物b.增加原位置同一时段的观察再按记录推测附",
     "探究题模拟数据比较两种隔热材料准备每组13个相同容器测4次温度材料不同哪种测试更公平a.每组使用相同水量和起始温度记录相同时刻的温度b.每组使用相同水量但不同起始温度记录相同时刻的温度c.每组",
     "计算题模拟数据一组测量记录的最大值是26最小值是14这组记录的最大与最小相差多少a.按记录中的条件计算结果为40b.按记录中的条件计算结果为12c.按记录中的条件计算结果为26",
-    "计算题模拟数据长方形观察区长19米宽4米四周围一圈绳子不留开口根据记录一共需要多少米a.按记录中的条件计算结果为46b.按记录中的条件计算结果为23c.按记录中的条件计算结果为76"
+    "计算题模拟数据长方形观察区长19米宽4米四周围一圈绳子不留开口根据记录一共需要多少米a.按记录中的条件计算结果为46b.按记录中的条件计算结果为23c.按记录中的条件计算结果为76",
+    "计算题一辆月球车计划每分钟前进4米连续行驶6分钟实际前2分钟为了绕开石块每分钟只走3米；其余时间按原速度行驶它一共前进多少米a.24米b.18米c.22米"
   ],
   "lastEncyclopediaIds": [
-    "museum-reference-material",
-    "museum-chip-photomask",
-    "museum-bird-banding"
+    "museum-pyritized-fossil",
+    "museum-xylem-vessels",
+    "museum-quipu-knots"
   ],
   "recentEncyclopediaIds": [
-    "museum-nuclide-chart",
-    "museum-volcanic-lahar",
-    "museum-shell-midden",
     "museum-egyptian-blue-pigment",
     "museum-antarctic-icefish-blood",
     "museum-marshall-stick-chart",
@@ -369,12 +367,12 @@
     "museum-insect-compound-eyes",
     "museum-reference-material",
     "museum-chip-photomask",
-    "museum-bird-banding"
+    "museum-bird-banding",
+    "museum-pyritized-fossil",
+    "museum-xylem-vessels",
+    "museum-quipu-knots"
   ],
   "recentEncyclopediaTags": [
-    "古生态",
-    "微体化石",
-    "铸造史",
     "生物考古",
     "古籍保护",
     "考古科学",
@@ -389,7 +387,10 @@
     "昆虫学",
     "计量学",
     "集成电路史",
-    "鸟类环志"
+    "鸟类环志",
+    "化石保护",
+    "植物解剖学",
+    "安第斯文明"
   ],
   "recentEncyclopediaTexts": [
     "地球科学不是冷知识它能帮助我们理解自然生活或社会洋流像海洋里的大河会影响气候鱼群和船只航行",
@@ -449,9 +450,6 @@
     "鱼的内耳里有叫耳石的硬组织会随生长留下层纹；研究者观察纹路能估算鱼的年龄并了解生长环境",
     "哺乳动物中耳里的锤骨砧骨和镫骨会把鼓膜振动传向内耳；镫骨还是人体最小的骨头",
     "古人用竹管钻玉时竹管负责带动磨料旋转；硬度较高的石英砂会一点点磨走玉料水则帮助带走碎屑",
-    "印加文明使用的奇普由主绳和许多垂绳组成；结的位置和样式可以按十进位记录数量绳子的颜色还可能用来区分物品类别",
-    "植物木质部的导管由许多纵向连接的细胞形成成熟后内部大多是空的；蒸腾拉力等作用会让水沿这些细长通道从根部向叶片移动",
-    "有些遗体埋藏后会被黄铁矿填充或替换形成带金属光泽的化石；出土后若长期接触潮湿空气黄铁矿可能氧化膨胀所以博物馆要严格控制湿度",
     "核素图按原子核里的质子数和中子数排列横着或竖着比较就能看见同位素之间的关系；图上的空白区域也是科学家寻找未知核素的重要线索",
     "火山灰和碎石遇到暴雨或融雪可能沿山谷形成高速火山泥流它能出现在喷发减弱以后所以火山监测还要继续观察降雨和河道",
     "贝丘是古人长期丢弃贝壳兽骨和生活遗物形成的堆积研究不同地层里的物种和工具能帮助考古学家了解当时的饮食海岸与环境变化",
@@ -586,11 +584,13 @@
     "许多昆虫的复眼由许多小眼组成每个小眼接收一个方向的光合起来能帮助昆虫快速发现运动",
     "标准物质具有经过准确测定的成分或数值实验室用它校准仪器才能让不同地方测出的结果彼此可比",
     "光刻制造芯片时会把掩膜版上的电路图形用光转印到涂有光刻胶的晶圆上；一块芯片通常要重复许多层加工",
-    "鸟类环志会给鸟戴上带编号的轻质脚环；以后再次观察或捕获同一只鸟就能研究它的迁徙路线和寿命"
+    "鸟类环志会给鸟戴上带编号的轻质脚环；以后再次观察或捕获同一只鸟就能研究它的迁徙路线和寿命",
+    "有些遗体埋藏后会被黄铁矿填充或替换形成带金属光泽的化石；出土后若长期接触潮湿空气黄铁矿可能氧化膨胀所以博物馆要严格控制湿度",
+    "植物木质部的导管由许多纵向连接的细胞形成成熟后内部大多是空的；蒸腾拉力等作用会让水沿这些细长通道从根部向叶片移动",
+    "印加文明使用的奇普由主绳和许多垂绳组成；结的位置和样式可以按十进位记录数量绳子的颜色还可能用来区分物品类别"
   ],
-  "lastIntroText": "🚀🍓📖 小脑袋准备起飞：愿今天有惊喜，也有让你自豪的新收获！",
+  "lastIntroText": "🐬🌈📝 愿你的想法像海浪一样有力量，也像阳光一样明亮！",
   "recentIntroTexts": [
-    "🍑🧩✨世界的知识拼图很大而你今天又会找到新的一块",
     "🌙🍓🧭愿今天的新发现陪着你走向一个更开阔更有趣的世界",
     "🎒🦋💛愿今天的知识像一只小蝴蝶轻轻落进你的记忆里",
     "🐝🌿📚一点点新知识会慢慢酿成大本领今天也会有甜甜的收获",
@@ -619,11 +619,11 @@
     "🗺️🧊🌍今天把世界当成一本会更新的地图看清数据从哪里来也记得给每个结论留一条能回头检查的路",
     "🍑✨📮今天也把好奇心装进口袋吧你认真望向世界的样子闪闪发光",
     "🌻🫧🚀每学会一个新东西都是给未来的自己存下一颗小太阳",
-    "🚀🍓📖小脑袋准备起飞愿今天有惊喜也有让你自豪的新收获"
+    "🚀🍓📖小脑袋准备起飞愿今天有惊喜也有让你自豪的新收获",
+    "🐬🌈📝愿你的想法像海浪一样有力量也像阳光一样明亮"
   ],
-  "lastClosingText": "知识不会一下子长成大树，但每天的一片新叶子都算数。",
+  "lastClosingText": "今天的情报到这里。愿你带着一个新发现进入今晚，心里亮亮的。",
   "recentClosingTexts": [
-    "世界每天都有新变化而你正在一点点长出理解它的力量",
     "新的知识已经抵达让眼睛休息一下也让大脑安静地整理它们",
     "事实让我们站得稳好奇让我们走得远今天的情报就到这里",
     "愿今天学到的知识像一盏小灯照亮以后遇到的相似问题",
@@ -652,13 +652,13 @@
     "今天的声音先停在这里新的知识会在脑海里慢慢找到自己的位置",
     "每次愿意多想一步都是在给未来的自己增加一种能力",
     "小小的知识已经装进口袋愿它在未来某一天帮你看懂更大的事情",
-    "知识不会一下子长成大树但每天的一片新叶子都算数"
+    "知识不会一下子长成大树但每天的一片新叶子都算数",
+    "今天的情报到这里愿你带着一个新发现进入今晚心里亮亮的"
   ],
   "lastNewsTitles": [
-    "第 1 条小情报：AI来到教学一线，如何帮助教师轻装上阵？"
+    "第 1 条小情报：广西儿童福利再升级：困境儿童保障提标，“开门办院”服务范围再拓宽"
   ],
   "recentNewsTitles": [
-    "第 3 条小情报：住房公积金新规将在9月20日开始施行",
     "第 1 条小情报：青藏高原识别出13万多个“石冰川”，数据集向全球开放",
     "第 2 条小情报：200千瓦AEM设备完成验证，可跟着风电和光伏变化制氢",
     "第 3 条小情报：全国早稻产量连续6年保持在560亿斤以上",
@@ -717,7 +717,8 @@
     "第 4 条小情报：中国移动研究院发布卫星相控阵天线关键技术实践案例",
     "第 5 条小情报：中国联通手机直连卫星试验星项目，公示中标候选人",
     "第 1 条小情报：上海高校课堂，“AI浓度”越来越高了",
-    "第 1 条小情报：AI来到教学一线，如何帮助教师轻装上阵？"
+    "第 1 条小情报：AI来到教学一线，如何帮助教师轻装上阵？",
+    "第 1 条小情报：广西儿童福利再升级：困境儿童保障提标，“开门办院”服务范围再拓宽"
   ],
   "lastContentMode": "news",
   "recentScienceConceptIds": [
@@ -750,6 +751,9 @@
     "museum-insect-compound-eyes",
     "museum-reference-material",
     "museum-chip-photomask",
-    "museum-bird-banding"
+    "museum-bird-banding",
+    "museum-pyritized-fossil",
+    "museum-xylem-vessels",
+    "museum-quipu-knots"
   ]
 }
