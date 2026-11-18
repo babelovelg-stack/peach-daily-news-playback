@@ -1,6 +1,6 @@
 {
   "schema": 1,
-  "lastLesson": 7,
+  "lastLesson": 8,
   "history": [
     {
       "date": "2026-11-11",
@@ -63,13 +63,15 @@
       "messageId": "<peach-english-2026-11-17-7@peach-lessons.local>",
       "run": "44061202561",
       "version": "2026-11-11-v2"
+    },
+    {
+      "date": "2026-11-18",
+      "lesson": 8,
+      "status": "sent",
+      "sha": "c07413312397c44489ab81a207482a9a8947fcfdff7d97d5134352db354dded9",
+      "messageId": "<peach-english-2026-11-18-8@peach-lessons.local>",
+      "run": "44281418506",
+      "version": "2026-11-11-v2"
     }
-  ],
-  "inFlight": {
-    "date": "2026-11-18",
-    "lesson": 8,
-    "sha": "c07413312397c44489ab81a207482a9a8947fcfdff7d97d5134352db354dded9",
-    "version": "2026-11-11-v2",
-    "run": "44281418506"
-  }
+  ]
 }
