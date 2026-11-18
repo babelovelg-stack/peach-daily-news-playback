@@ -32,11 +32,11 @@ export async function restoreOrBuild(p){const source=path.resolve(ROOT,'..','..'
 export async function verifyHosted(p,{attempts=120,delay=5000}={}){checkAssets(p);const reading=lessonFor(p.lesson).reading;if(reading.mode==='publisher-sample')await verifySampleOnline(reading);for(let i=0;i<attempts;i++){try{for(const name of ['index.html','manifest.json']){const r=await fetch(`${baseURL}/${folder(p.lesson)}/${name}?v=${Date.now()}`,{signal:AbortSignal.timeout(15000),cache:'no-store'});if(!r.ok||hash(Buffer.from(await r.arrayBuffer()))!==hash(fs.readFileSync(path.join(dirFor(p),'public',name))))throw Error('Hosted file mismatch');}console.log('Encrypted hosted assets verified byte-for-byte');return;}catch{if(i===attempts-1)throw Error('Hosted verification failed; no email sent');await new Promise(r=>setTimeout(r,delay));}}}
 export function emailFor(p,meta){
  const url=`${baseURL}/${folder(p.lesson)}/#key=${meta.key}`,subject=`桃子英语｜第${p.lesson}课｜${meta.title}｜${p.date}`,minutes=Object.values(meta.minutes).reduce((a,b)=>a+b,0),network=meta.requiresNetwork===true;
- const scope=network?` · 原书第${meta.pages.join('–')}页（官方样章）`:'';
+ const lesson=lessonFor(p.lesson),reading=lesson.reading;
+ const scope=network?` · ${reading.pageNumberType==='source-document'?'指南':'原书'}第${meta.pages.join('–')}页（${reading.pageNumberType==='source-document'?'原书文字摘录':'官方样章'}）`:'';
  const offline=network?'附件中的词汇、讲解音频和题目可离线使用；原书图文需联网打开出版社阅读器，无需登录。':'附件为内嵌图文音频的完整HTML，用浏览器打开可离线学习。';
  const flow=network?'看图听音 → 遮住回忆 → 听音选图 → 补全拼写；官方原书样章 → 重点片段跟读 → 词汇语法讲解 → 1–2道理解题。':'看图听音 → 遮住回忆 → 听音选图 → 补全拼写；原书逐句伴读、词汇语法讲解和1–2道理解题。';
  const practice=meta.practice&&meta.practice!=='learn'?'本课复习上一课的五个词，不新增五个词。':'本课学习五个重点词。';
- const lesson=lessonFor(p.lesson),reading=lesson.reading;
  const words=lesson.words.map(w=>w.word+'（'+w.meaning+'）').join('、');
  const location=reading.guidePanel?reading.readerPages:reading.readerPages?'阅读器 '+reading.readerPages:'';
  const sourceLink=reading.mode==='publisher-sample'?reading.readerUrl:null;

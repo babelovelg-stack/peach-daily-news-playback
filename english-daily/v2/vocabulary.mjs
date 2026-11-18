@@ -87,3 +87,19 @@ PACKS.trail = pack('trail', '自然主题 · 沿小径介绍风景', extension(4
  ['rock','岩石','/rɒk/','r · o · ck','想象摸到粗糙的岩石，词尾 ck 合起来只发一个 /k/。','A grey rock is beside the path.','小路旁有一块灰色岩石。','在图上找石头，用 beside 说位置。','r_ck'],
  ['path','小路；小径','/pɑːθ/','p · a · th','在空中画一条小路，读到词尾 th 时把舌尖轻放在上下齿间。','Follow the path up the hill.','沿着小路走上山丘。','给家人指路，说 Follow the path.','pa_h']
 ]);
+
+const newSource = (unit, note) => ({...source(unit, note), checked:'2026-11-18'});
+PACKS.action = pack('action', '自然主题 · 动物怎样移动', newSource(4,'在自然主题中扩展动作词，练习用副词说明动作方式。'), [
+ ['climb','攀爬','/klaɪm/','cl · imb','看松鼠贴着树干往上爬。末尾 b 不发音，读完 m 就停。','The squirrel can climb quickly.','松鼠能迅速地爬。','把 quickly 换成 slowly，说出动作的变化。','cli_b'],
+ ['crawl','爬行','/krɔːl/','cr · aw · l','看孩子的手和膝盖贴着地面向前移动，指着路线说 crawl。','The child crawls slowly.','这个孩子慢慢地爬。','用两只手在桌面模拟爬行，轻声说 slowly。','cr_wl'],
+ ['hop','蹦跳','/hɒp/','h · o · p','看小兔子用后腿弹离地面。用一根手指在桌面跳一小步，说 hop。','A rabbit can hop over a twig.','兔子能跳过一根小树枝。','把手指当兔子，演出 hop over。','h_p'],
+ ['swing','摆动；荡','/swɪŋ/','sw · ing','看猴子抓住藤蔓，从这一边荡到另一边。末尾 ng 发鼻音。','The monkey swings from a branch.','猴子抓着树枝荡来荡去。','让一只手像猴子一样摆动，再说整句。','sw_ng'],
+ ['slide','滑动；滑下','/slaɪd/','sl · i · de','想象顺着滑梯滑下的路线。词尾 e 帮助 i 读字母音。','The girl slides down carefully.','女孩小心地滑下来。','用手描出向下的路线，强调 carefully。','sli_e']
+]);
+PACKS.fabric = pack('fabric', '材料主题 · 衣物由什么制成', newSource(5,'按 Unit 5 服饰材料主题扩展，结合已学装备词练习 be made of。'), [
+ ['cotton','棉；棉布','/ˈkɒtən/','cot · ton','看白色棉花和旁边的布，把植物与材料连起来。记住中间两个 t。','My T-shirt is made of cotton.','我的T恤是棉制的。','想想自己的T恤，说出 made of cotton。','cot_on'],
+ ['wool','羊毛','/wʊl/','w · oo · l','把羊身上的毛和毛线球连起来想。这里 oo 是短音 /ʊ/。','This scarf is made of wool.','这条围巾是羊毛制的。','指向图中的羊，再说 made of wool。','wo_l'],
+ ['silk','丝；丝绸','/sɪlk/','s · i · l · k','看蓝色丝绸的光泽，再找旁边的蚕茧，把来源和布料一起记。','This dress is made of silk.','这条连衣裙是丝绸做的。','摸摸想象中光滑的丝绸，说 silk。','si_k'],
+ ['leather','皮革','/ˈleðə/','lea · ther','把皮革样片和旁边的腰带连起来。th 在这个词里发有声的 /ð/。','These boots are made of leather.','这双靴子是皮革制的。','把 boots 换成 gloves，说一副皮手套。','lea_her'],
+ ['rubber','橡胶','/ˈrʌbə/','rub · ber','想象轻轻拉长橡皮筋又松开，记住中间两个 b。','The bands are made of rubber.','这些橡皮筋是橡胶制的。','指着轮胎或橡皮筋，说 made of rubber。','ru_ber']
+]);

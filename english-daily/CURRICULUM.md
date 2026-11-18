@@ -19,8 +19,10 @@
 | 10 | river, waterfall, island, cave, mountain | The Power Cut 5–6页 | Let’s + 动词原形 |
 | 11 | tiger, monkey, crocodile, parrot, snake | Rumpelstiltskin 12–13页（指南PDF第8页右上） | called + 人 + 名字 |
 | 12 | lake, forest, hill, rock, path | The Portrait Problem 4–5页（指南PDF第8页右下） | need to + 动词原形 |
+| 13 | climb, crawl, hop, swing, slide | Baba Yaga 12–13页（官方样章PDF第1页） | 动作 + 方式副词 |
+| 14 | cotton, wool, silk, leather, rubber | Cinderella 文字摘录（分级指南PDF第9页底部，指南印刷页50） | What about + 名词 |
 
-课号1属于历史旧版，不计入新版词库。3–4课是 Unit 2 主题内补充选词；5–7课对应 Unit 3 官方样章的身体与健康词汇。第8–9课延伸身体与运动主题，第10–12课进入 Unit 4 自然主题。前三本书各读开头六页。最后两本书分别读出版社分级指南收录的一个原书跨页，表中给出原书页码和 PDF 位置。
+课号1属于历史旧版，不计入新版词库。3–4课是 Unit 2 主题内补充选词；5–7课对应 Unit 3 官方样章的身体与健康词汇。第8–9课延伸身体与运动主题，第10–12课进入 Unit 4 自然主题。前三本书各读开头六页。第11–12课读出版社分级指南收录的原书跨页。第13课延续 Unit 4 动作和副词，第14课进入 Unit 5 材料主题。第14课使用指南里的原书文字摘录，未收录原书页码和插图，表内50是指南页码。
 
 后续备课沿官方目录继续：第8–12课在动作、装备和自然景物中练习比较、which、want/need to 及动作副词。后续继续使用 who / where 等句式，再进入 Unit 5 服饰材料与建议，Unit 6 学校与 should / be good at，Unit 7 职业，Unit 8 城市方位，Unit 9 旅行。每个主题按掌握情况展开，不以一天五词就宣称学完一个单元。新课需有新重点词，语法可以在新情景中螺旋复现。
 
@@ -30,8 +32,8 @@
 
 ## English
 
-This is supplemental home study aligned with Power Up 3 second-edition themes, beginning at Unit 2, not a replacement for the complete textbook or classes. The table lists the eleven reviewed lessons, each with five distinct target words and a new two-page official reading selection. Lessons 3–4 extend the food theme; 5–7 use verified Unit 3 body/health vocabulary. Reading support reflects the child's current RAZ C–D baseline rather than assuming equivalence with ORT Level 7.
+This is supplemental home study aligned with Power Up 3 second-edition themes, beginning at Unit 2, not a replacement for the complete textbook or classes. The table lists the thirteen reviewed lessons, each with five distinct target words and a new official reading selection. Lessons 3–4 extend the food theme; 5–7 use verified Unit 3 body/health vocabulary. Reading support reflects the child's current RAZ C–D baseline rather than assuming equivalence with ORT Level 7.
 
-The first three books are opening samples. Lessons 11 and 12 use different Level 7 titles on the right of PDF page 8 of the Oxford Reading Buddy placement guide, upper and lower panels respectively. A different book is labelled explicitly, never presented as missing continuation pages. Lessons 8–12 practise comparisons, which, want/need to and action adverbs. Later units continue through clothing and materials, school, jobs, city and travel. Grammar may recur in new contexts; the five target words and reading selection must be new.
+The first three books are opening samples. Lessons 11 and 12 use different Level 7 titles on the right of PDF page 8 of the Oxford Reading Buddy placement guide, upper and lower panels respectively. A different book is labelled explicitly, never presented as missing continuation pages. Lessons 8–12 practise comparisons, which, want/need to and action adverbs. Lesson 13 continues Unit 4 actions and adverbs. Lesson 14 introduces Unit 5 materials, using the Cinderella text example at the bottom of PDF page 9, printed guide page 50. This extract has no original illustration or original-book folio. Later lessons continue clothing and materials, school, jobs, city and travel. Grammar may recur in new contexts; the five target words and reading selection must be new.
 
 A daily 16:00 local Codex task targets a seven-lesson reviewed buffer. Existing 18:00 cloud email delivery remains unchanged. Missing sources are reported; unavailable originals stop delivery without repeating content or advancing progress. Full-book continuation may require official login, borrowing or purchase. No unlimited free full-text access is promised.

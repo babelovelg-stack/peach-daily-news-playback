@@ -921,6 +921,162 @@
         }
       ],
       "sourceSha256": "e1aa5ee08cfc5554b2708afcb458421ff386415dff3eeaf1b452d5dd0a294d64"
+    },
+    {
+      "mode": "publisher-sample",
+      "series": "Oxford Reading Tree",
+      "strand": "Traditional Tales",
+      "level": "7",
+      "requiresLogin": false,
+      "distribution": "publisher-link-only",
+      "verifiedAgainstSource": true,
+      "verifiedOn": "2026-11-18",
+      "id": "baba-yaga-12-13",
+      "title": "Baba Yaga",
+      "pageNumbers": [
+        12,
+        13
+      ],
+      "readerPages": "PDF 第1页，左右两页一起显示",
+      "guidePanel": "full",
+      "sourceName": "Oxford University Press official look-inside PDF",
+      "sourceUrl": "https://fdslive.oup.com/www.oup.com/oxed/look-inside/9780198339632.pdf?region=international",
+      "readerUrl": "https://fdslive.oup.com/www.oup.com/oxed/look-inside/9780198339632.pdf?region=international#page=1",
+      "evidenceAssets": [
+        {
+          "readerPage": 1,
+          "url": "https://fdslive.oup.com/www.oup.com/oxed/look-inside/9780198339632.pdf?region=international",
+          "bytes": 144286,
+          "sha256": "3c764f7c2cad64961bace4168d2a382c7a0b73aef814d6634ea91b41578512c4"
+        }
+      ],
+      "wordCountUpperBound": 90,
+      "readingGuide": "今天读巴巴雅加童话中的一个片段。打开官方样章，左边是会跑的小屋和娜塔莎，右边是屋内。先观察小屋怎样移动，再找出屋内的光从哪里来。",
+      "glossary": [
+        {
+          "term": "hut",
+          "meaning": "小屋",
+          "explanation": "图里的小屋长着腿，会像动物一样跑。这是童话里发生的事。",
+          "page": 12
+        },
+        {
+          "term": "stove",
+          "meaning": "炉子",
+          "explanation": "结合右边发光的炉火，找出照亮屋内的东西。",
+          "page": 12
+        }
+      ],
+      "grammar": {
+        "title": "动作后面说明怎样做",
+        "quote": "climbed up nervously",
+        "page": 12,
+        "explanation": "climbed up 表示爬上去，后面的 nervously 说明爬的时候很紧张。动作后面加说明方式的词，就能让别人知道怎么做。今天学的 slowly 和 carefully 也可以这样用。",
+        "example": "The boy climbed up slowly.",
+        "translation": "男孩慢慢地爬上去。"
+      },
+      "questions": [
+        {
+          "prompt": "Baba Yaga 吹口哨后，小屋做了什么？",
+          "options": [
+            "跑了过来",
+            "飞走了",
+            "变成了马车"
+          ],
+          "answer": 0,
+          "explanation": "第12页的连续画面和文字都展示了小屋的移动。",
+          "evidencePage": 12
+        },
+        {
+          "prompt": "屋内的光从哪里来？",
+          "options": [
+            "天花板上的灯",
+            "角落的大铁炉",
+            "门外的阳光"
+          ],
+          "answer": 1,
+          "explanation": "第12页交代了光源，第13页的画面帮助你找到它。",
+          "evidencePage": 12
+        }
+      ],
+      "sourceSha256": "5edebd99342ea6553c47259ae27e246de308224d2a9066954f3f181f7ebcfa35"
+    },
+    {
+      "mode": "publisher-sample",
+      "series": "Oxford Reading Tree",
+      "strand": "Traditional Tales",
+      "level": "7",
+      "requiresLogin": false,
+      "distribution": "publisher-link-only",
+      "verifiedAgainstSource": true,
+      "verifiedOn": "2026-11-18",
+      "id": "cinderella-guide-50",
+      "title": "Cinderella",
+      "pageNumbers": [
+        50
+      ],
+      "pageNumberType": "source-document",
+      "readerPages": "PDF 第9页（指南印刷页50）底部的 Level 7 text example 框",
+      "guidePanel": "bottom",
+      "sourceName": "Oxford Assessment & Levelling Guide · Level 7 text example",
+      "sourceUrl": "https://assets.oxfordowl.co.uk/2014/10/29/15/15/59/48/Levelling_hndk_Section4.pdf",
+      "readerUrl": "https://assets.oxfordowl.co.uk/2014/10/29/15/15/59/48/Levelling_hndk_Section4.pdf#page=9",
+      "evidenceAssets": [
+        {
+          "readerPage": 9,
+          "url": "https://assets.oxfordowl.co.uk/2014/10/29/15/15/59/48/Levelling_hndk_Section4.pdf",
+          "bytes": 973982,
+          "sha256": "f48bb676332f5105ceaf6ca2bc5fb0a0d05a071132c7c6cd67292d0d7f7d28a6"
+        }
+      ],
+      "wordCountUpperBound": 50,
+      "readingGuide": "今天读灰姑娘的一个短片段。打开牛津出版社指南的第九页，只读页面最下方的英文故事框。先找灰姑娘担心什么，再找仙女教母做了什么动作。这里提供原书文字摘录，原书页码和插图未收录。",
+      "glossary": [
+        {
+          "term": "ball",
+          "meaning": "舞会",
+          "explanation": "结合灰姑娘的故事情景，这里是参加舞会的意思。",
+          "page": 50
+        },
+        {
+          "term": "wand",
+          "meaning": "魔杖",
+          "explanation": "仙女教母挥动的魔法道具。注意故事最后的动作。",
+          "page": 50
+        }
+      ],
+      "grammar": {
+        "title": "用 What about 提出遗漏的问题",
+        "quote": "What about my dress?",
+        "page": 50,
+        "explanation": "What about 后面可以接一个名词，表示这个东西怎么办。灰姑娘用它提醒仙女教母，衣服的问题还没有解决。",
+        "example": "What about my shoes?",
+        "translation": "那我的鞋子怎么办？"
+      },
+      "questions": [
+        {
+          "prompt": "灰姑娘低头看了看旧衣服，接着担心什么？",
+          "options": [
+            "去舞会的时间",
+            "自己的裙子",
+            "马车的位置"
+          ],
+          "answer": 1,
+          "explanation": "在指南第50页底部的英文故事框中，找灰姑娘问出的那个问题。",
+          "evidencePage": 50
+        },
+        {
+          "prompt": "这段结束时，仙女教母做了什么？",
+          "options": [
+            "再次挥动魔杖",
+            "打开了门",
+            "跑出了房子"
+          ],
+          "answer": 0,
+          "explanation": "看故事框的最后一行，动作之后出现了一道闪光。",
+          "evidencePage": 50
+        }
+      ],
+      "sourceSha256": "f8c747e299cf312cf03324ae0fff11cc7419cda2e519f8bb2ffb4c7d293c85f0"
     }
   ]
 }

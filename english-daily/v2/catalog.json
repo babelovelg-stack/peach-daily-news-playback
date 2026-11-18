@@ -94,6 +94,18 @@
       "packId": "trail",
       "readingId": "portrait-4-5",
       "practice": "learn"
+    },
+    {
+      "number": 13,
+      "packId": "action",
+      "readingId": "baba-yaga-12-13",
+      "practice": "learn"
+    },
+    {
+      "number": 14,
+      "packId": "fabric",
+      "readingId": "cinderella-guide-50",
+      "practice": "learn"
     }
   ]
 }

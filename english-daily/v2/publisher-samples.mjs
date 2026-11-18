@@ -5,20 +5,22 @@ const count=s=>(s.match(/[A-Za-z]+(?:['’-][A-Za-z]+)*/g)||[]).length;
 const assert=(x,m)=>{if(!x)throw Error(m);};
 const guideUrl='https://cdn.oxfordowl.co.uk/2020/05/13/08/54/28/35767d4e-ff04-41d4-9229-eb74b568e7a1/Oxford-Reading-Buddy-Oxford-Levels-Placement-Guide.pdf';
 const guideSelections=new Map([
- ['Rumpelstiltskin',{panel:'upper',pages:[12,13]}],
- ['The Portrait Problem',{panel:'lower',pages:[4,5]}]
+ ['Rumpelstiltskin',{panel:'upper',pages:[12,13],url:guideUrl,readerPage:8,bytes:7047571,sha256:'ef79f7f0c7ba4e102d862fc60d3235c098cd5fc230a9f5f856ac7d01a346f203'}],
+ ['The Portrait Problem',{panel:'lower',pages:[4,5],url:guideUrl,readerPage:8,bytes:7047571,sha256:'ef79f7f0c7ba4e102d862fc60d3235c098cd5fc230a9f5f856ac7d01a346f203'}],
+ ['Baba Yaga',{panel:'full',pages:[12,13],url:'https://fdslive.oup.com/www.oup.com/oxed/look-inside/9780198339632.pdf?region=international',readerPage:1,bytes:144286,sha256:'3c764f7c2cad64961bace4168d2a382c7a0b73aef814d6634ea91b41578512c4'}],
+ ['Cinderella',{panel:'bottom',pages:[50],pageNumberType:'source-document',url:'https://assets.oxfordowl.co.uk/2014/10/29/15/15/59/48/Levelling_hndk_Section4.pdf',readerPage:9,bytes:973982,sha256:'f48bb676332f5105ceaf6ca2bc5fb0a0d05a071132c7c6cd67292d0d7f7d28a6'}]
 ]);
 function validatePublisherPages(r){
  const selection=guideSelections.get(r.title);
  if(selection){
   const a=r.evidenceAssets?.[0];
-  assert(r.readerUrl===guideUrl+'#page=8'&&r.sourceUrl===guideUrl&&r.guidePanel===selection.panel,'Unapproved guide location');
-  assert(JSON.stringify(r.pageNumbers)===JSON.stringify(selection.pages),'Incorrect original folios');
-  assert(r.evidenceAssets.length===1&&a?.url===guideUrl&&a.readerPage===8&&a.bytes===7047571&&a.sha256==='ef79f7f0c7ba4e102d862fc60d3235c098cd5fc230a9f5f856ac7d01a346f203','Guide evidence differs');
+  assert(r.readerUrl===selection.url+'#page='+selection.readerPage&&r.sourceUrl===selection.url&&r.guidePanel===selection.panel,'Unapproved guide location');
+  assert(JSON.stringify(r.pageNumbers)===JSON.stringify(selection.pages)&&r.pageNumberType===selection.pageNumberType,'Incorrect original folios or source-document reference');
+  assert(r.evidenceAssets?.length===1&&a?.url===selection.url&&a.readerPage===selection.readerPage&&a.bytes===selection.bytes&&a.sha256===selection.sha256,'Guide evidence differs');
   return;
  }
  const slug={'The Broken Roof':'ort-broken-roof','The Hunt for Gold':'ort-hunt-for-gold','The Power Cut':'ort-power-cut'}[r.title];
- assert(slug&&!r.guidePanel&&r.readerUrl===`https://oup.pagetiger.com/${slug}/`&&r.sourceUrl.startsWith('https://shop.oupchina.com.hk/en/products/'),'Unapproved publisher sample');
+ assert(slug&&!r.guidePanel&&!r.pageNumberType&&r.readerUrl===`https://oup.pagetiger.com/${slug}/`&&r.sourceUrl.startsWith('https://shop.oupchina.com.hk/en/products/'),'Unapproved publisher sample');
  assert(r.pageNumbers?.length===2&&r.pageNumbers[1]===r.pageNumbers[0]+1&&r.pageNumbers.every(n=>Number.isInteger(n)&&n>=1&&n<=6),'Use a verified two-page sample');
  assert(r.evidenceAssets?.length===2,'Source evidence required');
  for(const [i,a] of r.evidenceAssets.entries()){

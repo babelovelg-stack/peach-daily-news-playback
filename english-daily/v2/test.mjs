@@ -82,3 +82,20 @@ test('mail body works without attachment preview, exposing the daily words, prom
   assert.ok(mail.subject.includes(lesson.title));
  }
 });
+
+test('single original text extract keeps source-document folios distinct from original book pages',()=>{
+ const r=SAMPLES.find(x=>x.title==='Cinderella');
+ assert.equal(validateSample(r).minutes.reading,10);
+ assert.throws(()=>validateSample({...r,pageNumberType:undefined}),/source-document/);
+ assert.throws(()=>validateSample({...r,pageNumbers:[12,13]}),/folios/);
+ const lesson=lessonFor(14);
+ const mail=emailFor({lesson:14,date:'2026-11-18'},{key:'a'.repeat(64),title:lesson.title,book:r.title,minutes:lesson.minutes,requiresNetwork:true,pages:r.pageNumbers});
+ for(const body of [mail.text,mail.html]){
+  assert.ok(body.includes('指南第50页'));
+  assert.ok(!body.includes('原书第50页'));
+  assert.ok(body.includes('原书文字摘录'));
+ }
+ const baba=SAMPLES.find(x=>x.title==='Baba Yaga');
+ assert.throws(()=>validateSample({...baba,readerUrl:r.readerUrl}),/location/);
+ assert.throws(()=>validateSample({...baba,evidenceAssets:[]}),/evidence/);
+});
