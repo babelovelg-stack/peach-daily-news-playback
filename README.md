@@ -6,10 +6,6 @@
 
 ## 中文
 
-### 桃子英语每日课
-
-[英语学习模块](english-daily/README.md)每天提供5个新重点词、新的原书选段和两道理解题，约23分钟；复习只作补充。现有课号2–14共65个不同词，阅读选自七本牛津树Level 7读物的官方样章和指南摘录。第14课为指南第50页的灰姑娘文字片段，未附原书插图。邮件正文列出当天五词、指定页码、问题和可复制的课程地址。邮件正文为浏览器学习入口；附件预览显示打开说明。18:00按未发课程推进，已确认手动投递计入选课，不覆盖云端历史。后续由Codex本地续编任务预备，原书不足时停止并提示，不能重发旧课。
-
 ### 项目简介
 
 本仓库完整承载“桃子宝贝每日情报”：资讯采集、儿童内容改写、质量门禁、探索题与百科状态、邮件生成、Xiaoyi 语音、字幕、静态播放页、GitHub Pages 发布、线上文件校验和邮件发送都在这里完成。
@@ -242,10 +238,6 @@ GitHub Actions 必须配置 `REPORT_EMAIL_FROM`、`SMTP_HOST`、`SMTP_PORT`、`S
 <a id="english"></a>
 
 ## English
-
-### Peach Daily English
-
-The [English module](english-daily/README.md) provides five new words, a new original reading selection and two questions daily, planned for 23 minutes. Thirteen reviewed lessons (2–14) contain 65 distinct words with selections from seven ORT Level 7 titles. Lesson 14 uses a Cinderella text extract on guide page 50 with no original illustration. Each email lists the target words, assigned pages, questions and a copyable course address. Email directs learners to a browser; script-blocked attachment previews show opening instructions. The 18:00 selector counts accepted manual deliveries without rewriting cloud history. Local Codex preparation replenishes later lessons; missing originals stop delivery instead of replaying content.
 
 ### Overview
 
