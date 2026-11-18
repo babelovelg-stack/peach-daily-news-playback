@@ -31,5 +31,11 @@
       "at": "2026-11-18T08:19:41.200Z",
       "run": "44265886620"
     }
-  ]
+  ],
+  "inFlight": {
+    "request": "entry-20261118-public-01",
+    "lesson": 7,
+    "date": "2026-11-18",
+    "sha": "af349d0fb49c0fbbaaa7306184b7efce8f788a1fe7e4ce202cb8f516f1145724"
+  }
 }
