@@ -22,6 +22,9 @@
 
 原书摘录按其出处显示定位。第13课链接[《Baba Yaga》样章](https://fdslive.oup.com/www.oup.com/oxed/look-inside/9780198339632.pdf?region=international)，第14课链接[牛津分级指南第9页](https://assets.oxfordowl.co.uk/2014/10/29/15/15/59/48/Levelling_hndk_Section4.pdf#page=9)。
 
+
+邮件现在直接包含五词插画、音标、记忆方法、例句、拼写练习、原书伴读、词汇语法讲解、两道选择题和文末答案，不依赖脚本。CID 插画随信内嵌；01/02 两份标准 MP3 分别包含词汇讲解及阅读伴读，供邮箱或系统播放器使用。FFmpeg 从已验证课程中的原音频合并文件，不重新生成讲稿。原书仍在出版社页面，MP3 不冒充整页朗读。生成附件必须在发送占位前成功。
+
 ### 构建与原书接入
 
 需要 Node.js 24、Python 和 `edge-tts==7.2.8`：
@@ -59,7 +62,7 @@ node english-daily/v2/delivery.mjs readiness
 
 用户明确要求立即推送时，可手动运行云端 `Peach English Manual Delivery`（`manual-workflow.yml` 部署到 `.github/workflows/peach-english-manual.yml`），指定已发布课号和唯一 `request_id`。沿用原 SMTP 和收件人，邮件附完整课程 HTML 与私人链接；不改写每日 `state.json` 历史和18:00计划；每日选课同时读取补发成功记录，跳过连续已发课，不跨过未发课。工作流取得串行执行权后检出最新 main，避免排队或重跑使用旧投递账本。独立 `manual-deliveries.json` 在发送前持久化占位，确认 SMTP 接受后保存记录。同一请求不重复发送，不明确结果阻止自动重试。`node --test english-daily/v2/manual.test.mjs` 验证补发状态与工作流边界。
 
-39项课程/投递测试通过，覆盖来源、引用预算、配量、加密篡改、缺书阻断、连续状态及邮件联网说明。13课均构建并核对每课22段音频的文本/声音指纹与字节哈希。真实浏览器验证了出版社样章在桌面与390px手机宽度的加载、翻页、重点片段音频播放、答题反馈、阅读确认和完成门槛；390px无横向溢出。旧内嵌阅读模式的逐句高亮与解密使用明确标记的测试文本验证，测试文本不是原书。
+41项课程/投递测试通过，覆盖来源、引用预算、配量、加密篡改、缺书阻断、连续状态及邮件联网说明。13课均构建并核对每课22段音频的文本/声音指纹与字节哈希。真实浏览器验证了出版社样章在桌面与390px手机宽度的加载、翻页、重点片段音频播放、答题反馈、阅读确认和完成门槛；390px无横向溢出。旧内嵌阅读模式的逐句高亮与解密使用明确标记的测试文本验证，测试文本不是原书。
 
 - [Cambridge 官方样章](https://assets.cambridge.org/97810098/09887/excerpt/9781009809887_excerpt.pdf)
 - [OUP Level 7 产品与样章入口](https://shop.oupchina.com.hk/en/products/oxford-reading-tree-biff-chip-and-kipper-stories-level-7-mixed-pack-of-6)
@@ -87,9 +90,12 @@ The first sample terms are cereal, yoghurt, pancake, noodles and cabbage, checke
 
 Source-specific locations appear in the lesson. Lesson 13 links to the [Baba Yaga sample](https://fdslive.oup.com/www.oup.com/oxed/look-inside/9780198339632.pdf?region=international), and lesson 14 to [PDF page 9 of the levelling guide](https://assets.oxfordowl.co.uk/2014/10/29/15/15/59/48/Levelling_hndk_Section4.pdf#page=9).
 
+
+The email now contains the vocabulary atlas, pronunciation, memory cues, examples, spelling practice, reading guidance, glossary, grammar, two multiple-choice questions and answers without scripts. The CID image is attached inline. Two standard MP3 attachments contain vocabulary teaching and reading guidance for mail or system players. FFmpeg joins existing verified course clips without changing narration. Originals remain on publisher pages; the MP3 is not full-page narration. Attachment generation must pass before persisting a send claim.
+
 ### Build and original-book intake
 
-Use Node.js 24, Python and `edge-tts==7.2.8`:
+Use Node.js 24, Python, `edge-tts==7.2.8` and FFmpeg:
 
 ```sh
 python3 -m pip install edge-tts==7.2.8

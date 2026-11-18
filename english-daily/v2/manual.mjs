@@ -5,6 +5,7 @@ import {ROOT,lessonFor} from './model.mjs';
 import {OUTPUT,folder} from './build.mjs';
 import {restoreOrBuild,checkAssets,verifyHosted,emailFor} from './delivery.mjs';
 import {todayInShanghai} from '../daily.mjs';
+import {createMailAttachments} from './mail-package.mjs';
 const ledgerPath=path.resolve(ROOT,'..','manual-deliveries.json');
 const planPath=path.join(OUTPUT,'manual-plan.json');
 export function planManual(ledger,request,lesson,date){
@@ -30,7 +31,7 @@ async function command(cmd){
  fs.mkdirSync(OUTPUT,{recursive:true});
  if(cmd==='prepare'){
   const p=planManual(readLedger(),process.env.ENGLISH_MANUAL_REQUEST||'',Number(process.env.ENGLISH_MANUAL_LESSON),todayInShanghai());
-  if(p.send){lessonFor(p.lesson);if(!fs.existsSync(path.resolve(ROOT,'..','..','english',folder(p.lesson))))throw Error('Manual delivery requires an already published lesson');await restoreOrBuild(p);await verifyHosted(p,{attempts:3,delay:2000});}
+  if(p.send){lessonFor(p.lesson);if(!fs.existsSync(path.resolve(ROOT,'..','..','english',folder(p.lesson))))throw Error('Manual delivery requires an already published lesson');await restoreOrBuild(p);await verifyHosted(p,{attempts:3,delay:2000});createMailAttachments(p);}
   fs.writeFileSync(planPath,JSON.stringify(p,null,2));
   if(process.env.GITHUB_OUTPUT)fs.appendFileSync(process.env.GITHUB_OUTPUT,`should_send=${p.send}\n`);
   console.log(p.send?`Manual lesson ${p.lesson} verified`:p.reason);return;
@@ -45,7 +46,7 @@ async function command(cmd){
  const {default:nodemailer}=await import('nodemailer');
  const transport=nodemailer.createTransport({host:process.env.SMTP_HOST,port:Number(process.env.SMTP_PORT||465),secure:(process.env.SMTP_SECURE||'true')==='true',auth:{user:process.env.SMTP_USER,pass:process.env.SMTP_PASS},connectionTimeout:30000,socketTimeout:60000});
  const {url,...mail}=emailFor(p,privateData),subject='最新版补发｜'+mail.subject;
- const result=await transport.sendMail({...mail,subject,from:process.env.REPORT_EMAIL_FROM||process.env.SMTP_USER,to:process.env.ENGLISH_EMAIL_TO,messageId:`<peach-english-manual-${p.request}@peach-lessons.local>`,attachments:[{filename:`Peach-English-Latest-${String(p.lesson).padStart(3,'0')}.html`,content:fs.readFileSync(path.join(OUTPUT,folder(p.lesson),'offline.html')),contentType:'text/html; charset=utf-8'}]});
+ const result=await transport.sendMail({...mail,subject,from:process.env.REPORT_EMAIL_FROM||process.env.SMTP_USER,to:process.env.ENGLISH_EMAIL_TO,messageId:`<peach-english-manual-${p.request}@peach-lessons.local>`,attachments:createMailAttachments(p)});
  const recipient=process.env.ENGLISH_EMAIL_TO.trim().toLowerCase();
  if(!result.accepted?.some(x=>String(x).toLowerCase()===recipient)||result.rejected?.length)throw Error('Recipient not accepted');
  const receipt={accepted:true,request:p.request,lesson:p.lesson,recipient,subject,messageId:result.messageId,at:new Date().toISOString()};

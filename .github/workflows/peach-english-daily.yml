@@ -34,9 +34,11 @@ jobs:
           node-version: '24'
           cache: npm
       - run: npm ci
+      - name: Ensure standard MP3 packaging is available
+        run: command -v ffmpeg || (sudo apt-get update -qq && sudo apt-get install -y ffmpeg)
       - run: npm test
       - name: Verify English delivery and curriculum
-        run: node --test english-daily/test.mjs english-daily/v2/test.mjs
+        run: node --test english-daily/test.mjs english-daily/v2/test.mjs english-daily/v2/mail-package.test.mjs
       - name: Check original-book readiness
         env:
           ENGLISH_CONTENT_KEY: ${{ secrets.ENGLISH_CONTENT_KEY }}

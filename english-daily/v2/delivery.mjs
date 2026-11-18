@@ -7,6 +7,7 @@ import {hash,esc} from '../build.mjs';
 import {todayInShanghai,scheduledDate} from '../daily.mjs';
 import {requireKey,lessonKey,unseal} from './crypto.mjs';
 import {verifySampleOnline} from './publisher-samples.mjs';
+import {readableCourse,createMailAttachments} from './mail-package.mjs';
 const STATE=path.resolve(ROOT,'..','state.json'),PLAN=path.join(OUTPUT,'plan.json');
 export function validateState(s){
  if(s.schema!==1||!Number.isInteger(s.lastLesson)||s.lastLesson<0||!Array.isArray(s.history)||s.lastLesson!==(s.history.at(-1)?.lesson||0)||s.history.some((h,i)=>!Number.isInteger(h.lesson)||h.lesson<1||(i>0&&h.lesson<=s.history[i-1].lesson)||h.status!=='sent'||!/^\d{4}-\d{2}-\d{2}$/.test(h.date))||new Set(s.history.map(h=>h.date)).size!==s.history.length)throw Error('Invalid delivery history; never reset it');return s;
@@ -33,6 +34,7 @@ export async function verifyHosted(p,{attempts=120,delay=5000}={}){checkAssets(p
 export function emailFor(p,meta){
  const url=`${baseURL}/${folder(p.lesson)}/#key=${meta.key}`,subject=`桃子英语｜第${p.lesson}课｜${meta.title}｜${p.date}`,minutes=Object.values(meta.minutes).reduce((a,b)=>a+b,0),network=meta.requiresNetwork===true;
  const lesson=lessonFor(p.lesson),reading=lesson.reading;
+ const readable=readableCourse(lesson);
  const scope=network?` · ${reading.pageNumberType==='source-document'?'指南':'原书'}第${meta.pages.join('–')}页（${reading.pageNumberType==='source-document'?'原书文字摘录':'官方样章'}）`:'';
  const offline=network?'附件中的词汇、讲解音频和题目可离线使用；原书图文需联网打开出版社阅读器，无需登录。':'附件为内嵌图文音频的完整HTML，用浏览器打开可离线学习。';
  const flow=network?'看图听音 → 遮住回忆 → 听音选图 → 补全拼写；官方原书样章 → 重点片段跟读 → 词汇语法讲解 → 1–2道理解题。':'看图听音 → 遮住回忆 → 听音选图 → 补全拼写；原书逐句伴读、词汇语法讲解和1–2道理解题。';
@@ -45,26 +47,26 @@ export function emailFor(p,meta){
   subject,'在浏览器中开始学习：'+url,'附件预览不支持声音和答题，请用浏览器打开。',
   meta.title,practice,words,meta.book+scope,location,reading.readingGuide||'',
   sourceLink?'出版社原书：'+sourceLink:'',reading.grammar.title,...questions,
-  '约'+minutes+'分钟。'+offline,flow,'学习密钥（仅本课）：'+meta.key
+  '约'+minutes+'分钟。'+offline,flow,readable.text,'学习密钥（仅本课）：'+meta.key
  ].filter(Boolean).join('\n\n');
  const html=`<!doctype html><html lang="zh-CN"><meta charset="utf-8"><body style="font-family:-apple-system,'PingFang SC',sans-serif;color:#254b3b;padding:20px"><div style="max-width:620px;margin:auto">
  <p>🍑 桃子英语 · 第${p.lesson}课 · ${minutes}分钟</p><h1>${esc(meta.title)}</h1>
  <p><a href="${esc(url)}" style="display:inline-block;background:#276a56;color:white;padding:14px 22px;border-radius:10px">在浏览器中开始学习 →</a></p>
- <p>请从邮件正文进入，不要在附件预览中学习。若邮件内打不开，用 Safari、Chrome 或 Edge 打开下面的完整地址。</p>
+ <p>网页打不开时，可直接往下读本邮件，播放随信的 01 和 02 两个 MP3 音频。互动版请用 Safari、Chrome 或 Edge 打开，不要在附件预览中学习。</p>
  <p style="overflow-wrap:anywhere;word-break:break-all">${esc(url)}</p>
  <p><b>词汇：</b>${esc(words)}</p><h2>${esc(meta.book+scope)}</h2>
  <p>${esc(location)}　${esc(reading.readingGuide||'')}</p>
  ${sourceLink?`<p><a href="${esc(sourceLink)}">直接打开出版社原书 ↗</a></p>`:''}
  <p>${esc(reading.grammar.title)}</p><ol>${reading.questions.map(q=>'<li>'+esc(q.prompt)+'</li>').join('')}</ol>
- <p>${esc(flow)}</p><p>${esc(offline)}</p>
+ <p>${esc(flow)}</p><p>${esc(offline)}</p>${readable.html}
  <p>如果网页提示输入学习密钥，复制下面这串字符。</p><p style="overflow-wrap:anywhere;word-break:break-all">${esc(meta.key)}</p></div></body></html>`;
  return {url,subject,text,html};
 }
 
 async function command(cmd){fs.mkdirSync(OUTPUT,{recursive:true});if(cmd==='readiness'){const s=readState(),n=nextLesson(s,readManual()),status=availability(n);if(status.ready){const reading=lessonFor(n).reading;if(reading.mode==='publisher-sample')await verifySampleOnline(reading);}console.log(JSON.stringify({nextLesson:n,...status}));return;}
  if(cmd==='prepare'){const date=process.env.ENGLISH_SCHEDULED==='true'?scheduledDate():todayInShanghai();const p=date?planNext(readState(),date,{manual:readManual()}):{send:false,reason:'Outside 18:00–06:00 Shanghai window'};fs.writeFileSync(PLAN,JSON.stringify(p,null,2));if(process.env.GITHUB_OUTPUT)fs.appendFileSync(process.env.GITHUB_OUTPUT,`should_send=${p.send}\nlesson=${p.lesson||0}\n`);console.log(p.send?`Prepared lesson ${p.lesson}`:p.reason);return;}
- const p=JSON.parse(fs.readFileSync(PLAN,'utf8'));if(!p.send)throw Error('No approved lesson planned');if(cmd==='build'){await restoreOrBuild(p);checkAssets(p);return;}if(cmd==='verify'){await verifyHosted(p);return;}
+ const p=JSON.parse(fs.readFileSync(PLAN,'utf8'));if(!p.send)throw Error('No approved lesson planned');if(cmd==='build'){await restoreOrBuild(p);checkAssets(p);createMailAttachments(p);return;}if(cmd==='verify'){await verifyHosted(p);return;}
  if(cmd==='publish'){checkAssets(p);const dest=path.resolve(ROOT,'..','..','english',folder(p.lesson));fs.mkdirSync(dest,{recursive:true});for(const name of ['index.html','manifest.json']){const data=fs.readFileSync(path.join(dirFor(p),'public',name)),target=path.join(dest,name);if(fs.existsSync(target)&&hash(fs.readFileSync(target))!==hash(data))throw Error('Existing lesson cannot be overwritten');fs.writeFileSync(target,data);}return;}
  if(cmd==='claim'){writeState(claim(readState(),p,checkAssets(p).manifest.assets['index.html'],{manual:readManual()}));return;}
- if(cmd==='send'){await verifyHosted(p,{attempts:2,delay:2000});const {manifest,privateData}=checkAssets(p),s=readState();if(s.inFlight?.lesson!==p.lesson||s.inFlight.date!==p.date||s.inFlight.sha!==manifest.assets['index.html'])throw Error('No matching persisted claim');for(const v of ['SMTP_HOST','SMTP_USER','SMTP_PASS','ENGLISH_EMAIL_TO'])if(!process.env[v])throw Error('Missing '+v);const {default:nodemailer}=await import('nodemailer');const transport=nodemailer.createTransport({host:process.env.SMTP_HOST,port:Number(process.env.SMTP_PORT||465),secure:(process.env.SMTP_SECURE||'true')==='true',auth:{user:process.env.SMTP_USER,pass:process.env.SMTP_PASS},connectionTimeout:30000,socketTimeout:60000}),mail=emailFor(p,privateData);const result=await transport.sendMail({from:process.env.REPORT_EMAIL_FROM||process.env.SMTP_USER,to:process.env.ENGLISH_EMAIL_TO,...mail,url:undefined,messageId:`<peach-english-${p.date}-${p.lesson}@peach-lessons.local>`,attachments:[{filename:`Peach-English-Day-${String(p.lesson).padStart(3,'0')}.html`,content:fs.readFileSync(path.join(dirFor(p),'offline.html')),contentType:'text/html; charset=utf-8'}]});const recipient=process.env.ENGLISH_EMAIL_TO.trim().toLowerCase();if(!result.accepted?.some(a=>String(a).toLowerCase()===recipient)||result.rejected?.length)throw Error('Recipient not accepted');const receipt={accepted:true,date:p.date,lesson:p.lesson,recipient,messageId:result.messageId,publicURL:`${baseURL}/${folder(p.lesson)}/`,at:new Date().toISOString()};fs.writeFileSync(path.join(OUTPUT,'receipt.json'),JSON.stringify(receipt,null,2));writeState(accept(s,p,receipt));console.log(`SMTP accepted lesson ${p.lesson}`);return;}throw Error('Unknown command');}
+ if(cmd==='send'){await verifyHosted(p,{attempts:2,delay:2000});const {manifest,privateData}=checkAssets(p),s=readState();if(s.inFlight?.lesson!==p.lesson||s.inFlight.date!==p.date||s.inFlight.sha!==manifest.assets['index.html'])throw Error('No matching persisted claim');for(const v of ['SMTP_HOST','SMTP_USER','SMTP_PASS','ENGLISH_EMAIL_TO'])if(!process.env[v])throw Error('Missing '+v);const {default:nodemailer}=await import('nodemailer');const transport=nodemailer.createTransport({host:process.env.SMTP_HOST,port:Number(process.env.SMTP_PORT||465),secure:(process.env.SMTP_SECURE||'true')==='true',auth:{user:process.env.SMTP_USER,pass:process.env.SMTP_PASS},connectionTimeout:30000,socketTimeout:60000}),mail=emailFor(p,privateData);const result=await transport.sendMail({from:process.env.REPORT_EMAIL_FROM||process.env.SMTP_USER,to:process.env.ENGLISH_EMAIL_TO,...mail,url:undefined,messageId:`<peach-english-${p.date}-${p.lesson}@peach-lessons.local>`,attachments:createMailAttachments(p)});const recipient=process.env.ENGLISH_EMAIL_TO.trim().toLowerCase();if(!result.accepted?.some(a=>String(a).toLowerCase()===recipient)||result.rejected?.length)throw Error('Recipient not accepted');const receipt={accepted:true,date:p.date,lesson:p.lesson,recipient,messageId:result.messageId,publicURL:`${baseURL}/${folder(p.lesson)}/`,at:new Date().toISOString()};fs.writeFileSync(path.join(OUTPUT,'receipt.json'),JSON.stringify(receipt,null,2));writeState(accept(s,p,receipt));console.log(`SMTP accepted lesson ${p.lesson}`);return;}throw Error('Unknown command');}
 if(process.argv[1]===fileURLToPath(import.meta.url))command(process.argv[2]).catch(()=>{console.error('English delivery stopped; inspect content readiness, asset checks and the persisted send claim. No secrets are printed.');process.exitCode=1;});
