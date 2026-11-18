@@ -31,12 +31,14 @@
 
 - 展会广告、市场炒作、研学推广、地方形象宣传和低价值统计。
 - 与标题不一致、地区错配、主题漂移或套用通用模板的解释。
-- 超出政治、科技、社会公共利益和重大国际事务范围的低价值资讯。
+- 不属于当期选题范围、缺少具体事实的资讯。
 - 来源过旧、链接不可达、来源过度集中或语义重复的新闻。
 - 与近期已发送新闻、百科或探索题重复的内容和知识点。
 - 新闻数量、来源多样性、百科数量或题目质量不足的整期内容。
 
 门禁失败时工作流必须停止，不能为了按时发信而编造新闻、降低标准或复用近期内容。
+
+自北京时间 **2026-11-19 18:00 这一期**起，在原有新闻源上补充中新网文化、体育、滚动和人民网文化。侧重动画展映与绘本插画奖、数字文博、国产制造的赛事突破、机器人竞赛任务，以及公共服务和影响儿童家庭的政策变化。分类看报道的主体和具体进展，不靠固定人名、品牌或热度；没有足够事实或没有合格稿时，不为分类凑数。按期次截止点启用，历史期次不变。
 
 ### 唯一的零新闻科普例外
 
@@ -266,12 +268,14 @@ Automated gates reject:
 
 - Event promotion, market hype, study-tour advertising, local self-promotion, and low-value statistics.
 - Title-body mismatches, region mismatches, topic drift, and generic template explanations.
-- Low-value stories outside politics, technology, public-interest society, and major international affairs.
+- Stories outside the issue's editorial scope or lacking concrete facts.
 - Stale sources, unreachable links, excessive concentration from one publisher, and semantic duplicates.
 - Stories, encyclopedia entries, quiz text, or quiz concepts repeated from recent issues.
 - An entire issue with too few stories, insufficient source diversity, fewer than three encyclopedia entries, or an inadequate quiz.
 
 When a gate fails, the workflow stops. It must never invent news, reduce standards, or reuse recent content merely to send on time.
+
+Starting with the **2026-11-19 18:00 Asia/Shanghai issue**, add China News Service culture, sports and rolling news, and People's Daily Online culture to the existing feeds. Look for animation screenings, illustration awards, digital museum projects, domestic manufacturers' racing results, robotics competition tasks, public services, and policy changes affecting families. Classify the reported event, not just a familiar name, brand or viral headline. Categories have no quota. Activation follows the issue cutoff, not the runner's clock, so earlier issues retain their previous scope.
 
 ### The narrow zero-news science exception
 

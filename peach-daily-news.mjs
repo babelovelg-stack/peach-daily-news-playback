@@ -1,3 +1,4 @@
+import { editorialAngle, expandedFocusEnabled, feedsForIssue } from './peach-editorial-focus.mjs';
 import fs from "node:fs/promises";
 import path from "node:path";
 import { execFile } from "node:child_process";
@@ -2324,10 +2325,10 @@ function isFresh(item, asOf = NEWS_AS_OF) {
   return isPublishedInNewsWindow(item.published, asOf, MAX_NEWS_AGE_HOURS);
 }
 
-function isSuitableForKids(item) {
+function isSuitableForKids(item,asOf) {
   const text = `${item.title} ${item.description}`;
   if (isPromotionalStudyTourNews(text) || isLocalSelfPromotionNews(text)) return false;
-  if (!classifyNewsPillar(text)) return false;
+  if (!classifyNewsPillar(text,asOf,item.title,item.description)) return false;
   const editoriallyReviewed = item.kidTitle && item.kidSummary && item.kidValue && item.kidImpact;
   if (editoriallyReviewed) {
     return hasUsefulTitle(item.kidTitle) && !isLowQualityNewsSource(text);
@@ -2410,7 +2411,7 @@ function isSuitableForKids(item) {
     "家电重镇的立破之道", "北滘镇", "厂房连片、货车穿梭"
   ];
   const hasValuableTopic = valuableTopics.some((word) => text.toLowerCase().includes(word.toLowerCase()));
-  if (!hasValuableTopic) return false;
+  if (!hasValuableTopic && !item.angle) return false;
   if (SOCIAL_MEDIA_RESIDUE_PATTERN.test(text)) return false;
   if (isLowValueMeetingTopic(text)) return false;
   return !rejectTopics.some((word) => text.includes(word));
@@ -2636,7 +2637,7 @@ function filterPreviouslySentNews(news, state) {
   return news.filter((item) => !wasRecentlySentNews(item, state));
 }
 
-function hasConcreteChildExplanation(item) {
+function hasConcreteChildExplanation(item,asOf) {
   const title = kidNewsTitle(item);
   const summary = kidSummary(item);
   const value = kidNewsValue(item);
@@ -2648,6 +2649,7 @@ function hasConcreteChildExplanation(item) {
     (summaryKey.includes(titleKey) && summaryKey.length <= titleKey.length + 6)
   );
   const issues = newsQualityIssues({
+    asOf,
     sourceTitle: item.title,
     sourceDescription: item.description,
     title,
@@ -2753,7 +2755,7 @@ async function readCuratedNews() {
   }
 }
 
-async function collectNews(asOf = NEWS_AS_OF, previousState = {}, { feedList = feeds, fetchImpl = fetch, curatedItems } = {}) {
+async function collectNews(asOf = NEWS_AS_OF, previousState = {}, { feedList = feedsForIssue(feeds,asOf), fetchImpl = fetch, curatedItems } = {}) {
   assertValidState(previousState);
   const [curated, ...feedResults] = await Promise.all([curatedItems === undefined ? readCuratedNews() : curatedItems, ...feedList.map(feed => fetchFeed(feed, fetchImpl))]);
   if (!Array.isArray(curated)) throw new Error('Malformed curated candidates');
@@ -2764,15 +2766,19 @@ async function collectNews(asOf = NEWS_AS_OF, previousState = {}, { feedList = f
   const seen = new Set();
   const seenTopics = new Set();
   const items = [];
-  for (const [index,item] of rawItems.entries()) {
+  const focusFeedIds=new Set(feedList.flatMap((feed,index)=>feed.focusOnly ? [`feed-${index}`] : []));
+  for (const [index,raw] of rawItems.entries()) {
+    const angle = editorialAngle(raw.title,asOf,raw.description);
+    const item = angle ? {...raw,angle,category:angle.pillar} : raw;
     const candidateId = `candidate-${index}`;
     const record = { candidateId, title:item.title, link:item.link, published:item.published, origin:item.collectionOrigin, ...(item.collectionOrigin==='feed'?{feedId:item.collectionFeedId}:{}) };
     selectionEvidence.candidates.push(record);
     const reasons = [];
+    if (!angle && item.collectionOrigin==='feed' && focusFeedIds.has(item.collectionFeedId)) reasons.push('outside-editorial-focus');
     if (!isFresh(item,asOf)) reasons.push('outside-news-window');
-    if (!isSuitableForKids(item)) reasons.push('not-child-suitable');
+    if (!isSuitableForKids(item,asOf)) reasons.push('not-child-suitable');
     if (wasRecentlySentNews(item,previousState)) reasons.push('recent-news');
-    if (!hasConcreteChildExplanation(item)) reasons.push('no-concrete-explanation');
+    if (!hasConcreteChildExplanation(item,asOf)) reasons.push('no-concrete-explanation');
     const qualityRecord = newsQualityRecord(item,childNewsBlock(item,0));
     reasons.push(...dailyNewsIssueQualityIssues({newsItems:[qualityRecord],asOf:asOf.toISOString(),minimumNewsCount:1,minimumPublisherCount:1,maxAgeHours:MAX_NEWS_AGE_HOURS,
       recentNewsTitles:[...(previousState.recentNewsTitles || []),...(previousState.lastNewsTitles || [])]}));
@@ -2836,7 +2842,8 @@ async function collectNews(asOf = NEWS_AS_OF, previousState = {}, { feedList = f
     return withEvidence(selected.slice(0, TARGET_NEWS_COUNT));
   }
 
-  for (const preferred of ["科技", "教育", "中国", "经济", "全球", "健康"]) {
+  const preferredCategories = expandedFocusEnabled(asOf) ? ["文化","社会","时政","科技","教育","中国","经济","全球","健康"] : ["科技","教育","中国","经济","全球","健康"];
+  for (const preferred of preferredCategories) {
     if (selected.length >= TARGET_NEWS_COUNT) break;
     const item = valuableItems.find((candidate) => candidate.category === preferred && canUse(candidate));
     push(item);
@@ -3189,6 +3196,7 @@ function isSanjiangEcologyStory(text = "") {
 
 function kidNewsTitle(item) {
   if (item.kidTitle) return trimKidText(item.kidTitle, 72).replace(/[。！？!?]+$/g, "");
+  if (item.angle) return cleanNewsText(item.title);
   const title = simplifyTerms(cleanNewsText(item.title))
     .replace(/[！!]+$/g, "")
     .trim();
@@ -3651,6 +3659,12 @@ function windSolarCapacityFacts(item) {
 
 function kidSummary(item) {
   if (item.kidSummary) return trimKidText(item.kidSummary, 210);
+  if (item.angle) {
+    // Aggregator title echoes are not independent detail. Keep whole source sentences.
+    const copy=cleanNewsText(item.description).replace(new RegExp('^'+escapeRegex(cleanNewsText(item.title))+'[。；：:，,\\s]*'),'');
+    const summary=copy.match(/^.{18,195}?[。！？](?:[^。！？]{1,60}[。！？])?/u)?.[0] || '';
+    return isUsefulDescription(summary) && !/https?:\/\/|\.\.\.|…/.test(summary) ? summary : '';
+  }
   const capacity=windSolarCapacityFacts(item);
   if(capacity) return `国家能源局发布的统计显示，截至${capacity.cutoff}，我国风电和太阳能发电累计装机容量达到${capacity.total}亿千瓦。这说的是发电设备的能力规模，不是这段时间已经发出的电量。`;
   const themedSummary = kidTopicSummary(item);
@@ -3663,6 +3677,7 @@ function kidSummary(item) {
 
 function kidNewsValue(item) {
   if (item.kidValue) return trimKidText(item.kidValue, 220);
+  if (item.angle) return item.angle.value;
   const text = `${item.title} ${item.description}`;
   // Reviewed definition: https://www.eia.gov/tools/faqs/faq.php?id=101&t=6
   if(windSolarCapacityFacts(item)) return '价值在于把风电和太阳能设备的建设规模说清楚。装机容量表示设备在一定条件下的最大出力；实际发电量还要看设备运行了多久、运行时的输出是多少。把两者分开，才能正确理解能源统计。';
@@ -3968,6 +3983,7 @@ function kidNewsValue(item) {
 
 function kidNewsImpact(item) {
   if (item.kidImpact) return trimKidText(item.kidImpact, 220);
+  if (item.angle) return item.angle.impact;
   const text = `${item.title} ${item.description}`;
   if(windSolarCapacityFacts(item)) return '这些风电和太阳能设备为供电提供了更多可用的发电能力，但不能只用装机容量判断实际供电效果。以后观察清洁能源的变化，还需要结合实际发电量和运行情况，不能把设备的最大能力当成每时每刻都达到的结果。';
   if (/莞香树|结香|植物.*黑科技/.test(text)) {
@@ -4291,7 +4307,7 @@ function newsQualityRecord(item, block) {
     summary: byLabel.get("发生了什么") || "",
     value: byLabel.get("价值是什么") || "",
     impact: byLabel.get("可能影响什么") || "",
-    pillar: classifyNewsPillar(`${item?.title || ""} ${item?.description || ""}`),
+    pillar: item?.angle?.pillar || classifyNewsPillar(`${item?.title || ""} ${item?.description || ""}`),
     publisher: item?.publisher || "",
     domain: item?.domain || "",
     feed: item?.feed || "",
@@ -4300,12 +4316,13 @@ function newsQualityRecord(item, block) {
   };
 }
 
-function formatSourceSummary(news) {
+function formatSourceSummary(news,asOf) {
   const publishers = [...new Set(news.map((item) => item.publisher || item.feed).filter(Boolean))];
   if (!publishers.length) return "";
   const visible = publishers.slice(0, 6).join("、");
   const more = publishers.length > 6 ? `等 ${publishers.length} 个来源` : `${publishers.length} 个来源`;
-  return `来源：从 ${visible} ${more} 里筛选，只保留适合小朋友理解的时政、科技、社会和国际大事，过滤研学推广、地方自荐和商业宣传。`;
+  const pillars=expandedFocusEnabled(asOf)?'时政、科技、社会、文化和国际大事':'时政、科技、社会和国际大事';
+  return `来源：从 ${visible} ${more} 里筛选，只保留适合小朋友理解的${pillars}，过滤研学推广、地方自荐和商业宣传。`;
 }
 
 function getNewsSelectionText(news) {
@@ -5005,7 +5022,7 @@ function buildEmail(news, state, { asOf = NEWS_AS_OF, selectionEvidence = news.s
   const blocks = news.map(childNewsBlock);
   const newsItems = news.map((item, index) => newsQualityRecord(item, blocks[index]));
   const dayLabel = DATE_OVERRIDE ? "这一天" : "今天";
-  const sourceSummary = news.length ? formatSourceSummary(news) : '';
+  const sourceSummary = news.length ? formatSourceSummary(news,asOf) : '';
 
   const previousAnswer = previousAnswerText(state, previousAnswerLabel(now, state));
 

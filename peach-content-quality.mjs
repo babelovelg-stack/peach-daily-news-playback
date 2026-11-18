@@ -1,3 +1,5 @@
+import { editorialAngle, expandedFocusEnabled, focusNoise } from './peach-editorial-focus.mjs';
+
 export const LOW_QUALITY_NEWS_SOURCE_PATTERN = /会展网|行业品牌会展|电力展会|AI热点小时报|热点速递|快讯[:：]|AI动画课堂|民生情报站|^(?:对谈|访谈|专访|观点|圆桌)[｜|:：]|(?:AI|人工智能).{0,12}(?:教学|教育).{0,20}(?:死记硬背|背知识点|如何落地|改变学习方式)|人形机器人.{0,20}(?:多场景.{0,8}上岗|从会动走向会干活)|智能机器人从会动走向会干活|板块.*(?:大涨|涨停)|\d+余?股涨停|涨停潮|股价|股票|期货市场|开票销售收入|销售收入同比|成交额同比|完成对.+重组|重组工作|全资子公司|思政教育一体化|热播影片|同款美食|主题航班|机上餐食|扬善计划|致敬榜样|荣膺.*(?:榜样|称号)|榜样企业|护航儿童健康成长/;
 
 export const GENERIC_NEWS_EXPLANATION_PATTERN = /价值在于让我们看见世界正在发生的变化|这条新闻的社会影响，要看它让谁获得了新机会|价值在于帮助学校和老师更了解学习过程|教育变化会直接影响孩子每天怎样学习|价值在于让机器更会帮人处理复杂任务|社会影响是，一些重复、危险、需要快速计算的工作|价值在于把通信、导航、天气观察和科学研究带到更远的地方|社会影响是，通信、地图、天气预报和灾害监测会越来越依赖太空基础设施|价值在于让出行、救援、巡检和运输多一种工具|社会影响是，出行、救援、巡检和送货方式可能变快|价值在于让用电和出行更清洁|社会影响是，能源变化会影响家里的用电|价值在于保护生命和健康|关于.+你还想继续追问|答案：上一题没有清楚的标准答案/;
@@ -165,8 +167,10 @@ export function isLocalSelfPromotionNews(value = "") {
   return LOCAL_SELF_PROMOTION_PATTERNS.some((pattern) => pattern.test(text));
 }
 
-export function classifyNewsPillar(value = "") {
+export function classifyNewsPillar(value = "", asOf, headline = value, description = "") {
   const text = String(value);
+  const angle = editorialAngle(headline,asOf,description);
+  if (angle) return angle.pillar;
   if (INTERNATIONAL_MAJOR_EVENT_PATTERN.test(text)) return "国际大事";
   if (POLITICS_NEWS_PATTERN.test(text)) return "时政";
   if (TECHNOLOGY_NEWS_PATTERN.test(text)) return "科技";
@@ -259,7 +263,8 @@ export function newsQualityIssues({
   title = "",
   summary = "",
   value = "",
-  impact = ""
+  impact = "",
+  asOf
 } = {}) {
   const issues = [];
   const sourceText = `${sourceTitle} ${sourceDescription}`.trim();
@@ -273,7 +278,8 @@ export function newsQualityIssues({
   if (isLowQualityNewsSource(sourceText)) issues.push("来源标题属于展会广告、市场炒作或低价值统计");
   if (isPromotionalStudyTourNews(sourceText)) issues.push("来源属于研学推广、路线推荐或旅游导流内容");
   if (isLocalSelfPromotionNews(sourceText)) issues.push("来源属于地方自荐、形象宣传或成绩展示内容");
-  if (editorialText && !classifyNewsPillar(editorialText)) issues.push("新闻不属于时政、科技、社会或国际大事");
+  if (expandedFocusEnabled(asOf) && focusNoise(editorialText)) issues.push("来源属于营销导流或旧闻回顾");
+  if (editorialText && !classifyNewsPillar(editorialText,asOf,sourceTitle || title,sourceDescription)) issues.push(expandedFocusEnabled(asOf) ? "新闻不属于时政、科技、社会、文化或国际大事" : "新闻不属于时政、科技、社会或国际大事");
   if (TRUNCATED_TITLE_PATTERN.test(title)) issues.push("儿童版标题被截断");
   if (RAW_NEWSROOM_SUMMARY_PATTERN.test(summary)) issues.push("发生了什么仍是成人新闻稿原句");
   if (GENERIC_NEWS_EXPLANATION_PATTERN.test(explanationText)) issues.push("价值或影响使用通用套话");
@@ -342,7 +348,7 @@ export function dailyNewsIssueQualityIssues({
       if (ageHours > maxAgeHours) issues.push(`${label}新闻超过${maxAgeHours}小时：${ageHours.toFixed(1)}小时`);
     }
 
-    issues.push(...newsQualityIssues(item).map((problem) => `${label}质量不合格：${problem}`));
+    issues.push(...newsQualityIssues({...item,asOf}).map((problem) => `${label}质量不合格：${problem}`));
   }
 
   if (publisherCounts.size < minimumPublisherCount) {
