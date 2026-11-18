@@ -21,5 +21,11 @@
       "at": "2026-11-13T10:36:46.397Z",
       "run": "43410310941"
     }
-  ]
+  ],
+  "inFlight": {
+    "request": "repair-20261118-access-01",
+    "lesson": 7,
+    "date": "2026-11-18",
+    "sha": "af349d0fb49c0fbbaaa7306184b7efce8f788a1fe7e4ce202cb8f516f1145724"
+  }
 }
