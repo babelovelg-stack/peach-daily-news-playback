@@ -49,6 +49,8 @@ node english-daily/v2/delivery.mjs readiness
 
 打包器生成加密 `v2/library.enc.json` 及无正文的目录。相同密钥须设置为 GitHub Secret `ENGLISH_CONTENT_KEY`。不得提交明文输入、音频缓存或密钥。
 
+备用入口位于独立的 `access-site/` Sites 项目，服务器仅转发原有公开课程密文，学习密钥仍通过邮件 fragment 传递。当前仅所有者登录可用，尚未切换每日邮件网址。站点的 HTML 会被托管平台添加外观脚本，因此发送前使用 `?format=source` 取得同一密文的纯文本响应逐字节校验，并核对清单；不会把登录页当作课程。
+
 ### 云端与内容保护
 
 沿用 `babelovelg-stack/peach-daily-news-playback` 的 SMTP Secrets、收件人 `ctmt1412@qq.com` 和每日18:00（北京时间）开始的检查。18:15、18:30、18:45、19:15、21:15以及新闻工作流完成触发保留；云端排队可能延迟。新增内容加密 Secret，不改变新闻推送逻辑。
@@ -115,6 +117,8 @@ node english-daily/v2/delivery.mjs readiness
 ```
 
 The packer writes encrypted `v2/library.enc.json` and a text-free catalog. Store the same key as GitHub Secret `ENGLISH_CONTENT_KEY`. Never commit plaintext inputs, audio caches or keys.
+
+The independent `access-site/` Sites project relays only existing public ciphertext; lesson keys remain in email fragments. It is currently owner-private and has not replaced the daily email URL. Hosting decorates HTML responses, so pre-send verification requests the same ciphertext as plain text using `?format=source` and compares exact bytes and manifests; login pages are never accepted as lessons.
 
 ### Cloud delivery and content protection
 
