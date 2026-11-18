@@ -56,7 +56,7 @@ test('mail-preview fallback is present without scripts and hides unusable contro
  assert.ok(template.includes('id="openHelp"'));assert.ok(template.includes('id="courseApp" hidden'));assert.ok(template.includes('附件预览不能运行'));
  assert.ok(app.includes("$('#courseApp').hidden=false"));
  const mail=emailFor({lesson:3,date:'2026-11-13'},{key:'a'.repeat(64),title:'饮品',book:'The Broken Roof',minutes:{vocabulary:10,reading:10,review:3},requiresNetwork:true,pages:[3,4],practice:'learn'});
- assert.ok(mail.html.indexOf('在浏览器中开始学习')<mail.html.indexOf('<b>词汇：'));
+ assert.ok(mail.html.indexOf('直接在邮件里学习')<mail.html.indexOf('在浏览器中开始学习'));
  assert.ok(mail.text.includes('附件预览不支持'));assert.ok(mail.html.includes('不要在附件预览中学习'));
 });
 

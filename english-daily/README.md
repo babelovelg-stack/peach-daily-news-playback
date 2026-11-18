@@ -22,12 +22,11 @@
 
 原书摘录按其出处显示定位。第13课链接[《Baba Yaga》样章](https://fdslive.oup.com/www.oup.com/oxed/look-inside/9780198339632.pdf?region=international)，第14课链接[牛津分级指南第9页](https://assets.oxfordowl.co.uk/2014/10/29/15/15/59/48/Levelling_hndk_Section4.pdf#page=9)。
 
-
 邮件现在直接包含五词插画、音标、记忆方法、例句、拼写练习、原书伴读、词汇语法讲解、两道选择题和文末答案，不依赖脚本。CID 插画随信内嵌；01/02 两份标准 MP3 分别包含词汇讲解及阅读伴读，供邮箱或系统播放器使用。FFmpeg 从已验证课程中的原音频合并文件，不重新生成讲稿。原书仍在出版社页面，MP3 不冒充整页朗读。生成附件必须在发送占位前成功。
 
 ### 构建与原书接入
 
-需要 Node.js 24、Python 和 `edge-tts==7.2.8`：
+需要 Node.js 24、Python、`edge-tts==7.2.8` 和 FFmpeg：
 
 ```sh
 python3 -m pip install edge-tts==7.2.8
@@ -89,7 +88,6 @@ The first sample terms are cereal, yoghurt, pancake, noodles and cabbage, checke
 
 
 Source-specific locations appear in the lesson. Lesson 13 links to the [Baba Yaga sample](https://fdslive.oup.com/www.oup.com/oxed/look-inside/9780198339632.pdf?region=international), and lesson 14 to [PDF page 9 of the levelling guide](https://assets.oxfordowl.co.uk/2014/10/29/15/15/59/48/Levelling_hndk_Section4.pdf#page=9).
-
 
 The email now contains the vocabulary atlas, pronunciation, memory cues, examples, spelling practice, reading guidance, glossary, grammar, two multiple-choice questions and answers without scripts. The CID image is attached inline. Two standard MP3 attachments contain vocabulary teaching and reading guidance for mail or system players. FFmpeg joins existing verified course clips without changing narration. Originals remain on publisher pages; the MP3 is not full-page narration. Attachment generation must pass before persisting a send claim.
 

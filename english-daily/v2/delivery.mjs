@@ -30,7 +30,7 @@ const readManual=()=>{const f=path.resolve(ROOT,'..','manual-deliveries.json');r
 const dirFor=p=>path.join(OUTPUT,folder(p.lesson));
 export function checkAssets(p){const dir=dirFor(p),pub=path.join(dir,'public'),m=JSON.parse(fs.readFileSync(path.join(pub,'manifest.json'),'utf8')),privateData=JSON.parse(fs.readFileSync(path.join(dir,'private.json'),'utf8'));if(m.schema!==2||m.version!==VERSION||m.number!==p.lesson||privateData.number!==p.lesson)throw Error('Wrong lesson manifest');if(hash(fs.readFileSync(path.join(dir,'offline.html')))!==m.contentHash||hash(fs.readFileSync(path.join(pub,'index.html')))!==m.assets['index.html'])throw Error('Lesson bytes changed');const expected=lessonFor(p.lesson),html=fs.readFileSync(path.join(dir,'offline.html'),'utf8'),embedded=JSON.parse(html.match(/const LESSON=([\s\S]*?);<\/script>/)?.[1]||'null');for(const [key,value]of Object.entries(expected))if(JSON.stringify(embedded?.[key])!==JSON.stringify(value))throw Error('Published lesson no longer matches approved content');return {manifest:m,privateData};}
 export async function restoreOrBuild(p){const source=path.resolve(ROOT,'..','..','english',folder(p.lesson)),dir=dirFor(p);if(!fs.existsSync(source)){await build(p.lesson);return;}const m=JSON.parse(fs.readFileSync(path.join(source,'manifest.json'),'utf8'));if(m.schema!==2||m.version!==VERSION||m.number!==p.lesson)throw Error('Existing lesson is not the expected version');const locked=fs.readFileSync(path.join(source,'index.html'),'utf8');if(hash(locked)!==m.assets['index.html'])throw Error('Published encrypted page was changed');const key=lessonKey(requireKey(process.env.ENGLISH_CONTENT_KEY),p.lesson,m.contentHash),box=JSON.parse(locked.match(/const BOX=(.*?);async function/)?.[1]||'null'),html=unseal(box,key);if(hash(html)!==m.contentHash)throw Error('Published offline content was changed');fs.mkdirSync(path.join(dir,'public'),{recursive:true});fs.writeFileSync(path.join(dir,'offline.html'),html);const l=lessonFor(p.lesson);fs.writeFileSync(path.join(dir,'private.json'),JSON.stringify({number:p.lesson,contentHash:m.contentHash,key:key.toString('hex'),title:l.title,book:l.reading.title,minutes:l.minutes,requiresNetwork:l.reading.mode==='publisher-sample',pages:l.reading.pageNumbers||null,practice:l.practice}));for(const name of ['index.html','manifest.json'])fs.copyFileSync(path.join(source,name),path.join(dir,'public',name));console.log('Reused verified encrypted lesson');}
-export async function verifyHosted(p,{attempts=120,delay=5000}={}){checkAssets(p);const reading=lessonFor(p.lesson).reading;if(reading.mode==='publisher-sample')await verifySampleOnline(reading);for(let i=0;i<attempts;i++){try{for(const name of ['index.html','manifest.json']){const r=await fetch(`${baseURL}/${folder(p.lesson)}/${name}?v=${Date.now()}`,{signal:AbortSignal.timeout(15000),cache:'no-store'});if(!r.ok||hash(Buffer.from(await r.arrayBuffer()))!==hash(fs.readFileSync(path.join(dirFor(p),'public',name))))throw Error('Hosted file mismatch');}console.log('Encrypted hosted assets verified byte-for-byte');return;}catch{if(i===attempts-1)throw Error('Hosted verification failed; no email sent');await new Promise(r=>setTimeout(r,delay));}}}
+export async function verifyHosted(p,{attempts=120,delay=5000}={}){checkAssets(p);const reading=lessonFor(p.lesson).reading;if(reading.mode==='publisher-sample')await verifySampleOnline(reading);for(let i=0;i<attempts;i++){try{for(const name of ['index.html','manifest.json']){const r=await fetch(`${baseURL}/${folder(p.lesson)}/${name}?format=source&v=${Date.now()}`,{signal:AbortSignal.timeout(15000),cache:'no-store'});if(!r.ok||hash(Buffer.from(await r.arrayBuffer()))!==hash(fs.readFileSync(path.join(dirFor(p),'public',name))))throw Error('Hosted file mismatch');}console.log('Encrypted hosted assets verified byte-for-byte');return;}catch{if(i===attempts-1)throw Error('Hosted verification failed; no email sent');await new Promise(r=>setTimeout(r,delay));}}}
 export function emailFor(p,meta){
  const url=`${baseURL}/${folder(p.lesson)}/#key=${meta.key}`,subject=`桃子英语｜第${p.lesson}课｜${meta.title}｜${p.date}`,minutes=Object.values(meta.minutes).reduce((a,b)=>a+b,0),network=meta.requiresNetwork===true;
  const lesson=lessonFor(p.lesson),reading=lesson.reading;
@@ -41,24 +41,19 @@ export function emailFor(p,meta){
  const practice=meta.practice&&meta.practice!=='learn'?'本课复习上一课的五个词，不新增五个词。':'本课学习五个重点词。';
  const words=lesson.words.map(w=>w.word+'（'+w.meaning+'）').join('、');
  const location=reading.guidePanel?reading.readerPages:reading.readerPages?'阅读器 '+reading.readerPages:'';
- const sourceLink=reading.mode==='publisher-sample'?reading.readerUrl:null;
- const questions=reading.questions.map((q,i)=>(i+1)+'. '+q.prompt);
  const text=[
-  subject,'在浏览器中开始学习：'+url,'附件预览不支持声音和答题，请用浏览器打开。',
-  meta.title,practice,words,meta.book+scope,location,reading.readingGuide||'',
-  sourceLink?'出版社原书：'+sourceLink:'',reading.grammar.title,...questions,
-  '约'+minutes+'分钟。'+offline,flow,readable.text,'学习密钥（仅本课）：'+meta.key
+  subject,'本邮件可以直接学习；请播放随信的 01 和 02 两个 MP3 音频。',meta.title,practice,words,meta.book+scope,location,
+  readable.text,'约'+minutes+'分钟。'+offline,flow,
+  '互动练习版：在浏览器中开始学习：'+url,'HTML 附件预览不支持互动声音和答题，请用浏览器打开。','学习密钥（仅本课）：'+meta.key
  ].filter(Boolean).join('\n\n');
  const html=`<!doctype html><html lang="zh-CN"><meta charset="utf-8"><body style="font-family:-apple-system,'PingFang SC',sans-serif;color:#254b3b;padding:20px"><div style="max-width:620px;margin:auto">
  <p>🍑 桃子英语 · 第${p.lesson}课 · ${minutes}分钟</p><h1>${esc(meta.title)}</h1>
+ <p>本邮件可以直接学习。请播放随信的 01 和 02 两个 MP3 音频，按下面的内容看图、跟读、回忆和作答。</p>
+ <p><b>词汇：</b>${esc(words)}</p>${readable.html}
+ <hr><h2>互动练习版</h2><p>${esc(flow)}</p>
  <p><a href="${esc(url)}" style="display:inline-block;background:#276a56;color:white;padding:14px 22px;border-radius:10px">在浏览器中开始学习 →</a></p>
- <p>网页打不开时，可直接往下读本邮件，播放随信的 01 和 02 两个 MP3 音频。互动版请用 Safari、Chrome 或 Edge 打开，不要在附件预览中学习。</p>
- <p style="overflow-wrap:anywhere;word-break:break-all">${esc(url)}</p>
- <p><b>词汇：</b>${esc(words)}</p><h2>${esc(meta.book+scope)}</h2>
- <p>${esc(location)}　${esc(reading.readingGuide||'')}</p>
- ${sourceLink?`<p><a href="${esc(sourceLink)}">直接打开出版社原书 ↗</a></p>`:''}
- <p>${esc(reading.grammar.title)}</p><ol>${reading.questions.map(q=>'<li>'+esc(q.prompt)+'</li>').join('')}</ol>
- <p>${esc(flow)}</p><p>${esc(offline)}</p>${readable.html}
+ <p>互动版请用 Safari、Chrome 或 Edge 打开，不要在附件预览中学习。网页无法访问时，上面的邮件内容和 MP3 仍可使用。</p>
+ <p style="overflow-wrap:anywhere;word-break:break-all">${esc(url)}</p><p>${esc(offline)}</p>
  <p>如果网页提示输入学习密钥，复制下面这串字符。</p><p style="overflow-wrap:anywhere;word-break:break-all">${esc(meta.key)}</p></div></body></html>`;
  return {url,subject,text,html};
 }

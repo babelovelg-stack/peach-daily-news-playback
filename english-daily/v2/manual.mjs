@@ -45,7 +45,7 @@ async function command(cmd){
  for(const name of ['SMTP_HOST','SMTP_USER','SMTP_PASS','ENGLISH_EMAIL_TO'])if(!process.env[name])throw Error('Missing mail configuration');
  const {default:nodemailer}=await import('nodemailer');
  const transport=nodemailer.createTransport({host:process.env.SMTP_HOST,port:Number(process.env.SMTP_PORT||465),secure:(process.env.SMTP_SECURE||'true')==='true',auth:{user:process.env.SMTP_USER,pass:process.env.SMTP_PASS},connectionTimeout:30000,socketTimeout:60000});
- const {url,...mail}=emailFor(p,privateData),subject='最新版补发｜'+mail.subject;
+ const {url,...mail}=emailFor(p,privateData),subject=(p.request.startsWith('repair-')?'打开问题修复补发｜':'最新版补发｜')+mail.subject;
  const result=await transport.sendMail({...mail,subject,from:process.env.REPORT_EMAIL_FROM||process.env.SMTP_USER,to:process.env.ENGLISH_EMAIL_TO,messageId:`<peach-english-manual-${p.request}@peach-lessons.local>`,attachments:createMailAttachments(p)});
  const recipient=process.env.ENGLISH_EMAIL_TO.trim().toLowerCase();
  if(!result.accepted?.some(x=>String(x).toLowerCase()===recipient)||result.rejected?.length)throw Error('Recipient not accepted');
