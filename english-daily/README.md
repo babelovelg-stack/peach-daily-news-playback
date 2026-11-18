@@ -13,7 +13,7 @@
 
 **当前已备好13课（课号2–14），共65个不同重点词。** 第8–12课增加25词，主题从身体动作、运动装备走向自然景物和动物；后续每天5个新词与一段新的原书阅读，复习只作补充。每课约23分钟（词汇10、阅读10、回顾3）。详见[课程进阶](CURRICULUM.md)。新词重复、阅读段落重复、课号缺口或复习课代替新课会被校验拦截。第15课起需要继续核对补充原书；缺少内容时停止并保留进度，不能回放旧课。旧版189课库不再用于发送。
 
-邮件正文最上方为“在浏览器中开始学习”。邮件正文列出当天的五词、原书页码、语法和问题，也显示可复制的完整课程地址和本课密钥。**QQ邮件附件预览不能当作学习浏览器**；先点正文链接，或下载附件后用Safari/Chrome/Edge打开。附件在脚本被禁用时只显示静态打开说明，正常初始化后才显示课件。解锁采用替换文档并执行可信课件脚本，避免旧密钥表单残留。历史课保持不变，修正版2–4课采用`lesson-00N-r2`路径。
+邮件顶部提供“打开互动课（免登录）”入口；正文同时提供完整图文讲解、练习与答案，以及可复制的完整课程地址和本课密钥。**QQ邮件附件预览不能当作学习浏览器**；先点正文链接，或下载附件后用Safari/Chrome/Edge打开。附件在脚本被禁用时只显示静态打开说明，正常初始化后才显示课件。解锁采用替换文档并执行可信课件脚本，避免旧密钥表单残留。历史课保持不变，修正版2–4课采用`lesson-00N-r2`路径。
 
 原书图文在出版社阅读器联网显示，无需登录，不复制到仓库或附件。课程内嵌词汇图文音频、补充讲解及练习，可离线使用。每课只对一个原书短片段配音，并标注原创迁移例句；出版社页面不能随课程音频高亮或自动翻页，不宣称整页逐句朗读。公开试学包含第一份完整样章伴读课。
 
@@ -49,7 +49,7 @@ node english-daily/v2/delivery.mjs readiness
 
 打包器生成加密 `v2/library.enc.json` 及无正文的目录。相同密钥须设置为 GitHub Secret `ENGLISH_CONTENT_KEY`。不得提交明文输入、音频缓存或密钥。
 
-备用入口位于独立的 `access-site/` Sites 项目，服务器仅转发原有公开课程密文，学习密钥仍通过邮件 fragment 传递。当前仅所有者登录可用，尚未切换每日邮件网址。站点的 HTML 会被托管平台添加外观脚本，因此发送前使用 `?format=source` 取得同一密文的纯文本响应逐字节校验，并核对清单；不会把登录页当作课程。
+备用入口位于独立的 `access-site/` Sites 项目，服务器仅转发原有公开课程密文，学习密钥仍通过邮件 fragment 传递。经用户明确授权，现已免 ChatGPT 登录，仍保留课程加密；每日邮件使用 `https://peach-english-lessons.zhen-gwe-ngang.chatgpt.site/english`。公开站点不包含邮箱或作答记录。站点的 HTML 会被托管平台添加外观脚本，因此发送前使用 `?format=source` 取得同一密文的纯文本响应逐字节校验，并核对清单；不会把登录页当作课程。
 
 ### 云端与内容保护
 
@@ -63,7 +63,9 @@ node english-daily/v2/delivery.mjs readiness
 
 用户明确要求立即推送时，可手动运行云端 `Peach English Manual Delivery`（`manual-workflow.yml` 部署到 `.github/workflows/peach-english-manual.yml`），指定已发布课号和唯一 `request_id`。沿用原 SMTP 和收件人，邮件附完整课程 HTML 与私人链接；不改写每日 `state.json` 历史和18:00计划；每日选课同时读取补发成功记录，跳过连续已发课，不跨过未发课。工作流取得串行执行权后检出最新 main，避免排队或重跑使用旧投递账本。独立 `manual-deliveries.json` 在发送前持久化占位，确认 SMTP 接受后保存记录。同一请求不重复发送，不明确结果阻止自动重试。`node --test english-daily/v2/manual.test.mjs` 验证补发状态与工作流边界。
 
-41项课程/投递测试通过，覆盖来源、引用预算、配量、加密篡改、缺书阻断、连续状态及邮件联网说明。13课均构建并核对每课22段音频的文本/声音指纹与字节哈希。真实浏览器验证了出版社样章在桌面与390px手机宽度的加载、翻页、重点片段音频播放、答题反馈、阅读确认和完成门槛；390px无横向溢出。旧内嵌阅读模式的逐句高亮与解密使用明确标记的测试文本验证，测试文本不是原书。
+当 `request_id` 以 `entry-` 开头时，只发送新入口通知，不重复附课件或MP3；仍对已发布课程做来源、密文和清单核验，记录独立投递回执，不新增每日课程。换域名后浏览器本机学习记录不会自动迁移，邮件说明此边界。
+
+42项课程/投递测试通过，覆盖来源、引用预算、配量、加密篡改、缺书阻断、连续状态及邮件联网说明。13课均构建并核对每课22段音频的文本/声音指纹与字节哈希。真实浏览器验证了出版社样章在桌面与390px手机宽度的加载、翻页、重点片段音频播放、答题反馈、阅读确认和完成门槛；390px无横向溢出。旧内嵌阅读模式的逐句高亮与解密使用明确标记的测试文本验证，测试文本不是原书。
 
 - [Cambridge 官方样章](https://assets.cambridge.org/97810098/09887/excerpt/9781009809887_excerpt.pdf)
 - [OUP Level 7 产品与样章入口](https://shop.oupchina.com.hk/en/products/oxford-reading-tree-biff-chip-and-kipper-stories-level-7-mixed-pack-of-6)
@@ -82,7 +84,7 @@ Official, no-login samples of Oxford Reading Tree Level 7 *The Broken Roof*, *Th
 
 **Thirteen reviewed lessons (2–14) contain 65 distinct target words.** Lessons 8–12 extend the body and sports themes and introduce nature, animals and terrain. Each day has five new words and a new original-book selection, with review only supplementary, planned for 23 minutes. See [curriculum progression](CURRICULUM.md). Duplicate words/readings, lesson gaps and review-only days fail validation. Further verified originals must be added from lesson 15; missing content stops delivery without replaying old lessons. The legacy 189-lesson bank is retired.
 
-The email's primary action is “在浏览器中开始学习”. The email itself lists five words, folios, a grammar focus and questions, with a copyable course address and separate lesson key. Mail attachment previews cannot run the course. Download the HTML and open in Safari/Chrome/Edge, or use the email-body link. Script-blocked previews show static opening instructions and keep interactive controls hidden. Successful browser decryption replaces the old unlock document before executing trusted course scripts. Revised lessons 2–4 use `lesson-00N-r2`; historical pages remain unchanged.
+The email starts with “打开互动课（免登录）”. Its body also contains complete illustrated teaching, exercises and answers, with a copyable course address and separate lesson key. Mail attachment previews cannot run the course. Download the HTML and open in Safari/Chrome/Edge, or use the email-body link. Script-blocked previews show static opening instructions and keep interactive controls hidden. Successful browser decryption replaces the old unlock document before executing trusted course scripts. Revised lessons 2–4 use `lesson-00N-r2`; historical pages remain unchanged.
 
 Original pages load online in the publisher reader without login and are not copied into the repository or attachment. Vocabulary illustrations/audio, companion explanations and exercises are embedded for offline use. Each lesson voices only a short original excerpt and labels its newly written example separately. Publisher pages do not synchronize highlighting or page turns with course audio; this is not full-page sentence narration. The public preview contains the first complete sample companion lesson.
 
@@ -118,7 +120,7 @@ node english-daily/v2/delivery.mjs readiness
 
 The packer writes encrypted `v2/library.enc.json` and a text-free catalog. Store the same key as GitHub Secret `ENGLISH_CONTENT_KEY`. Never commit plaintext inputs, audio caches or keys.
 
-The independent `access-site/` Sites project relays only existing public ciphertext; lesson keys remain in email fragments. It is currently owner-private and has not replaced the daily email URL. Hosting decorates HTML responses, so pre-send verification requests the same ciphertext as plain text using `?format=source` and compares exact bytes and manifests; login pages are never accepted as lessons.
+The independent `access-site/` Sites project relays only existing public ciphertext; lesson keys remain in email fragments. The user explicitly authorized anonymous access. ChatGPT sign-in is no longer required, lesson encryption remains, and daily emails use `https://peach-english-lessons.zhen-gwe-ngang.chatgpt.site/english`. The public Site contains no email address or learning records. Hosting decorates HTML responses, so pre-send verification requests the same ciphertext as plain text using `?format=source` and compares exact bytes and manifests; login pages are never accepted as lessons.
 
 ### Cloud delivery and content protection
 
@@ -131,6 +133,8 @@ Plaintext books, offline attachments, audio caches and keys are excluded from wo
 ### Validation and sources
 
 When explicitly requested by the user, dispatch `Peach English Manual Delivery` (`manual-workflow.yml` deployed as `.github/workflows/peach-english-manual.yml`) with a published lesson number and unique `request_id`. It reuses the original SMTP account/recipient and attaches the lesson HTML plus its private link, without rewriting daily `state.json` history or the 18:00 schedule; daily planning reads accepted manual receipts and skips consecutive delivered lessons while retaining undelivered gaps. Both workflows check out current main after acquiring their shared concurrency group, so queued/retried jobs do not read a stale delivery ledger. Separate `manual-deliveries.json` persists a claim before sending and records confirmed SMTP acceptance. A request is not sent twice; uncertain outcomes block automatic retries. Run `node --test english-daily/v2/manual.test.mjs` to check manual state and workflow boundaries.
+
+A `request_id` beginning with `entry-` sends only the new-entry notice, without repeating lesson or MP3 attachments. It still verifies published sources, ciphertext and manifests, records a separate delivery receipt and does not create a new daily lesson. Browser-local learning records do not automatically migrate across domains; the notice explains this.
 
 Curriculum/delivery regression checks pass, covering sources, quotation budgets, workload, encryption tampering, missing-content blocking, sequential state and online/offline email disclosure. All thirteen current lessons are built with 22 audio clips each and verified text/voice fingerprints and byte hashes. Browser QA covered the real publisher sample on desktop and a 390px mobile viewport, page turns, real excerpt audio, answer feedback, reading acknowledgement and completion gates. No horizontal overflow occurred at 390px. Clearly labelled fixtures test sentence highlighting/decryption in the older embedded-original mode; they are not original books.
 

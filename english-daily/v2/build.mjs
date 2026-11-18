@@ -8,7 +8,7 @@ import {seal,requireKey,lessonKey} from './crypto.mjs';
 import {verifySampleOnline} from './publisher-samples.mjs';
 export const OUTPUT=path.resolve(ROOT,'..','output','v2');
 export const folder=n=>{const r=readCatalog().lessons.find(l=>l.number===n)?.revision;return 'lesson-'+String(n).padStart(3,'0')+(r?'-r'+r:'');};
-export const baseURL='https://babelovelg-stack.github.io/peach-daily-news-playback/english';
+export const baseURL='https://peach-english-lessons.zhen-gwe-ngang.chatgpt.site/english';
 export function jobsFor(l){return Object.fromEntries(Object.entries(l.speech).map(([id,s])=>[id,{text:s.text,voice:s.language==='zh'?'zh-CN-XiaoyiNeural':'en-GB-SoniaNeural',rate:s.language==='zh'?'-4%':'-15%',pitch:s.language==='zh'?'+8Hz':'+0Hz'}]));}
 export function verifyAudio(l,m){const jobs=jobsFor(l);if(Object.keys(m).length!==Object.keys(jobs).length)throw Error('Audio count differs');for(const [id,job]of Object.entries(jobs)){const a=m[id];if(!a||JSON.stringify(a.job)!==JSON.stringify(job)||hash(fs.readFileSync(a.path))!==a.sha256)throw Error('Audio/text mismatch: '+id);}}
 export function render(l,m){verifyAudio(l,m);const data={...l,atlas:'data:image/png;base64,'+fs.readFileSync(path.join(ROOT,'assets',l.atlasFile||'food-atlas.png')).toString('base64'),audios:Object.fromEntries(Object.entries(m).map(([k,a])=>[k,'data:audio/mpeg;base64,'+fs.readFileSync(a.path).toString('base64')]))};return fs.readFileSync(path.join(ROOT,'lesson.html'),'utf8').replace('/*__STYLE__*/',()=>fs.readFileSync(path.join(ROOT,'style.css'),'utf8')).replace('/*__DATA__*/',()=>JSON.stringify(data).replace(/</g,'\\u003c')).replace('/*__APP__*/',()=>fs.readFileSync(path.join(ROOT,'app.js'),'utf8'));}

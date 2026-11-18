@@ -1,6 +1,11 @@
 import test from 'node:test';import assert from 'node:assert/strict';import fs from 'node:fs';
-import {planManual,claimManual,acceptManual} from './manual.mjs';
+import {planManual,claimManual,acceptManual,entryNotice} from './manual.mjs';
 const fresh=()=>({schema:1,history:[]});const request='user-20261111-latest-01';
+test('entry notice sends the new encrypted URL and clearly labels the existing lesson',()=>{
+ const key='a'.repeat(64),mail=entryNotice({lesson:7,date:'2026-11-18'},{key,title:'健康主题',book:'The Hunt for Gold',minutes:{vocabulary:10,reading:10,review:3},requiresNetwork:true,pages:[5,6]});
+ for(const body of [mail.html,mail.text]){assert.ok(body.includes('https://peach-english-lessons.zhen-gwe-ngang.chatgpt.site/english/lesson-007/#key='+key));assert.ok(body.includes('不是一节新课'));assert.ok(!body.includes('github.io'));}
+ assert.ok(mail.subject.includes('新的免登录学习入口'));assert.ok(!mail.html.includes('<script'));
+});
 test('manual delivery has its own claim and accepted receipt without advancing daily progress',()=>{
  const s=fresh(),p=planManual(s,request,2,'2026-11-11'),c=claimManual(s,p,'a'.repeat(64));
  assert.deepEqual(s,fresh());assert.equal(c.inFlight.lesson,2);assert.equal(c.lastLesson,undefined);

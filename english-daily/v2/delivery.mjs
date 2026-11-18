@@ -48,6 +48,7 @@ export function emailFor(p,meta){
  ].filter(Boolean).join('\n\n');
  const html=`<!doctype html><html lang="zh-CN"><meta charset="utf-8"><body style="font-family:-apple-system,'PingFang SC',sans-serif;color:#254b3b;padding:20px"><div style="max-width:620px;margin:auto">
  <p>🍑 桃子英语 · 第${p.lesson}课 · ${minutes}分钟</p><h1>${esc(meta.title)}</h1>
+ <p><a href="${esc(url)}" style="display:inline-block;background:#276a56;color:white;padding:14px 22px;border-radius:10px">打开互动课（免登录）→</a></p>
  <p>本邮件可以直接学习。请播放随信的 01 和 02 两个 MP3 音频，按下面的内容看图、跟读、回忆和作答。</p>
  <p><b>词汇：</b>${esc(words)}</p>${readable.html}
  <hr><h2>互动练习版</h2><p>${esc(flow)}</p>
