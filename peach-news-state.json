@@ -1,12 +1,11 @@
 {
-  "lastRunAt": "2026-11-20T10:11:13.698Z",
-  "lastSentDate": "2026-11-20",
-  "lastReportDate": "2026-11-20",
-  "lastQuestionId": "advanced-tree-ring-3",
-  "lastQuestion": "资料题：一棵树的甲年年轮宽约 2 毫米，乙年宽约 6 毫米。研究小组想判断差异是否主要和当地两年的天气有关。哪种取样方法最能减少其他因素的干扰？\nA. 在同一地区选 30 棵同种树，对齐甲、乙两年的年轮，再核对两年的温度、降雨和病虫记录\nB. 在同一地区选 30 棵不同树种，对齐甲、乙两年的年轮，再核对两年的温度、降雨和病虫记录\nC. 在不同地区选 30 棵同种树，对齐甲、乙两年的年轮，再核对各地两年的温度、降雨和病虫记录",
-  "lastAnswer": "答案：A。同一地区、同一树种能尽量控制地点和树种差异；观察多棵树可以减少单棵树的偶然情况；再把年轮与同一年的温度、降雨和病虫记录对照，才更容易判断天气的影响。B 混入树种差异，C 混入地区差异。",
+  "lastRunAt": "2026-11-21T10:01:42.396Z",
+  "lastSentDate": "2026-11-21",
+  "lastReportDate": "2026-11-21",
+  "lastQuestionId": "reserve-median-order-20778",
+  "lastQuestion": "计算题（模拟数据）：三个样本的长度分别是 28、20、24 厘米。按数量从小到大排序，居中的记录是多少？\nA. 按记录中的条件计算，结果为 20。\nB. 按记录中的条件计算，结果为 28。\nC. 按记录中的条件计算，结果为 24。",
+  "lastAnswer": "答案：C。排序为 20、24、28，居中的是 24，不是最大的一项。",
   "recentQuestionIds": [
-    "advanced-causal-playground-water-11",
     "advanced-causal-plant-water-12",
     "advanced-causal-classroom-heat-13",
     "advanced-causal-electricity-14",
@@ -41,7 +40,8 @@
     "advanced-rover-0",
     "reserve-unit-conversion-20775",
     "reserve-interval-count-20776",
-    "advanced-tree-ring-3"
+    "advanced-tree-ring-3",
+    "reserve-median-order-20778"
   ],
   "recentQuestionConceptIds": [
     "concept-pollination",
@@ -108,10 +108,10 @@
     "concept-exception-arithmetic-rover",
     "reserve-unit-conversion",
     "reserve-interval-count",
-    "concept-tree-ring-climate"
+    "concept-tree-ring-climate",
+    "reserve-median-order"
   ],
   "recentQuestionTags": [
-    "科学",
     "数学",
     "repeatability",
     "necessary-condition",
@@ -126,7 +126,8 @@
     "航天",
     "unit-conversion",
     "interval-count",
-    "植物"
+    "植物",
+    "median-order"
   ],
   "recentQuestionTexts": [
     "关于学习和学校你还想继续追问哪一个更细的为什么",
@@ -233,17 +234,15 @@
     "计算题一辆月球车计划每分钟前进4米连续行驶6分钟实际前2分钟为了绕开石块每分钟只走3米；其余时间按原速度行驶它一共前进多少米a.24米b.18米c.22米",
     "计算题模拟数据两段绳子的测量记录分别是17米和4厘米接起来没有重叠一共是多少厘米a.按记录中的条件计算结果为21b.按记录中的条件计算结果为174c.按记录中的条件计算结果为1704",
     "计算题模拟数据仪器从第0分钟开始记录以后每隔4分钟记录一次到第72分钟也记录实际一共记录多少次a.按记录中的条件计算结果为17b.按记录中的条件计算结果为19c.按记录中的条件计算结果为18",
-    "资料题一棵树的甲年年轮宽约2毫米乙年宽约6毫米研究小组想判断差异是否主要和当地两年的天气有关哪种取样方法最能减少其他因素的干扰a.在同一地区选30棵同种树对齐甲乙两年的年轮再核对两年的温度降雨"
+    "资料题一棵树的甲年年轮宽约2毫米乙年宽约6毫米研究小组想判断差异是否主要和当地两年的天气有关哪种取样方法最能减少其他因素的干扰a.在同一地区选30棵同种树对齐甲乙两年的年轮再核对两年的温度降雨",
+    "计算题模拟数据三个样本的长度分别是282024厘米按数量从小到大排序居中的记录是多少a.按记录中的条件计算结果为20b.按记录中的条件计算结果为28c.按记录中的条件计算结果为24"
   ],
   "lastEncyclopediaIds": [
-    "museum-co-molecular-cloud-map",
-    "museum-marshall-stick-chart",
-    "museum-frog-vocal-sac-resonator"
+    "science-solar-size-mass",
+    "science-soft-hard-coral",
+    "science-downwelling"
   ],
   "recentEncyclopediaIds": [
-    "museum-oracle-bone-cracks",
-    "museum-caddisfly-larva-case",
-    "museum-armillary-sphere-rings",
     "museum-sundew-sticky-tentacles",
     "museum-chain-mail-rings",
     "museum-stromatolite-microbial-layers",
@@ -375,7 +374,10 @@
     "museum-nuclide-chart",
     "museum-co-molecular-cloud-map",
     "museum-marshall-stick-chart",
-    "museum-frog-vocal-sac-resonator"
+    "museum-frog-vocal-sac-resonator",
+    "science-solar-size-mass",
+    "science-soft-hard-coral",
+    "science-downwelling"
   ],
   "recentEncyclopediaTags": [
     "冰川学",
@@ -387,15 +389,15 @@
     "化石保护",
     "植物解剖学",
     "安第斯文明",
-    "天文",
-    "海洋生态",
-    "海洋物理",
     "鱼类学",
     "考古学",
     "核物理",
     "银河系",
     "航海史",
-    "鸣声"
+    "鸣声",
+    "天文",
+    "海洋生态",
+    "海洋物理"
   ],
   "recentEncyclopediaTexts": [
     "地球科学不是冷知识它能帮助我们理解自然生活或社会洋流像海洋里的大河会影响气候鱼群和船只航行",
@@ -595,11 +597,13 @@
     "核素图按原子核里的质子数和中子数排列横着或竖着比较就能看见同位素之间的关系；图上的空白区域也是科学家寻找未知核素的重要线索",
     "寒冷分子云里的氢分子很难直接观测天文学家常用一氧化碳分子发出的毫米波信号寻找它们射电望远镜记录信号的方向和频率变化还能帮助推测分子云的位置与运动",
     "马绍尔群岛的航海图用椰条棕榈条和贝壳表示海浪洋流与岛屿它多用于出发前学习和记忆航海者真正出海时主要靠观察和感受海浪导航",
-    "许多雄蛙鸣叫时喉部的声囊会像气球一样鼓起声囊能让空气往返振动增强声音并减少每次鸣叫重新吸气的消耗不同物种的叫声节奏也常有差别"
+    "许多雄蛙鸣叫时喉部的声囊会像气球一样鼓起声囊能让空气往返振动增强声音并减少每次鸣叫重新吸气的消耗不同物种的叫声节奏也常有差别",
+    "太阳的质量约是地球的三十三万倍巨大的质量会让它产生很强的引力",
+    "珊瑚并非全都具有相同骨骼海扇等软珊瑚与形成坚硬礁体的石珊瑚属于不同类型",
+    "海面水被风推向海岸并堆积时部分水会向下沉这种下沉流与上升流方向相反"
   ],
-  "lastIntroText": "🌻📖🔎 愿你一直温柔、认真、有主见，心里也住着明亮的光！",
+  "lastIntroText": "🐝🌿📚 一点点新知识会慢慢酿成大本领，今天也会有甜甜的收获！",
   "recentIntroTexts": [
-    "⭐️🍓📚今天也给自己一个大拇指每一点进步都值得被好好看见",
     "🎒💛🌼愿你像小太阳一样心里温暖脚下勇敢还一直闪闪发光",
     "🦉🍑📮今天也慢慢向前走你付出的每一点认真都不会白费",
     "🌱🔍💛好奇心正在发芽每一次认真探索都会让它长高一点",
@@ -628,11 +632,11 @@
     "🐬🌈📝愿你的想法像海浪一样有力量也像阳光一样明亮",
     "🍑🧩✨世界的知识拼图很大而你今天又会找到新的一块",
     "🌞📚🧡新知识像一扇小窗愿它为你照进不一样的光",
-    "🌻📖🔎愿你一直温柔认真有主见心里也住着明亮的光"
+    "🌻📖🔎愿你一直温柔认真有主见心里也住着明亮的光",
+    "🐝🌿📚一点点新知识会慢慢酿成大本领今天也会有甜甜的收获"
   ],
-  "lastClosingText": "今天的探索告一段落，愿认真、好奇和善意继续陪着你。",
+  "lastClosingText": "愿今天学到的知识，像一盏小灯，照亮以后遇到的相似问题。",
   "recentClosingTexts": [
-    "好奇心今天又长高了一点愿你保持温柔也保持清醒和勇敢",
     "愿你记住不确定时愿意继续核对是一种很可靠的聪明",
     "今天又完成了一次小小的知识旅行愿你带着轻松的心情继续出发",
     "今天又认识了世界的一小角晚安之前给认真思考的自己一个大拇指",
@@ -661,13 +665,10 @@
     "今天的情报到这里愿你带着一个新发现进入今晚心里亮亮的",
     "世界每天都有新变化而你正在一点点长出理解它的力量",
     "愿你既能看见科技的力量也能记得规则安全和人的判断同样重要",
-    "今天的探索告一段落愿认真好奇和善意继续陪着你"
+    "今天的探索告一段落愿认真好奇和善意继续陪着你",
+    "愿今天学到的知识像一盏小灯照亮以后遇到的相似问题"
   ],
-  "lastNewsTitles": [
-    "第 1 条小情报：由原理走向实践：零基础打造多维数字内容创客",
-    "第 2 条小情报：AI类岗位扩容、技能人才需求旺 就业市场出现哪些新趋势？",
-    "第 3 条小情报：AI时代何为老师，老师何为？首都师大校友共议教育“变与不变”"
-  ],
+  "lastNewsTitles": [],
   "recentNewsTitles": [
     "第 2 条小情报：台风警报解除后仍要防范暴雨和山体滑坡",
     "第 3 条小情报：中国商业航天企业首次面向东南亚整星出口！银河航天三颗卫星发射成功",
@@ -730,7 +731,7 @@
     "第 2 条小情报：AI类岗位扩容、技能人才需求旺 就业市场出现哪些新趋势？",
     "第 3 条小情报：AI时代何为老师，老师何为？首都师大校友共议教育“变与不变”"
   ],
-  "lastContentMode": "news",
+  "lastContentMode": "science",
   "recentScienceConceptIds": [
     "museum-arch-compression",
     "museum-nautilus-chambers",
@@ -773,6 +774,9 @@
     "museum-nuclide-chart",
     "museum-co-molecular-cloud-map",
     "museum-marshall-stick-chart",
-    "museum-frog-vocal-sac-resonator"
+    "museum-frog-vocal-sac-resonator",
+    "solar-size-mass",
+    "soft-hard-coral",
+    "downwelling"
   ]
 }
