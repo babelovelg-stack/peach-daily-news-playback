@@ -1,12 +1,11 @@
 {
-  "lastRunAt": "2026-11-21T10:01:42.396Z",
-  "lastSentDate": "2026-11-21",
-  "lastReportDate": "2026-11-21",
-  "lastQuestionId": "reserve-median-order-20778",
-  "lastQuestion": "计算题（模拟数据）：三个样本的长度分别是 28、20、24 厘米。按数量从小到大排序，居中的记录是多少？\nA. 按记录中的条件计算，结果为 20。\nB. 按记录中的条件计算，结果为 28。\nC. 按记录中的条件计算，结果为 24。",
-  "lastAnswer": "答案：C。排序为 20、24、28，居中的是 24，不是最大的一项。",
+  "lastRunAt": "2026-11-22T10:01:41.110Z",
+  "lastSentDate": "2026-11-22",
+  "lastReportDate": "2026-11-22",
+  "lastQuestionId": "advanced-experiment-5",
+  "lastQuestion": "探究题：小明想研究晒太阳会不会让水蒸发得更快。甲杯 120 毫升水，放在太阳下，3 小时少了 35 毫升；乙杯 100 毫升水，放在阴凉处，3 小时少了 25 毫升。要重新做得更公平，最应该怎么改？\nA. 两个相同杯子装一样多的水，只保留太阳下和阴凉处不同\nB. 把观察时间从 3 小时延长到 6 小时，但两杯开始水量仍不同\nC. 多放几个杯子一起测，但太阳下的杯子仍装更多水",
+  "lastAnswer": "答案：A。要比较阳光的影响，杯子和开始水量要尽量一样，主要只改变放太阳下还是阴凉处。延长观察时间或增加杯子数量，如果开始水量仍不同，还是没有解决关键问题。",
   "recentQuestionIds": [
-    "advanced-causal-plant-water-12",
     "advanced-causal-classroom-heat-13",
     "advanced-causal-electricity-14",
     "advanced-bus-exception-1",
@@ -41,7 +40,8 @@
     "reserve-unit-conversion-20775",
     "reserve-interval-count-20776",
     "advanced-tree-ring-3",
-    "reserve-median-order-20778"
+    "reserve-median-order-20778",
+    "advanced-experiment-5"
   ],
   "recentQuestionConceptIds": [
     "concept-pollination",
@@ -85,7 +85,6 @@
     "news-hyperspectral-realtime-validation-1",
     "news-quantum-memory-scaling-evidence-1",
     "concept-space-computing-warning",
-    "concept-control-variable-evaporation",
     "concept-evidence-control",
     "news-peach-pigment-light-interaction-1",
     "news-fossil-preservation-missing-evidence-1",
@@ -109,10 +108,10 @@
     "reserve-unit-conversion",
     "reserve-interval-count",
     "concept-tree-ring-climate",
-    "reserve-median-order"
+    "reserve-median-order",
+    "concept-control-variable-evaporation"
   ],
   "recentQuestionTags": [
-    "数学",
     "repeatability",
     "necessary-condition",
     "counterexample",
@@ -127,7 +126,8 @@
     "unit-conversion",
     "interval-count",
     "植物",
-    "median-order"
+    "median-order",
+    "科学"
   ],
   "recentQuestionTexts": [
     "关于学习和学校你还想继续追问哪一个更细的为什么",
@@ -235,17 +235,15 @@
     "计算题模拟数据两段绳子的测量记录分别是17米和4厘米接起来没有重叠一共是多少厘米a.按记录中的条件计算结果为21b.按记录中的条件计算结果为174c.按记录中的条件计算结果为1704",
     "计算题模拟数据仪器从第0分钟开始记录以后每隔4分钟记录一次到第72分钟也记录实际一共记录多少次a.按记录中的条件计算结果为17b.按记录中的条件计算结果为19c.按记录中的条件计算结果为18",
     "资料题一棵树的甲年年轮宽约2毫米乙年宽约6毫米研究小组想判断差异是否主要和当地两年的天气有关哪种取样方法最能减少其他因素的干扰a.在同一地区选30棵同种树对齐甲乙两年的年轮再核对两年的温度降雨",
-    "计算题模拟数据三个样本的长度分别是282024厘米按数量从小到大排序居中的记录是多少a.按记录中的条件计算结果为20b.按记录中的条件计算结果为28c.按记录中的条件计算结果为24"
+    "计算题模拟数据三个样本的长度分别是282024厘米按数量从小到大排序居中的记录是多少a.按记录中的条件计算结果为20b.按记录中的条件计算结果为28c.按记录中的条件计算结果为24",
+    "探究题小明想研究晒太阳会不会让水蒸发得更快甲杯120毫升水放在太阳下3小时少了35毫升；乙杯100毫升水放在阴凉处3小时少了25毫升要重新做得更公平最应该怎么改a.两个相同杯子装一样多的水只保"
   ],
   "lastEncyclopediaIds": [
-    "science-solar-size-mass",
-    "science-soft-hard-coral",
-    "science-downwelling"
+    "science-sun-life-energy",
+    "science-coral-bleaching",
+    "science-infiltration-recharge"
   ],
   "recentEncyclopediaIds": [
-    "museum-sundew-sticky-tentacles",
-    "museum-chain-mail-rings",
-    "museum-stromatolite-microbial-layers",
     "museum-seismic-p-s-waves",
     "museum-map-coordinate-reference",
     "museum-sea-ice-brine-channels",
@@ -377,10 +375,12 @@
     "museum-frog-vocal-sac-resonator",
     "science-solar-size-mass",
     "science-soft-hard-coral",
-    "science-downwelling"
+    "science-downwelling",
+    "science-sun-life-energy",
+    "science-coral-bleaching",
+    "science-infiltration-recharge"
   ],
   "recentEncyclopediaTags": [
-    "冰川学",
     "鸟类学",
     "昆虫学",
     "计量学",
@@ -395,9 +395,10 @@
     "银河系",
     "航海史",
     "鸣声",
+    "海洋物理",
     "天文",
     "海洋生态",
-    "海洋物理"
+    "水文"
   ],
   "recentEncyclopediaTexts": [
     "地球科学不是冷知识它能帮助我们理解自然生活或社会洋流像海洋里的大河会影响气候鱼群和船只航行",
@@ -600,11 +601,13 @@
     "许多雄蛙鸣叫时喉部的声囊会像气球一样鼓起声囊能让空气往返振动增强声音并减少每次鸣叫重新吸气的消耗不同物种的叫声节奏也常有差别",
     "太阳的质量约是地球的三十三万倍巨大的质量会让它产生很强的引力",
     "珊瑚并非全都具有相同骨骼海扇等软珊瑚与形成坚硬礁体的石珊瑚属于不同类型",
-    "海面水被风推向海岸并堆积时部分水会向下沉这种下沉流与上升流方向相反"
+    "海面水被风推向海岸并堆积时部分水会向下沉这种下沉流与上升流方向相反",
+    "太阳的光和能量与地球生命密切有关但太阳本身的极端高温不适合已知生命生存",
+    "水温等条件改变会使珊瑚失去组织里的共生藻原来有颜色的珊瑚因此变白",
+    "部分雨水会渗入土壤和岩石继续向下移动为地下含水层补充水而不是全都流入河流"
   ],
-  "lastIntroText": "🐝🌿📚 一点点新知识会慢慢酿成大本领，今天也会有甜甜的收获！",
+  "lastIntroText": "🌙🍓🧭 愿今天的新发现陪着你，走向一个更开阔、更有趣的世界！",
   "recentIntroTexts": [
-    "🎒💛🌼愿你像小太阳一样心里温暖脚下勇敢还一直闪闪发光",
     "🦉🍑📮今天也慢慢向前走你付出的每一点认真都不会白费",
     "🌱🔍💛好奇心正在发芽每一次认真探索都会让它长高一点",
     "🐾🧠🌟你的每一个认真问题都可能带来一个意想不到的新发现",
@@ -633,11 +636,11 @@
     "🍑🧩✨世界的知识拼图很大而你今天又会找到新的一块",
     "🌞📚🧡新知识像一扇小窗愿它为你照进不一样的光",
     "🌻📖🔎愿你一直温柔认真有主见心里也住着明亮的光",
-    "🐝🌿📚一点点新知识会慢慢酿成大本领今天也会有甜甜的收获"
+    "🐝🌿📚一点点新知识会慢慢酿成大本领今天也会有甜甜的收获",
+    "🌙🍓🧭愿今天的新发现陪着你走向一个更开阔更有趣的世界"
   ],
-  "lastClosingText": "愿今天学到的知识，像一盏小灯，照亮以后遇到的相似问题。",
+  "lastClosingText": "好奇心今天又长高了一点。愿你保持温柔，也保持清醒和勇敢。",
   "recentClosingTexts": [
-    "愿你记住不确定时愿意继续核对是一种很可靠的聪明",
     "今天又完成了一次小小的知识旅行愿你带着轻松的心情继续出发",
     "今天又认识了世界的一小角晚安之前给认真思考的自己一个大拇指",
     "一个事实一条原理一点思考已经让今天变得很有收获",
@@ -666,7 +669,8 @@
     "世界每天都有新变化而你正在一点点长出理解它的力量",
     "愿你既能看见科技的力量也能记得规则安全和人的判断同样重要",
     "今天的探索告一段落愿认真好奇和善意继续陪着你",
-    "愿今天学到的知识像一盏小灯照亮以后遇到的相似问题"
+    "愿今天学到的知识像一盏小灯照亮以后遇到的相似问题",
+    "好奇心今天又长高了一点愿你保持温柔也保持清醒和勇敢"
   ],
   "lastNewsTitles": [],
   "recentNewsTitles": [
@@ -777,6 +781,9 @@
     "museum-frog-vocal-sac-resonator",
     "solar-size-mass",
     "soft-hard-coral",
-    "downwelling"
+    "downwelling",
+    "sun-life-energy",
+    "coral-bleaching",
+    "infiltration-recharge"
   ]
 }
