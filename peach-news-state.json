@@ -1,12 +1,11 @@
 {
-  "lastRunAt": "2026-11-22T10:01:41.110Z",
-  "lastSentDate": "2026-11-22",
-  "lastReportDate": "2026-11-22",
-  "lastQuestionId": "advanced-experiment-5",
-  "lastQuestion": "探究题：小明想研究晒太阳会不会让水蒸发得更快。甲杯 120 毫升水，放在太阳下，3 小时少了 35 毫升；乙杯 100 毫升水，放在阴凉处，3 小时少了 25 毫升。要重新做得更公平，最应该怎么改？\nA. 两个相同杯子装一样多的水，只保留太阳下和阴凉处不同\nB. 把观察时间从 3 小时延长到 6 小时，但两杯开始水量仍不同\nC. 多放几个杯子一起测，但太阳下的杯子仍装更多水",
-  "lastAnswer": "答案：A。要比较阳光的影响，杯子和开始水量要尽量一样，主要只改变放太阳下还是阴凉处。延长观察时间或增加杯子数量，如果开始水量仍不同，还是没有解决关键问题。",
+  "lastRunAt": "2026-11-23T10:01:32.517Z",
+  "lastSentDate": "2026-11-23",
+  "lastReportDate": "2026-11-23",
+  "lastQuestionId": "reserve-arithmetic-mean-20780",
+  "lastQuestion": "计算题（模拟数据）：三次测量长度的记录是 22、26、30 厘米，平均每次是多少厘米？\nA. 按记录中的条件计算，结果为 30。\nB. 按记录中的条件计算，结果为 26。\nC. 按记录中的条件计算，结果为 78。",
+  "lastAnswer": "答案：B。先求总和再除以次数：（22＋26＋30）÷3＝26 厘米。",
   "recentQuestionIds": [
-    "advanced-causal-classroom-heat-13",
     "advanced-causal-electricity-14",
     "advanced-bus-exception-1",
     "advanced-delivery-exception-6",
@@ -41,7 +40,8 @@
     "reserve-interval-count-20776",
     "advanced-tree-ring-3",
     "reserve-median-order-20778",
-    "advanced-experiment-5"
+    "advanced-experiment-5",
+    "reserve-arithmetic-mean-20780"
   ],
   "recentQuestionConceptIds": [
     "concept-pollination",
@@ -109,10 +109,10 @@
     "reserve-interval-count",
     "concept-tree-ring-climate",
     "reserve-median-order",
-    "concept-control-variable-evaporation"
+    "concept-control-variable-evaporation",
+    "reserve-arithmetic-mean"
   ],
   "recentQuestionTags": [
-    "repeatability",
     "necessary-condition",
     "counterexample",
     "zero-offset",
@@ -127,7 +127,8 @@
     "interval-count",
     "植物",
     "median-order",
-    "科学"
+    "科学",
+    "arithmetic-mean"
   ],
   "recentQuestionTexts": [
     "关于学习和学校你还想继续追问哪一个更细的为什么",
@@ -236,17 +237,15 @@
     "计算题模拟数据仪器从第0分钟开始记录以后每隔4分钟记录一次到第72分钟也记录实际一共记录多少次a.按记录中的条件计算结果为17b.按记录中的条件计算结果为19c.按记录中的条件计算结果为18",
     "资料题一棵树的甲年年轮宽约2毫米乙年宽约6毫米研究小组想判断差异是否主要和当地两年的天气有关哪种取样方法最能减少其他因素的干扰a.在同一地区选30棵同种树对齐甲乙两年的年轮再核对两年的温度降雨",
     "计算题模拟数据三个样本的长度分别是282024厘米按数量从小到大排序居中的记录是多少a.按记录中的条件计算结果为20b.按记录中的条件计算结果为28c.按记录中的条件计算结果为24",
-    "探究题小明想研究晒太阳会不会让水蒸发得更快甲杯120毫升水放在太阳下3小时少了35毫升；乙杯100毫升水放在阴凉处3小时少了25毫升要重新做得更公平最应该怎么改a.两个相同杯子装一样多的水只保"
+    "探究题小明想研究晒太阳会不会让水蒸发得更快甲杯120毫升水放在太阳下3小时少了35毫升；乙杯100毫升水放在阴凉处3小时少了25毫升要重新做得更公平最应该怎么改a.两个相同杯子装一样多的水只保",
+    "计算题模拟数据三次测量长度的记录是222630厘米平均每次是多少厘米a.按记录中的条件计算结果为30b.按记录中的条件计算结果为26c.按记录中的条件计算结果为78"
   ],
   "lastEncyclopediaIds": [
-    "science-sun-life-energy",
-    "science-coral-bleaching",
-    "science-infiltration-recharge"
+    "science-lunar-tidal-lock",
+    "science-bleached-not-dead",
+    "science-water-cohesion"
   ],
   "recentEncyclopediaIds": [
-    "museum-seismic-p-s-waves",
-    "museum-map-coordinate-reference",
-    "museum-sea-ice-brine-channels",
     "museum-flight-recorder-orange",
     "museum-floodplain-storage",
     "museum-eclipse-pinhole-images",
@@ -378,10 +377,12 @@
     "science-downwelling",
     "science-sun-life-energy",
     "science-coral-bleaching",
-    "science-infiltration-recharge"
+    "science-infiltration-recharge",
+    "science-lunar-tidal-lock",
+    "science-bleached-not-dead",
+    "science-water-cohesion"
   ],
   "recentEncyclopediaTags": [
-    "鸟类学",
     "昆虫学",
     "计量学",
     "集成电路史",
@@ -396,9 +397,10 @@
     "航海史",
     "鸣声",
     "海洋物理",
+    "水文",
     "天文",
     "海洋生态",
-    "水文"
+    "水的物理"
   ],
   "recentEncyclopediaTexts": [
     "地球科学不是冷知识它能帮助我们理解自然生活或社会洋流像海洋里的大河会影响气候鱼群和船只航行",
@@ -604,11 +606,13 @@
     "海面水被风推向海岸并堆积时部分水会向下沉这种下沉流与上升流方向相反",
     "太阳的光和能量与地球生命密切有关但太阳本身的极端高温不适合已知生命生存",
     "水温等条件改变会使珊瑚失去组织里的共生藻原来有颜色的珊瑚因此变白",
-    "部分雨水会渗入土壤和岩石继续向下移动为地下含水层补充水而不是全都流入河流"
+    "部分雨水会渗入土壤和岩石继续向下移动为地下含水层补充水而不是全都流入河流",
+    "月球自转一圈和绕地球一圈所用时间接近因此我们通常看到月球的同一面",
+    "珊瑚白化不等于已经死亡如果压力及时减轻有些珊瑚还能恢复但长期白化会增加死亡风险",
+    "水分子之间会相互吸引这种内聚作用帮助水聚成水滴而不是任意散开"
   ],
-  "lastIntroText": "🌙🍓🧭 愿今天的新发现陪着你，走向一个更开阔、更有趣的世界！",
+  "lastIntroText": "🎒🦋💛 愿今天的知识像一只小蝴蝶，轻轻落进你的记忆里！",
   "recentIntroTexts": [
-    "🦉🍑📮今天也慢慢向前走你付出的每一点认真都不会白费",
     "🌱🔍💛好奇心正在发芽每一次认真探索都会让它长高一点",
     "🐾🧠🌟你的每一个认真问题都可能带来一个意想不到的新发现",
     "🍊🔬🌟世界每天都有新变化而你每天都在变得更有力量",
@@ -637,11 +641,11 @@
     "🌞📚🧡新知识像一扇小窗愿它为你照进不一样的光",
     "🌻📖🔎愿你一直温柔认真有主见心里也住着明亮的光",
     "🐝🌿📚一点点新知识会慢慢酿成大本领今天也会有甜甜的收获",
-    "🌙🍓🧭愿今天的新发现陪着你走向一个更开阔更有趣的世界"
+    "🌙🍓🧭愿今天的新发现陪着你走向一个更开阔更有趣的世界",
+    "🎒🦋💛愿今天的知识像一只小蝴蝶轻轻落进你的记忆里"
   ],
-  "lastClosingText": "好奇心今天又长高了一点。愿你保持温柔，也保持清醒和勇敢。",
+  "lastClosingText": "新的知识已经抵达。让眼睛休息一下，也让大脑安静地整理它们。",
   "recentClosingTexts": [
-    "今天又完成了一次小小的知识旅行愿你带着轻松的心情继续出发",
     "今天又认识了世界的一小角晚安之前给认真思考的自己一个大拇指",
     "一个事实一条原理一点思考已经让今天变得很有收获",
     "今天认识的自然社会和科技知识会慢慢连成属于你的世界地图",
@@ -670,7 +674,8 @@
     "愿你既能看见科技的力量也能记得规则安全和人的判断同样重要",
     "今天的探索告一段落愿认真好奇和善意继续陪着你",
     "愿今天学到的知识像一盏小灯照亮以后遇到的相似问题",
-    "好奇心今天又长高了一点愿你保持温柔也保持清醒和勇敢"
+    "好奇心今天又长高了一点愿你保持温柔也保持清醒和勇敢",
+    "新的知识已经抵达让眼睛休息一下也让大脑安静地整理它们"
   ],
   "lastNewsTitles": [],
   "recentNewsTitles": [
@@ -784,6 +789,9 @@
     "downwelling",
     "sun-life-energy",
     "coral-bleaching",
-    "infiltration-recharge"
+    "infiltration-recharge",
+    "lunar-tidal-lock",
+    "bleached-not-dead",
+    "water-cohesion"
   ]
 }
