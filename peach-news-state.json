@@ -1,12 +1,11 @@
 {
-  "lastRunAt": "2026-11-24T10:11:31.073Z",
-  "lastSentDate": "2026-11-24",
-  "lastReportDate": "2026-11-24",
-  "lastQuestionId": "reserve-repeatability-20781",
-  "lastQuestion": "探究题（模拟数据）：同一长度测 23 次，多数记录在 40 毫米附近，一次记录为 60 毫米。判断这次异常，下一步更合理的是哪种？\nA. 把异常值保留在记录中，先按全部数据计算一次平均\nB. 增加另一种长度的测量次数，再比较两种长度的记录\nC. 检查仪器和操作方法，再用相同方法多次复测并记录",
-  "lastAnswer": "答案：C。先查明异常来源并复测，既不随意删除数据，也不让一个异常值主导结论。",
+  "lastRunAt": "2026-11-25T10:00:59.032Z",
+  "lastSentDate": "2026-11-25",
+  "lastReportDate": "2026-11-25",
+  "lastQuestionId": "reserve-necessary-condition-20782",
+  "lastQuestion": "探究题（模拟数据）：某种培养条件下，24 份发芽种子都有水，但另外 4 份有水的种子没有发芽。根据记录，哪种判断更合理？\nA. 记录支持发芽需要水，但还应检查温度等其他条件\nB. 记录支持有水的样本更容易发芽，可先按有水预测\nC. 记录支持不同样本需要不同水量，可先增加供水比较",
+  "lastAnswer": "答案：A。这些记录表明有水并不保证发芽，水可能是必要条件，还需检查其他生长条件。",
   "recentQuestionIds": [
-    "advanced-bus-exception-1",
     "advanced-delivery-exception-6",
     "advanced-evidence-sample-8",
     "news-hyperspectral-realtime-validation-1",
@@ -41,7 +40,8 @@
     "reserve-median-order-20778",
     "advanced-experiment-5",
     "reserve-arithmetic-mean-20780",
-    "reserve-repeatability-20781"
+    "reserve-repeatability-20781",
+    "reserve-necessary-condition-20782"
   ],
   "recentQuestionConceptIds": [
     "concept-pollination",
@@ -94,7 +94,6 @@
     "concept-causal-evidence-electricity",
     "concept-exception-arithmetic-bus",
     "concept-exception-arithmetic-delivery",
-    "reserve-necessary-condition",
     "reserve-counterexample",
     "reserve-zero-offset",
     "reserve-time-confounding",
@@ -110,10 +109,10 @@
     "reserve-median-order",
     "concept-control-variable-evaporation",
     "reserve-arithmetic-mean",
-    "reserve-repeatability"
+    "reserve-repeatability",
+    "reserve-necessary-condition"
   ],
   "recentQuestionTags": [
-    "counterexample",
     "zero-offset",
     "time-confounding",
     "sampling-bias",
@@ -128,7 +127,8 @@
     "median-order",
     "科学",
     "arithmetic-mean",
-    "repeatability"
+    "repeatability",
+    "necessary-condition"
   ],
   "recentQuestionTexts": [
     "关于学习和学校你还想继续追问哪一个更细的为什么",
@@ -239,17 +239,15 @@
     "计算题模拟数据三个样本的长度分别是282024厘米按数量从小到大排序居中的记录是多少a.按记录中的条件计算结果为20b.按记录中的条件计算结果为28c.按记录中的条件计算结果为24",
     "探究题小明想研究晒太阳会不会让水蒸发得更快甲杯120毫升水放在太阳下3小时少了35毫升；乙杯100毫升水放在阴凉处3小时少了25毫升要重新做得更公平最应该怎么改a.两个相同杯子装一样多的水只保",
     "计算题模拟数据三次测量长度的记录是222630厘米平均每次是多少厘米a.按记录中的条件计算结果为30b.按记录中的条件计算结果为26c.按记录中的条件计算结果为78",
-    "探究题模拟数据同一长度测23次多数记录在40毫米附近一次记录为60毫米判断这次异常下一步更合理的是哪种a.把异常值保留在记录中先按全部数据计算一次平均b.增加另一种长度的测量次数再比较两种长度"
+    "探究题模拟数据同一长度测23次多数记录在40毫米附近一次记录为60毫米判断这次异常下一步更合理的是哪种a.把异常值保留在记录中先按全部数据计算一次平均b.增加另一种长度的测量次数再比较两种长度",
+    "探究题模拟数据某种培养条件下24份发芽种子都有水但另外4份有水的种子没有发芽根据记录哪种判断更合理a.记录支持发芽需要水但还应检查温度等其他条件b.记录支持有水的样本更容易发芽可先按有水预测c"
   ],
   "lastEncyclopediaIds": [
-    "museum-seismic-p-s-waves",
-    "museum-oracle-bone-cracks",
-    "museum-weather-balloon-radiosonde"
+    "science-lunar-phases",
+    "science-cold-bleaching",
+    "science-thermocline-gradient"
   ],
   "recentEncyclopediaIds": [
-    "museum-shadow",
-    "museum-electricity",
-    "museum-echo",
     "museum-skin",
     "museum-cactus-spine",
     "museum-obsidian",
@@ -381,7 +379,10 @@
     "science-water-cohesion",
     "museum-seismic-p-s-waves",
     "museum-oracle-bone-cracks",
-    "museum-weather-balloon-radiosonde"
+    "museum-weather-balloon-radiosonde",
+    "science-lunar-phases",
+    "science-cold-bleaching",
+    "science-thermocline-gradient"
   ],
   "recentEncyclopediaTags": [
     "鸟类环志",
@@ -394,14 +395,14 @@
     "银河系",
     "航海史",
     "鸣声",
-    "海洋物理",
     "水文",
-    "天文",
-    "海洋生态",
     "水的物理",
     "地震学",
     "甲骨文",
-    "气象"
+    "气象",
+    "天文",
+    "海洋生态",
+    "海洋物理"
   ],
   "recentEncyclopediaTexts": [
     "地球科学不是冷知识它能帮助我们理解自然生活或社会洋流像海洋里的大河会影响气候鱼群和船只航行",
@@ -610,11 +611,13 @@
     "水分子之间会相互吸引这种内聚作用帮助水聚成水滴而不是任意散开",
     "地震产生的p波传播较快能穿过固体和液体；s波较慢不能穿过液体多座地震台比较两种波到达的时间可以帮助估算震源位置；s波在地球内部的传播特点也是判断外核为液态的重要证据",
     "商代占卜时人们会在龟甲或兽骨背面钻凿小坑再用火灼烧让正面出现裂纹；有些甲骨还刻下所问的事情日期和结果考古学家把刻辞裂纹和出土位置一起研究才能判断它记录了什么",
-    "探空气球会带着无线电探空仪升到高空一边上升一边测量温度湿度气压和风气球最后会因外界气压变低而膨胀破裂仪器再借小降落伞落下；这些立体资料是天气预报的重要起点"
+    "探空气球会带着无线电探空仪升到高空一边上升一边测量温度湿度气压和风气球最后会因外界气压变低而膨胀破裂仪器再借小降落伞落下；这些立体资料是天气预报的重要起点",
+    "月球绕地球运动时我们看到的受阳光照亮部分会改变于是出现月相变化",
+    "珊瑚白化并非只由水太热造成异常低温也会使珊瑚承受压力出现白化现象",
+    "温跃层表示海水温度随深度迅速降低的一层处在较暖的表层与较冷的深层之间"
   ],
-  "lastIntroText": "⭐️🍓📚 今天也给自己一个大拇指：每一点进步，都值得被好好看见！",
+  "lastIntroText": "🎒💛🌼 愿你像小太阳一样，心里温暖，脚下勇敢，还一直闪闪发光！",
   "recentIntroTexts": [
-    "🐾🧠🌟你的每一个认真问题都可能带来一个意想不到的新发现",
     "🍊🔬🌟世界每天都有新变化而你每天都在变得更有力量",
     "🐾🍊✨认真又可爱的你上线啦愿今天的新发现让眼睛亮晶晶",
     "🌼🧪🍬大胆猜想认真求证的你正在成为可靠的小小探索家",
@@ -643,11 +646,11 @@
     "🐝🌿📚一点点新知识会慢慢酿成大本领今天也会有甜甜的收获",
     "🌙🍓🧭愿今天的新发现陪着你走向一个更开阔更有趣的世界",
     "🎒🦋💛愿今天的知识像一只小蝴蝶轻轻落进你的记忆里",
-    "⭐️🍓📚今天也给自己一个大拇指每一点进步都值得被好好看见"
+    "⭐️🍓📚今天也给自己一个大拇指每一点进步都值得被好好看见",
+    "🎒💛🌼愿你像小太阳一样心里温暖脚下勇敢还一直闪闪发光"
   ],
-  "lastClosingText": "事实让我们站得稳，好奇让我们走得远。今天的情报就到这里。",
+  "lastClosingText": "今天又认识了世界的一小角。晚安之前，给认真思考的自己一个大拇指。",
   "recentClosingTexts": [
-    "一个事实一条原理一点思考已经让今天变得很有收获",
     "今天认识的自然社会和科技知识会慢慢连成属于你的世界地图",
     "今晚把答案留给明天把认真思考留下来；这已经是一份很好的收获",
     "把事实分清把理由想透今天的好奇心又向前走了一步",
@@ -676,11 +679,10 @@
     "愿今天学到的知识像一盏小灯照亮以后遇到的相似问题",
     "好奇心今天又长高了一点愿你保持温柔也保持清醒和勇敢",
     "新的知识已经抵达让眼睛休息一下也让大脑安静地整理它们",
-    "事实让我们站得稳好奇让我们走得远今天的情报就到这里"
+    "事实让我们站得稳好奇让我们走得远今天的情报就到这里",
+    "今天又认识了世界的一小角晚安之前给认真思考的自己一个大拇指"
   ],
-  "lastNewsTitles": [
-    "第 1 条小情报：教育部学校思想政治工作简报专题报道吉林大学统战工作经验做法"
-  ],
+  "lastNewsTitles": [],
   "recentNewsTitles": [
     "第 3 条小情报：中国商业航天企业首次面向东南亚整星出口！银河航天三颗卫星发射成功",
     "第 4 条小情报：银河航天：出海先锋重塑全球太空新基建格局",
@@ -743,7 +745,7 @@
     "第 3 条小情报：AI时代何为老师，老师何为？首都师大校友共议教育“变与不变”",
     "第 1 条小情报：教育部学校思想政治工作简报专题报道吉林大学统战工作经验做法"
   ],
-  "lastContentMode": "news",
+  "lastContentMode": "science",
   "recentScienceConceptIds": [
     "museum-arch-compression",
     "museum-nautilus-chambers",
@@ -798,6 +800,9 @@
     "water-cohesion",
     "museum-seismic-p-s-waves",
     "museum-oracle-bone-cracks",
-    "museum-weather-balloon-radiosonde"
+    "museum-weather-balloon-radiosonde",
+    "lunar-phases",
+    "cold-bleaching",
+    "thermocline-gradient"
   ]
 }
