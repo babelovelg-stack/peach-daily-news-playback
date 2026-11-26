@@ -1,12 +1,11 @@
 {
-  "lastRunAt": "2026-11-25T10:00:59.032Z",
-  "lastSentDate": "2026-11-25",
-  "lastReportDate": "2026-11-25",
-  "lastQuestionId": "reserve-necessary-condition-20782",
-  "lastQuestion": "探究题（模拟数据）：某种培养条件下，24 份发芽种子都有水，但另外 4 份有水的种子没有发芽。根据记录，哪种判断更合理？\nA. 记录支持发芽需要水，但还应检查温度等其他条件\nB. 记录支持有水的样本更容易发芽，可先按有水预测\nC. 记录支持不同样本需要不同水量，可先增加供水比较",
-  "lastAnswer": "答案：A。这些记录表明有水并不保证发芽，水可能是必要条件，还需检查其他生长条件。",
+  "lastRunAt": "2026-11-26T10:01:32.363Z",
+  "lastSentDate": "2026-11-26",
+  "lastReportDate": "2026-11-26",
+  "lastQuestionId": "reserve-counterexample-20783",
+  "lastQuestion": "探究题（模拟数据）：有人依据 25 次记录提出：这种材料遇水后长度都增加 4 毫米。要检查这个说法，哪组记录最应该复核？\nA. 同样条件的多次记录长度增加相同，并保留完整测量步骤\nB. 不同条件的多次记录长度增加不同，并保留完整测量步骤\nC. 同样条件的一次记录长度没有增加，并保留完整测量步骤",
+  "lastAnswer": "答案：C。声称每次都如此的结论，会被一个可靠的反例挑战；先复核条件和测量，确认反例是否成立。",
   "recentQuestionIds": [
-    "advanced-delivery-exception-6",
     "advanced-evidence-sample-8",
     "news-hyperspectral-realtime-validation-1",
     "news-quantum-memory-scaling-evidence-1",
@@ -41,7 +40,8 @@
     "advanced-experiment-5",
     "reserve-arithmetic-mean-20780",
     "reserve-repeatability-20781",
-    "reserve-necessary-condition-20782"
+    "reserve-necessary-condition-20782",
+    "reserve-counterexample-20783"
   ],
   "recentQuestionConceptIds": [
     "concept-pollination",
@@ -94,7 +94,6 @@
     "concept-causal-evidence-electricity",
     "concept-exception-arithmetic-bus",
     "concept-exception-arithmetic-delivery",
-    "reserve-counterexample",
     "reserve-zero-offset",
     "reserve-time-confounding",
     "reserve-sampling-bias",
@@ -110,10 +109,10 @@
     "concept-control-variable-evaporation",
     "reserve-arithmetic-mean",
     "reserve-repeatability",
-    "reserve-necessary-condition"
+    "reserve-necessary-condition",
+    "reserve-counterexample"
   ],
   "recentQuestionTags": [
-    "zero-offset",
     "time-confounding",
     "sampling-bias",
     "absence-detection",
@@ -128,7 +127,8 @@
     "科学",
     "arithmetic-mean",
     "repeatability",
-    "necessary-condition"
+    "necessary-condition",
+    "counterexample"
   ],
   "recentQuestionTexts": [
     "关于学习和学校你还想继续追问哪一个更细的为什么",
@@ -240,17 +240,15 @@
     "探究题小明想研究晒太阳会不会让水蒸发得更快甲杯120毫升水放在太阳下3小时少了35毫升；乙杯100毫升水放在阴凉处3小时少了25毫升要重新做得更公平最应该怎么改a.两个相同杯子装一样多的水只保",
     "计算题模拟数据三次测量长度的记录是222630厘米平均每次是多少厘米a.按记录中的条件计算结果为30b.按记录中的条件计算结果为26c.按记录中的条件计算结果为78",
     "探究题模拟数据同一长度测23次多数记录在40毫米附近一次记录为60毫米判断这次异常下一步更合理的是哪种a.把异常值保留在记录中先按全部数据计算一次平均b.增加另一种长度的测量次数再比较两种长度",
-    "探究题模拟数据某种培养条件下24份发芽种子都有水但另外4份有水的种子没有发芽根据记录哪种判断更合理a.记录支持发芽需要水但还应检查温度等其他条件b.记录支持有水的样本更容易发芽可先按有水预测c"
+    "探究题模拟数据某种培养条件下24份发芽种子都有水但另外4份有水的种子没有发芽根据记录哪种判断更合理a.记录支持发芽需要水但还应检查温度等其他条件b.记录支持有水的样本更容易发芽可先按有水预测c",
+    "探究题模拟数据有人依据25次记录提出这种材料遇水后长度都增加4毫米要检查这个说法哪组记录最应该复核a.同样条件的多次记录长度增加相同并保留完整测量步骤b.不同条件的多次记录长度增加不同并保留完"
   ],
   "lastEncyclopediaIds": [
-    "science-lunar-phases",
-    "science-cold-bleaching",
-    "science-thermocline-gradient"
+    "museum-tally-stick-accounting",
+    "museum-sundew-sticky-tentacles",
+    "museum-presidential-sash-symbol"
   ],
   "recentEncyclopediaIds": [
-    "museum-skin",
-    "museum-cactus-spine",
-    "museum-obsidian",
     "museum-coral",
     "museum-bamboo-grass",
     "museum-saturn-ring",
@@ -382,12 +380,12 @@
     "museum-weather-balloon-radiosonde",
     "science-lunar-phases",
     "science-cold-bleaching",
-    "science-thermocline-gradient"
+    "science-thermocline-gradient",
+    "museum-tally-stick-accounting",
+    "museum-sundew-sticky-tentacles",
+    "museum-presidential-sash-symbol"
   ],
   "recentEncyclopediaTags": [
-    "鸟类环志",
-    "化石保护",
-    "植物解剖学",
     "安第斯文明",
     "鱼类学",
     "考古学",
@@ -402,7 +400,10 @@
     "气象",
     "天文",
     "海洋生态",
-    "海洋物理"
+    "海洋物理",
+    "经济",
+    "食虫植物",
+    "政治制度"
   ],
   "recentEncyclopediaTexts": [
     "地球科学不是冷知识它能帮助我们理解自然生活或社会洋流像海洋里的大河会影响气候鱼群和船只航行",
@@ -465,11 +466,8 @@
     "火山灰和碎石遇到暴雨或融雪可能沿山谷形成高速火山泥流它能出现在喷发减弱以后所以火山监测还要继续观察降雨和河道",
     "埃及蓝被认为是人类最早制成的合成颜料它由石英砂石灰含铜材料和碱混合加热形成蓝色块再磨成粉用来绘画",
     "海洋科考常用ctd采水器测量电导率温度和深度电导率可以换算海水盐度仪器架上的采水瓶能在指定深度合上把那一层海水带回船上化验",
-    "一些共和国在总统就职时会使用绶带徽章或印玺表示国家权力已经按规则完成交接它们只是权力的象征不会让佩戴者拥有无限权力；总统仍要受到宪法法律和其他国家机构的约束",
-    "古代欧洲曾用木制刻符棒记录欠款双方把刻有同一组缺口的木条劈成两半各自保存一半以后把两半合起来缺口能相互对应较难被单方面改动；这是纸张昂贵时代的一种核对账目的办法",
     "石蛾幼虫生活在水里会吐出丝把沙粒小石子树枝或贝壳碎片粘成可以随身移动的保护巢不同种类选择的材料和排列方式不同研究者也会用石蛾等水生昆虫判断溪流环境",
     "浑仪不是普通地球仪它用一圈圈可以转动的环表示天赤道黄道等天空坐标古代天文学家转动并瞄准这些环测量太阳月亮和恒星的位置编制历法与星表",
-    "茅膏菜的叶片长着许多带黏液的腺毛小昆虫被粘住后部分种类的叶片或腺毛会慢慢弯向猎物并分泌消化液吸收氮等养分它仍会进行光合作用捕虫主要帮助它适应缺少养分的土壤",
     "锁子甲由许多互相套连的金属环组成环与环能分散刀刃的切割力量还允许身体弯曲它对撞击的缓冲较弱所以历史上的穿戴者常在里面加一层厚实的衬衣或软甲",
     "叠层石是一层层生长的岩石结构常由微生物席粘住沉积颗粒并促使矿物沉淀形成古老叠层石保存了早期生命活动的线索现代浅海和盐湖中也能找到仍在形成的例子",
     "地图上的经纬度数字还需要配套的坐标参考系统不同系统对地球形状和原点的规定不同同一组数字可能落在稍有偏差的位置所以正规的地图数据会注明坐标系统比例尺和测量时间",
@@ -614,11 +612,13 @@
     "探空气球会带着无线电探空仪升到高空一边上升一边测量温度湿度气压和风气球最后会因外界气压变低而膨胀破裂仪器再借小降落伞落下；这些立体资料是天气预报的重要起点",
     "月球绕地球运动时我们看到的受阳光照亮部分会改变于是出现月相变化",
     "珊瑚白化并非只由水太热造成异常低温也会使珊瑚承受压力出现白化现象",
-    "温跃层表示海水温度随深度迅速降低的一层处在较暖的表层与较冷的深层之间"
+    "温跃层表示海水温度随深度迅速降低的一层处在较暖的表层与较冷的深层之间",
+    "古代欧洲曾用木制刻符棒记录欠款双方把刻有同一组缺口的木条劈成两半各自保存一半以后把两半合起来缺口能相互对应较难被单方面改动；这是纸张昂贵时代的一种核对账目的办法",
+    "茅膏菜的叶片长着许多带黏液的腺毛小昆虫被粘住后部分种类的叶片或腺毛会慢慢弯向猎物并分泌消化液吸收氮等养分它仍会进行光合作用捕虫主要帮助它适应缺少养分的土壤",
+    "一些共和国在总统就职时会使用绶带徽章或印玺表示国家权力已经按规则完成交接它们只是权力的象征不会让佩戴者拥有无限权力；总统仍要受到宪法法律和其他国家机构的约束"
   ],
-  "lastIntroText": "🎒💛🌼 愿你像小太阳一样，心里温暖，脚下勇敢，还一直闪闪发光！",
+  "lastIntroText": "🌱🔍💛 好奇心正在发芽：每一次认真探索，都会让它长高一点！",
   "recentIntroTexts": [
-    "🍊🔬🌟世界每天都有新变化而你每天都在变得更有力量",
     "🐾🍊✨认真又可爱的你上线啦愿今天的新发现让眼睛亮晶晶",
     "🌼🧪🍬大胆猜想认真求证的你正在成为可靠的小小探索家",
     "🛸🍬💡今天也相信自己的思考你的好奇和坚持都很珍贵",
@@ -647,11 +647,11 @@
     "🌙🍓🧭愿今天的新发现陪着你走向一个更开阔更有趣的世界",
     "🎒🦋💛愿今天的知识像一只小蝴蝶轻轻落进你的记忆里",
     "⭐️🍓📚今天也给自己一个大拇指每一点进步都值得被好好看见",
-    "🎒💛🌼愿你像小太阳一样心里温暖脚下勇敢还一直闪闪发光"
+    "🎒💛🌼愿你像小太阳一样心里温暖脚下勇敢还一直闪闪发光",
+    "🌱🔍💛好奇心正在发芽每一次认真探索都会让它长高一点"
   ],
-  "lastClosingText": "今天又认识了世界的一小角。晚安之前，给认真思考的自己一个大拇指。",
+  "lastClosingText": "愿你记住：不确定时愿意继续核对，是一种很可靠的聪明。",
   "recentClosingTexts": [
-    "今天认识的自然社会和科技知识会慢慢连成属于你的世界地图",
     "今晚把答案留给明天把认真思考留下来；这已经是一份很好的收获",
     "把事实分清把理由想透今天的好奇心又向前走了一步",
     "愿今天记住的不只是答案还有找到答案时用过的证据",
@@ -680,11 +680,13 @@
     "好奇心今天又长高了一点愿你保持温柔也保持清醒和勇敢",
     "新的知识已经抵达让眼睛休息一下也让大脑安静地整理它们",
     "事实让我们站得稳好奇让我们走得远今天的情报就到这里",
-    "今天又认识了世界的一小角晚安之前给认真思考的自己一个大拇指"
+    "今天又认识了世界的一小角晚安之前给认真思考的自己一个大拇指",
+    "愿你记住不确定时愿意继续核对是一种很可靠的聪明"
   ],
-  "lastNewsTitles": [],
+  "lastNewsTitles": [
+    "第 1 条小情报：“十五五”时期我国将全面提升粮食安全保障能力"
+  ],
   "recentNewsTitles": [
-    "第 3 条小情报：中国商业航天企业首次面向东南亚整星出口！银河航天三颗卫星发射成功",
     "第 4 条小情报：银河航天：出海先锋重塑全球太空新基建格局",
     "第 5 条小情报：银河航天星途破关 中国商业卫星整星出海落子东南亚",
     "第 1 条小情报：城市加强排水防涝准备",
@@ -743,9 +745,10 @@
     "第 1 条小情报：由原理走向实践：零基础打造多维数字内容创客",
     "第 2 条小情报：AI类岗位扩容、技能人才需求旺 就业市场出现哪些新趋势？",
     "第 3 条小情报：AI时代何为老师，老师何为？首都师大校友共议教育“变与不变”",
-    "第 1 条小情报：教育部学校思想政治工作简报专题报道吉林大学统战工作经验做法"
+    "第 1 条小情报：教育部学校思想政治工作简报专题报道吉林大学统战工作经验做法",
+    "第 1 条小情报：“十五五”时期我国将全面提升粮食安全保障能力"
   ],
-  "lastContentMode": "science",
+  "lastContentMode": "news",
   "recentScienceConceptIds": [
     "museum-arch-compression",
     "museum-nautilus-chambers",
@@ -803,6 +806,9 @@
     "museum-weather-balloon-radiosonde",
     "lunar-phases",
     "cold-bleaching",
-    "thermocline-gradient"
+    "thermocline-gradient",
+    "museum-tally-stick-accounting",
+    "museum-sundew-sticky-tentacles",
+    "museum-presidential-sash-symbol"
   ]
 }
