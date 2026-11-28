@@ -1,12 +1,11 @@
 {
-  "lastRunAt": "2026-11-27T10:01:47.299Z",
-  "lastSentDate": "2026-11-27",
-  "lastReportDate": "2026-11-27",
-  "lastQuestionId": "reserve-zero-offset-20784",
-  "lastQuestion": "探究题（模拟数据）：空秤显示 4 克，放入物品显示 30 克，多次记录相同。判断物品质量，哪种处理更合理？\nA. 先增加另一件物品重复测量，并与 56 克的推算比较\nB. 先检查归零情况，校正后测量并与 26 克的推算比较\nC. 先保留原来的归零情况，多次测量并与 30 克比较",
-  "lastAnswer": "答案：B。空秤多出的 4 克属于偏差，应先归零复测；按记录扣除偏差推算是 26 克。",
+  "lastRunAt": "2026-11-28T10:01:26.356Z",
+  "lastSentDate": "2026-11-28",
+  "lastReportDate": "2026-11-28",
+  "lastQuestionId": "reserve-time-confounding-20785",
+  "lastQuestion": "探究题（模拟数据）：上午测路面温度 37 摄氏度，下午洒水后测得 31 摄氏度。判断洒水作用，哪组资料最适合补充？\nA. 不同日期增加洒水后的测量次数，再比较每天记录\nB. 同一时刻比较相邻的洒水区与未洒水区，并记录多次\nC. 同一地点增加上午测量次数，再和下午的记录比较",
+  "lastAnswer": "答案：B。上午和下午本来就可能温度不同；同时设置未洒水区，才能较好分离时间变化与洒水作用。",
   "recentQuestionIds": [
-    "news-hyperspectral-realtime-validation-1",
     "news-quantum-memory-scaling-evidence-1",
     "news-space-computing-warning-evidence",
     "advanced-experiment-14",
@@ -41,7 +40,8 @@
     "reserve-repeatability-20781",
     "reserve-necessary-condition-20782",
     "reserve-counterexample-20783",
-    "reserve-zero-offset-20784"
+    "reserve-zero-offset-20784",
+    "reserve-time-confounding-20785"
   ],
   "recentQuestionConceptIds": [
     "concept-pollination",
@@ -94,7 +94,6 @@
     "concept-causal-evidence-electricity",
     "concept-exception-arithmetic-bus",
     "concept-exception-arithmetic-delivery",
-    "reserve-time-confounding",
     "reserve-sampling-bias",
     "reserve-absence-detection",
     "reserve-thermal-control",
@@ -110,10 +109,10 @@
     "reserve-repeatability",
     "reserve-necessary-condition",
     "reserve-counterexample",
-    "reserve-zero-offset"
+    "reserve-zero-offset",
+    "reserve-time-confounding"
   ],
   "recentQuestionTags": [
-    "sampling-bias",
     "absence-detection",
     "thermal-control",
     "range-spread",
@@ -128,7 +127,8 @@
     "repeatability",
     "necessary-condition",
     "counterexample",
-    "zero-offset"
+    "zero-offset",
+    "time-confounding"
   ],
   "recentQuestionTexts": [
     "关于学习和学校你还想继续追问哪一个更细的为什么",
@@ -242,17 +242,15 @@
     "探究题模拟数据同一长度测23次多数记录在40毫米附近一次记录为60毫米判断这次异常下一步更合理的是哪种a.把异常值保留在记录中先按全部数据计算一次平均b.增加另一种长度的测量次数再比较两种长度",
     "探究题模拟数据某种培养条件下24份发芽种子都有水但另外4份有水的种子没有发芽根据记录哪种判断更合理a.记录支持发芽需要水但还应检查温度等其他条件b.记录支持有水的样本更容易发芽可先按有水预测c",
     "探究题模拟数据有人依据25次记录提出这种材料遇水后长度都增加4毫米要检查这个说法哪组记录最应该复核a.同样条件的多次记录长度增加相同并保留完整测量步骤b.不同条件的多次记录长度增加不同并保留完",
-    "探究题模拟数据空秤显示4克放入物品显示30克多次记录相同判断物品质量哪种处理更合理a.先增加另一件物品重复测量并与56克的推算比较b.先检查归零情况校正后测量并与26克的推算比较c.先保留原来"
+    "探究题模拟数据空秤显示4克放入物品显示30克多次记录相同判断物品质量哪种处理更合理a.先增加另一件物品重复测量并与56克的推算比较b.先检查归零情况校正后测量并与26克的推算比较c.先保留原来",
+    "探究题模拟数据上午测路面温度37摄氏度下午洒水后测得31摄氏度判断洒水作用哪组资料最适合补充a.不同日期增加洒水后的测量次数再比较每天记录b.同一时刻比较相邻的洒水区与未洒水区并记录多次c.同"
   ],
   "lastEncyclopediaIds": [
-    "science-lunar-farside-light",
-    "science-kelp-light-depth",
-    "science-groundwater-baseflow"
+    "science-lunar-polar-ice",
+    "science-coral-reef-skeleton",
+    "science-water-polarity"
   ],
   "recentEncyclopediaIds": [
-    "museum-kelp",
-    "museum-octopus-hearts",
-    "museum-prism",
     "museum-mangrove",
     "museum-whale-lung",
     "museum-current",
@@ -384,7 +382,10 @@
     "museum-presidential-sash-symbol",
     "science-lunar-farside-light",
     "science-kelp-light-depth",
-    "science-groundwater-baseflow"
+    "science-groundwater-baseflow",
+    "science-lunar-polar-ice",
+    "science-coral-reef-skeleton",
+    "science-water-polarity"
   ],
   "recentEncyclopediaTags": [
     "安第斯文明",
@@ -394,7 +395,6 @@
     "银河系",
     "航海史",
     "鸣声",
-    "水的物理",
     "地震学",
     "甲骨文",
     "气象",
@@ -402,9 +402,10 @@
     "经济",
     "食虫植物",
     "政治制度",
+    "水文",
     "天文",
     "海洋生态",
-    "水文"
+    "水的物理"
   ],
   "recentEncyclopediaTexts": [
     "地球科学不是冷知识它能帮助我们理解自然生活或社会洋流像海洋里的大河会影响气候鱼群和船只航行",
@@ -619,11 +620,13 @@
     "一些共和国在总统就职时会使用绶带徽章或印玺表示国家权力已经按规则完成交接它们只是权力的象征不会让佩戴者拥有无限权力；总统仍要受到宪法法律和其他国家机构的约束",
     "月球背面不是永远黑暗的地方它也会轮流迎来白天和夜晚受到太阳照射",
     "巨藻需要光进行光合作用因此巨藻林通常出现在较浅的海水中而不是黑暗的深海",
-    "没有下雨时有些河流仍能持续流动因为地下水会慢慢渗入河床和河岸补充河水"
+    "没有下雨时有些河流仍能持续流动因为地下水会慢慢渗入河床和河岸补充河水",
+    "月球两极有些坑底长期照不到阳光寒冷的环境能帮助水冰保存下来",
+    "许多珊瑚虫分泌碳酸钙骨骼一代代骨骼积累能慢慢形成珊瑚礁的坚硬基础",
+    "水分子两侧的电荷分布不均匀一侧偏正一侧偏负这与水分子彼此吸引有关"
   ],
-  "lastIntroText": "🦉🍑📮 今天也慢慢向前走：你付出的每一点认真都不会白费！",
+  "lastIntroText": "🍊🔬🌟 世界每天都有新变化，而你每天都在变得更有力量！",
   "recentIntroTexts": [
-    "🌼🧪🍬大胆猜想认真求证的你正在成为可靠的小小探索家",
     "🛸🍬💡今天也相信自己的思考你的好奇和坚持都很珍贵",
     "🦋📚🌟桃子宝贝今天也带着清醒的小脑袋出发温柔地看世界认真地找证据",
     "🌈🍬🧡新的一天有新的发现愿你带着勇气也带着轻松的笑容",
@@ -652,11 +655,11 @@
     "⭐️🍓📚今天也给自己一个大拇指每一点进步都值得被好好看见",
     "🎒💛🌼愿你像小太阳一样心里温暖脚下勇敢还一直闪闪发光",
     "🌱🔍💛好奇心正在发芽每一次认真探索都会让它长高一点",
-    "🦉🍑📮今天也慢慢向前走你付出的每一点认真都不会白费"
+    "🦉🍑📮今天也慢慢向前走你付出的每一点认真都不会白费",
+    "🍊🔬🌟世界每天都有新变化而你每天都在变得更有力量"
   ],
-  "lastClosingText": "一个事实、一条原理、一点思考，已经让今天变得很有收获。",
+  "lastClosingText": "今天又完成了一次小小的知识旅行，愿你带着轻松的心情继续出发。",
   "recentClosingTexts": [
-    "把事实分清把理由想透今天的好奇心又向前走了一步",
     "愿今天记住的不只是答案还有找到答案时用过的证据",
     "世界不会一次讲完它的故事你已经学会用知识继续往下读",
     "今天先把一个事实想明白比匆忙记住许多结论更有力量",
@@ -685,7 +688,8 @@
     "事实让我们站得稳好奇让我们走得远今天的情报就到这里",
     "今天又认识了世界的一小角晚安之前给认真思考的自己一个大拇指",
     "愿你记住不确定时愿意继续核对是一种很可靠的聪明",
-    "一个事实一条原理一点思考已经让今天变得很有收获"
+    "一个事实一条原理一点思考已经让今天变得很有收获",
+    "今天又完成了一次小小的知识旅行愿你带着轻松的心情继续出发"
   ],
   "lastNewsTitles": [],
   "recentNewsTitles": [
@@ -814,6 +818,9 @@
     "museum-presidential-sash-symbol",
     "lunar-farside-light",
     "kelp-light-depth",
-    "groundwater-baseflow"
+    "groundwater-baseflow",
+    "lunar-polar-ice",
+    "coral-reef-skeleton",
+    "water-polarity"
   ]
 }
